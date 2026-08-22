@@ -43,3 +43,5 @@ next-env.d.ts
 # investigación del sitio original (artefactos locales, no parte del producto)
 /original-web
 /raw_team_page.html
+
+/raw_rohlfingconcept.html
