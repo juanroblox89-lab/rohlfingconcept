@@ -71,11 +71,14 @@ const camaras = [
   },
 ];
 
+// Tupla tipada requerida por motion (evita error TS2322 en build de producción)
+const EASE_OUT_EXPO: [number, number, number, number] = [0.16, 1, 0.3, 1];
+
 const fadeUp = (delay = 0) => ({
   initial:     { opacity: 0, y: 24 },
   whileInView: { opacity: 1, y: 0 },
   viewport:    { once: true, amount: 0.15 },
-  transition:  { duration: 0.6, delay, ease: [0.16, 1, 0.3, 1] },
+  transition:  { duration: 0.6, delay, ease: EASE_OUT_EXPO },
 });
 
 export default function EquipoClient() {

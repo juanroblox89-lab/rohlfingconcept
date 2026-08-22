@@ -90,11 +90,14 @@ const steps = [
   },
 ];
 
+// Tupla tipada requerida por motion (evita error TS2322 en build de producción)
+const EASE_OUT_EXPO: [number, number, number, number] = [0.16, 1, 0.3, 1];
+
 const fadeUp = (delay = 0) => ({
   initial:     { opacity: 0, y: 26 },
   whileInView: { opacity: 1, y: 0 },
   viewport:    { once: true, amount: 0.15 },
-  transition:  { duration: 0.65, delay, ease: [0.16, 1, 0.3, 1] },
+  transition:  { duration: 0.65, delay, ease: EASE_OUT_EXPO },
 });
 
 const fadeIn = (delay = 0) => ({
