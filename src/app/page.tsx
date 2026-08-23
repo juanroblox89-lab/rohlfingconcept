@@ -10,14 +10,15 @@ import {
   Plus,
   SealCheck,
 } from "@phosphor-icons/react";
+import HeroShowcase from "@/components/HeroShowcase";
 
 const clients = [
-  { name: "Villa Grande",           logo: "/img/clients/client-villa-grande.png", cover: "/img/covers/cover-villagrande.jpg" },
-  { name: "Plomería Norte",         logo: "/img/client-plomeria-norte.png",       cover: "/img/covers/cover-plomeria-norte.jpg" },
-  { name: "El Tizón Dorado",        logo: "/img/clients/client-tizon-dorado.png", cover: "/img/covers/cover-tizon.jpg" },
-  { name: "Ricos Pandeyucas",       logo: "/img/clients/client-pandeyucas.png",   cover: "/img/covers/cover-pandeyucas.jpg" },
-  { name: "Asanarte Droguería",     logo: "/img/clients/client-asanarte.png",     cover: "/img/covers/cover-asanarte.jpg" },
-  { name: "El Jerez del Caballero", logo: "/img/clients/client-jerez.png",        cover: "/img/covers/cover-jerez.jpg" },
+  { name: "Villa Grande",           logo: "/img/clients/client-villa-grande.png", cover: "/img/covers/cover-villagrande.jpg",   desde: "Desde septiembre 2025" },
+  { name: "Plomería Norte",         logo: "/img/client-plomeria-norte.png",       cover: "/img/covers/cover-plomeria-norte.jpg", desde: "Desde noviembre 2025" },
+  { name: "El Tizón Dorado",        logo: "/img/clients/client-tizon-dorado.png", cover: "/img/covers/cover-tizon.jpg",          desde: "Desde marzo de 2026" },
+  { name: "Ricos Pandeyucas",       logo: "/img/clients/client-pandeyucas.png",   cover: "/img/covers/cover-pandeyucas.jpg",     desde: "Desde febrero 2026" },
+  { name: "Asanarte Droguería",     logo: "/img/clients/client-asanarte.png",     cover: "/img/covers/cover-asanarte.jpg",       desde: "Desde marzo 2025" },
+  { name: "El Jerez del Caballero", logo: "/img/clients/client-jerez.png",        cover: "/img/covers/cover-jerez.jpg",          desde: "Desde abril 2026" },
   { name: "Kantel",                 logo: "/img/clients/client-kantel.png",       cover: "/img/covers/cover-kantel.jpg" },
 ];
 
@@ -281,14 +282,14 @@ export default function Home() {
             </motion.p>
           </div>
 
-          {/* Columna Derecha — el PC como protagonista absoluto */}
+          {/* Columna Derecha — escenario interactivo de proyectos reales */}
           <motion.div
             initial={{ opacity: 0, scale: 0.96 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.85, delay: 0.15, ease: EASE_OUT_EXPO }}
             className="relative hidden md:block"
           >
-            {/* Resplandor ambiental doble detrás del equipo */}
+            {/* Resplandor ambiental doble detrás del escenario */}
             <div className="absolute inset-0 -z-10 flex items-center justify-center">
               <div
                 className="h-[75%] w-[75%] rounded-full opacity-35 blur-[100px]"
@@ -300,84 +301,27 @@ export default function Home() {
               />
             </div>
 
-            {/* Flotación suave — da vida sin distraer */}
-            <motion.div
-              animate={{ y: [0, -10, 0] }}
-              transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-            >
-              {/* Abanico de portadas reales de los proyectos de la agencia */}
-              <div className="relative mx-auto aspect-square w-full max-w-[560px]">
-                {clients.map((c, i) => {
-                  const mid = (clients.length - 1) / 2;
-                  const off = i - mid;
-                  const depth = Math.abs(off);
-                  return (
-                    <div
-                      key={c.name}
-                      className="absolute left-1/2 top-1/2 w-[76%] overflow-hidden rounded-xl border border-white/10 bg-surface shadow-[0_24px_70px_rgba(0,0,0,0.55)] transition-all duration-500 hover:-translate-y-2 hover:border-accent/40"
-                      style={{
-                        aspectRatio: "16 / 10",
-                        zIndex: 10 - depth,
-                        transform: `translate(-50%, -50%) translateX(${off * 7.5}%) translateY(${depth * 3.5}%) rotate(${off * 4}deg) scale(${1 - depth * 0.05})`,
-                      }}
-                    >
-                      <Image
-                        src={c.cover}
-                        alt={`Proyecto ${c.name}`}
-                        fill
-                        priority={i === mid}
-                        sizes="(max-width: 1200px) 50vw, 420px"
-                        className="object-cover"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-background/55 via-transparent to-transparent" />
-                      {i === mid && (
-                        <span className="absolute bottom-3 left-3 rounded-full border border-white/15 bg-background/85 px-3.5 py-1 text-[11px] font-medium text-white backdrop-blur-md">
-                          {c.name}
-                        </span>
-                      )}
-                    </div>
-                  );
-                })}
-              </div>
-            </motion.div>
+            <HeroShowcase clientes={clients} />
 
             {/* Stat Floating Cards — cifras reales publicadas por la agencia */}
-            <div className="absolute -right-3 -top-3 rounded-2xl border border-border-2 bg-background/95 px-5 py-4 backdrop-blur-md shadow-2xl transition-transform duration-300 hover:-translate-y-1">
+            <div className="absolute -right-4 top-6 z-20 rounded-2xl border border-border-2 bg-background/95 px-5 py-4 backdrop-blur-md shadow-2xl transition-transform duration-300 hover:-translate-y-1">
               <p className="text-[10px] text-muted-2 uppercase tracking-wider">Proyectos</p>
               <p className="mt-0.5 text-2xl font-bold text-gradient-accent">+300</p>
             </div>
-            <div className="absolute -bottom-3 -left-3 rounded-2xl border border-border-2 bg-background/95 px-5 py-4 backdrop-blur-md shadow-2xl transition-transform duration-300 hover:translate-y-1">
+            <div className="absolute -bottom-2 -left-5 z-20 rounded-2xl border border-border-2 bg-background/95 px-5 py-4 backdrop-blur-md shadow-2xl transition-transform duration-300 hover:translate-y-1">
               <p className="text-[10px] text-muted-2 uppercase tracking-wider">Visualizaciones</p>
               <p className="mt-0.5 text-2xl font-bold text-gradient-accent">2.3M</p>
             </div>
           </motion.div>
 
-          {/* Versión móvil del visual — portada destacada */}
+          {/* Versión móvil — mismo escenario, sin inclinación */}
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2, ease: EASE_OUT_EXPO }}
-            className="relative mx-auto w-full max-w-sm md:hidden"
+            className="mx-auto w-full max-w-sm md:hidden"
           >
-            <div className="relative aspect-video overflow-hidden rounded-xl border border-white/10 bg-surface shadow-[0_24px_70px_rgba(0,0,0,0.5)]">
-              <Image
-                src={clients[0].cover}
-                alt="Proyecto Villa Grande — Rohlfing Concept"
-                fill
-                priority
-                sizes="(max-width: 768px) 90vw, 384px"
-                className="object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-background/65 via-transparent to-transparent" />
-              <div className="absolute inset-x-4 bottom-3 flex items-center justify-between gap-2">
-                <span className="rounded-full border border-white/15 bg-background/85 px-3.5 py-1 text-[11px] font-medium backdrop-blur-md">
-                  {clients[0].name}
-                </span>
-                <Link href="/proyectos" className="rounded-full border border-accent/40 bg-background/85 px-3.5 py-1 text-[11px] font-semibold text-accent-hi backdrop-blur-md">
-                  +7 marcas activas
-                </Link>
-              </div>
-            </div>
+            <HeroShowcase clientes={clients} compact />
           </motion.div>
         </div>
 
