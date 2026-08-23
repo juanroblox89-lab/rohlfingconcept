@@ -12,13 +12,37 @@ import {
 } from "@phosphor-icons/react";
 
 const clients = [
-  { name: "Villa Grande",           logo: "/img/clients/client-villa-grande.png", cover: null },
-  { name: "Plomería Norte",         logo: "/img/client-plomeria-norte.png", cover: null },
+  { name: "Villa Grande",           logo: "/img/clients/client-villa-grande.png", cover: "/img/covers/cover-villagrande.jpg" },
+  { name: "Plomería Norte",         logo: "/img/client-plomeria-norte.png",       cover: "/img/covers/cover-plomeria-norte.jpg" },
   { name: "El Tizón Dorado",        logo: "/img/clients/client-tizon-dorado.png", cover: "/img/covers/cover-tizon.jpg" },
-  { name: "Ricos Pandeyucas",       logo: "/img/clients/client-pandeyucas.png", cover: "/img/covers/cover-pandeyucas.jpg" },
-  { name: "Asanarte Droguería",     logo: "/img/clients/client-asanarte.png", cover: "/img/covers/cover-asanarte.jpg" },
-  { name: "El Jerez del Caballero", logo: "/img/clients/client-jerez.png", cover: "/img/covers/cover-jerez.jpg" },
-  { name: "Kantel",                 logo: "/img/clients/client-kantel.png", cover: null },
+  { name: "Ricos Pandeyucas",       logo: "/img/clients/client-pandeyucas.png",   cover: "/img/covers/cover-pandeyucas.jpg" },
+  { name: "Asanarte Droguería",     logo: "/img/clients/client-asanarte.png",     cover: "/img/covers/cover-asanarte.jpg" },
+  { name: "El Jerez del Caballero", logo: "/img/clients/client-jerez.png",        cover: "/img/covers/cover-jerez.jpg" },
+  { name: "Kantel",                 logo: "/img/clients/client-kantel.png",       cover: "/img/covers/cover-kantel.jpg" },
+];
+
+// Servicios destacados con imagen (títulos y copy reales del sitio original)
+const serviciosDestacados = [
+  {
+    title: "Diseño e Identidad Visual",
+    desc: "Logotipos, branding y manuales de marca que comunican exactamente quién eres.",
+    img: "/img/services-branding.png",
+  },
+  {
+    title: "Producción Audiovisual",
+    desc: "Videos promocionales, reels y contenido corporativo que conecta con tu audiencia.",
+    img: "/img/services-audiovisual.png",
+  },
+  {
+    title: "Desarrollo Web",
+    desc: "Sitios modernos, rápidos y optimizados para convertir visitantes en clientes.",
+    img: "/img/services-web.png",
+  },
+  {
+    title: "Gestión de Redes y Estrategia Digital",
+    desc: "Planificación, crecimiento y posicionamiento para que tu marca lidere su nicho.",
+    img: "/img/services-redes.png",
+  },
 ];
 
 const pilares = [
@@ -369,12 +393,51 @@ export default function Home() {
                   key={i}
                   src={c.logo}
                   alt={c.name}
-                  width={180}
-                  height={72}
-                  className="h-12 w-auto flex-shrink-0 object-contain opacity-75 transition-all hover:opacity-100"
+                  width={220}
+                  height={96}
+                  className="h-14 w-auto flex-shrink-0 object-contain opacity-75 transition-all hover:opacity-100 sm:h-16 lg:h-20"
                 />
               ))}
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════
+          SERVICIOS DESTACADOS (grilla con imagen)
+      ══════════════════════════════════════════ */}
+      <section className="border-t border-border/40 py-24">
+        <div className="mx-auto max-w-7xl px-6">
+          <motion.h2 {...fadeUp()} className="text-center text-3xl font-bold tracking-tight sm:text-4xl">
+            Lo que hacemos por <span className="text-gradient-accent">tu marca</span>
+          </motion.h2>
+          <motion.p {...fadeIn(0.08)} className="mx-auto mt-4 max-w-[52ch] text-center text-base text-muted">
+            Cuatro disciplinas, un mismo objetivo: que tu negocio se vea y se sienta profesional.
+          </motion.p>
+
+          <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {serviciosDestacados.map((s, i) => (
+              <motion.article
+                key={s.title}
+                {...fadeUp(i * 0.07)}
+                className="group overflow-hidden rounded-2xl border border-border-2 bg-surface shadow-xl transition-all duration-500 hover:-translate-y-1 hover:border-accent/40"
+              >
+                <div className="relative h-44 overflow-hidden">
+                  <Image
+                    src={s.img}
+                    alt={s.title}
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 300px"
+                    className="object-cover transition-transform duration-700 group-hover:scale-[1.06]"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent" />
+                </div>
+                <div className="p-6">
+                  <h3 className="text-[15px] font-semibold leading-snug">{s.title}</h3>
+                  <p className="mt-2.5 text-[13px] leading-relaxed text-muted">{s.desc}</p>
+                </div>
+              </motion.article>
+            ))}
           </div>
         </div>
       </section>
@@ -411,7 +474,7 @@ export default function Home() {
                   className="object-cover opacity-54 transition-opacity duration-700 group-hover:opacity-72"
                   sizes="(max-width: 1280px) 100vw, 1216px"
                 />
-                <div className="absolute inset-0 bg-gradient-to-r from-surface via-surface/65 to-surface/30" />
+                <div className="absolute inset-0 bg-gradient-to-r from-surface via-surface/80 to-surface/45" />
 
                 <div className="relative z-10 p-8 md:p-12">
                   <div className="grid gap-10 lg:grid-cols-[0.9fr_1.4fr]">
@@ -439,8 +502,8 @@ export default function Home() {
                           key={it.n}
                           className={`rounded-xl border border-border-2 px-5 py-4 transition-colors ${
                             it.solid
-                              ? "bg-background/90 shadow-[0_4px_16px_rgba(0,0,0,0.35)] backdrop-blur-md hover:border-accent/40"
-                              : "bg-background/70 backdrop-blur-sm hover:border-accent/30"
+                              ? "bg-background/95 shadow-[0_4px_16px_rgba(0,0,0,0.4)] backdrop-blur-md hover:border-accent/40"
+                              : "bg-background/85 backdrop-blur-md hover:border-accent/30"
                           }`}
                         >
                           <p className="text-[11px] font-semibold uppercase tracking-[0.13em] text-accent-hi">{it.n}</p>
@@ -540,7 +603,7 @@ export default function Home() {
                     alt={c.name}
                     width={220}
                     height={110}
-                    className={`${c.cover ? "h-12 drop-shadow-[0_2px_14px_rgba(0,0,0,0.9)]" : "h-24"} w-auto object-contain transition-transform duration-500 group-hover:scale-[1.06]`}
+                    className={`${c.cover ? "h-14 drop-shadow-[0_2px_14px_rgba(0,0,0,0.9)] sm:h-16" : "h-24"} w-auto object-contain transition-transform duration-500 group-hover:scale-[1.06]`}
                   />
                   <span className={`text-sm font-medium ${c.cover ? "text-white" : "text-muted"} transition-colors group-hover:text-foreground`}>
                     {c.name}
