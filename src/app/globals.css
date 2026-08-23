@@ -37,7 +37,11 @@ html {
 }
 
 body {
-  background: var(--background);
+  background-color: var(--background);
+  /* Textura TEXURA original del sitio, fundida al 10% sobre negro */
+  background-image: url("/img/texura-bg.jpg");
+  background-size: cover;
+  background-position: center top;
   color: var(--foreground);
 }
 
@@ -98,6 +102,7 @@ body {
   to   { transform: translateX(-50%); }
 }
 .marquee { animation: marquee 38s linear infinite; }
+.marquee:hover { animation-play-state: paused; }
 
 /* ── Noise grain (fixed, pointer-events none) ── */
 .grain {

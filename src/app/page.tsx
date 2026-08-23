@@ -148,110 +148,189 @@ export default function Home() {
           />
         </div>
 
-        <div className="relative mx-auto grid max-w-7xl gap-12 px-6 py-28 md:grid-cols-[1fr_1.1fr] md:items-center md:py-0">
-          {/* Columna Izquierda */}
+        <div className="relative mx-auto grid max-w-7xl gap-10 px-6 pb-16 pt-28 md:grid-cols-[1fr_1.05fr] md:items-center md:py-0 lg:gap-6">
+          {/* Columna Izquierda — pitch directo al cliente */}
           <div>
+            {/* Badge de ubicación — prueba de cercanía */}
+            <motion.div
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, ease: EASE_OUT_EXPO }}
+              className="mb-6"
+            >
+              <span className="inline-flex items-center gap-2.5 rounded-full border border-border-2 bg-surface/70 px-4 py-1.5 text-[11px] font-medium uppercase tracking-[0.14em] text-muted backdrop-blur-sm">
+                <span className="relative flex h-2 w-2">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent-hi opacity-60" />
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-accent-hi" />
+                </span>
+                Agencia creativa · San Pedro de los Milagros, Antioquia
+              </span>
+            </motion.div>
+
             <motion.h1
               initial={{ opacity: 0, y: 32 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
-              className="text-5xl font-bold leading-[1.05] tracking-tight sm:text-6xl lg:text-[4.2rem]"
+              transition={{ duration: 0.75, ease: EASE_OUT_EXPO }}
+              className="text-[2.75rem] font-bold leading-[1.03] tracking-tight sm:text-6xl lg:text-[3.9rem] xl:text-[4.3rem]"
             >
-              Creamos marcas
+              Tu trabajo es bueno.
               <br />
-              que{" "}
-              <span className="text-gradient-accent">destacan</span>,
-              <br />
-              <span className="text-gradient-accent">venden</span>{" "}
-              y crecen.
+              Tu marca debería{" "}
+              <span className="text-gradient-accent">notarse.</span>
             </motion.h1>
 
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.65, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
-              className="mt-6 max-w-[44ch] text-base leading-relaxed text-muted"
+              transition={{ duration: 0.65, delay: 0.12, ease: EASE_OUT_EXPO }}
+              className="mt-6 max-w-[46ch] text-base leading-relaxed text-muted sm:text-lg"
             >
-              Diseño gráfico, audiovisual, branding y desarrollo web
-              para empresas que quieren verse tan profesionales como son.
+              Branding, contenido audiovisual y presencia digital para negocios
+              que quieren verse tan profesionales como son.
+              Diseño con identidad propia, hecho en Antioquia.
             </motion.p>
+
+            {/* Pruebas reales del portafolio */}
+            <motion.ul
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.18, ease: EASE_OUT_EXPO }}
+              className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2"
+            >
+              {["Más de 17 proyectos entregados", "7 marcas activas en portafolio", "Equipo de 5 especialistas"].map((proof) => (
+                <li key={proof} className="flex items-center gap-1.5 text-[13px] font-medium text-muted">
+                  <Checks size={14} weight="bold" className="flex-shrink-0 text-accent-hi" />
+                  {proof}
+                </li>
+              ))}
+            </motion.ul>
 
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.22, ease: [0.16, 1, 0.3, 1] }}
-              className="mt-10 flex flex-wrap items-center gap-4"
+              transition={{ duration: 0.6, delay: 0.26, ease: EASE_OUT_EXPO }}
+              className="mt-9 flex flex-wrap items-center gap-4"
             >
+              {/* CTA primario — canal real de conversión */}
+              <a
+                href="https://wa.me/573242123300?text=Hola%20Rohlfing%20Concept%2C%20quiero%20cotizar%20un%20proyecto%20para%20mi%20marca."
+                className="group inline-flex items-center gap-2.5 rounded-full bg-accent px-8 py-4 text-sm font-semibold text-white transition-all hover:bg-accent-hi hover:shadow-[0_0_36px_rgba(37,99,235,0.5)] hover:-translate-y-0.5"
+              >
+                <WhatsappLogo size={17} weight="fill" />
+                Cotiza tu proyecto
+                <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
+              </a>
               <Link
                 href="/proyectos"
-                className="group inline-flex items-center gap-2 rounded-full bg-accent px-8 py-4 text-sm font-semibold text-white transition-all hover:bg-accent-hi hover:shadow-[0_0_32px_rgba(37,99,235,0.45)] hover:-translate-y-0.5"
+                className="group inline-flex items-center gap-2 rounded-full border border-border-2 px-8 py-4 text-sm font-medium text-muted transition-all hover:border-accent/40 hover:text-foreground hover:-translate-y-0.5"
               >
                 Ver proyectos
-                <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
               </Link>
-              <a
-                href="https://wa.me/573242123300"
-                className="inline-flex items-center gap-2 rounded-full border border-border-2 px-8 py-4 text-sm font-medium text-muted transition-all hover:border-accent/40 hover:text-foreground hover:-translate-y-0.5"
-              >
-                <WhatsappLogo size={16} weight="fill" className="text-green-400" />
-                Agendar llamada
-              </a>
             </motion.div>
+
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.38 }}
+              className="mt-5 text-xs leading-relaxed text-muted-2"
+            >
+              Atención directa por WhatsApp · Soporte continuo después de la entrega
+            </motion.p>
           </div>
 
-          {/* Columna Derecha — Equipo integrado al ambiente, sin marco */}
+          {/* Columna Derecha — el PC como protagonista absoluto */}
           <motion.div
             initial={{ opacity: 0, scale: 0.96 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.85, delay: 0.15, ease: EASE_OUT_EXPO }}
             className="relative hidden md:block"
           >
-            {/* Resplandor ambiental detrás del equipo */}
+            {/* Resplandor ambiental doble detrás del equipo */}
             <div className="absolute inset-0 -z-10 flex items-center justify-center">
               <div
-                className="h-[65%] w-[65%] rounded-full opacity-30 blur-[90px]"
+                className="h-[75%] w-[75%] rounded-full opacity-35 blur-[100px]"
                 style={{ background: "radial-gradient(circle, #2563eb 0%, transparent 70%)" }}
+              />
+              <div
+                className="absolute h-[45%] w-[45%] rounded-full opacity-25 blur-[70px]"
+                style={{ background: "radial-gradient(circle, #4f8dff 0%, transparent 72%)" }}
               />
             </div>
 
-            <div className="relative aspect-[4/3]">
+            {/* Flotación suave — da vida sin distraer */}
+            <motion.div
+              animate={{ y: [0, -10, 0] }}
+              transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+            >
+              {/* Contenedor cuadrado: la imagen es ~1:1, así no se recorta el PC */}
+              <div className="relative aspect-square">
+                <Image
+                  src="/img/hero-laptop.png"
+                  alt="Proyecto Rohlfing Concept"
+                  fill
+                  priority
+                  sizes="(max-width: 1200px) 50vw, 580px"
+                  className="object-contain object-center drop-shadow-[0_50px_90px_rgba(37,99,235,0.28)]"
+                />
+                {/* Fundido radial suave solo en bordes extremos — integra sin tapar */}
+                <div
+                  className="pointer-events-none absolute inset-0"
+                  style={{
+                    background:
+                      "radial-gradient(ellipse 62% 62% at 50% 48%, transparent 60%, var(--background) 96%)",
+                  }}
+                />
+              </div>
+            </motion.div>
+
+            {/* Caption sutil */}
+            <div className="pointer-events-none absolute bottom-1 left-0 right-0 text-center">
+              <p className="text-[10px] uppercase tracking-widest text-muted-2">Portafolio · Diseño con identidad propia</p>
+            </div>
+
+            {/* Stat Floating Cards — cifras reales del portafolio */}
+            <div className="absolute -right-3 -top-3 rounded-2xl border border-border-2 bg-background/95 px-5 py-4 backdrop-blur-md shadow-2xl transition-transform duration-300 hover:-translate-y-1">
+              <p className="text-[10px] text-muted-2 uppercase tracking-wider">Proyectos entregados</p>
+              <p className="mt-0.5 text-2xl font-bold text-gradient-accent">+17</p>
+            </div>
+            <div className="absolute -bottom-3 -left-3 rounded-2xl border border-border-2 bg-background/95 px-5 py-4 backdrop-blur-md shadow-2xl transition-transform duration-300 hover:translate-y-1">
+              <p className="text-[10px] text-muted-2 uppercase tracking-wider">Marcas activas</p>
+              <p className="mt-0.5 text-2xl font-bold text-gradient-accent">7</p>
+            </div>
+          </motion.div>
+
+          {/* Versión móvil del visual — el PC también se ve en celular */}
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2, ease: EASE_OUT_EXPO }}
+            className="relative mx-auto w-full max-w-md md:hidden"
+          >
+            <div className="relative aspect-square">
               <Image
                 src="/img/hero-laptop.png"
                 alt="Proyecto Rohlfing Concept"
                 fill
                 priority
-                sizes="(max-width: 1200px) 50vw, 600px"
-                className="object-cover object-center"
+                sizes="(max-width: 768px) 90vw, 448px"
+                className="object-contain object-center drop-shadow-[0_30px_60px_rgba(37,99,235,0.25)]"
               />
-              {/* Fundido radial hacia el fondo — integra el equipo sin recuadro */}
               <div
-                className="absolute inset-0"
+                className="pointer-events-none absolute inset-0"
                 style={{
                   background:
-                    "radial-gradient(ellipse 70% 70% at 50% 45%, transparent 48%, var(--background) 88%)",
+                    "radial-gradient(ellipse 62% 62% at 50% 48%, transparent 58%, var(--background) 96%)",
                 }}
               />
-            </div>
-
-            {/* Caption sutil */}
-            <div className="pointer-events-none absolute bottom-2 left-0 right-0 text-center">
-              <p className="text-[10px] uppercase tracking-widest text-muted-2">Portafolio · Diseño con identidad propia</p>
-            </div>
-
-            {/* Stat Floating Cards */}
-            <div className="absolute -right-4 -top-4 rounded-2xl border border-border-2 bg-background/95 px-5 py-4 backdrop-blur-md shadow-2xl">
-              <p className="text-[10px] text-muted-2 uppercase tracking-wider">Marcas</p>
-              <p className="mt-0.5 text-2xl font-bold text-gradient-accent">7+</p>
-            </div>
-            <div className="absolute -bottom-4 -left-4 rounded-2xl border border-border-2 bg-background/95 px-5 py-4 backdrop-blur-md shadow-2xl">
-              <p className="text-[10px] text-muted-2 uppercase tracking-wider">Satisfacción</p>
-              <p className="mt-0.5 text-2xl font-bold text-gradient-accent">100%</p>
             </div>
           </motion.div>
         </div>
 
         {/* Marquee Clientes */}
         <div className="relative border-t border-border/40 bg-background/50 backdrop-blur-md py-8">
+          <p className="mb-6 text-center text-[10px] font-medium uppercase tracking-[0.28em] text-muted-2">
+            Marcas que ya confían en Rohlfing Concept
+          </p>
           <div className="overflow-hidden">
             <div className="marquee flex w-max items-center gap-20 px-10">
               {[...clients, ...clients].map((c, i) => (
