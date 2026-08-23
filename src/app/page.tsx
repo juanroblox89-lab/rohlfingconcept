@@ -13,13 +13,13 @@ import {
 import HeroShowcase from "@/components/HeroShowcase";
 
 const clients = [
-  { name: "Villa Grande",           logo: "/img/clients/client-villa-grande.png", cover: "/img/covers/cover-villagrande.jpg",   desde: "Desde septiembre 2025" },
-  { name: "Plomería Norte",         logo: "/img/client-plomeria-norte.png",       cover: "/img/covers/cover-plomeria-norte.jpg", desde: "Desde noviembre 2025" },
-  { name: "El Tizón Dorado",        logo: "/img/clients/client-tizon-dorado.png", cover: "/img/covers/cover-tizon.jpg",          desde: "Desde marzo de 2026" },
-  { name: "Ricos Pandeyucas",       logo: "/img/clients/client-pandeyucas.png",   cover: "/img/covers/cover-pandeyucas.jpg",     desde: "Desde febrero 2026" },
-  { name: "Asanarte Droguería",     logo: "/img/clients/client-asanarte.png",     cover: "/img/covers/cover-asanarte.jpg",       desde: "Desde marzo 2025" },
-  { name: "El Jerez del Caballero", logo: "/img/clients/client-jerez.png",        cover: "/img/covers/cover-jerez.jpg",          desde: "Desde abril 2026" },
-  { name: "Kantel",                 logo: "/img/clients/client-kantel.png",       cover: "/img/covers/cover-kantel.jpg" },
+  { name: "Villa Grande",           logo: "/img/clients/client-villa-grande.png", cover: "/img/covers/cover-villagrande.jpg",   desde: "Desde septiembre 2025", video: "/videos/villa-grande-mundial.mp4" },
+  { name: "Plomería Norte",         logo: "/img/client-plomeria-norte.png",       cover: "/img/covers/cover-plomeria-norte.jpg", desde: "Desde noviembre 2025", video: "/videos/plomeria-norte.mp4" },
+  { name: "El Tizón Dorado",        logo: "/img/clients/client-tizon-dorado.png", cover: "/img/covers/cover-tizon.jpg",          desde: "Desde marzo de 2026", video: "/videos/tizon-dorado-dia-del-padre.mp4" },
+  { name: "Ricos Pandeyucas",       logo: "/img/clients/client-pandeyucas.png",   cover: "/img/covers/cover-pandeyucas.jpg",     desde: "Desde febrero 2026", video: "/videos/ricos-pandeyucas.mp4" },
+  { name: "Asanarte Droguería",     logo: "/img/clients/client-asanarte.png",     cover: "/img/covers/cover-asanarte.jpg",       desde: "Desde marzo 2025", video: "/videos/asanarte-reel.mp4" },
+  { name: "El Jerez del Caballero", logo: "/img/clients/client-jerez.png",        cover: "/img/covers/cover-jerez.jpg",          desde: "Desde abril 2026", video: "/videos/jerez-del-caballero.mp4" },
+  { name: "Kantel",                 logo: "/img/clients/client-kantel.png",       cover: "/img/covers/cover-kantel.jpg",         video: "/videos/kantel-reel.mp4" },
 ];
 
 // Servicios destacados con imagen (títulos y copy reales del sitio original)
@@ -301,16 +301,18 @@ export default function Home() {
               />
             </div>
 
-            <HeroShowcase clientes={clients} />
+            <div className="relative mx-auto w-fit">
+              <HeroShowcase clientes={clients} />
 
-            {/* Stat Floating Cards — cifras reales publicadas por la agencia */}
-            <div className="absolute -right-4 top-6 z-20 rounded-2xl border border-border-2 bg-background/95 px-5 py-4 backdrop-blur-md shadow-2xl transition-transform duration-300 hover:-translate-y-1">
-              <p className="text-[10px] text-muted-2 uppercase tracking-wider">Proyectos</p>
-              <p className="mt-0.5 text-2xl font-bold text-gradient-accent">+300</p>
-            </div>
-            <div className="absolute -bottom-2 -left-5 z-20 rounded-2xl border border-border-2 bg-background/95 px-5 py-4 backdrop-blur-md shadow-2xl transition-transform duration-300 hover:translate-y-1">
-              <p className="text-[10px] text-muted-2 uppercase tracking-wider">Visualizaciones</p>
-              <p className="mt-0.5 text-2xl font-bold text-gradient-accent">2.3M</p>
+              {/* Stat Floating Cards — cifras reales publicadas por la agencia */}
+              <div className="absolute -right-14 top-10 z-20 rounded-2xl border border-border-2 bg-background/95 px-5 py-4 backdrop-blur-md shadow-2xl transition-transform duration-300 hover:-translate-y-1">
+                <p className="text-[10px] text-muted-2 uppercase tracking-wider">Proyectos</p>
+                <p className="mt-0.5 text-2xl font-bold text-gradient-accent">+300</p>
+              </div>
+              <div className="absolute -left-12 bottom-20 z-20 rounded-2xl border border-border-2 bg-background/95 px-5 py-4 backdrop-blur-md shadow-2xl transition-transform duration-300 hover:translate-y-1">
+                <p className="text-[10px] text-muted-2 uppercase tracking-wider">Visualizaciones</p>
+                <p className="mt-0.5 text-2xl font-bold text-gradient-accent">2.3M</p>
+              </div>
             </div>
           </motion.div>
 
