@@ -153,7 +153,7 @@ export default function Home() {
             src="/img/hero-bg.png"
             alt="Rohlfing Concept Studio"
             fill
-            className="object-cover object-center opacity-40"
+            className="object-cover object-center opacity-48"
             priority
             sizes="100vw"
           />
@@ -162,7 +162,7 @@ export default function Home() {
             src="/img/nebula.png"
             alt=""
             fill
-            className="object-cover opacity-55 [mix-blend-mode:screen]"
+            className="object-cover opacity-66 [mix-blend-mode:screen]"
             priority
             sizes="100vw"
           />
@@ -408,7 +408,7 @@ export default function Home() {
                   src={p.image}
                   alt=""
                   fill
-                  className="object-cover opacity-45 transition-opacity duration-700 group-hover:opacity-60"
+                  className="object-cover opacity-54 transition-opacity duration-700 group-hover:opacity-72"
                   sizes="(max-width: 1280px) 100vw, 1216px"
                 />
                 <div className="absolute inset-0 bg-gradient-to-r from-surface via-surface/65 to-surface/30" />
@@ -740,7 +740,7 @@ export default function Home() {
             src="/img/cta-bg.png"
             alt=""
             fill
-            className="object-cover opacity-40"
+            className="object-cover opacity-48"
             sizes="100vw"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/40 to-background" />

@@ -14,6 +14,7 @@ const navLinks = [
   { label: "Nosotros",               href: "/#nosotros" },
   { label: "Registro de marca",      href: "/registro-de-marca" },
   { label: "Paquetes publicitarios", href: "/paquetes-publicitarios" },
+  { label: "Ediciones en video",     href: "/videos" },
 ];
 
 const socials = [

@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { motion } from "motion/react";
-import { WhatsappLogo, ArrowDown, Users } from "@phosphor-icons/react";
+import { WhatsappLogo, ArrowDown, Users, InstagramLogo } from "@phosphor-icons/react";
 
 const pasos = [
   {
@@ -65,7 +65,7 @@ export default function RegistroClient() {
             alt=""
             fill
             sizes="100vw"
-            className="object-cover object-center opacity-30 [mix-blend-mode:screen]"
+            className="object-cover object-center opacity-36 [mix-blend-mode:screen]"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-background via-background/70 to-background" />
           <div className="absolute inset-0"
@@ -117,19 +117,57 @@ export default function RegistroClient() {
         </div>
       </section>
 
-      {/* Por qué con nosotros (copy de la web original) */}
+      {/* Por qué con nosotros (copy real de la web original) + equipo legal */}
       <section className="border-t border-border/40 py-20">
         <div className="mx-auto max-w-5xl px-6">
-          <motion.h2 {...fadeUp()} className="text-2xl font-bold tracking-tight sm:text-3xl">
-            ¿Por qué con <span className="text-gradient-accent">nosotros</span>?
-          </motion.h2>
-          <motion.p {...fadeUp(0.08)} className="mt-8 max-w-[70ch] text-base leading-relaxed text-muted">
-            Con nuestra alianza junto a las abogadas de Ilegítimas, hacer tu registro de marca es un
-            proceso claro, acompañado y sin complicaciones. Te guiamos desde el inicio, contamos con
-            asesoría jurídica confiable y manejamos precios accesibles que se ajustan a tu bolsillo.
-            Aquí encuentras confianza, apoyo real y un servicio pensado para que tu marca quede bien
-            protegida sin gastar de más.
-          </motion.p>
+          <div className="grid gap-12 lg:grid-cols-[1.15fr_1fr] lg:items-center">
+            <div>
+              <motion.h2 {...fadeUp()} className="text-2xl font-bold tracking-tight sm:text-3xl">
+                ¿Por qué con <span className="text-gradient-accent">nosotros</span>?
+              </motion.h2>
+              <motion.p {...fadeUp(0.08)} className="mt-8 max-w-[60ch] text-base leading-relaxed text-muted">
+                Con nuestra alianza junto a las abogadas de Ilegítimas, hacer tu registro de marca es un
+                proceso claro, acompañado y sin complicaciones. Te guiamos desde el inicio, contamos con
+                asesoría jurídica confiable y manejamos precios accesibles que se ajustan a tu bolsillo.
+                Aquí encuentras confianza, apoyo real y un servicio pensado para que tu marca quede bien
+                protegida sin gastar de más.
+              </motion.p>
+              <motion.a
+                {...fadeUp(0.14)}
+                href="https://instagram.com/_ilegitimas"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-7 inline-flex items-center gap-2 rounded-full border border-border-2 px-5 py-2.5 text-xs font-medium text-muted transition-all hover:border-accent/40 hover:text-foreground"
+              >
+                <InstagramLogo size={14} weight="fill" className="text-accent-hi" />
+                Conoce a Ilegítimas — Abogadas @_ilegitimas
+              </motion.a>
+            </div>
+
+            {/* Equipo legal real (fotos del sitio original) */}
+            <motion.div {...fadeUp(0.1)} className="grid grid-cols-2 gap-4">
+              {[
+                { src: "/img/ilegitimas-abogada-1.jpg", alt: "Abogada de Ilegítimas — Abogadas, aliada legal de Rohlfing Concept" },
+                { src: "/img/ilegitimas-abogada-2.jpg", alt: "Abogada de Ilegítimas — Abogadas, aliada legal de Rohlfing Concept" },
+              ].map((a, i) => (
+                <div key={a.src} className={`group relative overflow-hidden rounded-2xl border border-border-2 shadow-xl ${i === 1 ? "mt-8" : ""}`}>
+                  <div className="relative aspect-[4/5]">
+                    <Image
+                      src={a.src}
+                      alt={a.alt}
+                      fill
+                      sizes="(max-width: 1024px) 45vw, 260px"
+                      className="object-cover object-top transition-transform duration-700 group-hover:scale-[1.04]"
+                    />
+                  </div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/85 via-transparent to-transparent" />
+                  <p className="absolute bottom-4 left-4 right-4 text-[10px] font-semibold uppercase tracking-widest text-white/90">
+                    Equipo legal · Ilegítimas
+                  </p>
+                </div>
+              ))}
+            </motion.div>
+          </div>
         </div>
       </section>
 

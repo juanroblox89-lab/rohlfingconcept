@@ -1,9 +1,10 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 import { motion } from "motion/react";
-import { WhatsappLogo } from "@phosphor-icons/react";
+import { WhatsappLogo, PlayCircle } from "@phosphor-icons/react";
 
 // Tupla tipada requerida por motion (evita error TS2322 en build de producción)
 const EASE_OUT_EXPO: [number, number, number, number] = [0.16, 1, 0.3, 1];
@@ -83,7 +84,7 @@ export default function ProyectosClient() {
       <section className="relative overflow-hidden border-b border-border/40 py-28">
         <div className="pointer-events-none absolute inset-0 -z-10">
           <Image src="/img/nebula.png" alt="" fill sizes="100vw"
-            className="object-cover object-center opacity-45" />
+            className="object-cover object-center opacity-54" />
           <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/30 to-background" />
           <div className="absolute left-1/2 top-0 h-[360px] w-[600px] -translate-x-1/2 opacity-[0.08] rounded-full"
             style={{ background: "radial-gradient(ellipse, #2563eb 0%, transparent 70%)", filter: "blur(90px)" }} />
@@ -115,12 +116,21 @@ export default function ProyectosClient() {
       {/* ── Galería de trabajos reales ── */}
       <section id="trabajos" className="mx-auto max-w-7xl px-6 py-20">
         <motion.div {...fadeUp()} className="flex flex-wrap items-end justify-between gap-6">
-          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-            Nuestros <span className="text-gradient-accent">trabajos</span>
-          </h2>
-          <p className="text-sm text-muted max-w-[40ch]">
-            Una selección de piezas reales de nuestras galerías: diseño, branding, edición y presencia digital.
-          </p>
+          <div>
+            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
+              Nuestros <span className="text-gradient-accent">trabajos</span>
+            </h2>
+            <p className="mt-3 text-sm text-muted max-w-[40ch]">
+              Una selección de piezas reales de nuestras galerías: diseño, branding, edición y presencia digital.
+            </p>
+          </div>
+          <Link
+            href="/videos"
+            className="group inline-flex items-center gap-2 rounded-full border border-border-2 px-6 py-3 text-sm font-medium text-muted transition-all hover:border-accent/40 hover:text-foreground"
+          >
+            <PlayCircle size={17} weight="duotone" className="text-accent-hi" />
+            Ediciones en video
+          </Link>
         </motion.div>
 
         {/* Filtros */}
@@ -225,8 +235,7 @@ export default function ProyectosClient() {
           <p className="mt-3 text-sm text-muted max-w-md mx-auto">
             Cuéntanos sobre tu marca y te damos una propuesta personalizada sin costo.
           </p>
-          <a href="https://wa.me/573242123300?text=Hola%2C%20vi%20sus%20proyectos%20y%20quiero%20uno%20para%20mi%20marca."
-            className="mt-7 inline-flex items-center gap-2 rounded-full bg-accent px-8 py-3.5 text-sm font-semibold text-white transition-all hover:bg-accent-hi hover:shadow-[0_0_28px_rgba(37,99,235,0.4)] hover:-translate-y-0.5">
+          <a href="https://wa.me/573242123300?text=Hola%2C%20vi%20sus%20proyectos%20y%20quiero%20uno%20para%20mi%20marca."            className="mt-7 inline-flex items-center gap-2 rounded-full bg-accent px-8 py-3.5 text-sm font-semibold text-white transition-all hover:bg-accent-hi hover:shadow-[0_0_28px_rgba(37,99,235,0.4)] hover:-translate-y-0.5">
             <WhatsappLogo size={16} weight="fill" />
             Empezar proyecto
           </a>

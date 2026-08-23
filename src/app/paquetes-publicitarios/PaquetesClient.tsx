@@ -78,14 +78,14 @@ export default function PaquetesClient() {
             alt=""
             fill
             sizes="100vw"
-            className="object-cover object-center opacity-30"
+            className="object-cover object-center opacity-36"
           />
           <Image
             src="/img/nebula.png"
             alt=""
             fill
             sizes="100vw"
-            className="object-cover object-center opacity-35 [mix-blend-mode:screen]"
+            className="object-cover object-center opacity-42 [mix-blend-mode:screen]"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-background via-background/60 to-background" />
           <div className="absolute left-1/2 top-0 h-[360px] w-[600px] -translate-x-1/2 opacity-[0.08] rounded-full"

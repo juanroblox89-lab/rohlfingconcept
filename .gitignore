@@ -45,3 +45,6 @@ next-env.d.ts
 /raw_team_page.html
 
 /raw_rohlfingconcept.html
+
+# fuentes crudas descargadas del Wix (ya convertidas a JPEG optimizado)
+public/img/ilegitimas-src/
