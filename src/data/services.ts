@@ -264,7 +264,7 @@ export const servicios: Servicio[] = [
   },
   {
     slug: "disenos",
-    img: "/img/services-redes.jpg",
+    img: "/img/services-disenos.jpg",
     nombre: "Diseños",
     kicker: "Diseño gráfico publicitario",
     intro:
@@ -289,7 +289,7 @@ export const servicios: Servicio[] = [
   },
   {
     slug: "vectorial",
-    img: "/img/covers/cover-tizon.jpg",
+    img: "/img/services-vectorial.jpg",
     nombre: "Vectorial",
     kicker: "Diseño vectorial profesional",
     intro:
@@ -357,7 +357,7 @@ export const servicios: Servicio[] = [
   },
   {
     slug: "branding",
-    img: "/img/covers/cover-villagrande.jpg",
+    img: "/img/services-identidad.jpg",
       nombre: "Branding",
     kicker: "Branding de marca",
     intro:
@@ -444,7 +444,7 @@ export const servicios: Servicio[] = [
   },
   {
     slug: "edicion-de-imagenes",
-    img: "/img/covers/cover-pandeyucas.jpg",
+    img: "/img/services-retoque.jpg",
     nombre: "Edición de imágenes",
     kicker: "Edición profesional de imágenes",
     intro:
@@ -493,7 +493,7 @@ export const servicios: Servicio[] = [
   },
   {
     slug: "animacion-de-logo",
-    img: "/img/covers/cover-jerez.jpg",
+    img: "/img/services-animacion.jpg",
     nombre: "Animación de logo",
     kicker: "Animación de logo",
     intro:
@@ -598,7 +598,7 @@ export const servicios: Servicio[] = [
   },
   {
     slug: "diapositivas",
-    img: "/img/covers/cover-asanarte.jpg",
+    img: "/img/services-slides.jpg",
     nombre: "Diapositivas",
     kicker: "Creación de diapositivas",
     intro:
