@@ -27,9 +27,9 @@ const pilares = [
     image: "/img/services-branding.png",
     items: [
       { n: "Logos", d: "Logos únicos y profesionales que representan la esencia de tu marca." },
-      { n: "Diseños", d: "Piezas visuales modernas y profesionales que impulsan tu marca." },
+      { n: "Diseños", d: "Piezas visuales modernas y profesionales que impulsan tu marca.", solid: true },
       { n: "Vectorial", d: "Gráficos vectoriales precisos y profesionales para cualquier formato." },
-      { n: "Branding", d: "Identidades visuales sólidas y profesionales que definen la esencia de tu marca." },
+      { n: "Branding", d: "Identidades visuales sólidas y profesionales que definen la esencia de tu marca.", solid: true },
     ],
     beneficios: ["Se vea profesional", "Mantenga coherencia visual", "Transmita confianza", "Destaque frente a la competencia"],
     cta: "Trabajamos cada marca con enfoque, detalle y una visión clara de resultado",
@@ -229,7 +229,6 @@ export default function Home() {
             <div className="pointer-events-none absolute bottom-2 left-0 right-0 text-center">
               <p className="text-[10px] uppercase tracking-widest text-muted-2">Portafolio · Diseño con identidad propia</p>
             </div>
-          </motion.div>
 
             {/* Stat Floating Cards */}
             <div className="absolute -right-4 -top-4 rounded-2xl border border-border-2 bg-background/95 px-5 py-4 backdrop-blur-md shadow-2xl">
@@ -320,7 +319,11 @@ export default function Home() {
                       {p.items.map((it) => (
                         <div
                           key={it.n}
-                          className="rounded-xl border border-border-2 bg-background/90 px-5 py-4 shadow-[0_4px_16px_rgba(0,0,0,0.35)] backdrop-blur-md transition-colors hover:border-accent/40"
+                          className={`rounded-xl border border-border-2 px-5 py-4 transition-colors ${
+                            it.solid
+                              ? "bg-background/90 shadow-[0_4px_16px_rgba(0,0,0,0.35)] backdrop-blur-md hover:border-accent/40"
+                              : "bg-background/70 backdrop-blur-sm hover:border-accent/30"
+                          }`}
                         >
                           <p className="text-[11px] font-semibold uppercase tracking-[0.13em] text-accent-hi">{it.n}</p>
                           <p className="mt-2 text-[13px] leading-relaxed text-muted">{it.d}</p>
