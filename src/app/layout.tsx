@@ -3,6 +3,7 @@ import { GeistSans } from "geist/font/sans";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { FluidParticlesBackground } from "@/components/ui/fluid-particles-background";
 
 export const metadata: Metadata = {
   title: "Rohlfing Concept | Agencia Creativa",
@@ -25,6 +26,8 @@ export default function RootLayout({
       <body className={`antialiased bg-background text-foreground ${GeistSans.className}`}>
         {/* Grain overlay */}
         <div className="grain" aria-hidden="true" />
+        {/* Partículas fluidas ambientales en todo el sitio */}
+        <FluidParticlesBackground variant="overlay" particleCount={1000} />
         <Navbar />
         {children}
         <Footer />

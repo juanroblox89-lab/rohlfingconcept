@@ -64,13 +64,13 @@ const filtros: { key: CatKey | "Todos"; label: string }[] = [
 ];
 
 const clients = [
-  { name: "Villa Grande",           logo: "/img/clients/client-villa-grande.png", cover: null, tag: "Branding · Web",    desc: "Identidad visual y presencia digital para un proyecto inmobiliario de alta gama." },
+  { name: "Villa Grande",           logo: "/img/clients/client-villa-grande.png", cover: null, tag: "Branding · Web",    desc: "Identidad visual y presencia digital para restaurante de comida paisa y española." },
   { name: "Plomería Norte",         logo: "/img/client-plomeria-norte.png", cover: null, tag: "Diseño · Redes",  desc: "Diseño de marca y gestión de redes sociales para empresa de plomería local." },
   { name: "El Tizón Dorado",        logo: "/img/clients/client-tizon-dorado.png", cover: "/img/covers/cover-tizon.jpg", tag: "Branding · Contenido", desc: "Identidad visual y producción de contenido para restaurante parrilla." },
   { name: "Ricos Pandeyucas",       logo: "/img/clients/client-pandeyucas.png", cover: "/img/covers/cover-pandeyucas.jpg", tag: "Diseño · Redes",   desc: "Branding y estrategia digital para marca de productos artesanales." },
   { name: "Asanarte Droguería",     logo: "/img/clients/client-asanarte.png", cover: "/img/covers/cover-asanarte.jpg", tag: "Identidad Visual",  desc: "Manual de marca y piezas gráficas para droguería y punto de salud." },
   { name: "El Jerez del Caballero", logo: "/img/clients/client-jerez.png", cover: "/img/covers/cover-jerez.jpg", tag: "Audiovisual · Redes",  desc: "Producción audiovisual y gestión de redes para marca de licores." },
-  { name: "Kantel",                 logo: "/img/clients/client-kantel.png", cover: null, tag: "Cliente Rohlfing Concept", desc: "Trabajo creativo y acompañamiento digital para la marca Kantel." },
+  { name: "Kantel",                 logo: "/img/clients/client-kantel.png", cover: null, tag: "Branding · Contenido", desc: "Identidad y contenido digital para restaurante de cocina tradicional colombiana." },
 ];
 
 export default function ProyectosClient() {
