@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "motion/react";
 import { List, X, WhatsappLogo } from "@phosphor-icons/react";
 
@@ -18,6 +19,16 @@ const links = [
 export default function Navbar() {
   const [open, setOpen]       = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
+
+  // Activo solo en rutas reales; los anclas (#servicios, #contacto) nunca
+  const isActive = (href: string) => !href.includes("#") && pathname === href;
+  const linkCls = (href: string) =>
+    `rounded-lg px-3 py-2 text-sm transition-colors ${
+      isActive(href)
+        ? "bg-surface font-medium text-accent-hi"
+        : "text-muted hover:bg-surface hover:text-accent-hi"
+    }`;
 
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 24);
@@ -62,7 +73,8 @@ export default function Navbar() {
             <Link
               key={l.href}
               href={l.href}
-              className="rounded-lg px-3 py-2 text-sm text-muted transition-colors hover:bg-surface hover:text-accent-hi"
+              aria-current={isActive(l.href) ? "page" : undefined}
+              className={linkCls(l.href)}
             >
               {l.label}
             </Link>
@@ -75,7 +87,8 @@ export default function Navbar() {
             <Link
               key={l.href}
               href={l.href}
-              className="rounded-lg px-3 py-2 text-sm text-muted transition-colors hover:bg-surface hover:text-accent-hi"
+              aria-current={isActive(l.href) ? "page" : undefined}
+              className={linkCls(l.href)}
             >
               {l.label}
             </Link>
@@ -90,7 +103,7 @@ export default function Navbar() {
           className="hidden items-center gap-2 rounded-full bg-accent px-5 py-2 text-sm font-medium text-white transition-all hover:bg-accent-hi hover:shadow-[0_0_24px_rgba(37,99,235,0.35)] md:flex"
         >
           <WhatsappLogo size={15} weight="fill" />
-          Agendar llamada
+          Cotiza tu proyecto
         </a>
 
         {/* Mobile toggle */}
@@ -120,7 +133,12 @@ export default function Navbar() {
                   key={l.href}
                   href={l.href}
                   onClick={() => setOpen(false)}
-                  className="rounded-xl px-4 py-3 text-sm text-muted transition-colors hover:bg-surface hover:text-foreground"
+                  aria-current={isActive(l.href) ? "page" : undefined}
+                  className={`rounded-xl px-4 py-3 text-sm transition-colors ${
+                    isActive(l.href)
+                      ? "bg-surface font-medium text-accent-hi"
+                      : "text-muted hover:bg-surface hover:text-foreground"
+                  }`}
                 >
                   {l.label}
                 </Link>
@@ -130,7 +148,7 @@ export default function Navbar() {
                 className="mt-3 flex items-center justify-center gap-2 rounded-full bg-accent py-3 text-sm font-medium text-white"
               >
                 <WhatsappLogo size={16} weight="fill" />
-                Agendar llamada
+                Cotiza tu proyecto
               </a>
             </div>
           </motion.div>

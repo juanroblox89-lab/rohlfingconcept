@@ -466,14 +466,15 @@ export default function Home() {
               <br />
               <span className="text-gradient-accent">hemos trabajado</span>
             </motion.h2>
-            <motion.div {...fadeIn(0.1)}>
+            <motion.div {...fadeIn(0.1)} className="flex flex-col items-start gap-2">
               <Link
                 href="/proyectos"
                 className="group inline-flex items-center gap-2 text-sm font-medium text-accent-hi transition-colors hover:text-foreground"
               >
-                Ver portafolio completo
+                Explorar los +17 proyectos
                 <ArrowRight size={14} className="transition-transform group-hover:translate-x-0.5" />
               </Link>
+              <span className="text-xs text-muted-2">Branding, audiovisual, vectorial, web y más</span>
             </motion.div>
           </div>
 
