@@ -38,6 +38,42 @@ export default function RootLayout({
   return (
     <html lang="es" className={GeistSans.variable}>
       <body className={`antialiased bg-background text-foreground ${GeistSans.className}`}>
+        {/* Datos estructurados — LocalBusiness */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "LocalBusiness",
+              name: "Rohlfing Concept",
+              description:
+                "Agencia creativa especializada en branding, contenido audiovisual y presencia digital.",
+              url: "https://rohlfingconcept.com",
+              telephone: "+573242123300",
+              email: "rohlfingconcept@gmail.com",
+              image: "https://rohlfingconcept.com/img/logo.png",
+              address: {
+                "@type": "PostalAddress",
+                addressLocality: "San Pedro de los Milagros",
+                addressRegion: "Antioquia",
+                addressCountry: "CO",
+              },
+              sameAs: [
+                "https://instagram.com/rohlfingconcept",
+                "https://wa.me/573242123300",
+              ],
+              knowsAbout: [
+                "Branding",
+                "Identidad visual",
+                "Diseño gráfico",
+                "Contenido audiovisual",
+                "Edición de video",
+                "Sitios web",
+                "Registro de marca ante la SIC",
+              ],
+            }),
+          }}
+        />
         {/* Barra de progreso de scroll */}
         <ScrollProgress />
         {/* Grain overlay */}

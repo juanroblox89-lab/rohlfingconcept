@@ -7,6 +7,7 @@ import {
   ArrowRight,
   WhatsappLogo,
   Checks,
+  Plus,
 } from "@phosphor-icons/react";
 
 const clients = [
@@ -88,6 +89,35 @@ const steps = [
     n: "05",
     title: "Entrega y acompañamiento",
     desc: "Entregamos materiales, capacitamos cuando es necesario y damos soporte continuo.",
+  },
+];
+
+// Preguntas frecuentes — respuestas basadas en la info real del sitio
+const faqs = [
+  {
+    q: "¿Dónde están ubicados y a quién atienden?",
+    a: "Estamos en San Pedro de los Milagros, Antioquia. Trabajamos con negocios de la zona —restaurantes, droguerías, emprendimientos— y también con clientes de cualquier parte del país gracias al trabajo digital.",
+  },
+  {
+    q: "¿Cómo cotizo un proyecto?",
+    a: "Escríbenos directo por WhatsApp: cuéntanos qué necesitas, qué quieres lograr con tu marca y en qué momento está tu negocio. Con eso preparamos una propuesta clara y a la medida.",
+  },
+  {
+    q: "¿Qué incluye el trabajo de identidad visual?",
+    a: "Logos únicos, piezas de diseño modernas, gráficos vectoriales para cualquier formato y branding completo que define la esencia de tu marca. Todo pensado para que tu negocio transmita confianza desde el primer vistazo.",
+  },
+  {
+    q: "¿Hacen registro de marca ante la SIC?",
+    a: "Sí. Realizamos el registro de tu marca ante la Superintendencia de Industria y Comercio de la mano de Ilegítimas - Abogadas. El servicio completo tiene una tarifa de 1 SMMLV y puedes pagarlo con flexibilidad: sin prisa, no hay que pagar todo de una.",
+  },
+  {
+    q: "¿Cómo es el proceso de trabajo?",
+    a: "Cinco pasos: primer contacto para entender tus necesidades, investigación y planificación, diseño y desarrollo, revisión con tus retroalimentación, y entrega con acompañamiento continuo. Te mantenemos al tanto en cada etapa.",
+  },
+  {
+    q: "¿Cuánto cuestan los paquetes publicitarios?",
+    a: "Manejamos planes definidos según lo que tu marca necesita, cada uno con entregables claros. Encuentra el detalle completo en la sección de paquetes publicitarios.",
+    link: { href: "/paquetes-publicitarios", label: "Ver paquetes" },
   },
 ];
 
@@ -605,6 +635,67 @@ export default function Home() {
               </a>
             </motion.div>
           </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════
+          PREGUNTAS FRECUENTES (info real, acordeón nativo)
+      ══════════════════════════════════════════ */}
+      <section id="faq" className="border-t border-border/40 py-28" style={{ background: "var(--background-alt)" }}>
+        <div className="mx-auto max-w-3xl px-6">
+          <motion.h2 {...fadeUp()} className="text-center text-3xl font-bold tracking-tight sm:text-4xl">
+            Preguntas <span className="text-gradient-accent">frecuentes</span>
+          </motion.h2>
+          <motion.p {...fadeIn(0.08)} className="mt-4 text-center text-base text-muted">
+            Lo que más nos preguntan antes de empezar un proyecto.
+          </motion.p>
+
+          <div className="mt-12 space-y-3">
+            {faqs.map((f, i) => (
+              <motion.details
+                key={f.q}
+                {...fadeUp(i * 0.05)}
+                className="group rounded-2xl border border-border-2 bg-surface transition-colors open:border-accent/40"
+              >
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-6 py-5 text-[15px] font-semibold marker:hidden [&::-webkit-details-marker]:hidden">
+                  {f.q}
+                  <Plus
+                    size={18}
+                    weight="bold"
+                    className="flex-shrink-0 text-accent-hi transition-transform duration-300 group-open:rotate-45"
+                  />
+                </summary>
+                <div className="px-6 pb-6 pt-0">
+                  <p className="text-sm leading-relaxed text-muted">{f.a}</p>
+                  {f.link && (
+                    <Link
+                      href={f.link.href}
+                      className="group/link mt-4 inline-flex items-center gap-1.5 text-[13px] font-semibold text-accent-hi hover:text-white"
+                    >
+                      {f.link.label}
+                      <ArrowRight size={13} className="transition-transform group-hover/link:translate-x-0.5" />
+                    </Link>
+                  )}
+                </div>
+              </motion.details>
+            ))}
+          </div>
+
+          {/* Schema FAQPage para resultados enriquecidos */}
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "FAQPage",
+                mainEntity: faqs.map((f) => ({
+                  "@type": "Question",
+                  name: f.q,
+                  acceptedAnswer: { "@type": "Answer", text: f.a },
+                })),
+              }),
+            }}
+          />
         </div>
       </section>
 
