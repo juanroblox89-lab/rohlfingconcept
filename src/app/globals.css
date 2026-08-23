@@ -36,6 +36,11 @@ html {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Las secciones con ancla no quedan tapadas por el navbar sticky */
+section[id], footer[id], div[id] {
+  scroll-margin-top: 5rem;
+}
+
 body {
   background-color: var(--background);
   /* Textura TEXURA original del sitio, fundida al 10% sobre negro */

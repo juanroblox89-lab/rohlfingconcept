@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { GeistSans } from "geist/font/sans";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
@@ -30,6 +30,10 @@ export const metadata: Metadata = {
     type: "website",
     images: [{ url: "/img/hero-bg.png", width: 1672, height: 941, alt: "Rohlfing Concept" }],
   },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#07090f",
 };
 
 export default function RootLayout({
