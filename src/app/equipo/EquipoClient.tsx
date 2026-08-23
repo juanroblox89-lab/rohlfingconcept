@@ -58,16 +58,15 @@ const team = [
       "Desarrollador de proyectos audiovisuales",
     ],
   },
-];
-
-const camaras = [
   {
     name: "Alejandro Piedrahíta",
+    role: "Camarógrafo principal de Rohlfing Concept",
     photo: "/img/team/alejandro.png",
-  },
-  {
-    name: "Salomé Agudelo",
-    photo: "/img/team/salome.png",
+    bio: "Encargado de la captura visual en producciones de campo y estudio.",
+    skills: [
+      "Camarógrafo principal",
+      "Captura visual en producciones de campo y estudio",
+    ],
   },
 ];
 
@@ -154,33 +153,6 @@ export default function EquipoClient() {
               <div className="absolute bottom-0 left-0 h-[2px] w-0 rounded-full bg-accent transition-all duration-500 group-hover:w-full" />
             </motion.article>
           ))}
-
-          {/* Tarjeta doble: camarógrafos */}
-          <motion.div {...fadeUp(5 * 0.07)}
-            className="group relative overflow-hidden rounded-2xl border border-accent/25 bg-surface">
-            <div className="grid grid-cols-2">
-              {camaras.map((c) => (
-                <div key={c.name} className="relative aspect-[3/4] overflow-hidden">
-                  <Image
-                    src={c.photo}
-                    alt={c.name}
-                    fill
-                    className="object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.04]"
-                    sizes="(max-width: 640px) 50vw, 16vw"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-surface via-surface/20 to-transparent" />
-                  <p className="absolute bottom-3 left-3 right-3 text-sm font-semibold">{c.name}</p>
-                </div>
-              ))}
-            </div>
-            <div className="p-6">
-              <h3 className="text-base font-bold">Camarógrafos principales</h3>
-              <p className="mt-1 text-xs font-medium text-accent-hi">Rohlfing Concept</p>
-              <p className="mt-3 text-sm leading-relaxed text-muted">
-                Encargados de la captura visual en producciones de campo y estudio.
-              </p>
-            </div>
-          </motion.div>
         </div>
 
         {/* CTA */}

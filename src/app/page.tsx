@@ -10,12 +10,13 @@ import {
 } from "@phosphor-icons/react";
 
 const clients = [
-  { name: "Villa Grande",           logo: "/img/client-villa-grande.png" },
+  { name: "Villa Grande",           logo: "/img/clients/client-villa-grande.png" },
   { name: "Plomería Norte",         logo: "/img/client-plomeria-norte.png" },
-  { name: "El Tizón Dorado",        logo: null },
-  { name: "Ricos Pandeyucas",       logo: null },
-  { name: "Asanarte Droguería",     logo: null },
-  { name: "El Jerez del Caballero", logo: null },
+  { name: "El Tizón Dorado",        logo: "/img/clients/client-tizon-dorado.png" },
+  { name: "Ricos Pandeyucas",       logo: "/img/clients/client-pandeyucas.png" },
+  { name: "Asanarte Droguería",     logo: "/img/clients/client-asanarte.png" },
+  { name: "El Jerez del Caballero", logo: "/img/clients/client-jerez.png" },
+  { name: "Kantel",                 logo: "/img/clients/client-kantel.png" },
 ];
 
 const pilares = [
@@ -229,26 +230,17 @@ export default function Home() {
         {/* Marquee Clientes */}
         <div className="relative border-t border-border/40 bg-background/50 backdrop-blur-md py-8">
           <div className="overflow-hidden">
-            <div className="marquee flex w-max items-center gap-16 px-10">
-              {[...clients, ...clients].map((c, i) =>
-                c.logo ? (
-                  <Image
-                    key={i}
-                    src={c.logo}
-                    alt={c.name}
-                    width={64}
-                    height={64}
-                    className="h-11 w-11 flex-shrink-0 object-contain opacity-50 grayscale invert transition-all hover:opacity-100 hover:grayscale-0"
-                  />
-                ) : (
-                  <span
-                    key={i}
-                    className="flex-shrink-0 text-sm font-semibold tracking-wide text-muted-2/60 transition-colors hover:text-muted whitespace-nowrap"
-                  >
-                    {c.name}
-                  </span>
-                )
-              )}
+            <div className="marquee flex w-max items-center gap-20 px-10">
+              {[...clients, ...clients].map((c, i) => (
+                <Image
+                  key={i}
+                  src={c.logo}
+                  alt={c.name}
+                  width={180}
+                  height={72}
+                  className="h-12 w-auto flex-shrink-0 object-contain opacity-75 transition-all hover:opacity-100"
+                />
+              ))}
             </div>
           </div>
         </div>
@@ -283,10 +275,10 @@ export default function Home() {
                   src={p.image}
                   alt=""
                   fill
-                  className="object-cover opacity-20 transition-opacity duration-700 group-hover:opacity-30"
+                  className="object-cover opacity-45 transition-opacity duration-700 group-hover:opacity-60"
                   sizes="(max-width: 1280px) 100vw, 1216px"
                 />
-                <div className="absolute inset-0 bg-gradient-to-r from-surface via-surface/85 to-surface/55" />
+                <div className="absolute inset-0 bg-gradient-to-r from-surface via-surface/65 to-surface/30" />
 
                 <div className="relative z-10 p-8 md:p-12">
                   <div className="grid gap-10 lg:grid-cols-[0.9fr_1.4fr]">
@@ -312,7 +304,7 @@ export default function Home() {
                       {p.items.map((it) => (
                         <div
                           key={it.n}
-                          className="rounded-xl border border-border-2 bg-background/70 px-5 py-4 backdrop-blur-sm transition-colors hover:border-accent/30"
+                          className="rounded-xl border border-border-2 bg-background/90 px-5 py-4 shadow-[0_4px_16px_rgba(0,0,0,0.35)] backdrop-blur-md transition-colors hover:border-accent/40"
                         >
                           <p className="text-[11px] font-semibold uppercase tracking-[0.13em] text-accent-hi">{it.n}</p>
                           <p className="mt-2 text-[13px] leading-relaxed text-muted">{it.d}</p>
@@ -354,23 +346,17 @@ export default function Home() {
               <motion.div
                 key={c.name}
                 {...fadeUp(i * 0.06)}
-                className="card group relative flex aspect-[4/3] flex-col items-center justify-center gap-3 overflow-hidden p-8 text-center"
+                className="card group relative flex aspect-[4/3] flex-col items-center justify-center gap-5 overflow-hidden p-8 text-center"
               >
                 <div className="absolute right-4 top-4 h-1.5 w-1.5 rounded-full bg-accent/30 transition-colors group-hover:bg-accent-hi" />
-                {c.logo ? (
-                  <Image
-                    src={c.logo}
-                    alt={c.name}
-                    width={60}
-                    height={60}
-                    className="h-14 w-14 object-contain opacity-60 transition-opacity group-hover:opacity-100"
-                  />
-                ) : (
-                  <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-border-2 bg-surface-2 text-lg font-bold text-muted transition-all group-hover:border-accent/30 group-hover:text-accent-hi">
-                    {c.name.charAt(0)}
-                  </div>
-                )}
-                <span className="text-sm font-medium">{c.name}</span>
+                <Image
+                  src={c.logo}
+                  alt={c.name}
+                  width={260}
+                  height={130}
+                  className="h-24 w-auto object-contain opacity-90 transition-all duration-500 group-hover:scale-[1.06] group-hover:opacity-100"
+                />
+                <span className="text-sm font-medium text-muted transition-colors group-hover:text-foreground">{c.name}</span>
                 <div className="absolute bottom-0 left-0 h-[2px] w-0 rounded-full bg-accent transition-all duration-500 group-hover:w-full" />
               </motion.div>
             ))}

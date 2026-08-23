@@ -64,12 +64,13 @@ const filtros: { key: CatKey | "Todos"; label: string }[] = [
 ];
 
 const clients = [
-  { name: "Villa Grande",           logo: "/img/client-villa-grande.png", tag: "Branding · Web",    desc: "Identidad visual y presencia digital para un proyecto inmobiliario de alta gama." },
+  { name: "Villa Grande",           logo: "/img/clients/client-villa-grande.png", tag: "Branding · Web",    desc: "Identidad visual y presencia digital para un proyecto inmobiliario de alta gama." },
   { name: "Plomería Norte",         logo: "/img/client-plomeria-norte.png", tag: "Diseño · Redes",  desc: "Diseño de marca y gestión de redes sociales para empresa de plomería local." },
-  { name: "El Tizón Dorado",        logo: null, tag: "Branding · Contenido",                     desc: "Identidad visual y producción de contenido para restaurante parrilla." },
-  { name: "Ricos Pandeyucas",       logo: null, tag: "Diseño · Redes",                           desc: "Branding y estrategia digital para marca de productos artesanales." },
-  { name: "Asanarte Droguería",     logo: null, tag: "Identidad Visual",                         desc: "Manual de marca y piezas gráficas para droguería y punto de salud." },
-  { name: "El Jerez del Caballero", logo: null, tag: "Audiovisual · Redes",                      desc: "Producción audiovisual y gestión de redes para marca de licores." },
+  { name: "El Tizón Dorado",        logo: "/img/clients/client-tizon-dorado.png", tag: "Branding · Contenido", desc: "Identidad visual y producción de contenido para restaurante parrilla." },
+  { name: "Ricos Pandeyucas",       logo: "/img/clients/client-pandeyucas.png", tag: "Diseño · Redes",   desc: "Branding y estrategia digital para marca de productos artesanales." },
+  { name: "Asanarte Droguería",     logo: "/img/clients/client-asanarte.png", tag: "Identidad Visual",  desc: "Manual de marca y piezas gráficas para droguería y punto de salud." },
+  { name: "El Jerez del Caballero", logo: "/img/clients/client-jerez.png", tag: "Audiovisual · Redes",  desc: "Producción audiovisual y gestión de redes para marca de licores." },
+  { name: "Kantel",                 logo: "/img/clients/client-kantel.png", tag: "Cliente Rohlfing Concept", desc: "Trabajo creativo y acompañamiento digital para la marca Kantel." },
 ];
 
 export default function ProyectosClient() {
@@ -184,16 +185,13 @@ export default function ProyectosClient() {
                 </span>
                 <p className="mb-5 text-[11px] font-medium uppercase tracking-widest text-muted-2">{c.tag}</p>
                 <div className="mb-4 flex items-center gap-4">
-                  {c.logo ? (
-                    <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-border-2 bg-surface-2 overflow-hidden">
-                      <Image src={c.logo} alt={c.name} width={44} height={44}
-                        className="h-10 w-10 object-contain opacity-80 group-hover:opacity-100 transition-opacity" />
-                    </div>
-                  ) : (
-                    <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-border-2 bg-surface-2 text-lg font-bold text-muted group-hover:border-accent/30 group-hover:text-accent-hi transition-all">
-                      {c.name.charAt(0)}
-                    </div>
-                  )}
+                  <Image
+                    src={c.logo}
+                    alt={c.name}
+                    width={120}
+                    height={64}
+                    className="h-16 w-auto object-contain opacity-90 transition-all duration-500 group-hover:scale-[1.05] group-hover:opacity-100"
+                  />
                   <div>
                     <p className="font-semibold">{c.name}</p>
                     <p className="text-xs text-muted-2 mt-0.5">Cliente activo</p>
