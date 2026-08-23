@@ -5,7 +5,7 @@ import { WhatsappLogo } from "@phosphor-icons/react";
 export default function WhatsAppFloat() {
   return (
     <a
-      href="https://wa.me/573242123300"
+      href="https://wa.me/573242123300?text=Hola%2C%20vengo%20de%20la%20web%20y%20quiero%20m%C3%A1s%20informaci%C3%B3n."
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Escríbenos por WhatsApp"

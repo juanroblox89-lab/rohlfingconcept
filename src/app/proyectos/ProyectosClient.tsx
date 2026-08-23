@@ -225,7 +225,7 @@ export default function ProyectosClient() {
           <p className="mt-3 text-sm text-muted max-w-md mx-auto">
             Cuéntanos sobre tu marca y te damos una propuesta personalizada sin costo.
           </p>
-          <a href="https://wa.me/573242123300"
+          <a href="https://wa.me/573242123300?text=Hola%2C%20vi%20sus%20proyectos%20y%20quiero%20uno%20para%20mi%20marca."
             className="mt-7 inline-flex items-center gap-2 rounded-full bg-accent px-8 py-3.5 text-sm font-semibold text-white transition-all hover:bg-accent-hi hover:shadow-[0_0_28px_rgba(37,99,235,0.4)] hover:-translate-y-0.5">
             <WhatsappLogo size={16} weight="fill" />
             Empezar proyecto

@@ -17,7 +17,7 @@ const navLinks = [
 ];
 
 const socials = [
-  { label: "WhatsApp",  href: "https://wa.me/573242123300",             Icon: WhatsappLogo },
+  { label: "WhatsApp",  href: "https://wa.me/573242123300?text=Hola%2C%20escribo%20desde%20rohlfingconcept.com.",             Icon: WhatsappLogo },
   { label: "Instagram", href: "https://instagram.com/rohlfingconcept",  Icon: InstagramLogo },
   { label: "Email",     href: "mailto:rohlfingconcept@gmail.com",       Icon: EnvelopeSimple },
 ];
@@ -85,7 +85,7 @@ export default function Footer() {
             <ul className="space-y-4 text-sm">
               <li>
                 <p className="text-[10px] uppercase tracking-wider text-muted-2 mb-1">WhatsApp</p>
-                <a href="https://wa.me/573242123300" className="text-muted transition-colors hover:text-accent-hi">
+                <a href="https://wa.me/573242123300?text=Hola%2C%20escribo%20desde%20rohlfingconcept.com." className="text-muted transition-colors hover:text-accent-hi">
                   +57 324 212 3300
                 </a>
               </li>

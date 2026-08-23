@@ -83,7 +83,7 @@ export default function RegistroClient() {
             Acompañamiento completo desde el estudio hasta la aprobación.
           </motion.p>
           <motion.div {...fadeUp(0.14)} className="mt-10 flex flex-wrap gap-4">
-            <a href="https://wa.me/573242123300"
+            <a href="https://wa.me/573242123300?text=Hola%2C%20quiero%20registrar%20mi%20marca%20ante%20la%20SIC."
               className="inline-flex items-center gap-2 rounded-full bg-accent px-7 py-3.5 text-sm font-semibold text-white transition-all hover:bg-accent-hi hover:shadow-[0_0_28px_rgba(37,99,235,0.4)] hover:-translate-y-0.5">
               <WhatsappLogo size={16} weight="fill" />
               Empezar proceso
@@ -224,7 +224,7 @@ export default function RegistroClient() {
         <motion.div {...fadeUp(0.12)} className="mt-14 rounded-2xl border border-border-2 bg-surface p-10 text-center">
           <h3 className="text-xl font-bold">¿Listo para proteger tu marca?</h3>
           <p className="mt-3 text-sm text-muted max-w-md mx-auto">Te explicamos todo el proceso paso a paso, sin complicaciones.</p>
-          <a href="https://wa.me/573242123300"
+          <a href="https://wa.me/573242123300?text=Hola%2C%20quiero%20registrar%20mi%20marca%20ante%20la%20SIC."
             className="mt-7 inline-flex items-center gap-2 rounded-full bg-accent px-8 py-4 text-sm font-semibold text-white transition-all hover:bg-accent-hi hover:shadow-[0_0_28px_rgba(37,99,235,0.4)] hover:-translate-y-0.5">
             <WhatsappLogo size={16} weight="fill" />
             Contáctanos

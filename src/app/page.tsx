@@ -627,7 +627,7 @@ export default function Home() {
 
             <motion.div {...fadeUp(0.2)} className="mt-10">
               <a
-                href="https://wa.me/573242123300"
+                href="https://wa.me/573242123300?text=Hola%20Rohlfing%20Concept%2C%20quiero%20cotizar%20un%20proyecto%20para%20mi%20marca."
                 className="inline-flex items-center gap-2 rounded-full bg-accent px-8 py-4 text-sm font-semibold text-white transition-all hover:bg-accent-hi hover:shadow-[0_0_28px_rgba(37,99,235,0.35)] hover:-translate-y-0.5"
               >
                 <WhatsappLogo size={16} weight="fill" />
@@ -657,7 +657,7 @@ export default function Home() {
                 {...fadeUp(i * 0.05)}
                 className="group rounded-2xl border border-border-2 bg-surface transition-colors open:border-accent/40"
               >
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-6 py-5 text-[15px] font-semibold marker:hidden [&::-webkit-details-marker]:hidden">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-6 py-5 text-[15px] font-semibold [&::-webkit-details-marker]:hidden">
                   {f.q}
                   <Plus
                     size={18}
@@ -727,7 +727,7 @@ export default function Home() {
           </motion.p>
           <motion.div {...fadeUp(0.15)} className="mt-10 flex flex-wrap items-center justify-center gap-4">
             <a
-              href="https://wa.me/573242123300"
+              href="https://wa.me/573242123300?text=Hola%2C%20quiero%20empezar%20un%20proyecto%20con%20ustedes."
               className="inline-flex items-center gap-2 rounded-full bg-accent px-8 py-4 text-sm font-semibold text-white transition-all hover:bg-accent-hi hover:shadow-[0_0_40px_rgba(37,99,235,0.45)] hover:-translate-y-0.5"
             >
               <WhatsappLogo size={16} weight="fill" />

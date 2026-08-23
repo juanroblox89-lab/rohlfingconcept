@@ -84,7 +84,7 @@ export default function Navbar() {
 
         {/* CTA */}
         <a
-          href="https://wa.me/573242123300"
+          href="https://wa.me/573242123300?text=Hola%20Rohlfing%20Concept%2C%20quiero%20cotizar%20un%20proyecto%20para%20mi%20marca."
           target="_blank"
           rel="noopener noreferrer"
           className="hidden items-center gap-2 rounded-full bg-accent px-5 py-2 text-sm font-medium text-white transition-all hover:bg-accent-hi hover:shadow-[0_0_24px_rgba(37,99,235,0.35)] md:flex"
@@ -126,7 +126,7 @@ export default function Navbar() {
                 </Link>
               ))}
               <a
-                href="https://wa.me/573242123300"
+                href="https://wa.me/573242123300?text=Hola%20Rohlfing%20Concept%2C%20quiero%20cotizar%20un%20proyecto%20para%20mi%20marca."
                 className="mt-3 flex items-center justify-center gap-2 rounded-full bg-accent py-3 text-sm font-medium text-white"
               >
                 <WhatsappLogo size={16} weight="fill" />

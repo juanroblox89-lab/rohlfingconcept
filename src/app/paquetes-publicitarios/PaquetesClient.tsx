@@ -141,7 +141,7 @@ export default function PaquetesClient() {
                   </li>
                 ))}
               </ul>
-              <a href="https://wa.me/573242123300"
+              <a href={`https://wa.me/573242123300?text=${encodeURIComponent(`Hola, me interesa el ${p.nombre}. Quiero más información.`)}`}
                 className={`mt-8 flex items-center justify-center gap-2 rounded-full py-3.5 text-sm font-semibold transition-all hover:-translate-y-0.5 ${
                   p.destacado
                     ? "bg-accent text-white hover:bg-accent-hi hover:shadow-[0_0_24px_rgba(37,99,235,0.4)]"
@@ -175,7 +175,7 @@ export default function PaquetesClient() {
         <motion.div {...fadeUp(0.1)} className="mt-16 rounded-2xl border border-border-2 bg-surface p-10 text-center">
           <h3 className="text-xl font-bold">¿No sabes cuál elegir?</h3>
           <p className="mt-3 text-sm text-muted max-w-sm mx-auto">Escríbenos y te ayudamos a encontrar el plan ideal.</p>
-          <a href="https://wa.me/573242123300"
+          <a href="https://wa.me/573242123300?text=Hola%2C%20no%20s%C3%A9%20qu%C3%A9%20paquete%20elegir%2C%20%C2%BFme%20ayudan%3F"
             className="mt-7 inline-flex items-center gap-2 rounded-full bg-accent px-8 py-3.5 text-sm font-semibold text-white transition-all hover:bg-accent-hi hover:shadow-[0_0_28px_rgba(37,99,235,0.4)] hover:-translate-y-0.5">
             <WhatsappLogo size={16} weight="fill" />
             Hablar con un asesor
