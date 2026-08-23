@@ -221,7 +221,13 @@ export default function Home() {
                 fill
                 priority
                 sizes="(max-width: 1200px) 50vw, 600px"
-                className="object-contain object-center [mask-image:radial-gradient(ellipse_62%_62%_at_50%_48%,black_50%,transparent_78%)]"
+                className="object-contain object-center"
+                style={{
+                  WebkitMaskImage:
+                    "radial-gradient(ellipse 58% 58% at 50% 47%, black 52%, rgba(0,0,0,0.4) 72%, transparent 90%)",
+                  maskImage:
+                    "radial-gradient(ellipse 58% 58% at 50% 47%, black 52%, rgba(0,0,0,0.4) 72%, transparent 90%)",
+                }}
               />
             </div>
 
