@@ -89,31 +89,27 @@ const pilares = [
   },
 ];
 
+// Proceso de trabajo — copy textual del sitio original
 const steps = [
   {
     n: "01",
-    title: "Primer contacto",
-    desc: "Escuchamos necesidades, objetivos e ideas para comprender la situación actual y establecer una visión clara.",
+    title: "Idea y planeación",
+    desc: "Escuchamos las necesidades del proyecto y definimos el enfoque visual y estratégico del trabajo.",
   },
   {
     n: "02",
-    title: "Investigación y planificación",
-    desc: "Investigamos el sector y la competencia, definimos estrategias visuales y organizamos cronogramas.",
+    title: "Desarrollo y construcción",
+    desc: "Comenzamos el proceso creativo y técnico, desarrollando cada elemento según los objetivos planteados.",
   },
   {
     n: "03",
-    title: "Diseño y desarrollo",
-    desc: "Convertimos las ideas en propuestas reales: branding, audiovisual, web y contenido digital.",
+    title: "Revisión y ajustes",
+    desc: "Evaluamos detalles, realizamos correcciones y refinamos el proyecto para lograr un mejor resultado final.",
   },
   {
     n: "04",
-    title: "Revisión y optimización",
-    desc: "Presentamos avances, recibimos retroalimentación y realizamos ajustes hasta el resultado esperado.",
-  },
-  {
-    n: "05",
-    title: "Entrega y acompañamiento",
-    desc: "Entregamos materiales, capacitamos cuando es necesario y damos soporte continuo.",
+    title: "Entrega final",
+    desc: "Entregamos el proyecto optimizado y preparado para su uso en plataformas digitales o medios correspondientes.",
   },
 ];
 
@@ -137,7 +133,7 @@ const faqs = [
   },
   {
     q: "¿Cómo es el proceso de trabajo?",
-    a: "Cinco pasos: primer contacto para entender tus necesidades, investigación y planificación, diseño y desarrollo, revisión con tus retroalimentación, y entrega con acompañamiento continuo. Te mantenemos al tanto en cada etapa.",
+    a: "Cuatro pasos claros: idea y planeación, desarrollo y construcción, revisión y ajustes, y entrega final. Además damos soporte continuo después de la entrega y te mantenemos al tanto en cada etapa.",
   },
   {
     q: "¿Cuánto cuestan los paquetes publicitarios?",
@@ -206,22 +202,6 @@ export default function Home() {
         <div className="relative mx-auto grid max-w-7xl gap-10 px-6 pb-16 pt-28 md:grid-cols-[1fr_1.05fr] md:items-center md:py-0 lg:gap-6">
           {/* Columna Izquierda — pitch directo al cliente */}
           <div>
-            {/* Badge de ubicación — prueba de cercanía */}
-            <motion.div
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.55, ease: EASE_OUT_EXPO }}
-              className="mb-6"
-            >
-              <span className="inline-flex items-center gap-2.5 rounded-full border border-border-2 bg-surface/70 px-4 py-1.5 text-[11px] font-medium uppercase tracking-[0.14em] text-muted backdrop-blur-sm">
-                <span className="relative flex h-2 w-2">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent-hi opacity-60" />
-                  <span className="relative inline-flex h-2 w-2 rounded-full bg-accent-hi" />
-                </span>
-                Agencia creativa · San Pedro de los Milagros, Antioquia
-              </span>
-            </motion.div>
-
             <motion.h1
               initial={{ opacity: 0, y: 32 }}
               animate={{ opacity: 1, y: 0 }}
@@ -245,14 +225,14 @@ export default function Home() {
               Diseño con identidad propia, hecho en Antioquia.
             </motion.p>
 
-            {/* Pruebas reales del portafolio */}
+            {/* Pruebas reales — cifras publicadas por la agencia */}
             <motion.ul
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.18, ease: EASE_OUT_EXPO }}
               className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2"
             >
-              {["Más de 17 proyectos entregados", "7 marcas activas en portafolio", "Equipo de 5 especialistas"].map((proof) => (
+              {["Más de 300 proyectos", "Más de 2.3 millones de visualizaciones", "7 marcas activas"].map((proof) => (
                 <li key={proof} className="flex items-center gap-1.5 text-[13px] font-medium text-muted">
                   <Checks size={14} weight="bold" className="flex-shrink-0 text-accent-hi" />
                   {proof}
@@ -289,7 +269,7 @@ export default function Home() {
               transition={{ duration: 0.6, delay: 0.38 }}
               className="mt-5 text-xs leading-relaxed text-muted-2"
             >
-              Atención directa por WhatsApp · Soporte continuo después de la entrega
+              Atención directa por WhatsApp y soporte continuo después de la entrega
             </motion.p>
           </div>
 
@@ -338,19 +318,14 @@ export default function Home() {
               </div>
             </motion.div>
 
-            {/* Caption sutil */}
-            <div className="pointer-events-none absolute bottom-1 left-0 right-0 text-center">
-              <p className="text-[10px] uppercase tracking-widest text-muted-2">Portafolio · Diseño con identidad propia</p>
-            </div>
-
-            {/* Stat Floating Cards — cifras reales del portafolio */}
+            {/* Stat Floating Cards — cifras reales publicadas por la agencia */}
             <div className="absolute -right-3 -top-3 rounded-2xl border border-border-2 bg-background/95 px-5 py-4 backdrop-blur-md shadow-2xl transition-transform duration-300 hover:-translate-y-1">
-              <p className="text-[10px] text-muted-2 uppercase tracking-wider">Proyectos entregados</p>
-              <p className="mt-0.5 text-2xl font-bold text-gradient-accent">+17</p>
+              <p className="text-[10px] text-muted-2 uppercase tracking-wider">Proyectos</p>
+              <p className="mt-0.5 text-2xl font-bold text-gradient-accent">+300</p>
             </div>
             <div className="absolute -bottom-3 -left-3 rounded-2xl border border-border-2 bg-background/95 px-5 py-4 backdrop-blur-md shadow-2xl transition-transform duration-300 hover:translate-y-1">
-              <p className="text-[10px] text-muted-2 uppercase tracking-wider">Marcas activas</p>
-              <p className="mt-0.5 text-2xl font-bold text-gradient-accent">7</p>
+              <p className="text-[10px] text-muted-2 uppercase tracking-wider">Visualizaciones</p>
+              <p className="mt-0.5 text-2xl font-bold text-gradient-accent">2.3M</p>
             </div>
           </motion.div>
 
@@ -383,8 +358,8 @@ export default function Home() {
 
         {/* Marquee Clientes */}
         <div className="relative border-t border-border/40 bg-background/50 backdrop-blur-md py-8">
-          <p className="mb-6 text-center text-[10px] font-medium uppercase tracking-[0.28em] text-muted-2">
-            Marcas que ya confían en Rohlfing Concept
+          <p className="mb-6 text-center text-sm text-muted-2">
+            Marcas que ya confían en nosotros
           </p>
           <div className="overflow-hidden">
             <div className="marquee flex w-max items-center gap-20 px-10">
@@ -528,8 +503,10 @@ export default function Home() {
                   <SealCheck size={28} weight="duotone" className="text-accent-hi" />
                 </div>
                 <div>
-                  <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-accent-hi">Servicio destacado</p>
-                  <h3 className="mt-1.5 text-xl font-bold tracking-tight md:text-2xl">Registro de marca ante la SIC</h3>
+                  <h3 className="flex items-center gap-2.5 text-xl font-bold tracking-tight md:text-2xl">
+                    <SealCheck size={24} weight="duotone" className="flex-shrink-0 text-accent-hi" />
+                    Registro de marca ante la SIC
+                  </h3>
                   <p className="mt-2 max-w-xl text-sm leading-relaxed text-muted">
                     Protege el nombre de tu negocio de la mano de Ilegítimas - Abogadas.
                     Servicio completo por 1 SMMLV y pagas con flexibilidad: sin prisa,
@@ -692,30 +669,33 @@ export default function Home() {
           {/* Texto */}
           <div>
             <motion.h2 {...fadeUp()} className="text-3xl font-bold tracking-tight sm:text-4xl">
-              Detrás de cada proyecto hay
+              Más que diseño,
               <br />
-              <span className="text-gradient-accent">personas construyendo tu marca</span>
+              <span className="text-gradient-accent">construimos presencia</span>
             </motion.h2>
             <motion.p {...fadeUp(0.08)} className="mt-6 text-base leading-relaxed text-muted">
-              En Rohlfing Concept ofrecemos soluciones integrales de diseño, creación de
-              contenido y gestión digital. Nos especializamos en desarrollar identidades
-              visuales, producir contenido de alto impacto y administrar la presencia
-              digital de nuestros clientes.
+              En Rohlfing Concept desarrollamos proyectos enfocados en fortalecer la imagen,
+              organización y presencia digital de cada marca. Cada proceso se trabaja con
+              intención, buscando no solo un buen resultado visual, sino una identidad más
+              sólida, profesional y coherente en diferentes entornos digitales.
             </motion.p>
 
-            <motion.ul {...fadeUp(0.14)} className="mt-8 grid grid-cols-2 gap-3">
+            <motion.ul {...fadeUp(0.14)} className="mt-8 space-y-2.5">
               {[
-                "Se vea profesional",
-                "Mantenga coherencia visual",
-                "Transmita confianza",
-                "Destaque frente a la competencia",
+                { t: "Análisis del proyecto", d: "Cada marca tiene necesidades distintas: evaluamos el enfoque y objetivo antes de desarrollar cualquier proceso." },
+                { t: "Desarrollo visual", d: "Construimos propuestas visuales organizadas y coherentes con la identidad de cada marca." },
+                { t: "Adaptación digital", d: "Buscamos que cada proyecto funcione correctamente en entornos digitales y multiplataforma." },
+                { t: "Enfoque en presencia", d: "Trabajamos cada detalle buscando una imagen más sólida, profesional y atractiva." },
               ].map((item) => (
                 <li
-                  key={item}
-                  className="flex items-center gap-2.5 rounded-xl border border-border-2 bg-surface px-4 py-3 text-sm transition-colors hover:border-accent/30"
+                  key={item.t}
+                  className="rounded-xl border border-border-2 bg-surface px-5 py-3.5 transition-colors hover:border-accent/30"
                 >
-                  <Checks size={15} weight="bold" className="flex-shrink-0 text-accent-hi" />
-                  <span className="text-muted">{item}</span>
+                  <p className="flex items-center gap-2.5 text-sm font-semibold">
+                    <Checks size={15} weight="bold" className="flex-shrink-0 text-accent-hi" />
+                    {item.t}
+                  </p>
+                  <p className="mt-1 pl-[25px] text-[13px] leading-relaxed text-muted">{item.d}</p>
                 </li>
               ))}
             </motion.ul>

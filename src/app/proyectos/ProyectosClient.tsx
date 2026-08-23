@@ -65,13 +65,13 @@ const filtros: { key: CatKey | "Todos"; label: string }[] = [
 ];
 
 const clients = [
-  { name: "Villa Grande",           logo: "/img/clients/client-villa-grande.png", cover: "/img/covers/cover-villagrande.jpg", tag: "Branding · Web",    desc: "Identidad visual y presencia digital para restaurante de comida paisa y española." },
-  { name: "Plomería Norte",         logo: "/img/client-plomeria-norte.png", cover: "/img/covers/cover-plomeria-norte.jpg", tag: "Diseño · Redes",  desc: "Diseño de marca y gestión de redes sociales para empresa de plomería local." },
-  { name: "El Tizón Dorado",        logo: "/img/clients/client-tizon-dorado.png", cover: "/img/covers/cover-tizon.jpg", tag: "Branding · Contenido", desc: "Identidad visual y producción de contenido para restaurante parrilla." },
-  { name: "Ricos Pandeyucas",       logo: "/img/clients/client-pandeyucas.png", cover: "/img/covers/cover-pandeyucas.jpg", tag: "Diseño · Redes",   desc: "Branding y estrategia digital para marca de productos artesanales." },
-  { name: "Asanarte Droguería",     logo: "/img/clients/client-asanarte.png", cover: "/img/covers/cover-asanarte.jpg", tag: "Identidad Visual",  desc: "Manual de marca y piezas gráficas para droguería y punto de salud." },
-  { name: "El Jerez del Caballero", logo: "/img/clients/client-jerez.png", cover: "/img/covers/cover-jerez.jpg", tag: "Audiovisual · Redes",  desc: "Producción audiovisual y gestión de redes para uno de los primeros restaurantes de San Pedro de los Milagros." },
-  { name: "Kantel",                 logo: "/img/clients/client-kantel.png", cover: "/img/covers/cover-kantel.jpg", tag: "Branding · Contenido", desc: "Identidad y contenido digital para restaurante de cocina tradicional colombiana." },
+  { name: "Villa Grande",           logo: "/img/clients/client-villa-grande.png", cover: "/img/covers/cover-villagrande.jpg", tag: "Branding · Web",    desc: "Identidad visual y presencia digital para restaurante de comida paisa y española.", desde: "Desde septiembre 2025" },
+  { name: "Plomería Norte",         logo: "/img/client-plomeria-norte.png", cover: "/img/covers/cover-plomeria-norte.jpg", tag: "Diseño · Redes",  desc: "Diseño de marca y gestión de redes sociales para empresa de plomería local.", desde: "Desde noviembre 2025" },
+  { name: "El Tizón Dorado",        logo: "/img/clients/client-tizon-dorado.png", cover: "/img/covers/cover-tizon.jpg", tag: "Branding · Contenido", desc: "Identidad visual y producción de contenido para restaurante parrilla.", desde: "Desde marzo de 2026" },
+  { name: "Ricos Pandeyucas",       logo: "/img/clients/client-pandeyucas.png", cover: "/img/covers/cover-pandeyucas.jpg", tag: "Diseño · Redes",   desc: "Branding y estrategia digital para marca de productos artesanales.", desde: "Desde febrero 2026" },
+  { name: "Asanarte Droguería",     logo: "/img/clients/client-asanarte.png", cover: "/img/covers/cover-asanarte.jpg", tag: "Identidad Visual",  desc: "Manual de marca y piezas gráficas para droguería y punto de salud.", desde: "Desde marzo 2025" },
+  { name: "El Jerez del Caballero", logo: "/img/clients/client-jerez.png", cover: "/img/covers/cover-jerez.jpg", tag: "Audiovisual · Redes",  desc: "Producción audiovisual y gestión de redes para uno de los primeros restaurantes de San Pedro de los Milagros.", desde: "Desde abril 2026" },
+  { name: "Kantel",                 logo: "/img/clients/client-kantel.png", cover: "/img/covers/cover-kantel.jpg", tag: "Branding · Contenido", desc: "Identidad y contenido digital para restaurante de cocina tradicional colombiana.", desde: null },
 ];
 
 export default function ProyectosClient() {
@@ -100,9 +100,9 @@ export default function ProyectosClient() {
           </motion.p>
           <motion.div {...fadeUp(0.14)} className="mt-10 flex flex-wrap gap-8">
             {[
-              { v: "7+", l: "Marcas trabajadas" },
-              { v: "100%", l: "Proyectos entregados" },
-              { v: "3", l: "Disciplinas integradas" },
+              { v: "+300", l: "Proyectos" },
+              { v: "2.3M", l: "Visualizaciones" },
+              { v: "7", l: "Marcas activas" },
             ].map((s) => (
               <div key={s.l} className="border-l-2 border-accent/30 pl-5">
                 <p className="text-2xl font-bold text-gradient-accent">{s.v}</p>
@@ -215,7 +215,7 @@ export default function ProyectosClient() {
                   />
                   <div>
                     <p className="font-semibold">{c.name}</p>
-                    <p className="text-xs text-muted-2 mt-0.5">Cliente activo</p>
+                    <p className="text-xs text-muted-2 mt-0.5">{c.desde ?? "Cliente activo"}</p>
                   </div>
                 </div>
                 <p className="text-sm leading-relaxed text-muted">{c.desc}</p>

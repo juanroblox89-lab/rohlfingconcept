@@ -34,10 +34,7 @@ export default function VideosClient({ files }: { files: string[] }) {
           style={{ background: "radial-gradient(ellipse 60% 55% at 50% -10%, rgba(37,99,235,0.16) 0%, transparent 75%)" }}
         />
         <div className="relative mx-auto max-w-5xl px-6 py-28">
-          <motion.p {...fadeUp()} className="text-[11px] font-semibold uppercase tracking-[0.25em] text-accent-hi">
-            Portafolio audiovisual
-          </motion.p>
-          <motion.h1 {...fadeUp(0.06)} className="mt-4 max-w-2xl text-4xl font-bold tracking-tight sm:text-5xl">
+          <motion.h1 {...fadeUp()} className="max-w-2xl text-4xl font-bold tracking-tight sm:text-5xl">
             Ediciones que se <span className="text-gradient-accent">sienten</span>, no solo se ven
           </motion.h1>
           <motion.p {...fadeUp(0.12)} className="mt-6 max-w-[52ch] text-base leading-relaxed text-muted">
@@ -68,9 +65,6 @@ export default function VideosClient({ files }: { files: string[] }) {
                 />
                 <div className="flex items-center justify-between gap-3 px-5 py-4">
                   <h2 className="text-sm font-semibold">{prettyTitle(f)}</h2>
-                  <span className="font-mono text-[10px] uppercase tracking-wider text-muted-2">
-                    Rohlfing Concept
-                  </span>
                 </div>
               </motion.article>
             ))}

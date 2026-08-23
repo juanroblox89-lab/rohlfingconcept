@@ -161,17 +161,45 @@ export default function RegistroClient() {
                     />
                   </div>
                   <div className="absolute inset-0 bg-gradient-to-t from-background/85 via-transparent to-transparent" />
-                  <p className="absolute bottom-4 left-4 right-4 text-[10px] font-semibold uppercase tracking-widest text-white/90">
-                    Equipo legal · Ilegítimas
+                  <p className="absolute bottom-4 left-4 right-4 text-xs font-semibold text-white/90">
+                    Ilegítimas — Abogadas
                   </p>
                 </div>
               ))}
             </motion.div>
           </div>
+
+          {/* Imágenes reales de la alianza (del sitio original) */}
+          <motion.div {...fadeUp(0.12)} className="mt-14 grid gap-5 sm:grid-cols-[1.4fr_1fr]">
+            <div className="group relative overflow-hidden rounded-2xl border border-border-2 shadow-xl">
+              <div className="relative aspect-[16/9]">
+                <Image
+                  src="/img/ilegitimas-oficina.jpg"
+                  alt="Ilegítimas — Abogadas, aliadas legales de Rohlfing Concept"
+                  fill
+                  sizes="(max-width: 640px) 100vw, 60vw"
+                  className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                />
+              </div>
+              <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-transparent to-transparent" />
+              <p className="absolute bottom-4 left-5 text-xs font-medium text-white/90">Asesoría jurídica confiable</p>
+            </div>
+            <div className="group relative overflow-hidden rounded-2xl border border-border-2 shadow-xl">
+              <div className="relative aspect-[16/9] sm:aspect-auto sm:h-full">
+                <Image
+                  src="/img/ilegitimas-alianza-wide.jpg"
+                  alt="Trabajo conjunto entre Rohlfing Concept e Ilegítimas"
+                  fill
+                  sizes="(max-width: 640px) 100vw, 40vw"
+                  className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                />
+              </div>
+              <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-transparent to-transparent" />
+              <p className="absolute bottom-4 left-5 text-xs font-medium text-white/90">Un mismo objetivo: tu marca protegida</p>
+            </div>
+          </motion.div>
         </div>
       </section>
-
-      {/* Beneficios con imagen lateral */}
       <section className="border-t border-border/40 py-20" style={{ background: "var(--background-alt)" }}>
         <div className="mx-auto max-w-5xl px-6">
           <div className="grid gap-12 md:grid-cols-[1fr_1.2fr] md:items-center">
@@ -185,7 +213,7 @@ export default function RegistroClient() {
                 className="object-cover transition-transform duration-700 hover:scale-[1.03]"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-background/85 via-background/10 to-transparent" />
-              <p className="absolute bottom-5 left-5 right-5 text-[11px] font-semibold uppercase tracking-widest text-muted-2">
+              <p className="absolute bottom-5 left-5 right-5 text-xs font-medium text-white/90">
                 Asesoría acompañada, sin complicaciones
               </p>
             </motion.div>
@@ -249,9 +277,15 @@ export default function RegistroClient() {
         </div>
 
         {/* Alianza */}
-        <motion.div {...fadeUp(0.08)} className="mt-6 flex items-center gap-4 rounded-2xl border border-border-2 bg-surface p-6">
-          <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl border border-border-2 bg-surface-2 text-accent-hi">
-            <Users size={20} weight="duotone" />
+        <motion.div {...fadeUp(0.08)} className="mt-6 flex items-center gap-5 rounded-2xl border border-border-2 bg-surface p-6">
+          <div className="relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-xl border border-border-2 shadow-lg">
+            <Image
+              src="/img/ilegitimas-alianza.jpg"
+              alt="Emblema de Ilegítimas — Abogadas"
+              fill
+              sizes="64px"
+              className="object-cover"
+            />
           </div>
           <div>
             <p className="text-sm font-semibold">En alianza con <span className="text-accent-hi">Ilegítimas — Abogadas</span></p>
