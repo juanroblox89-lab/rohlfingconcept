@@ -154,8 +154,13 @@ export const FluidParticlesBackground = ({
 
     resizeCanvas();
 
+    // Escala el número de partículas al área real del viewport
+    // (en móviles corre ~25% del conteo nominal: menos CPU y batería)
+    const areaFactor = Math.min(1, Math.max(0.25, (canvas.width * canvas.height) / (1440 * 900)));
+    const effectiveCount = Math.max(150, Math.round(particleCount * areaFactor));
+
     const particles: Particle[] = Array.from(
-      { length: particleCount },
+      { length: effectiveCount },
       () => ({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
