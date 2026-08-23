@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "motion/react";
 import { WhatsappLogo, ArrowDown, Users } from "@phosphor-icons/react";
 
@@ -50,11 +51,23 @@ export default function RegistroClient() {
     <main className="min-h-screen">
       {/* Header con imagen de fondo */}
       <section className="relative overflow-hidden border-b border-border/40">
-        {/* Slot imagen de fondo — pon una foto de documento/legal/oficina en /img/registro-bg.jpg */}
+        {/* Fondo legal/documental + nebulosa */}
         <div className="absolute inset-0 -z-10">
-          <div className="absolute inset-0 bg-background/85" />
-          {/* Si tienes imagen: */}
-          {/* <Image src="/img/registro-bg.jpg" alt="" fill className="object-cover" /> */}
+          <Image
+            src="/img/registro-bg.jpg"
+            alt=""
+            fill
+            sizes="100vw"
+            className="object-cover object-center opacity-25"
+          />
+          <Image
+            src="/img/nebula.png"
+            alt=""
+            fill
+            sizes="100vw"
+            className="object-cover object-center opacity-30 [mix-blend-mode:screen]"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-background via-background/70 to-background" />
           <div className="absolute inset-0"
             style={{ background: "radial-gradient(ellipse 60% 50% at 70% 50%, rgba(37,99,235,0.1) 0%, transparent 80%)" }} />
         </div>
@@ -124,15 +137,19 @@ export default function RegistroClient() {
       <section className="border-t border-border/40 py-20" style={{ background: "var(--background-alt)" }}>
         <div className="mx-auto max-w-5xl px-6">
           <div className="grid gap-12 md:grid-cols-[1fr_1.2fr] md:items-center">
-            {/* Imagen — pon una foto profesional en /img/registro-team.jpg */}
-            <motion.div {...fadeUp()} className="relative overflow-hidden rounded-2xl border border-border-2 bg-surface aspect-[3/4] order-2 md:order-1">
-              {/* Placeholder hasta que pongas imagen */}
-              <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 text-muted-2">
-                <div className="h-12 w-12 rounded-full border-2 border-dashed border-border-2" />
-                <p className="text-xs text-center px-8">Pon una imagen aquí:<br /><code className="text-[10px]">/img/registro-team.jpg</code></p>
-              </div>
-              {/* <Image src="/img/registro-team.jpg" alt="Equipo Rohlfing Concept" fill className="object-cover" /> */}
-              <div className="absolute inset-0 bg-gradient-to-t from-surface/70 to-transparent" />
+            {/* Imagen real del proceso */}
+            <motion.div {...fadeUp()} className="relative overflow-hidden rounded-2xl border border-border-2 aspect-[3/4] order-2 md:order-1 shadow-2xl">
+              <Image
+                src="/img/registro-team.jpg"
+                alt="Asesoría para el registro de marca ante la SIC"
+                fill
+                sizes="(max-width: 768px) 100vw, 40vw"
+                className="object-cover transition-transform duration-700 hover:scale-[1.03]"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-background/85 via-background/10 to-transparent" />
+              <p className="absolute bottom-5 left-5 right-5 text-[11px] font-semibold uppercase tracking-widest text-muted-2">
+                Asesoría acompañada, sin complicaciones
+              </p>
             </motion.div>
 
             <div className="order-1 md:order-2">

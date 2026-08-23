@@ -64,13 +64,13 @@ const filtros: { key: CatKey | "Todos"; label: string }[] = [
 ];
 
 const clients = [
-  { name: "Villa Grande",           logo: "/img/clients/client-villa-grande.png", tag: "Branding · Web",    desc: "Identidad visual y presencia digital para un proyecto inmobiliario de alta gama." },
-  { name: "Plomería Norte",         logo: "/img/client-plomeria-norte.png", tag: "Diseño · Redes",  desc: "Diseño de marca y gestión de redes sociales para empresa de plomería local." },
-  { name: "El Tizón Dorado",        logo: "/img/clients/client-tizon-dorado.png", tag: "Branding · Contenido", desc: "Identidad visual y producción de contenido para restaurante parrilla." },
-  { name: "Ricos Pandeyucas",       logo: "/img/clients/client-pandeyucas.png", tag: "Diseño · Redes",   desc: "Branding y estrategia digital para marca de productos artesanales." },
-  { name: "Asanarte Droguería",     logo: "/img/clients/client-asanarte.png", tag: "Identidad Visual",  desc: "Manual de marca y piezas gráficas para droguería y punto de salud." },
-  { name: "El Jerez del Caballero", logo: "/img/clients/client-jerez.png", tag: "Audiovisual · Redes",  desc: "Producción audiovisual y gestión de redes para marca de licores." },
-  { name: "Kantel",                 logo: "/img/clients/client-kantel.png", tag: "Cliente Rohlfing Concept", desc: "Trabajo creativo y acompañamiento digital para la marca Kantel." },
+  { name: "Villa Grande",           logo: "/img/clients/client-villa-grande.png", cover: null, tag: "Branding · Web",    desc: "Identidad visual y presencia digital para un proyecto inmobiliario de alta gama." },
+  { name: "Plomería Norte",         logo: "/img/client-plomeria-norte.png", cover: null, tag: "Diseño · Redes",  desc: "Diseño de marca y gestión de redes sociales para empresa de plomería local." },
+  { name: "El Tizón Dorado",        logo: "/img/clients/client-tizon-dorado.png", cover: "/img/covers/cover-tizon.jpg", tag: "Branding · Contenido", desc: "Identidad visual y producción de contenido para restaurante parrilla." },
+  { name: "Ricos Pandeyucas",       logo: "/img/clients/client-pandeyucas.png", cover: "/img/covers/cover-pandeyucas.jpg", tag: "Diseño · Redes",   desc: "Branding y estrategia digital para marca de productos artesanales." },
+  { name: "Asanarte Droguería",     logo: "/img/clients/client-asanarte.png", cover: "/img/covers/cover-asanarte.jpg", tag: "Identidad Visual",  desc: "Manual de marca y piezas gráficas para droguería y punto de salud." },
+  { name: "El Jerez del Caballero", logo: "/img/clients/client-jerez.png", cover: "/img/covers/cover-jerez.jpg", tag: "Audiovisual · Redes",  desc: "Producción audiovisual y gestión de redes para marca de licores." },
+  { name: "Kantel",                 logo: "/img/clients/client-kantel.png", cover: null, tag: "Cliente Rohlfing Concept", desc: "Trabajo creativo y acompañamiento digital para la marca Kantel." },
 ];
 
 export default function ProyectosClient() {
@@ -81,7 +81,10 @@ export default function ProyectosClient() {
     <main className="min-h-screen">
       {/* ── Header ── */}
       <section className="relative overflow-hidden border-b border-border/40 py-28">
-        <div className="pointer-events-none absolute inset-0">
+        <div className="pointer-events-none absolute inset-0 -z-10">
+          <Image src="/img/nebula.png" alt="" fill sizes="100vw"
+            className="object-cover object-center opacity-45" />
+          <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/30 to-background" />
           <div className="absolute left-1/2 top-0 h-[360px] w-[600px] -translate-x-1/2 opacity-[0.08] rounded-full"
             style={{ background: "radial-gradient(ellipse, #2563eb 0%, transparent 70%)", filter: "blur(90px)" }} />
         </div>
@@ -96,7 +99,7 @@ export default function ProyectosClient() {
           </motion.p>
           <motion.div {...fadeUp(0.14)} className="mt-10 flex flex-wrap gap-8">
             {[
-              { v: "6+", l: "Marcas trabajadas" },
+              { v: "7+", l: "Marcas trabajadas" },
               { v: "100%", l: "Proyectos entregados" },
               { v: "3", l: "Disciplinas integradas" },
             ].map((s) => (
@@ -178,7 +181,15 @@ export default function ProyectosClient() {
           <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {clients.map((c, i) => (
               <motion.div key={c.name} {...fadeUp(i * 0.06)}
-                className="card group relative overflow-hidden p-8">
+                className="card group relative overflow-hidden p-0">
+                {c.cover && (
+                  <div className="relative h-40 w-full overflow-hidden">
+                    <Image src={c.cover} alt="" fill sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      className="object-cover transition-transform duration-700 group-hover:scale-[1.05]" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-surface via-surface/20 to-transparent" />
+                  </div>
+                )}
+                <div className="relative p-8">
                 <span className="pointer-events-none absolute right-5 top-3 text-[72px] font-black leading-none select-none"
                   style={{ color: "transparent", WebkitTextStroke: "1px rgba(79,141,255,0.06)" }}>
                   {String(i + 1).padStart(2, "0")}
@@ -199,6 +210,7 @@ export default function ProyectosClient() {
                 </div>
                 <p className="text-sm leading-relaxed text-muted">{c.desc}</p>
                 <div className="absolute bottom-0 left-0 h-[2px] w-0 rounded-full bg-accent transition-all duration-500 group-hover:w-full" />
+                </div>
               </motion.div>
             ))}
           </div>

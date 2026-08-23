@@ -10,13 +10,13 @@ import {
 } from "@phosphor-icons/react";
 
 const clients = [
-  { name: "Villa Grande",           logo: "/img/clients/client-villa-grande.png" },
-  { name: "Plomería Norte",         logo: "/img/client-plomeria-norte.png" },
-  { name: "El Tizón Dorado",        logo: "/img/clients/client-tizon-dorado.png" },
-  { name: "Ricos Pandeyucas",       logo: "/img/clients/client-pandeyucas.png" },
-  { name: "Asanarte Droguería",     logo: "/img/clients/client-asanarte.png" },
-  { name: "El Jerez del Caballero", logo: "/img/clients/client-jerez.png" },
-  { name: "Kantel",                 logo: "/img/clients/client-kantel.png" },
+  { name: "Villa Grande",           logo: "/img/clients/client-villa-grande.png", cover: null },
+  { name: "Plomería Norte",         logo: "/img/client-plomeria-norte.png", cover: null },
+  { name: "El Tizón Dorado",        logo: "/img/clients/client-tizon-dorado.png", cover: "/img/covers/cover-tizon.jpg" },
+  { name: "Ricos Pandeyucas",       logo: "/img/clients/client-pandeyucas.png", cover: "/img/covers/cover-pandeyucas.jpg" },
+  { name: "Asanarte Droguería",     logo: "/img/clients/client-asanarte.png", cover: "/img/covers/cover-asanarte.jpg" },
+  { name: "El Jerez del Caballero", logo: "/img/clients/client-jerez.png", cover: "/img/covers/cover-jerez.jpg" },
+  { name: "Kantel",                 logo: "/img/clients/client-kantel.png", cover: null },
 ];
 
 const pilares = [
@@ -126,6 +126,15 @@ export default function Home() {
             priority
             sizes="100vw"
           />
+          {/* Nebulosa azul generada — profundidad sobre la foto */}
+          <Image
+            src="/img/nebula.png"
+            alt=""
+            fill
+            className="object-cover opacity-55 [mix-blend-mode:screen]"
+            priority
+            sizes="100vw"
+          />
           {/* Overlay de gradiente oscuro premium */}
           <div className="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-background/50" />
           <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-background/40" />
@@ -218,7 +227,7 @@ export default function Home() {
             {/* Stat Floating Cards */}
             <div className="absolute -right-4 -top-4 rounded-2xl border border-border-2 bg-background/95 px-5 py-4 backdrop-blur-md shadow-2xl">
               <p className="text-[10px] text-muted-2 uppercase tracking-wider">Marcas</p>
-              <p className="mt-0.5 text-2xl font-bold text-gradient-accent">6+</p>
+              <p className="mt-0.5 text-2xl font-bold text-gradient-accent">7+</p>
             </div>
             <div className="absolute -bottom-4 -left-4 rounded-2xl border border-border-2 bg-background/95 px-5 py-4 backdrop-blur-md shadow-2xl">
               <p className="text-[10px] text-muted-2 uppercase tracking-wider">Satisfacción</p>
@@ -346,18 +355,39 @@ export default function Home() {
               <motion.div
                 key={c.name}
                 {...fadeUp(i * 0.06)}
-                className="card group relative flex aspect-[4/3] flex-col items-center justify-center gap-5 overflow-hidden p-8 text-center"
+                className={`group relative aspect-[4/3] overflow-hidden rounded-2xl border transition-all duration-500 hover:-translate-y-0.5 ${
+                  c.cover
+                    ? "border-border-2 hover:border-accent/40 hover:shadow-[0_12px_36px_rgba(37,99,235,0.18)]"
+                    : "card flex flex-col items-center justify-center gap-5 p-8 text-center"
+                }`}
               >
-                <div className="absolute right-4 top-4 h-1.5 w-1.5 rounded-full bg-accent/30 transition-colors group-hover:bg-accent-hi" />
-                <Image
-                  src={c.logo}
-                  alt={c.name}
-                  width={260}
-                  height={130}
-                  className="h-24 w-auto object-contain opacity-90 transition-all duration-500 group-hover:scale-[1.06] group-hover:opacity-100"
-                />
-                <span className="text-sm font-medium text-muted transition-colors group-hover:text-foreground">{c.name}</span>
-                <div className="absolute bottom-0 left-0 h-[2px] w-0 rounded-full bg-accent transition-all duration-500 group-hover:w-full" />
+                {c.cover ? (
+                  <>
+                    <Image
+                      src={c.cover}
+                      alt=""
+                      fill
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      className="object-cover opacity-85 transition-all duration-700 group-hover:scale-[1.06] group-hover:opacity-100"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent" />
+                  </>
+                ) : (
+                  <div className="absolute right-4 top-4 h-1.5 w-1.5 rounded-full bg-accent/30 transition-colors group-hover:bg-accent-hi" />
+                )}
+                <div className={`relative z-10 flex flex-col items-center gap-3 ${c.cover ? "mt-auto p-6" : ""}`}>
+                  <Image
+                    src={c.logo}
+                    alt={c.name}
+                    width={220}
+                    height={110}
+                    className={`${c.cover ? "h-12 drop-shadow-[0_2px_14px_rgba(0,0,0,0.9)]" : "h-24"} w-auto object-contain transition-transform duration-500 group-hover:scale-[1.06]`}
+                  />
+                  <span className={`text-sm font-medium ${c.cover ? "text-white" : "text-muted"} transition-colors group-hover:text-foreground`}>
+                    {c.name}
+                  </span>
+                </div>
+                <div className="absolute bottom-0 left-0 z-10 h-[2px] w-0 rounded-full bg-accent transition-all duration-500 group-hover:w-full" />
               </motion.div>
             ))}
           </div>

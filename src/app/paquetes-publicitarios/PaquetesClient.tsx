@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "motion/react";
 import { Check, X, WhatsappLogo, Question } from "@phosphor-icons/react";
 
@@ -71,7 +72,22 @@ export default function PaquetesClient() {
     <main className="min-h-screen">
       {/* Header */}
       <section className="relative overflow-hidden border-b border-border/40 py-28">
-        <div className="pointer-events-none absolute inset-0">
+        <div className="pointer-events-none absolute inset-0 -z-10">
+          <Image
+            src="/img/paquetes-hero.jpg"
+            alt=""
+            fill
+            sizes="100vw"
+            className="object-cover object-center opacity-30"
+          />
+          <Image
+            src="/img/nebula.png"
+            alt=""
+            fill
+            sizes="100vw"
+            className="object-cover object-center opacity-35 [mix-blend-mode:screen]"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-background via-background/60 to-background" />
           <div className="absolute left-1/2 top-0 h-[360px] w-[600px] -translate-x-1/2 opacity-[0.08] rounded-full"
             style={{ background: "radial-gradient(ellipse, #2563eb 0%, transparent 70%)", filter: "blur(90px)" }} />
         </div>
