@@ -33,19 +33,6 @@ const team = [
     ],
   },
   {
-    name: "Dayana García Chica",
-    role: "Asuntos internos y producción de Rohlfing Concept",
-    photo: null,
-    bio: "Organización y coordinación interna de los proyectos.",
-    skills: [
-      "Coordinadora de logística",
-      "Programadora de proyectos",
-      "Concejera y gestora de proyectos internos/externos",
-      "Productora audiovisual",
-      "Camarógrafa",
-    ],
-  },
-  {
     name: "Juan Esteban Álvarez Giraldo",
     role: "Desarrollador y editor de Rohlfing Concept",
     photo: "/img/team/juan.png",
@@ -76,16 +63,6 @@ const team = [
     bio: "Encargado de la captura visual en producciones de campo y estudio.",
     skills: [
       "Camarógrafo principal",
-      "Captura visual en producciones de campo y estudio",
-    ],
-  },
-  {
-    name: "Salomé Agudelo",
-    role: "Camarógrafa principal de Rohlfing Concept",
-    photo: null,
-    bio: "Captura visual en producciones de campo y estudio.",
-    skills: [
-      "Camarógrafa principal",
       "Captura visual en producciones de campo y estudio",
     ],
   },
