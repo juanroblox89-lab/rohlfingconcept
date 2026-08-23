@@ -199,30 +199,37 @@ export default function Home() {
             </motion.div>
           </div>
 
-          {/* Columna Derecha — Mockup con imagen real */}
+          {/* Columna Derecha — Equipo integrado al ambiente, sin marco */}
           <motion.div
             initial={{ opacity: 0, scale: 0.96 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.85, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.85, delay: 0.15, ease: EASE_OUT_EXPO }}
             className="relative hidden md:block"
           >
-            <div className="relative overflow-hidden rounded-2xl border border-white/10 aspect-[4/3] shadow-[0_20px_60px_rgba(0,0,0,0.6)]">
+            {/* Resplandor ambiental detrás del equipo */}
+            <div className="absolute inset-0 -z-10 flex items-center justify-center">
+              <div
+                className="h-[65%] w-[65%] rounded-full opacity-30 blur-[90px]"
+                style={{ background: "radial-gradient(circle, #2563eb 0%, transparent 70%)" }}
+              />
+            </div>
+
+            <div className="relative aspect-square">
               <Image
                 src="/img/hero-laptop.png"
                 alt="Proyecto Rohlfing Concept"
                 fill
-                className="object-cover object-center"
                 priority
                 sizes="(max-width: 1200px) 50vw, 600px"
+                className="object-contain object-center [mask-image:radial-gradient(ellipse_62%_62%_at_50%_48%,black_50%,transparent_78%)]"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
-              <div className="absolute bottom-6 left-6 right-6 flex items-end justify-between">
-                <div>
-                  <p className="text-[10px] uppercase tracking-widest text-muted-2">Portafolio</p>
-                  <p className="mt-1 text-base font-semibold">Diseño con identidad propia</p>
-                </div>
-              </div>
             </div>
+
+            {/* Caption sutil */}
+            <div className="pointer-events-none absolute bottom-2 left-0 right-0 text-center">
+              <p className="text-[10px] uppercase tracking-widest text-muted-2">Portafolio · Diseño con identidad propia</p>
+            </div>
+          </motion.div>
 
             {/* Stat Floating Cards */}
             <div className="absolute -right-4 -top-4 rounded-2xl border border-border-2 bg-background/95 px-5 py-4 backdrop-blur-md shadow-2xl">
