@@ -184,6 +184,50 @@ export default function EquipoClient() {
           ))}
         </div>
 
+        {/* Misión / Visión / Valores — texto real del Portafolio Corporativo */}
+        <div className="mt-24">
+          <motion.h2 {...fadeUp()} className="text-2xl font-bold tracking-tight sm:text-3xl">
+            Nuestra <span className="text-gradient-accent">filosofía</span>
+          </motion.h2>
+          <div className="mt-8 grid gap-5 lg:grid-cols-2">
+            <motion.div {...fadeUp(0.05)} className="rounded-2xl border border-border-2 bg-surface p-8">
+              <h3 className="text-sm font-semibold uppercase tracking-[0.16em] text-accent-hi">Misión</h3>
+              <p className="mt-4 text-sm leading-relaxed text-muted">
+                En Rohlfing Concept trabajamos para transformar ideas en soluciones visuales y digitales
+                innovadoras, ofreciendo servicios profesionales de diseño, producción audiovisual, desarrollo
+                web y administración digital. Nuestro compromiso es brindar una atención personalizada,
+                comprender las necesidades específicas de cada cliente y desarrollar estrategias creativas que
+                fortalezcan su identidad, impulsen su crecimiento y generen resultados reales.
+              </p>
+            </motion.div>
+            <motion.div {...fadeUp(0.1)} className="rounded-2xl border border-border-2 bg-surface p-8">
+              <h3 className="text-sm font-semibold uppercase tracking-[0.16em] text-accent-hi">Visión</h3>
+              <p className="mt-4 text-sm leading-relaxed text-muted">
+                Ser una empresa reconocida a nivel regional y nacional por la calidad de nuestras soluciones
+                creativas y digitales, destacándonos por nuestra innovación, compromiso y capacidad de
+                adaptación. Buscamos consolidarnos como un aliado estratégico para empresas, emprendimientos
+                y marcas que deseen fortalecer su presencia y alcanzar nuevos niveles de crecimiento.
+              </p>
+            </motion.div>
+          </div>
+
+          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {[
+              { t: "Compromiso", d: "Asumimos cada proyecto con responsabilidad, dedicación y profesionalismo, buscando siempre superar las expectativas de nuestros clientes." },
+              { t: "Creatividad", d: "Creemos en el poder de las ideas y en la capacidad de transformar conceptos en experiencias visuales memorables." },
+              { t: "Innovación", d: "Nos mantenemos en constante aprendizaje y evolución para ofrecer soluciones modernas y efectivas." },
+              { t: "Calidad", d: "Cuidamos cada detalle de nuestros proyectos para garantizar resultados profesionales y de alto nivel." },
+              { t: "Confianza", d: "Construimos relaciones duraderas basadas en la transparencia, la honestidad y el respeto." },
+              { t: "Trabajo en equipo", d: "La colaboración y la comunicación son fundamentales para alcanzar grandes resultados." },
+            ].map((v, i) => (
+              <motion.div key={v.t} {...fadeUp(i * 0.05)} className="rounded-2xl border border-border-2 bg-surface p-6 transition-colors hover:border-accent/40">
+                <h4 className="text-sm font-bold">{v.t}</h4>
+                <p className="mt-2.5 text-[13px] leading-relaxed text-muted">{v.d}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+
         {/* CTA */}
         <motion.div {...fadeUp(0.15)} className="mt-16 rounded-2xl border border-border-2 bg-surface p-10 text-center">
           <h3 className="text-xl font-bold">¿Quieres trabajar con nosotros?</h3>
