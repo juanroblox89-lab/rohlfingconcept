@@ -8,6 +8,7 @@ import {
   WhatsappLogo,
   Checks,
   Plus,
+  SealCheck,
 } from "@phosphor-icons/react";
 
 const clients = [
@@ -452,6 +453,36 @@ export default function Home() {
               </motion.article>
             ))}
           </div>
+
+          {/* Banner — Registro de marca ante la SIC (servicio destacado) */}
+          <motion.div
+            {...fadeUp(0.1)}
+            className="relative mt-6 overflow-hidden rounded-2xl border border-accent/30 bg-gradient-to-r from-accent/15 via-surface to-surface p-8 md:p-10"
+          >
+            <div className="flex flex-col items-start gap-7 md:flex-row md:items-center md:justify-between">
+              <div className="flex items-start gap-5">
+                <div className="hidden h-14 w-14 flex-shrink-0 items-center justify-center rounded-2xl border border-accent/40 bg-background/70 sm:flex">
+                  <SealCheck size={28} weight="duotone" className="text-accent-hi" />
+                </div>
+                <div>
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-accent-hi">Servicio destacado</p>
+                  <h3 className="mt-1.5 text-xl font-bold tracking-tight md:text-2xl">Registro de marca ante la SIC</h3>
+                  <p className="mt-2 max-w-xl text-sm leading-relaxed text-muted">
+                    Protege el nombre de tu negocio de la mano de Ilegítimas - Abogadas.
+                    Servicio completo por 1 SMMLV y pagas con flexibilidad: sin prisa,
+                    no hay que pagar todo de una.
+                  </p>
+                </div>
+              </div>
+              <Link
+                href="/registro-de-marca"
+                className="group inline-flex flex-shrink-0 items-center gap-2 rounded-full bg-accent px-7 py-3.5 text-sm font-semibold text-white transition-all hover:bg-accent-hi hover:shadow-[0_0_28px_rgba(37,99,235,0.45)] hover:-translate-y-0.5"
+              >
+                Conocer más
+                <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
+              </Link>
+            </div>
+          </motion.div>
         </div>
       </section>
 
