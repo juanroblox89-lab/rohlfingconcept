@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import { FluidParticlesBackground } from "@/components/ui/fluid-particles-background";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://rohlfingconcept.com"),
   title: "Rohlfing Concept | Agencia Creativa",
   description:
     "Diseño gráfico, contenido audiovisual, branding y desarrollo web para empresas que quieren verse tan profesionales como son.",
@@ -15,6 +16,7 @@ export const metadata: Metadata = {
     description: "Diseño gráfico, contenido audiovisual, branding y desarrollo web.",
     locale: "es_CO",
     type: "website",
+    images: [{ url: "/img/hero-bg.png", width: 1672, height: 941, alt: "Rohlfing Concept" }],
   },
 };
 

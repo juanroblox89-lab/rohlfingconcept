@@ -7,11 +7,12 @@ import { motion, AnimatePresence } from "motion/react";
 import { List, X, WhatsappLogo } from "@phosphor-icons/react";
 
 const links = [
-  { href: "/#servicios", label: "Servicios" },
-  { href: "/equipo",     label: "Equipo" },
-  { href: "/#proyectos", label: "Proyectos" },
-  { href: "/#nosotros",  label: "Nosotros" },
-  { href: "/#contacto",  label: "Contacto" },
+  { href: "/#servicios",             label: "Servicios" },
+  { href: "/proyectos",              label: "Proyectos" },
+  { href: "/equipo",                 label: "Equipo" },
+  { href: "/paquetes-publicitarios", label: "Paquetes" },
+  { href: "/registro-de-marca",      label: "Registro" },
+  { href: "/#contacto",              label: "Contacto" },
 ];
 
 export default function Navbar() {
@@ -56,15 +57,28 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop links */}
-        <div className="hidden items-center gap-1 md:flex">
+        <div className="hidden items-center gap-0.5 lg:flex">
           {links.map((l) => (
-            <a
+            <Link
               key={l.href}
               href={l.href}
-              className="rounded-lg px-4 py-2 text-sm text-muted transition-colors hover:bg-surface hover:text-foreground"
+              className="rounded-lg px-3 py-2 text-sm text-muted transition-colors hover:bg-surface hover:text-accent-hi"
             >
               {l.label}
-            </a>
+            </Link>
+          ))}
+        </div>
+
+        {/* Tablet links (solo 4 principales) */}
+        <div className="hidden items-center gap-0.5 md:flex lg:hidden">
+          {links.slice(0, 4).map((l) => (
+            <Link
+              key={l.href}
+              href={l.href}
+              className="rounded-lg px-3 py-2 text-sm text-muted transition-colors hover:bg-surface hover:text-accent-hi"
+            >
+              {l.label}
+            </Link>
           ))}
         </div>
 
@@ -102,14 +116,14 @@ export default function Navbar() {
           >
             <div className="flex flex-col gap-1 px-4 py-4">
               {links.map((l) => (
-                <a
+                <Link
                   key={l.href}
                   href={l.href}
                   onClick={() => setOpen(false)}
                   className="rounded-xl px-4 py-3 text-sm text-muted transition-colors hover:bg-surface hover:text-foreground"
                 >
                   {l.label}
-                </a>
+                </Link>
               ))}
               <a
                 href="https://wa.me/573242123300"

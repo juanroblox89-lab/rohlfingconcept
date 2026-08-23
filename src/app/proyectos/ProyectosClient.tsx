@@ -69,7 +69,7 @@ const clients = [
   { name: "El Tizón Dorado",        logo: "/img/clients/client-tizon-dorado.png", cover: "/img/covers/cover-tizon.jpg", tag: "Branding · Contenido", desc: "Identidad visual y producción de contenido para restaurante parrilla." },
   { name: "Ricos Pandeyucas",       logo: "/img/clients/client-pandeyucas.png", cover: "/img/covers/cover-pandeyucas.jpg", tag: "Diseño · Redes",   desc: "Branding y estrategia digital para marca de productos artesanales." },
   { name: "Asanarte Droguería",     logo: "/img/clients/client-asanarte.png", cover: "/img/covers/cover-asanarte.jpg", tag: "Identidad Visual",  desc: "Manual de marca y piezas gráficas para droguería y punto de salud." },
-  { name: "El Jerez del Caballero", logo: "/img/clients/client-jerez.png", cover: "/img/covers/cover-jerez.jpg", tag: "Audiovisual · Redes",  desc: "Producción audiovisual y gestión de redes para marca de licores." },
+  { name: "El Jerez del Caballero", logo: "/img/clients/client-jerez.png", cover: "/img/covers/cover-jerez.jpg", tag: "Audiovisual · Redes",  desc: "Producción audiovisual y gestión de redes para uno de los primeros restaurantes de San Pedro de los Milagros." },
   { name: "Kantel",                 logo: "/img/clients/client-kantel.png", cover: null, tag: "Branding · Contenido", desc: "Identidad y contenido digital para restaurante de cocina tradicional colombiana." },
 ];
 

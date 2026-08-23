@@ -214,19 +214,21 @@ export default function Home() {
               />
             </div>
 
-            <div className="relative aspect-square">
+            <div className="relative aspect-[4/3]">
               <Image
                 src="/img/hero-laptop.png"
                 alt="Proyecto Rohlfing Concept"
                 fill
                 priority
                 sizes="(max-width: 1200px) 50vw, 600px"
-                className="object-contain object-center"
+                className="object-cover object-center"
+              />
+              {/* Fundido radial hacia el fondo — integra el equipo sin recuadro */}
+              <div
+                className="absolute inset-0"
                 style={{
-                  WebkitMaskImage:
-                    "radial-gradient(ellipse 58% 58% at 50% 47%, black 52%, rgba(0,0,0,0.4) 72%, transparent 90%)",
-                  maskImage:
-                    "radial-gradient(ellipse 58% 58% at 50% 47%, black 52%, rgba(0,0,0,0.4) 72%, transparent 90%)",
+                  background:
+                    "radial-gradient(ellipse 70% 70% at 50% 45%, transparent 48%, var(--background) 88%)",
                 }}
               />
             </div>
@@ -550,7 +552,8 @@ export default function Home() {
             tu marca?
           </motion.h2>
           <motion.p {...fadeUp(0.08)} className="mt-5 text-base text-muted">
-            Trabajemos juntos para construir una presencia digital que realmente destaque.
+            Transformamos marcas en experiencias visuales que venden. Trabajemos
+            juntos para construir una presencia digital que realmente destaque.
           </motion.p>
           <motion.div {...fadeUp(0.15)} className="mt-10 flex flex-wrap items-center justify-center gap-4">
             <a
