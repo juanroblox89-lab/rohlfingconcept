@@ -8,13 +8,22 @@ import {
 } from "@phosphor-icons/react/dist/ssr";
 
 const navLinks = [
-  { label: "Servicios",              href: "/#servicios" },
-  { label: "Equipo",                 href: "/equipo" },
-  { label: "Proyectos",              href: "/proyectos" },
-  { label: "Nosotros",               href: "/#nosotros" },
-  { label: "Registro de marca",      href: "/registro-de-marca" },
+  { label: "Servicios y precios",    href: "/servicios" },
   { label: "Paquetes publicitarios", href: "/paquetes-publicitarios" },
+  { label: "Proyectos",              href: "/proyectos" },
+  { label: "Equipo",                 href: "/equipo" },
+  { label: "Registro de marca",      href: "/registro-de-marca" },
   { label: "Ediciones en video",     href: "/videos" },
+];
+
+// Enlaces directos a los servicios con precios
+const servicioLinks = [
+  { label: "Logos",                   href: "/servicios/logos" },
+  { label: "Branding",                href: "/servicios/branding" },
+  { label: "Edición de video",        href: "/servicios/edicion-de-video" },
+  { label: "Animación de logo",       href: "/servicios/animacion-de-logo" },
+  { label: "Sitios web",              href: "/servicios/sitios-web" },
+  { label: "Administración digital",  href: "/servicios/administracion-digital" },
 ];
 
 const socials = [
@@ -29,7 +38,7 @@ export default function Footer() {
       <div className="line-fade" />
 
       <div className="mx-auto max-w-7xl px-6 py-16">
-        <div className="grid gap-12 md:grid-cols-[2fr_1fr_1.2fr]">
+        <div className="grid gap-12 md:grid-cols-[2fr_1fr_1.2fr] lg:grid-cols-[1.6fr_1fr_1fr_1.2fr]">
 
           {/* Brand */}
           <div>
@@ -77,6 +86,25 @@ export default function Footer() {
                   </Link>
                 </li>
               ))}
+            </ul>
+          </div>
+
+          {/* Servicios */}
+          <div>
+            <h4 className="text-[11px] font-semibold uppercase tracking-[0.14em] text-foreground mb-5">Servicios</h4>
+            <ul className="space-y-3">
+              {servicioLinks.map((l) => (
+                <li key={l.href}>
+                  <Link href={l.href} className="text-sm text-muted transition-colors hover:text-accent-hi">
+                    {l.label}
+                  </Link>
+                </li>
+              ))}
+              <li>
+                <Link href="/servicios" className="text-sm font-medium text-accent-hi transition-colors hover:text-foreground">
+                  Ver todos los precios →
+                </Link>
+              </li>
             </ul>
           </div>
 

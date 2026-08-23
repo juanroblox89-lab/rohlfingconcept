@@ -8,7 +8,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { List, X, WhatsappLogo } from "@phosphor-icons/react";
 
 const links = [
-  { href: "/#servicios",             label: "Servicios" },
+  { href: "/servicios",              label: "Servicios" },
   { href: "/proyectos",              label: "Proyectos" },
   { href: "/equipo",                 label: "Equipo" },
   { href: "/paquetes-publicitarios", label: "Paquetes" },

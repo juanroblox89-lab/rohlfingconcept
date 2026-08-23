@@ -33,6 +33,19 @@ const team = [
     ],
   },
   {
+    name: "Dayana García Chica",
+    role: "Asuntos internos y producción de Rohlfing Concept",
+    photo: null,
+    bio: "Organización y coordinación interna de los proyectos.",
+    skills: [
+      "Coordinadora de logística",
+      "Programadora de proyectos",
+      "Concejera y gestora de proyectos internos/externos",
+      "Productora audiovisual",
+      "Camarógrafa",
+    ],
+  },
+  {
     name: "Juan Esteban Álvarez Giraldo",
     role: "Desarrollador y editor de Rohlfing Concept",
     photo: "/img/team/juan.png",
@@ -51,8 +64,6 @@ const team = [
     photo: "/img/team/breiner.png",
     bio: "Desarrollo de proyectos audiovisuales de principio a fin.",
     skills: [
-      "Productor audiovisual principal",
-      "Camarógrafo",
       "Editor de videos",
       "Gestor de publicidad y marketing interno",
       "Desarrollador de proyectos audiovisuales",
@@ -65,6 +76,16 @@ const team = [
     bio: "Encargado de la captura visual en producciones de campo y estudio.",
     skills: [
       "Camarógrafo principal",
+      "Captura visual en producciones de campo y estudio",
+    ],
+  },
+  {
+    name: "Salomé Agudelo",
+    role: "Camarógrafa principal de Rohlfing Concept",
+    photo: null,
+    bio: "Captura visual en producciones de campo y estudio.",
+    skills: [
+      "Camarógrafa principal",
       "Captura visual en producciones de campo y estudio",
     ],
   },
@@ -120,15 +141,23 @@ export default function EquipoClient() {
               {...fadeUp(i * 0.07)}
               className="group relative overflow-hidden rounded-2xl border border-border-2 bg-surface transition-all hover:border-accent/40 hover:shadow-[0_16px_48px_rgba(37,99,235,0.12)]"
             >
-              {/* Foto */}
+              {/* Foto (o iniciales cuando no hay foto disponible) */}
               <div className="relative aspect-[4/5] overflow-hidden">
-                <Image
-                  src={m.photo}
-                  alt={m.name}
-                  fill
-                  className="object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.04]"
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                />
+                {m.photo ? (
+                  <Image
+                    src={m.photo}
+                    alt={m.name}
+                    fill
+                    className="object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  />
+                ) : (
+                  <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-accent/[0.14] via-surface to-background">
+                    <span className="select-none text-6xl font-bold tracking-tight text-gradient-accent opacity-80">
+                      {m.name.split(" ").filter((p) => p.length > 2).slice(0, 2).map((p) => p[0]).join("")}
+                    </span>
+                  </div>
+                )}
                 <div className="absolute inset-0 bg-gradient-to-t from-surface via-surface/30 to-transparent" />
                 {/* Nombre + rol sobre la foto */}
                 <div className="absolute bottom-0 left-0 right-0 p-6">

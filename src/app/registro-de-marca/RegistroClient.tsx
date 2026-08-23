@@ -144,28 +144,23 @@ export default function RegistroClient() {
               </motion.a>
             </div>
 
-            {/* Equipo legal real (fotos del sitio original) */}
-            <motion.div {...fadeUp(0.1)} className="grid grid-cols-2 gap-4">
-              {[
-                { src: "/img/ilegitimas-abogada-1.jpg", alt: "Abogada de Ilegítimas — Abogadas, aliada legal de Rohlfing Concept" },
-                { src: "/img/ilegitimas-abogada-2.jpg", alt: "Abogada de Ilegítimas — Abogadas, aliada legal de Rohlfing Concept" },
-              ].map((a, i) => (
-                <div key={a.src} className={`group relative overflow-hidden rounded-2xl border border-border-2 shadow-xl ${i === 1 ? "mt-8" : ""}`}>
-                  <div className="relative aspect-[4/5]">
-                    <Image
-                      src={a.src}
-                      alt={a.alt}
-                      fill
-                      sizes="(max-width: 1024px) 45vw, 260px"
-                      className="object-cover object-top transition-transform duration-700 group-hover:scale-[1.04]"
-                    />
-                  </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-background/85 via-transparent to-transparent" />
-                  <p className="absolute bottom-4 left-4 right-4 text-xs font-semibold text-white/90">
-                    Ilegítimas — Abogadas
-                  </p>
+            {/* Las dos abogadas de Ilegítimas (composición real del sitio original) */}
+            <motion.div {...fadeUp(0.1)}>
+              <div className="group relative overflow-hidden rounded-2xl border border-border-2 shadow-xl">
+                <div className="relative aspect-[20/9]">
+                  <Image
+                    src="/img/ilegitimas-duo.jpg"
+                    alt="Las dos abogadas de Ilegítimas — Abogadas, aliadas legales de Rohlfing Concept"
+                    fill
+                    sizes="(max-width: 1024px) 92vw, 520px"
+                    className="object-cover object-center transition-transform duration-700 group-hover:scale-[1.03]"
+                  />
                 </div>
-              ))}
+                <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
+                <p className="absolute bottom-4 left-5 text-xs font-semibold text-white/90">
+                  Ilegítimas — Abogadas
+                </p>
+              </div>
             </motion.div>
           </div>
 

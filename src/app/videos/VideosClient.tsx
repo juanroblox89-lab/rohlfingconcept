@@ -95,10 +95,10 @@ export default function VideosClient({ files }: { files: string[] }) {
             Creamos contenido desde cero según la identidad de tu negocio.
           </p>
           <Link
-            href="/#servicios"
+            href="/servicios/edicion-de-video"
             className="group mt-7 inline-flex items-center gap-2 rounded-full border border-border-2 px-7 py-3.5 text-sm font-medium text-muted transition-all hover:border-accent/40 hover:text-foreground"
           >
-            Ver servicios de contenido audiovisual
+            Ver precios de edición de video
           </Link>
         </motion.div>
       </section>

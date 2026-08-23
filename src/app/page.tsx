@@ -27,21 +27,29 @@ const serviciosDestacados = [
     title: "Diseño e Identidad Visual",
     desc: "Logotipos, branding y manuales de marca que comunican exactamente quién eres.",
     img: "/img/services-branding.png",
+    href: "/servicios/logos",
+    desde: "$50.000",
   },
   {
     title: "Producción Audiovisual",
     desc: "Videos promocionales, reels y contenido corporativo que conecta con tu audiencia.",
     img: "/img/services-audiovisual.png",
+    href: "/servicios/edicion-de-video",
+    desde: "$20.000",
   },
   {
     title: "Desarrollo Web",
     desc: "Sitios modernos, rápidos y optimizados para convertir visitantes en clientes.",
     img: "/img/services-web.png",
+    href: "/servicios/sitios-web",
+    desde: "$200.000",
   },
   {
     title: "Gestión de Redes y Estrategia Digital",
     desc: "Planificación, crecimiento y posicionamiento para que tu marca lidere su nicho.",
     img: "/img/services-redes.png",
+    href: "/servicios/administracion-digital",
+    desde: "$30.000/mes",
   },
 ];
 
@@ -52,10 +60,10 @@ const pilares = [
     intro: "Construimos marcas sólidas, memorables y con una presencia profesional que genera confianza desde el primer vistazo.",
     image: "/img/services-branding.png",
     items: [
-      { n: "Logos", d: "Logos únicos y profesionales que representan la esencia de tu marca." },
-      { n: "Diseños", d: "Piezas visuales modernas y profesionales que impulsan tu marca.", solid: true },
-      { n: "Vectorial", d: "Gráficos vectoriales precisos y profesionales para cualquier formato." },
-      { n: "Branding", d: "Identidades visuales sólidas y profesionales que definen la esencia de tu marca.", solid: true },
+      { n: "Logos", d: "Logos únicos y profesionales que representan la esencia de tu marca.", href: "/servicios/logos" },
+      { n: "Diseños", d: "Piezas visuales modernas y profesionales que impulsan tu marca.", href: "/servicios/disenos" },
+      { n: "Vectorial", d: "Gráficos vectoriales precisos y profesionales para cualquier formato.", href: "/servicios/vectorial" },
+      { n: "Branding", d: "Identidades visuales sólidas y profesionales que definen la esencia de tu marca.", href: "/servicios/branding" },
     ],
     beneficios: ["Se vea profesional", "Mantenga coherencia visual", "Transmita confianza", "Destaque frente a la competencia"],
     cta: "Trabajamos cada marca con enfoque, detalle y una visión clara de resultado",
@@ -66,10 +74,10 @@ const pilares = [
     intro: "Creamos contenido audiovisual pensado para potenciar tu marca, combinando creatividad, edición y estrategia para lograr piezas creativas y profesionales.",
     image: "/img/services-audiovisual.png",
     items: [
-      { n: "Creación audiovisual", d: "Desarrollamos contenido desde cero, grabando según la identidad de tu marca." },
-      { n: "Edición de video", d: "Transformamos tu material en piezas dinámicas, limpias y profesionales." },
-      { n: "Animación de logo", d: "Damos movimiento a tu logo para un resultado más dinámico y profesional." },
-      { n: "Contenido digital", d: "Contenido optimizado para captar atención y destacar en medios digitales." },
+      { n: "Creación audiovisual", d: "Desarrollamos contenido desde cero, grabando según la identidad de tu marca.", href: "/videos" },
+      { n: "Edición de video", d: "Transformamos tu material en piezas dinámicas, limpias y profesionales.", href: "/servicios/edicion-de-video" },
+      { n: "Animación de logo", d: "Damos movimiento a tu logo para un resultado más dinámico y profesional.", href: "/servicios/animacion-de-logo" },
+      { n: "Edición de imágenes", d: "Retoque profesional para lograr imágenes más impactantes y equilibradas.", href: "/servicios/edicion-de-imagenes" },
     ],
     beneficios: ["Genere mayor impacto visual", "Mantenga una presencia más profesional", "Conecte mejor con su audiencia", "Transmita mayor calidad y dinamismo"],
     cta: "Creamos contenido con enfoque, estrategia y una visión clara de resultado",
@@ -80,9 +88,9 @@ const pilares = [
     intro: "Creamos entornos digitales para mejorar la forma en que tu marca se presenta, comunica y conecta, manteniendo una imagen profesional y estructurada.",
     image: "/img/services-web.png",
     items: [
-      { n: "Sitios web", d: "Páginas web funcionales enfocadas en presencia y presentación digital." },
-      { n: "Diapositivas", d: "Presentaciones visuales diseñadas para comunicar ideas de forma profesional." },
-      { n: "Administración digital", d: "Gestión constante para una presencia digital más organizada y profesional." },
+      { n: "Sitios web", d: "Páginas web funcionales enfocadas en presencia y presentación digital.", href: "/servicios/sitios-web" },
+      { n: "Diapositivas", d: "Presentaciones visuales diseñadas para comunicar ideas de forma profesional.", href: "/servicios/diapositivas" },
+      { n: "Administración digital", d: "Gestión constante para una presencia digital más organizada y profesional.", href: "/servicios/administracion-digital" },
     ],
     beneficios: ["Mantenga una presencia digital", "Comunique mejor su información", "Genere mayor confianza y organización", "Se adapte a entornos digitales"],
     cta: "La presencia digital también define cómo se percibe tu marca",
@@ -297,24 +305,39 @@ export default function Home() {
               animate={{ y: [0, -10, 0] }}
               transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
             >
-              {/* Contenedor cuadrado: la imagen es ~1:1, así no se recorta el PC */}
-              <div className="relative aspect-square">
-                <Image
-                  src="/img/hero-laptop.png"
-                  alt="Proyecto Rohlfing Concept"
-                  fill
-                  priority
-                  sizes="(max-width: 1200px) 50vw, 580px"
-                  className="object-contain object-center drop-shadow-[0_50px_90px_rgba(37,99,235,0.28)]"
-                />
-                {/* Fundido radial suave solo en bordes extremos — integra sin tapar */}
-                <div
-                  className="pointer-events-none absolute inset-0"
-                  style={{
-                    background:
-                      "radial-gradient(ellipse 62% 62% at 50% 48%, transparent 60%, var(--background) 96%)",
-                  }}
-                />
+              {/* Abanico de portadas reales de los proyectos de la agencia */}
+              <div className="relative mx-auto aspect-square w-full max-w-[560px]">
+                {clients.map((c, i) => {
+                  const mid = (clients.length - 1) / 2;
+                  const off = i - mid;
+                  const depth = Math.abs(off);
+                  return (
+                    <div
+                      key={c.name}
+                      className="absolute left-1/2 top-1/2 w-[76%] overflow-hidden rounded-xl border border-white/10 bg-surface shadow-[0_24px_70px_rgba(0,0,0,0.55)] transition-all duration-500 hover:-translate-y-2 hover:border-accent/40"
+                      style={{
+                        aspectRatio: "16 / 10",
+                        zIndex: 10 - depth,
+                        transform: `translate(-50%, -50%) translateX(${off * 7.5}%) translateY(${depth * 3.5}%) rotate(${off * 4}deg) scale(${1 - depth * 0.05})`,
+                      }}
+                    >
+                      <Image
+                        src={c.cover}
+                        alt={`Proyecto ${c.name}`}
+                        fill
+                        priority={i === mid}
+                        sizes="(max-width: 1200px) 50vw, 420px"
+                        className="object-cover"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-background/55 via-transparent to-transparent" />
+                      {i === mid && (
+                        <span className="absolute bottom-3 left-3 rounded-full border border-white/15 bg-background/85 px-3.5 py-1 text-[11px] font-medium text-white backdrop-blur-md">
+                          {c.name}
+                        </span>
+                      )}
+                    </div>
+                  );
+                })}
               </div>
             </motion.div>
 
@@ -329,29 +352,31 @@ export default function Home() {
             </div>
           </motion.div>
 
-          {/* Versión móvil del visual — el PC también se ve en celular */}
+          {/* Versión móvil del visual — portada destacada */}
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2, ease: EASE_OUT_EXPO }}
-            className="relative mx-auto w-full max-w-md md:hidden"
+            className="relative mx-auto w-full max-w-sm md:hidden"
           >
-            <div className="relative aspect-square">
+            <div className="relative aspect-video overflow-hidden rounded-xl border border-white/10 bg-surface shadow-[0_24px_70px_rgba(0,0,0,0.5)]">
               <Image
-                src="/img/hero-laptop.png"
-                alt="Proyecto Rohlfing Concept"
+                src={clients[0].cover}
+                alt="Proyecto Villa Grande — Rohlfing Concept"
                 fill
                 priority
-                sizes="(max-width: 768px) 90vw, 448px"
-                className="object-contain object-center drop-shadow-[0_30px_60px_rgba(37,99,235,0.25)]"
+                sizes="(max-width: 768px) 90vw, 384px"
+                className="object-cover"
               />
-              <div
-                className="pointer-events-none absolute inset-0"
-                style={{
-                  background:
-                    "radial-gradient(ellipse 62% 62% at 50% 48%, transparent 58%, var(--background) 96%)",
-                }}
-              />
+              <div className="absolute inset-0 bg-gradient-to-t from-background/65 via-transparent to-transparent" />
+              <div className="absolute inset-x-4 bottom-3 flex items-center justify-between gap-2">
+                <span className="rounded-full border border-white/15 bg-background/85 px-3.5 py-1 text-[11px] font-medium backdrop-blur-md">
+                  {clients[0].name}
+                </span>
+                <Link href="/proyectos" className="rounded-full border border-accent/40 bg-background/85 px-3.5 py-1 text-[11px] font-semibold text-accent-hi backdrop-blur-md">
+                  +7 marcas activas
+                </Link>
+              </div>
             </div>
           </motion.div>
         </div>
@@ -397,20 +422,31 @@ export default function Home() {
                 {...fadeUp(i * 0.07)}
                 className="group overflow-hidden rounded-2xl border border-border-2 bg-surface shadow-xl transition-all duration-500 hover:-translate-y-1 hover:border-accent/40"
               >
-                <div className="relative h-44 overflow-hidden">
-                  <Image
-                    src={s.img}
-                    alt={s.title}
-                    fill
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 300px"
-                    className="object-cover transition-transform duration-700 group-hover:scale-[1.06]"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent" />
-                </div>
-                <div className="p-6">
-                  <h3 className="text-[15px] font-semibold leading-snug">{s.title}</h3>
-                  <p className="mt-2.5 text-[13px] leading-relaxed text-muted">{s.desc}</p>
-                </div>
+                <Link href={s.href} className="flex h-full flex-col">
+                  <div className="relative h-44 overflow-hidden">
+                    <Image
+                      src={s.img}
+                      alt={s.title}
+                      fill
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 300px"
+                      className="object-cover transition-transform duration-700 group-hover:scale-[1.06]"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent" />
+                  </div>
+                  <div className="flex flex-1 flex-col p-6">
+                    <h3 className="text-[15px] font-semibold leading-snug">{s.title}</h3>
+                    <p className="mt-2.5 text-[13px] leading-relaxed text-muted">{s.desc}</p>
+                    <div className="mt-auto flex items-center justify-between pt-5 text-[12px]">
+                      <span className="text-muted-2">
+                        desde <strong className="font-semibold text-foreground">{s.desde}</strong>
+                      </span>
+                      <span className="flex items-center gap-1 font-medium text-accent-hi">
+                        Ver planes
+                        <ArrowRight size={13} className="transition-transform group-hover:translate-x-0.5" />
+                      </span>
+                    </div>
+                  </div>
+                </Link>
               </motion.article>
             ))}
           </div>
@@ -472,19 +508,24 @@ export default function Home() {
 
                     {/* Subservicios */}
                     <div className="grid gap-3 sm:grid-cols-2">
-                      {p.items.map((it) => (
-                        <div
-                          key={it.n}
-                          className={`rounded-xl border border-border-2 px-5 py-4 transition-colors ${
-                            it.solid
-                              ? "bg-background/95 shadow-[0_4px_16px_rgba(0,0,0,0.4)] backdrop-blur-md hover:border-accent/40"
-                              : "bg-background/85 backdrop-blur-md hover:border-accent/30"
-                          }`}
-                        >
-                          <p className="text-[11px] font-semibold uppercase tracking-[0.13em] text-accent-hi">{it.n}</p>
-                          <p className="mt-2 text-[13px] leading-relaxed text-muted">{it.d}</p>
-                        </div>
-                      ))}
+                      {p.items.map((it) => {
+                        const inner = (
+                          <>
+                            <p className="text-[11px] font-semibold uppercase tracking-[0.13em] text-accent-hi">{it.n}</p>
+                            <p className="mt-2 text-[13px] leading-relaxed text-muted">{it.d}</p>
+                          </>
+                        );
+                        const cls = `rounded-xl border border-border-2 px-5 py-4 transition-colors bg-background/85 backdrop-blur-md hover:border-accent/40`;
+                        return it.href ? (
+                          <Link key={it.n} href={it.href} className={cls}>
+                            {inner}
+                          </Link>
+                        ) : (
+                          <div key={it.n} className={cls}>
+                            {inner}
+                          </div>
+                        );
+                      })}
                     </div>
                   </div>
                 </div>
