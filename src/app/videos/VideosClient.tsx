@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "motion/react";
 import { WhatsappLogo, FilmSlate } from "@phosphor-icons/react";
 import Link from "next/link";
@@ -14,16 +15,26 @@ const fadeUp = (delay = 0) => ({
   transition:  { duration: 0.65, delay, ease: EASE_OUT_EXPO },
 });
 
-/** "tizon-dorado-reel.mp4" -> "Tizon dorado reel" */
+const CONECTORES = new Set(["de", "del", "la", "el", "los", "las", "y", "en", "para"]);
+
+/** "tizon-dorado-dia-del-padre.mp4" -> "Tizón dorado día del padre" estilo título */
 function prettyTitle(file: string) {
   return file
     .replace(/\.(mp4|webm|mov)$/i, "")
     .replace(/[-_]+/g, " ")
-    .replace(/^\w/, (c) => c.toUpperCase());
+    .split(" ")
+    .map((w, i) =>
+      i > 0 && CONECTORES.has(w.toLowerCase())
+        ? w.toLowerCase()
+        : w.charAt(0).toUpperCase() + w.slice(1)
+    )
+    .join(" ");
 }
 
 export default function VideosClient({ files }: { files: string[] }) {
   const hasVideos = files.length > 0;
+  // Orientación real de cada video (los reels verticales se muestran como 9:16)
+  const [vertical, setVertical] = useState<Record<string, boolean>>({});
 
   return (
     <main className="min-h-screen">
@@ -61,10 +72,23 @@ export default function VideosClient({ files }: { files: string[] }) {
                   preload="metadata"
                   playsInline
                   src={`/videos/${encodeURIComponent(f)}`}
-                  className="aspect-video w-full bg-black object-contain"
+                  onLoadedMetadata={(e) => {
+                    const v = e.currentTarget;
+                    if (v.videoHeight > v.videoWidth) setVertical((s) => ({ ...s, [f]: true }));
+                  }}
+                  className={
+                    vertical[f]
+                      ? "mx-auto aspect-[9/16] w-full max-w-[320px] bg-black object-contain"
+                      : "aspect-video w-full bg-black object-contain"
+                  }
                 />
                 <div className="flex items-center justify-between gap-3 px-5 py-4">
                   <h2 className="text-sm font-semibold">{prettyTitle(f)}</h2>
+                  {vertical[f] && (
+                    <span className="flex-shrink-0 rounded-full border border-border-2 px-2.5 py-0.5 text-[10px] font-medium text-muted-2">
+                      Reel
+                    </span>
+                  )}
                 </div>
               </motion.article>
             ))}
