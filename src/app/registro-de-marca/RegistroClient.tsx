@@ -51,21 +51,14 @@ export default function RegistroClient() {
     <main className="min-h-screen">
       {/* Header con imagen de fondo */}
       <section className="relative overflow-hidden border-b border-border/40">
-        {/* Fondo legal/documental + nebulosa */}
+        {/* Fondo legal/documental */}
         <div className="absolute inset-0 -z-10">
           <Image
             src="/img/registro-bg.jpg"
             alt=""
             fill
             sizes="100vw"
-            className="object-cover object-center opacity-25"
-          />
-          <Image
-            src="/img/nebula.png"
-            alt=""
-            fill
-            sizes="100vw"
-            className="object-cover object-center opacity-36 [mix-blend-mode:screen]"
+            className="object-cover object-center opacity-12"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-background via-background/70 to-background" />
           <div className="absolute inset-0"
@@ -156,7 +149,7 @@ export default function RegistroClient() {
                     className="object-cover object-center transition-transform duration-700 group-hover:scale-[1.03]"
                   />
                 </div>
-                <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" />
                 <p className="absolute bottom-4 left-5 text-xs font-semibold text-white/90">
                   Ilegítimas — Abogadas
                 </p>
@@ -176,7 +169,7 @@ export default function RegistroClient() {
                   className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
                 />
               </div>
-              <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/15 to-transparent" />
               <p className="absolute bottom-4 left-5 text-xs font-medium text-white/90">Asesoría jurídica confiable</p>
             </div>
             <div className="group relative overflow-hidden rounded-2xl border border-border-2 shadow-xl">
@@ -189,7 +182,7 @@ export default function RegistroClient() {
                   className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
                 />
               </div>
-              <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/15 to-transparent" />
               <p className="absolute bottom-4 left-5 text-xs font-medium text-white/90">Un mismo objetivo: tu marca protegida</p>
             </div>
           </motion.div>
@@ -207,7 +200,7 @@ export default function RegistroClient() {
                 sizes="(max-width: 768px) 100vw, 40vw"
                 className="object-cover transition-transform duration-700 hover:scale-[1.03]"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-background/85 via-background/10 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
               <p className="absolute bottom-5 left-5 right-5 text-xs font-medium text-white/90">
                 Asesoría acompañada, sin complicaciones
               </p>

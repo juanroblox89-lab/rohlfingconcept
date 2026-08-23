@@ -3,7 +3,6 @@ import { GeistSans } from "geist/font/sans";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { FluidParticlesBackground } from "@/components/ui/fluid-particles-background";
 import ScrollProgress from "@/components/ScrollProgress";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
 
@@ -33,7 +32,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#07090f",
+  themeColor: "#fbfcfe",
 };
 
 export default function RootLayout({
@@ -82,8 +81,6 @@ export default function RootLayout({
         <ScrollProgress />
         {/* Grain overlay */}
         <div className="grain" aria-hidden="true" />
-        {/* Partículas fluidas ambientales en todo el sitio */}
-        <FluidParticlesBackground variant="overlay" particleCount={1000} />
         <Navbar />
         {children}
         <Footer />

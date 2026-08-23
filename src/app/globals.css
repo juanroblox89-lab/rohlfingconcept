@@ -1,18 +1,18 @@
 @import "tailwindcss";
 
 :root {
-  --background:     #07090f;
-  --background-alt: #0b0e18;
-  --surface:        #0e1220;
-  --surface-2:      #131828;
-  --foreground:     #eef1f8;
-  --muted:          #7e8ba3;
-  --muted-2:        #4a5570;
+  --background:     #fbfcfe;
+  --background-alt: #f1f4fa;
+  --surface:        #ffffff;
+  --surface-2:      #eef2f9;
+  --foreground:     #0c1322;
+  --muted:          #55617a;
+  --muted-2:        #8b96ad;
   --accent:         #2563eb;
-  --accent-hi:      #4f8dff;
-  --border:         #161e33;
-  --border-2:       #1e2a45;
-  --gradient-hero:  linear-gradient(160deg, #07090f 0%, #0a0f1e 55%, #080c1a 100%);
+  --accent-hi:      #1d4ed8;
+  --border:         #e7ebf4;
+  --border-2:       #d9e0ee;
+  --gradient-hero:  linear-gradient(160deg, #ffffff 0%, #f2f6ff 55%, #eef3ff 100%);
 }
 
 @theme inline {
@@ -43,10 +43,6 @@ section[id], footer[id], div[id] {
 
 body {
   background-color: var(--background);
-  /* Textura TEXURA original del sitio, fundida al 10% sobre negro */
-  background-image: url("/img/texura-bg.jpg");
-  background-size: cover;
-  background-position: center top;
   color: var(--foreground);
 }
 
@@ -60,13 +56,13 @@ body {
 
 /* ── Gradient text ── */
 .text-gradient {
-  background: linear-gradient(135deg, #eef1f8 20%, #7ea8ff 100%);
+  background: linear-gradient(135deg, #0c1322 20%, #2563eb 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 .text-gradient-accent {
-  background: linear-gradient(120deg, #4f8dff 0%, #818cf8 100%);
+  background: linear-gradient(120deg, #2563eb 0%, #6d28d9 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

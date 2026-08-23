@@ -43,7 +43,7 @@ export default function Footer() {
           {/* Brand */}
           <div>
             <Link href="/" className="inline-flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/15 bg-white/[0.06] p-1 shadow-[0_0_16px_rgba(37,99,235,0.15)]">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-border-2 bg-surface p-1 shadow-[0_2px_12px_rgba(37,99,235,0.14)]">
                 <Image
                   src="/img/logo.png"
                   alt="Rohlfing Concept"
@@ -150,7 +150,7 @@ export default function Footer() {
                 src="https://maps.google.com/maps?q=6.4612362,-75.5560957&output=embed&z=17"
                 width="100%"
                 height="130"
-                style={{ border: 0, display: "block", filter: "invert(0.9) hue-rotate(180deg) brightness(0.75) contrast(1.1)" }}
+                style={{ border: 0, display: "block" }}
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
               />

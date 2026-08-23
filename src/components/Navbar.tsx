@@ -47,7 +47,7 @@ export default function Navbar() {
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
         {/* Logo */}
         <Link href="/" className="group flex items-center gap-3">
-          <div className="relative flex h-10 w-10 items-center justify-center rounded-xl border border-white/15 bg-white/[0.06] p-1 shadow-[0_0_16px_rgba(37,99,235,0.15)] transition-all group-hover:border-accent/50 group-hover:bg-white/[0.1] group-hover:shadow-[0_0_20px_rgba(37,99,235,0.3)]">
+          <div className="relative flex h-10 w-10 items-center justify-center rounded-xl border border-border-2 bg-surface p-1 shadow-[0_2px_12px_rgba(37,99,235,0.14)] transition-all group-hover:border-accent/50 group-hover:bg-accent/[0.06] group-hover:shadow-[0_4px_18px_rgba(37,99,235,0.25)]">
             <Image
               src="/img/logo.png"
               alt="Rohlfing Concept"

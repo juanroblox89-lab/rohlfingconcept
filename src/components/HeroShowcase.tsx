@@ -117,7 +117,7 @@ export default function HeroShowcase({
                   className="object-cover"
                 />
               )}
-              <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-background/25" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-black/30" />
 
               {/* Logo del cliente — arriba a la derecha */}
               {actual.logo && (
@@ -173,8 +173,8 @@ export default function HeroShowcase({
             onClick={() => setIdx(i)}
             className={`group relative h-11 w-[52px] flex-shrink-0 overflow-hidden rounded-lg border transition-all duration-300 sm:w-[58px] ${
               i === idx
-                ? "border-accent shadow-[0_0_18px_rgba(37,99,235,0.45)]"
-                : "border-border-2 opacity-55 hover:opacity-100"
+                ? "border-accent shadow-[0_0_18px_rgba(79,141,255,0.55)]"
+                : "border-white/25 opacity-60 hover:opacity-100"
             }`}
           >
             <Image

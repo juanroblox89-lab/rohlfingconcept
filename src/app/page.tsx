@@ -176,28 +176,10 @@ export default function Home() {
           HERO
       ══════════════════════════════════════════ */}
       <section className="relative min-h-[100dvh] flex flex-col justify-center overflow-hidden">
-        {/* Fondo del Hero con imagen real */}
+        {/* Fondo claro premium */}
         <div className="absolute inset-0 -z-10">
-          <Image
-            src="/img/hero-bg.png"
-            alt="Rohlfing Concept Studio"
-            fill
-            className="object-cover object-center opacity-48"
-            priority
-            sizes="100vw"
-          />
-          {/* Nebulosa azul generada — profundidad sobre la foto */}
-          <Image
-            src="/img/nebula.png"
-            alt=""
-            fill
-            className="object-cover opacity-66 [mix-blend-mode:screen]"
-            priority
-            sizes="100vw"
-          />
-          {/* Overlay de gradiente oscuro premium */}
-          <div className="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-background/50" />
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-background/40" />
+          <div className="absolute inset-0" style={{ background: "var(--gradient-hero)" }} />
+          <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-background to-transparent" />
         </div>
 
         {/* Glow sutil */}
@@ -289,41 +271,47 @@ export default function Home() {
             transition={{ duration: 0.85, delay: 0.15, ease: EASE_OUT_EXPO }}
             className="relative hidden md:block"
           >
-            {/* Resplandor ambiental doble detrás del escenario */}
-            <div className="absolute inset-0 -z-10 flex items-center justify-center">
+            {/* Resplandor ambiental detrás del panel oscuro */}
+            <div className="absolute inset-0 -z-20 flex items-center justify-center">
               <div
-                className="h-[75%] w-[75%] rounded-full opacity-35 blur-[100px]"
+                className="h-[70%] w-[70%] rounded-full opacity-20 blur-[90px]"
                 style={{ background: "radial-gradient(circle, #2563eb 0%, transparent 70%)" }}
-              />
-              <div
-                className="absolute h-[45%] w-[45%] rounded-full opacity-25 blur-[70px]"
-                style={{ background: "radial-gradient(circle, #4f8dff 0%, transparent 72%)" }}
               />
             </div>
 
+            {/* Panel oscuro — la identidad negra/azul vive aquí */}
             <div className="relative mx-auto w-fit">
+              <div className="pointer-events-none absolute -inset-5 sm:-inset-7 -z-10 rounded-[40px] bg-[#07090f] shadow-[0_36px_90px_rgba(12,19,34,0.35)]" />
+              <div
+                className="pointer-events-none absolute -inset-5 sm:-inset-7 -z-10 rounded-[40px]"
+                style={{ background: "radial-gradient(ellipse 70% 55% at 50% 0%, rgba(37,99,235,0.22) 0%, transparent 75%)" }}
+              />
+
               <HeroShowcase clientes={clients} />
 
               {/* Stat Floating Cards — cifras reales publicadas por la agencia */}
-              <div className="absolute -right-14 top-10 z-20 rounded-2xl border border-border-2 bg-background/95 px-5 py-4 backdrop-blur-md shadow-2xl transition-transform duration-300 hover:-translate-y-1">
+              <div className="absolute -right-12 top-10 z-20 rounded-2xl border border-border-2 bg-white px-5 py-4 shadow-[0_16px_44px_rgba(12,19,34,0.18)] transition-transform duration-300 hover:-translate-y-1">
                 <p className="text-[10px] text-muted-2 uppercase tracking-wider">Proyectos</p>
                 <p className="mt-0.5 text-2xl font-bold text-gradient-accent">+300</p>
               </div>
-              <div className="absolute -left-12 bottom-20 z-20 rounded-2xl border border-border-2 bg-background/95 px-5 py-4 backdrop-blur-md shadow-2xl transition-transform duration-300 hover:translate-y-1">
+              <div className="absolute -left-12 bottom-20 z-20 rounded-2xl border border-border-2 bg-white px-5 py-4 shadow-[0_16px_44px_rgba(12,19,34,0.18)] transition-transform duration-300 hover:translate-y-1">
                 <p className="text-[10px] text-muted-2 uppercase tracking-wider">Visualizaciones</p>
                 <p className="mt-0.5 text-2xl font-bold text-gradient-accent">2.3M</p>
               </div>
             </div>
           </motion.div>
 
-          {/* Versión móvil — mismo escenario, sin inclinación */}
+          {/* Versión móvil — mismo escenario sobre su panel oscuro */}
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2, ease: EASE_OUT_EXPO }}
             className="mx-auto w-full max-w-sm md:hidden"
           >
-            <HeroShowcase clientes={clients} compact />
+            <div className="relative mx-auto w-fit">
+              <div className="pointer-events-none absolute -inset-4 -z-10 rounded-[32px] bg-[#07090f] shadow-[0_24px_60px_rgba(12,19,34,0.3)]" />
+              <HeroShowcase clientes={clients} compact />
+            </div>
           </motion.div>
         </div>
 
@@ -341,7 +329,7 @@ export default function Home() {
                   alt={c.name}
                   width={220}
                   height={96}
-                  className="h-14 w-auto flex-shrink-0 object-contain opacity-75 transition-all hover:opacity-100 sm:h-16 lg:h-20"
+                  className="h-14 w-auto flex-shrink-0 object-contain brightness-0 transition-all hover:brightness-100 opacity-60 hover:opacity-100 sm:h-16 lg:h-20"
                 />
               ))}
             </div>
@@ -556,7 +544,7 @@ export default function Home() {
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                       className="object-cover opacity-85 transition-all duration-700 group-hover:scale-[1.06] group-hover:opacity-100"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-transparent" />
                   </>
                 ) : (
                   <div className="absolute right-4 top-4 h-1.5 w-1.5 rounded-full bg-accent/30 transition-colors group-hover:bg-accent-hi" />
@@ -597,11 +585,11 @@ export default function Home() {
               className="object-cover"
               sizes="100vw"
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-background via-background/70 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/55 to-black/10" />
             <div className="absolute inset-0 flex items-center px-8 md:px-12">
-              <h2 className="text-3xl font-bold tracking-tight sm:text-4xl max-w-sm">
+              <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl max-w-sm">
                 Cómo{" "}
-                <span className="text-gradient-accent">trabajamos</span>
+                <span className="text-[#60a5fa]">trabajamos</span>
               </h2>
             </div>
           </motion.div>
@@ -630,7 +618,7 @@ export default function Home() {
         <div className="mx-auto grid max-w-7xl gap-16 px-6 md:grid-cols-2 md:items-center">
           {/* Foto real del fundador */}
           <motion.div {...fadeIn()} className="relative">
-            <div className="relative overflow-hidden rounded-2xl border border-white/10 aspect-[4/5] shadow-2xl">
+            <div className="relative overflow-hidden rounded-2xl border border-border-2 aspect-[4/5] shadow-2xl">
               <Image
                 src="/img/team/samuel.png"
                 alt="Samuel Rohlfing Barrientos — Fundador de Rohlfing Concept"
@@ -732,7 +720,7 @@ export default function Home() {
                   {f.link && (
                     <Link
                       href={f.link.href}
-                      className="group/link mt-4 inline-flex items-center gap-1.5 text-[13px] font-semibold text-accent-hi hover:text-white"
+                      className="group/link mt-4 inline-flex items-center gap-1.5 text-[13px] font-semibold text-accent-hi hover:text-foreground"
                     >
                       {f.link.label}
                       <ArrowRight size={13} className="transition-transform group-hover/link:translate-x-0.5" />
@@ -764,26 +752,26 @@ export default function Home() {
       {/* ══════════════════════════════════════════
           CTA FINAL (Con Fondo de Fluido Oscuro)
       ══════════════════════════════════════════ */}
-      <section className="relative overflow-hidden border-t border-border/40">
+      <section className="relative overflow-hidden border-t border-border/40 bg-[#07090f]">
         <div className="absolute inset-0 -z-10">
           <Image
             src="/img/cta-bg.jpg"
             alt=""
             fill
-            className="object-cover opacity-48"
+            className="object-cover opacity-60"
             sizes="100vw"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/40 to-background" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/35 to-black/80" />
         </div>
 
         <div className="relative mx-auto max-w-3xl px-6 py-32 text-center">
-          <motion.h2 {...fadeUp()} className="text-3xl font-bold tracking-tight sm:text-5xl">
+          <motion.h2 {...fadeUp()} className="text-3xl font-bold tracking-tight text-white sm:text-5xl">
             ¿Listo para{" "}
-            <span className="text-gradient-accent">transformar</span>
+            <span className="text-[#7ea8ff]">transformar</span>
             <br />
             tu marca?
           </motion.h2>
-          <motion.p {...fadeUp(0.08)} className="mt-5 text-base text-muted">
+          <motion.p {...fadeUp(0.08)} className="mt-5 text-base text-white/70">
             Transformamos marcas en experiencias visuales que venden. Trabajemos
             juntos para construir una presencia digital que realmente destaque.
           </motion.p>
@@ -797,7 +785,7 @@ export default function Home() {
             </a>
             <Link
               href="/paquetes-publicitarios"
-              className="inline-flex items-center gap-2 rounded-full border border-border-2 px-8 py-4 text-sm font-medium text-muted transition-all hover:border-accent/40 hover:text-foreground hover:-translate-y-0.5"
+              className="inline-flex items-center gap-2 rounded-full border border-white/25 px-8 py-4 text-sm font-medium text-white/85 transition-all hover:border-white/60 hover:text-white hover:-translate-y-0.5"
             >
               Ver paquetes <ArrowRight size={14} />
             </Link>

@@ -89,7 +89,7 @@ export default function EquipoClient() {
             src="/img/about-team.png"
             alt=""
             fill
-            className="object-cover object-top opacity-[0.14]"
+            className="object-cover object-top opacity-[0.07]"
             sizes="100vw"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-background via-background/70 to-background" />
