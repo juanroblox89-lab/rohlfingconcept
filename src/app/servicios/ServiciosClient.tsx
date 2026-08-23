@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { motion } from "motion/react";
 import { ArrowRight, WhatsappLogo, Package } from "@phosphor-icons/react";
@@ -69,19 +70,31 @@ export default function ServiciosClient() {
                   <motion.div key={s.slug} {...fadeUp(i * 0.06)}>
                     <Link
                       href={`/servicios/${s.slug}`}
-                      className="group flex h-full flex-col rounded-2xl border border-border-2 bg-surface p-7 transition-all duration-300 hover:-translate-y-1 hover:border-accent/40 hover:shadow-[0_12px_36px_rgba(37,99,235,0.15)]"
+                      className="group flex h-full flex-col overflow-hidden rounded-2xl border border-border-2 bg-surface transition-all duration-300 hover:-translate-y-1 hover:border-accent/40 hover:shadow-[0_12px_36px_rgba(37,99,235,0.15)]"
                     >
-                      <h3 className="text-lg font-bold tracking-tight">{s.nombre}</h3>
-                      <p className="mt-1.5 text-xs font-medium uppercase tracking-wide text-accent-hi">{s.kicker}</p>
-                      <p className="mt-3 flex-1 text-sm leading-relaxed text-muted">{s.resumen}</p>
-                      <div className="mt-6 flex items-center justify-between border-t border-border/50 pt-4">
-                        <span className="text-sm text-muted-2">
-                          desde <strong className="text-foreground">{s.desde}</strong>
-                        </span>
-                        <span className="flex items-center gap-1.5 text-sm font-medium text-accent-hi">
-                          Ver planes
-                          <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
-                        </span>
+                      <div className="relative aspect-[16/9] overflow-hidden">
+                        <Image
+                          src={s.img}
+                          alt={s.nombre}
+                          fill
+                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 380px"
+                          className="object-cover transition-transform duration-700 group-hover:scale-[1.05]"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-surface via-surface/30 to-transparent" />
+                      </div>
+                      <div className="flex flex-1 flex-col p-7 pt-5">
+                        <h3 className="text-lg font-bold tracking-tight">{s.nombre}</h3>
+                        <p className="mt-1.5 text-xs font-medium uppercase tracking-wide text-accent-hi">{s.kicker}</p>
+                        <p className="mt-3 flex-1 text-sm leading-relaxed text-muted">{s.resumen}</p>
+                        <div className="mt-6 flex items-center justify-between border-t border-border/50 pt-4">
+                          <span className="text-sm text-muted-2">
+                            desde <strong className="text-foreground">{s.desde}</strong>
+                          </span>
+                          <span className="flex items-center gap-1.5 text-sm font-medium text-accent-hi">
+                            Ver planes
+                            <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
+                          </span>
+                        </div>
                       </div>
                     </Link>
                   </motion.div>

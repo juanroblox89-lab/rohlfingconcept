@@ -42,6 +42,7 @@ export type Servicio = {
   grupo: GrupoServicio;
   desde: string;
   resumen: string;
+  img: string;
   bloques: Bloque[];
 };
 
@@ -102,6 +103,7 @@ export const servicios: Servicio[] = [
   // ═══════════════════════ IDENTIDAD VISUAL ═══════════════════════
   {
     slug: "logos",
+    img: "/img/services-branding.jpg",
     nombre: "Logos",
     kicker: "Construcción de identidad desde el logo",
     intro:
@@ -262,6 +264,7 @@ export const servicios: Servicio[] = [
   },
   {
     slug: "disenos",
+    img: "/img/services-redes.jpg",
     nombre: "Diseños",
     kicker: "Diseño gráfico publicitario",
     intro:
@@ -286,6 +289,7 @@ export const servicios: Servicio[] = [
   },
   {
     slug: "vectorial",
+    img: "/img/covers/cover-tizon.jpg",
     nombre: "Vectorial",
     kicker: "Diseño vectorial profesional",
     intro:
@@ -353,7 +357,8 @@ export const servicios: Servicio[] = [
   },
   {
     slug: "branding",
-    nombre: "Branding",
+    img: "/img/covers/cover-villagrande.jpg",
+      nombre: "Branding",
     kicker: "Branding de marca",
     intro:
       "Creamos marcas con identidad, propósito y dirección clara, integrando estrategia y diseño para construir una presencia sólida y profesional. Cada proyecto se desarrolla desde su esencia, definiendo su estilo, comunicación y personalidad.",
@@ -427,6 +432,7 @@ export const servicios: Servicio[] = [
   // ═══════════════════════ CONTENIDO AUDIOVISUAL ═══════════════════════
   {
     slug: "edicion-de-video",
+    img: "/img/services-audiovisual.jpg",
     nombre: "Edición de video",
     kicker: "Edición de video profesional",
     intro:
@@ -438,6 +444,7 @@ export const servicios: Servicio[] = [
   },
   {
     slug: "edicion-de-imagenes",
+    img: "/img/covers/cover-pandeyucas.jpg",
     nombre: "Edición de imágenes",
     kicker: "Edición profesional de imágenes",
     intro:
@@ -486,6 +493,7 @@ export const servicios: Servicio[] = [
   },
   {
     slug: "animacion-de-logo",
+    img: "/img/covers/cover-jerez.jpg",
     nombre: "Animación de logo",
     kicker: "Animación de logo",
     intro:
@@ -542,6 +550,7 @@ export const servicios: Servicio[] = [
   // ═══════════════════════ PRESENCIA DIGITAL ═══════════════════════
   {
     slug: "administracion-digital",
+    img: "/img/services-redes.jpg",
     nombre: "Administración digital",
     kicker: "Administración digital",
     intro:
@@ -589,6 +598,7 @@ export const servicios: Servicio[] = [
   },
   {
     slug: "diapositivas",
+    img: "/img/covers/cover-asanarte.jpg",
     nombre: "Diapositivas",
     kicker: "Creación de diapositivas",
     intro:
@@ -640,6 +650,7 @@ export const servicios: Servicio[] = [
   },
   {
     slug: "sitios-web",
+    img: "/img/services-web.jpg",
     nombre: "Sitios web",
     kicker: "Sitios web",
     intro:
