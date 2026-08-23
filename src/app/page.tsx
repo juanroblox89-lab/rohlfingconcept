@@ -27,28 +27,28 @@ const serviciosDestacados = [
   {
     title: "Diseño e Identidad Visual",
     desc: "Logotipos, branding y manuales de marca que comunican exactamente quién eres.",
-    img: "/img/services-branding.png",
+    img: "/img/services-branding.jpg",
     href: "/servicios/logos",
     desde: "$50.000",
   },
   {
     title: "Producción Audiovisual",
     desc: "Videos promocionales, reels y contenido corporativo que conecta con tu audiencia.",
-    img: "/img/services-audiovisual.png",
+    img: "/img/services-audiovisual.jpg",
     href: "/servicios/edicion-de-video",
     desde: "$20.000",
   },
   {
     title: "Desarrollo Web",
     desc: "Sitios modernos, rápidos y optimizados para convertir visitantes en clientes.",
-    img: "/img/services-web.png",
+    img: "/img/services-web.jpg",
     href: "/servicios/sitios-web",
     desde: "$200.000",
   },
   {
     title: "Gestión de Redes y Estrategia Digital",
     desc: "Planificación, crecimiento y posicionamiento para que tu marca lidere su nicho.",
-    img: "/img/services-redes.png",
+    img: "/img/services-redes.jpg",
     href: "/servicios/administracion-digital",
     desde: "$30.000/mes",
   },
@@ -59,7 +59,7 @@ const pilares = [
     id: "identidad",
     title: "Identidad Visual",
     intro: "Construimos marcas sólidas, memorables y con una presencia profesional que genera confianza desde el primer vistazo.",
-    image: "/img/services-branding.png",
+    image: "/img/services-branding.jpg",
     items: [
       { n: "Logos", d: "Logos únicos y profesionales que representan la esencia de tu marca.", href: "/servicios/logos" },
       { n: "Diseños", d: "Piezas visuales modernas y profesionales que impulsan tu marca.", href: "/servicios/disenos" },
@@ -73,7 +73,7 @@ const pilares = [
     id: "audiovisual",
     title: "Contenido Audiovisual",
     intro: "Creamos contenido audiovisual pensado para potenciar tu marca, combinando creatividad, edición y estrategia para lograr piezas creativas y profesionales.",
-    image: "/img/services-audiovisual.png",
+    image: "/img/services-audiovisual.jpg",
     items: [
       { n: "Creación audiovisual", d: "Desarrollamos contenido desde cero, grabando según la identidad de tu marca.", href: "/videos" },
       { n: "Edición de video", d: "Transformamos tu material en piezas dinámicas, limpias y profesionales.", href: "/servicios/edicion-de-video" },
@@ -87,7 +87,7 @@ const pilares = [
     id: "digital",
     title: "Presencia Digital",
     intro: "Creamos entornos digitales para mejorar la forma en que tu marca se presenta, comunica y conecta, manteniendo una imagen profesional y estructurada.",
-    image: "/img/services-web.png",
+    image: "/img/services-web.jpg",
     items: [
       { n: "Sitios web", d: "Páginas web funcionales enfocadas en presencia y presentación digital.", href: "/servicios/sitios-web" },
       { n: "Diapositivas", d: "Presentaciones visuales diseñadas para comunicar ideas de forma profesional.", href: "/servicios/diapositivas" },
@@ -369,7 +369,7 @@ export default function Home() {
                 className="group overflow-hidden rounded-2xl border border-border-2 bg-surface shadow-xl transition-all duration-500 hover:-translate-y-1 hover:border-accent/40"
               >
                 <Link href={s.href} className="flex h-full flex-col">
-                  <div className="relative h-44 overflow-hidden">
+                  <div className="relative aspect-[16/10] overflow-hidden">
                     <Image
                       src={s.img}
                       alt={s.title}
@@ -591,7 +591,7 @@ export default function Home() {
             className="relative overflow-hidden rounded-2xl border border-border-2 mb-16 h-52 md:h-72 shadow-xl"
           >
             <Image
-              src="/img/process-bg.png"
+              src="/img/process-bg.jpg"
               alt="Proceso creativo Rohlfing Concept"
               fill
               className="object-cover"
@@ -767,7 +767,7 @@ export default function Home() {
       <section className="relative overflow-hidden border-t border-border/40">
         <div className="absolute inset-0 -z-10">
           <Image
-            src="/img/cta-bg.png"
+            src="/img/cta-bg.jpg"
             alt=""
             fill
             className="object-cover opacity-48"
