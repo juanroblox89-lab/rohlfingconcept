@@ -23,6 +23,9 @@ const clients = [
   { name: "Kantel",                 logo: "/img/clients/client-kantel.png",       cover: "/img/covers/cover-kantel.jpg",         video: "/videos/kantel-reel.mp4" },
 ];
 
+// Marquee de confianza — sin Asanarte (pedido explícito)
+const marqueeClients = clients.filter((c) => c.name !== "Asanarte Droguería");
+
 // Servicios destacados con imagen (títulos y copy reales del sitio original)
 const serviciosDestacados = [
   {
@@ -176,7 +179,7 @@ export default function Home() {
       {/* ══════════════════════════════════════════
           HERO
       ══════════════════════════════════════════ */}
-      <section className="relative min-h-[100dvh] flex flex-col justify-center overflow-hidden">
+      <section className="relative flex flex-col overflow-hidden py-14 md:min-h-[100dvh] md:justify-center md:py-0">
         {/* Fondo claro premium */}
         <div className="absolute inset-0 -z-10">
           <div className="absolute inset-0" style={{ background: "var(--gradient-hero)" }} />
@@ -323,7 +326,7 @@ export default function Home() {
           </p>
           <div className="overflow-hidden">
             <div className="marquee flex w-max items-center gap-20 px-10">
-              {[...clients, ...clients].map((c, i) => (
+              {[...marqueeClients, ...marqueeClients].map((c, i) => (
                 <Image
                   key={i}
                   src={c.logo}

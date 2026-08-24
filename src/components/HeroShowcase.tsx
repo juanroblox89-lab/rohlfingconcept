@@ -67,7 +67,7 @@ export default function HeroShowcase({
   const tiltable = !compact && !reduce;
 
   return (
-    <div>
+    <div className={compact ? "mx-auto w-full max-w-[270px]" : "mx-auto w-full max-w-[330px]"}>
       {/* Escenario principal — marco vertical tipo reel */}
       <div
         className="relative"
@@ -77,9 +77,7 @@ export default function HeroShowcase({
         onMouseLeave={onLeave}
       >
         <motion.div
-          className={`relative overflow-hidden rounded-[26px] border border-border-2 bg-black shadow-[0_30px_70px_rgba(12,19,34,0.3)] ${
-            compact ? "mx-auto aspect-[9/16] max-w-[270px]" : "mx-auto aspect-[9/16] w-full max-w-[330px]"
-          }`}
+          className={`relative w-full overflow-hidden rounded-[26px] border border-border-2 bg-black shadow-[0_30px_70px_rgba(12,19,34,0.3)] aspect-[9/16]`}
           style={{
             rotateX: tiltable ? rotateX : 0,
             rotateY: tiltable ? rotateY : 0,
@@ -100,6 +98,7 @@ export default function HeroShowcase({
                 <video
                   key={actual.video}
                   src={actual.video}
+                  poster={actual.cover}
                   autoPlay
                   muted
                   loop
@@ -162,8 +161,8 @@ export default function HeroShowcase({
         />
       </div>
 
-      {/* Miniaturas para saltar de cliente */}
-      <div className={`mt-4 flex gap-2 ${compact ? "justify-center" : "justify-center"}`}>
+      {/* Miniaturas para saltar de cliente — ancho exacto del escenario */}
+      <div className="mt-4 grid grid-cols-7 gap-1.5">
         {clientes.map((c, i) => (
           <button
             key={c.name}
@@ -171,7 +170,7 @@ export default function HeroShowcase({
             aria-label={`Ver ${c.name}`}
             aria-current={i === idx}
             onClick={() => setIdx(i)}
-            className={`group relative h-11 w-[52px] flex-shrink-0 overflow-hidden rounded-lg border transition-all duration-300 sm:w-[58px] ${
+            className={`group relative h-11 w-full flex-shrink-0 overflow-hidden rounded-lg border transition-all duration-300 ${
               i === idx
                 ? "border-accent shadow-[0_0_18px_rgba(37,99,235,0.45)]"
                 : "border-border-2 opacity-70 hover:opacity-100"
@@ -181,7 +180,7 @@ export default function HeroShowcase({
               src={c.cover}
               alt=""
               fill
-              sizes="58px"
+              sizes="60px"
               className="object-cover transition-transform duration-500 group-hover:scale-110"
             />
           </button>
