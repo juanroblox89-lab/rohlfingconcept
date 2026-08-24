@@ -125,7 +125,7 @@ export default function EquipoClient() {
                     src={m.photo}
                     alt={m.name}
                     fill
-                    className="object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                    className="object-cover object-top saturate-[1.2] transition-transform duration-700 ease-out group-hover:scale-[1.04]"
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   />
                 ) : (

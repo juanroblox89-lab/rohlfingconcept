@@ -78,7 +78,7 @@ export default function ServiciosClient() {
                           alt={s.nombre}
                           fill
                           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 380px"
-                          className="object-cover transition-transform duration-700 group-hover:scale-[1.05]"
+                          className="object-cover saturate-[1.3] transition-transform duration-700 group-hover:scale-[1.05]"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-surface via-surface/30 to-transparent" />
                       </div>

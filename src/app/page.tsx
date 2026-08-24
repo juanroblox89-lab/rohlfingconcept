@@ -11,6 +11,7 @@ import {
   SealCheck,
 } from "@phosphor-icons/react";
 import HeroShowcase from "@/components/HeroShowcase";
+import VerticalBarsNoise from "@/components/ui/vertical-bars";
 
 const clients = [
   { name: "Villa Grande",           logo: "/img/clients/client-villa-grande.png", cover: "/img/covers/cover-villagrande.jpg",   desde: "Desde septiembre 2025", video: "/videos/villa-grande-mundial.mp4" },
@@ -197,7 +198,7 @@ export default function Home() {
               initial={{ opacity: 0, y: 32 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.75, ease: EASE_OUT_EXPO }}
-              className="text-[2.75rem] font-bold leading-[1.03] tracking-tight sm:text-6xl lg:text-[3.9rem] xl:text-[4.3rem]"
+              className="text-4xl font-bold leading-[1.05] tracking-tight sm:text-6xl lg:text-[3.9rem] xl:text-[4.3rem]"
             >
               Tu trabajo es bueno.
               <br />
@@ -279,29 +280,29 @@ export default function Home() {
               />
             </div>
 
-            {/* Panel oscuro — la identidad negra/azul vive aquí */}
+            {/* Panel claro — marco suave alrededor del escenario */}
             <div className="relative mx-auto w-fit">
-              <div className="pointer-events-none absolute -inset-5 sm:-inset-7 -z-10 rounded-[40px] bg-[#07090f] shadow-[0_36px_90px_rgba(12,19,34,0.35)]" />
+              <div className="pointer-events-none absolute -inset-5 sm:-inset-7 -z-10 rounded-[40px] border border-border-2 bg-white shadow-[0_36px_90px_rgba(12,19,34,0.14)]" />
               <div
                 className="pointer-events-none absolute -inset-5 sm:-inset-7 -z-10 rounded-[40px]"
-                style={{ background: "radial-gradient(ellipse 70% 55% at 50% 0%, rgba(37,99,235,0.22) 0%, transparent 75%)" }}
+                style={{ background: "radial-gradient(ellipse 70% 45% at 50% 0%, rgba(37,99,235,0.08) 0%, transparent 75%)" }}
               />
 
               <HeroShowcase clientes={clients} />
 
               {/* Stat Floating Cards — cifras reales publicadas por la agencia */}
-              <div className="absolute -right-12 top-10 z-20 rounded-2xl border border-border-2 bg-white px-5 py-4 shadow-[0_16px_44px_rgba(12,19,34,0.18)] transition-transform duration-300 hover:-translate-y-1">
+              <div className="absolute -right-12 top-10 z-20 rounded-2xl border border-border-2 bg-white px-5 py-4 shadow-[0_16px_44px_rgba(12,19,34,0.16)] transition-transform duration-300 hover:-translate-y-1">
                 <p className="text-[10px] text-muted-2 uppercase tracking-wider">Proyectos</p>
                 <p className="mt-0.5 text-2xl font-bold text-gradient-accent">+300</p>
               </div>
-              <div className="absolute -left-12 bottom-20 z-20 rounded-2xl border border-border-2 bg-white px-5 py-4 shadow-[0_16px_44px_rgba(12,19,34,0.18)] transition-transform duration-300 hover:translate-y-1">
+              <div className="absolute -left-12 bottom-20 z-20 rounded-2xl border border-border-2 bg-white px-5 py-4 shadow-[0_16px_44px_rgba(12,19,34,0.16)] transition-transform duration-300 hover:translate-y-1">
                 <p className="text-[10px] text-muted-2 uppercase tracking-wider">Visualizaciones</p>
                 <p className="mt-0.5 text-2xl font-bold text-gradient-accent">2.3M</p>
               </div>
             </div>
           </motion.div>
 
-          {/* Versión móvil — mismo escenario sobre su panel oscuro */}
+          {/* Versión móvil — mismo escenario con marco claro */}
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
@@ -309,7 +310,7 @@ export default function Home() {
             className="mx-auto w-full max-w-sm md:hidden"
           >
             <div className="relative mx-auto w-fit">
-              <div className="pointer-events-none absolute -inset-4 -z-10 rounded-[32px] bg-[#07090f] shadow-[0_24px_60px_rgba(12,19,34,0.3)]" />
+              <div className="pointer-events-none absolute -inset-4 -z-10 rounded-[32px] border border-border-2 bg-white shadow-[0_24px_60px_rgba(12,19,34,0.14)]" />
               <HeroShowcase clientes={clients} compact />
             </div>
           </motion.div>
@@ -329,7 +330,7 @@ export default function Home() {
                   alt={c.name}
                   width={220}
                   height={96}
-                  className="h-14 w-auto flex-shrink-0 object-contain brightness-0 transition-all hover:brightness-100 opacity-60 hover:opacity-100 sm:h-16 lg:h-20"
+                  className="h-14 w-auto flex-shrink-0 object-contain opacity-90 transition-all hover:opacity-100 sm:h-16 lg:h-20"
                 />
               ))}
             </div>
@@ -363,7 +364,7 @@ export default function Home() {
                       alt={s.title}
                       fill
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 300px"
-                      className="object-cover transition-transform duration-700 group-hover:scale-[1.06]"
+                      className="object-cover saturate-[1.3] transition-transform duration-700 group-hover:scale-[1.06]"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent" />
                   </div>
@@ -542,7 +543,7 @@ export default function Home() {
                       alt=""
                       fill
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                      className="object-cover opacity-85 transition-all duration-700 group-hover:scale-[1.06] group-hover:opacity-100"
+                      className="object-cover saturate-[1.3] transition-all duration-700 group-hover:scale-[1.06]"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-transparent" />
                   </>
@@ -582,7 +583,7 @@ export default function Home() {
               src="/img/process-bg.jpg"
               alt="Proceso creativo Rohlfing Concept"
               fill
-              className="object-cover"
+              className="object-cover saturate-[1.25]"
               sizes="100vw"
             />
             <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/55 to-black/10" />
@@ -753,15 +754,14 @@ export default function Home() {
           CTA FINAL (Con Fondo de Fluido Oscuro)
       ══════════════════════════════════════════ */}
       <section className="relative overflow-hidden border-t border-border/40 bg-[#07090f]">
+        {/* Fondo de barras animadas — reacciona al mouse */}
         <div className="absolute inset-0 -z-10">
-          <Image
-            src="/img/cta-bg.jpg"
-            alt=""
-            fill
-            className="object-cover opacity-60"
-            sizes="100vw"
+          <VerticalBarsNoise
+            backgroundColor="#07090f"
+            lineColor="#1e2a45"
+            barColor="#2563eb"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/35 to-black/80" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/45 to-black/85" />
         </div>
 
         <div className="relative mx-auto max-w-3xl px-6 py-32 text-center">

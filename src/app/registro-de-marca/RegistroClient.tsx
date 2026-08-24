@@ -146,7 +146,7 @@ export default function RegistroClient() {
                     alt="Las dos abogadas de Ilegítimas — Abogadas, aliadas legales de Rohlfing Concept"
                     fill
                     sizes="(max-width: 1024px) 92vw, 520px"
-                    className="object-cover object-center transition-transform duration-700 group-hover:scale-[1.03]"
+                    className="object-cover object-center saturate-[1.3] transition-transform duration-700 group-hover:scale-[1.03]"
                   />
                 </div>
                 <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" />
@@ -166,7 +166,7 @@ export default function RegistroClient() {
                   alt="Ilegítimas — Abogadas, aliadas legales de Rohlfing Concept"
                   fill
                   sizes="(max-width: 640px) 100vw, 60vw"
-                  className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                  className="object-cover saturate-[1.3] transition-transform duration-700 group-hover:scale-[1.03]"
                 />
               </div>
               <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/15 to-transparent" />
@@ -179,7 +179,7 @@ export default function RegistroClient() {
                   alt="Trabajo conjunto entre Rohlfing Concept e Ilegítimas"
                   fill
                   sizes="(max-width: 640px) 100vw, 40vw"
-                  className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                  className="object-cover saturate-[1.3] transition-transform duration-700 group-hover:scale-[1.03]"
                 />
               </div>
               <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/15 to-transparent" />
@@ -198,7 +198,7 @@ export default function RegistroClient() {
                 alt="Asesoría para el registro de marca ante la SIC"
                 fill
                 sizes="(max-width: 768px) 100vw, 40vw"
-                className="object-cover transition-transform duration-700 hover:scale-[1.03]"
+                className="object-cover saturate-[1.3] transition-transform duration-700 hover:scale-[1.03]"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
               <p className="absolute bottom-5 left-5 right-5 text-xs font-medium text-white/90">

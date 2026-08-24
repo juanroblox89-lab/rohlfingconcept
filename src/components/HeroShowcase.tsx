@@ -77,7 +77,7 @@ export default function HeroShowcase({
         onMouseLeave={onLeave}
       >
         <motion.div
-          className={`relative overflow-hidden rounded-[26px] border border-white/12 bg-black shadow-[0_36px_90px_rgba(0,0,0,0.6)] ${
+          className={`relative overflow-hidden rounded-[26px] border border-border-2 bg-black shadow-[0_30px_70px_rgba(12,19,34,0.3)] ${
             compact ? "mx-auto aspect-[9/16] max-w-[270px]" : "mx-auto aspect-[9/16] w-full max-w-[330px]"
           }`}
           style={{
@@ -157,7 +157,7 @@ export default function HeroShowcase({
 
         {/* Resplandor bajo el escenario */}
         <div
-          className="pointer-events-none absolute -bottom-8 left-1/2 -z-10 h-14 w-[80%] -translate-x-1/2 rounded-full opacity-30 blur-2xl"
+          className="pointer-events-none absolute -bottom-8 left-1/2 -z-10 h-14 w-[80%] -translate-x-1/2 rounded-full opacity-15 blur-2xl"
           style={{ background: "radial-gradient(ellipse, #2563eb 0%, transparent 70%)" }}
         />
       </div>
@@ -173,8 +173,8 @@ export default function HeroShowcase({
             onClick={() => setIdx(i)}
             className={`group relative h-11 w-[52px] flex-shrink-0 overflow-hidden rounded-lg border transition-all duration-300 sm:w-[58px] ${
               i === idx
-                ? "border-accent shadow-[0_0_18px_rgba(79,141,255,0.55)]"
-                : "border-white/25 opacity-60 hover:opacity-100"
+                ? "border-accent shadow-[0_0_18px_rgba(37,99,235,0.45)]"
+                : "border-border-2 opacity-70 hover:opacity-100"
             }`}
           >
             <Image
