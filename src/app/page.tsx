@@ -284,7 +284,7 @@ export default function Home() {
             </div>
 
             {/* Panel claro — marco suave alrededor del escenario */}
-            <div className="relative mx-auto w-fit">
+            <div className="relative mx-auto w-full max-w-[330px]">
               <div className="pointer-events-none absolute -inset-5 sm:-inset-7 -z-10 rounded-[40px] border border-border-2 bg-white shadow-[0_36px_90px_rgba(12,19,34,0.14)]" />
               <div
                 className="pointer-events-none absolute -inset-5 sm:-inset-7 -z-10 rounded-[40px]"
@@ -312,7 +312,7 @@ export default function Home() {
             transition={{ duration: 0.8, delay: 0.2, ease: EASE_OUT_EXPO }}
             className="mx-auto w-full max-w-sm md:hidden"
           >
-            <div className="relative mx-auto w-fit">
+            <div className="relative mx-auto w-full max-w-[270px]">
               <div className="pointer-events-none absolute -inset-4 -z-10 rounded-[32px] border border-border-2 bg-white shadow-[0_24px_60px_rgba(12,19,34,0.14)]" />
               <HeroShowcase clientes={clients} compact />
             </div>
