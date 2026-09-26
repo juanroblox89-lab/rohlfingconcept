@@ -2,6 +2,7 @@
 
 # dependencies
 /node_modules
+/.npm-cache
 /.pnp
 .pnp.*
 .yarn/*
@@ -48,3 +49,9 @@ next-env.d.ts
 
 # fuentes crudas descargadas del Wix (ya convertidas a JPEG optimizado)
 public/img/ilegitimas-src/
+
+# briefs y reportes del harness
+/_*.md
+/HARNESS-REPORTE.md
+/_qa/
+/_ref/
