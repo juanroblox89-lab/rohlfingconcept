@@ -1,6 +1,8 @@
 // ─────────────────────────────────────────────────────────────────────────────
 // Datos de servicios y precios — 100% reales, extraídos del sitio original
-// (rohlfingconcept.com, páginas blank-3…blank-14) y verificados contra el HTML.
+// (rohlfingconcept.com, páginas blank-3…blank-13) y verificados contra el HTML.
+// NOTA FOTOS: los servicios ya no traen `img` (las imágenes IA se retiran);
+// los slots de foto real están listados en public/img/FOTOS-PENDIENTES.md.
 // ─────────────────────────────────────────────────────────────────────────────
 
 export type ItemDetalle = { t: string; d?: string };
@@ -30,9 +32,14 @@ export type Bloque =
       titulo: string;
       packs: { nombre: string; precio: string; incluye: string[] }[];
     }
-  | { tipo: "unico"; titulo: string; precio: string; incluye: string[]; tipos: string[] };
+  | { tipo: "unico"; titulo: string; precio: string; incluye: string[]; tipos: string[] }
+  | { tipo: "nota"; titulo: string; texto: string };
 
-export type GrupoServicio = "Identidad visual" | "Contenido audiovisual" | "Presencia digital";
+export type GrupoServicio =
+  | "Identidad visual"
+  | "Contenido audiovisual"
+  | "Televisión"
+  | "Gestión de redes y estrategia digital";
 
 export type Servicio = {
   slug: string;
@@ -42,7 +49,7 @@ export type Servicio = {
   grupo: GrupoServicio;
   desde: string;
   resumen: string;
-  img: string;
+  img?: string;
   bloques: Bloque[];
 };
 
@@ -103,7 +110,6 @@ export const servicios: Servicio[] = [
   // ═══════════════════════ IDENTIDAD VISUAL ═══════════════════════
   {
     slug: "logos",
-    img: "/img/services-branding.jpg",
     nombre: "Logos",
     kicker: "Construcción de identidad desde el logo",
     intro:
@@ -263,102 +269,8 @@ export const servicios: Servicio[] = [
     ],
   },
   {
-    slug: "disenos",
-    img: "/img/services-disenos.jpg",
-    nombre: "Diseños",
-    kicker: "Diseño gráfico publicitario",
-    intro:
-      "Creamos piezas gráficas únicas y profesionales para redes sociales o impresión, diseñadas para comunicar, captar atención y transmitir valor de marca.",
-    grupo: "Identidad visual",
-    desde: "$50.000",
-    resumen: "Posts, flyers, banners y piezas para impresión, con diseño personalizado y 2 modificaciones.",
-    bloques: [
-      {
-        tipo: "unico",
-        titulo: "Pieza gráfica publicitaria",
-        precio: "$50.000",
-        incluye: [
-          "Diseño personalizado",
-          "Adaptación al formato requerido",
-          "2 modificaciones",
-          "Entrega en formato PNG, JPG y PDF",
-        ],
-        tipos: ["Post para redes sociales", "Flyers publicitarios", "Banners promocionales", "Piezas para impresión"],
-      },
-    ],
-  },
-  {
-    slug: "vectorial",
-    img: "/img/services-vectorial.jpg",
-    nombre: "Vectorial",
-    kicker: "Diseño vectorial profesional",
-    intro:
-      "Desarrollamos diseños vectoriales que mantienen su nitidez y profesionalismo en cualquier formato digital e impreso.",
-    grupo: "Identidad visual",
-    desde: "$60.000",
-    resumen: "Vectorización de logos e imágenes y packs completos con ilustración y mockups de impresión.",
-    bloques: [
-      {
-        tipo: "itemsPrecio",
-        titulo: "Servicios individuales",
-        items: [
-          {
-            nombre: "Vectorización de logo",
-            desc: "Convertimos tu logo a formato vectorial para que mantenga su calidad en cualquier tamaño y sea apto para impresión y uso profesional.",
-            precio: "$60.000",
-          },
-          {
-            nombre: "Vectorización de imagen",
-            desc: "Convertimos tu diseño o ilustración a formato vectorial, recreándolo con precisión para lograr mayor calidad, nitidez y uso profesional.",
-            precio: "$80.000",
-          },
-          {
-            nombre: "Diseño vectorial desde cero",
-            desc: "Creamos gráficos vectoriales desde cero, desarrollados con precisión y adaptados a las necesidades de tu marca o proyecto.",
-            precio: "$100.000",
-          },
-        ],
-      },
-      {
-        tipo: "packs",
-        titulo: "Packs vectoriales",
-        packs: [
-          {
-            nombre: "Pack Desde Cero",
-            precio: "$100.000",
-            incluye: ["Vectorización inicial del logo", "5 elementos gráficos adicionales", "Entrega en PNG e Illustrator"],
-          },
-          {
-            nombre: "Pack Creador",
-            precio: "$250.000",
-            incluye: [
-              "Vectorización inicial del logo",
-              "5 elementos gráficos adicionales",
-              "Ilustración alusiva a la marca / proyecto",
-              "Textura web o portal",
-              "Entrega en PNG e Illustrator",
-            ],
-          },
-          {
-            nombre: "Pack Empresa",
-            precio: "$400.000",
-            incluye: [
-              "Vectorización inicial del logo y sus variables",
-              "10 elementos gráficos adicionales",
-              "Ilustración alusiva a la marca / proyecto",
-              "Textura web o portal",
-              "Entrega en PNG e Illustrator",
-              "5 mockups de impresión",
-            ],
-          },
-        ],
-      },
-    ],
-  },
-  {
     slug: "branding",
-    img: "/img/services-identidad.jpg",
-      nombre: "Branding",
+    nombre: "Branding",
     kicker: "Branding de marca",
     intro:
       "Creamos marcas con identidad, propósito y dirección clara, integrando estrategia y diseño para construir una presencia sólida y profesional. Cada proyecto se desarrolla desde su esencia, definiendo su estilo, comunicación y personalidad.",
@@ -428,28 +340,104 @@ export const servicios: Servicio[] = [
       },
     ],
   },
-
-  // ═══════════════════════ CONTENIDO AUDIOVISUAL ═══════════════════════
   {
-    slug: "edicion-de-video",
-    img: "/img/services-audiovisual.jpg",
-    nombre: "Edición de video",
-    kicker: "Edición de video profesional",
+    slug: "vectorial",
+    nombre: "Vectorial",
+    kicker: "Diseño vectorial profesional",
     intro:
-      "Desarrollamos contenido audiovisual enfocado en potenciar la imagen de tu marca, combinando creatividad, edición y narrativa para lograr piezas visuales atractivas, dinámicas y profesionales. Cada proyecto se adapta a tus objetivos: no solo verse bien, sino generar impacto y conexión.",
-    grupo: "Contenido audiovisual",
-    desde: "$20.000",
-    resumen: "Tres niveles de edición — Básica, Dinámica y Avanzada — con precios según la duración del video.",
-    bloques: [{ tipo: "video", titulo: "Precios según duración y nivel" }],
+      "Desarrollamos diseños vectoriales que mantienen su nitidez y profesionalismo en cualquier formato digital e impreso.",
+    grupo: "Identidad visual",
+    desde: "$60.000",
+    resumen: "Vectorización de logos e imágenes y packs completos con ilustración y mockups de impresión.",
+    bloques: [
+      {
+        tipo: "itemsPrecio",
+        titulo: "Servicios individuales",
+        items: [
+          {
+            nombre: "Vectorización de logo",
+            desc: "Convertimos tu logo a formato vectorial para que mantenga su calidad en cualquier tamaño y sea apto para impresión y uso profesional.",
+            precio: "$60.000",
+          },
+          {
+            nombre: "Vectorización de imagen",
+            desc: "Convertimos tu diseño o ilustración a formato vectorial, recreándolo con precisión para lograr mayor calidad, nitidez y uso profesional.",
+            precio: "$80.000",
+          },
+          {
+            nombre: "Diseño vectorial desde cero",
+            desc: "Creamos gráficos vectoriales desde cero, desarrollados con precisión y adaptados a las necesidades de tu marca o proyecto.",
+            precio: "$100.000",
+          },
+        ],
+      },
+      {
+        tipo: "packs",
+        titulo: "Packs vectoriales",
+        packs: [
+          {
+            nombre: "Pack Desde Cero",
+            precio: "$100.000",
+            incluye: ["Vectorización inicial del logo", "5 elementos gráficos adicionales", "Entrega en PNG e Illustrator"],
+          },
+          {
+            nombre: "Pack Creador",
+            precio: "$250.000",
+            incluye: [
+              "Vectorización inicial del logo",
+              "5 elementos gráficos adicionales",
+              "Ilustración alusiva a la marca / proyecto",
+              "Textura web o portal",
+              "Entrega en PNG e Illustrator",
+            ],
+          },
+          {
+            nombre: "Pack Empresa",
+            precio: "$400.000",
+            incluye: [
+              "Vectorización inicial del logo y sus variables",
+              "10 elementos gráficos adicionales",
+              "Ilustración alusiva a la marca / proyecto",
+              "Textura web o portal",
+              "Entrega en PNG e Illustrator",
+              "5 mockups de impresión",
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "disenos",
+    nombre: "Diseños",
+    kicker: "Diseño gráfico publicitario",
+    intro:
+      "Creamos piezas gráficas únicas y profesionales para redes sociales o impresión, diseñadas para comunicar, captar atención y transmitir valor de marca.",
+    grupo: "Identidad visual",
+    desde: "$50.000",
+    resumen: "Posts, flyers, banners y piezas para impresión, con diseño personalizado y 2 modificaciones.",
+    bloques: [
+      {
+        tipo: "unico",
+        titulo: "Pieza gráfica publicitaria",
+        precio: "$50.000",
+        incluye: [
+          "Diseño personalizado",
+          "Adaptación al formato requerido",
+          "2 modificaciones",
+          "Entrega en formato PNG, JPG y PDF",
+        ],
+        tipos: ["Post para redes sociales", "Flyers publicitarios", "Banners promocionales", "Piezas para impresión"],
+      },
+    ],
   },
   {
     slug: "edicion-de-imagenes",
-    img: "/img/services-retoque.jpg",
     nombre: "Edición de imágenes",
     kicker: "Edición profesional de imágenes",
     intro:
       "Transformamos y mejoramos tus imágenes a través de una edición detallada y cuidada, optimizando cada elemento para alcanzar un resultado visual más impactante, equilibrado y profesional.",
-    grupo: "Contenido audiovisual",
+    grupo: "Identidad visual",
     desde: "$25.000",
     resumen: "Tres niveles de retoque: desde corrección de luz y color hasta integración de elementos complejos.",
     bloques: [
@@ -491,9 +479,63 @@ export const servicios: Servicio[] = [
       },
     ],
   },
+
+  {
+    slug: "impresos-publicitarios",
+    nombre: "Impresos publicitarios",
+    kicker: "Impresión publicitaria",
+    intro:
+      "Impresos publicitarios con acabado profesional para promocionar tu marca fuera de la pantalla: cuéntanos formato y cantidad y te cotizamos.",
+    grupo: "Identidad visual",
+    desde: "A cotizar",
+    resumen: "Impresos publicitarios para tu marca: cotiza según formato y cantidad.",
+    bloques: [
+      {
+        tipo: "nota",
+        titulo: "Cotiza según tu proyecto",
+        texto: "Cuéntanos formato y cantidad por WhatsApp y te cotizamos tu impreso.",
+      },
+    ],
+  },
+
+  // ═══════════════════════ CONTENIDO AUDIOVISUAL ═══════════════════════
+  {
+    slug: "edicion-de-video",
+    nombre: "Edición de video",
+    kicker: "Edición de video profesional",
+    intro:
+      "Servicio integral de video: abarcamos grabación, edición y animación para crear piezas que potencian tu marca. Producimos reels verticales 9:16 para TikTok, Instagram y YouTube Shorts, además de video horizontal para YouTube y presentaciones. Cada entrega es en MP4, en la resolución y orientación que pidas.",
+    grupo: "Contenido audiovisual",
+    desde: "$20.000",
+    resumen: "Tres niveles de edición — Básica, Dinámica y Avanzada — con precios según la duración del video.",
+    bloques: [
+      { tipo: "video", titulo: "Precios según duración y nivel" },
+      {
+        tipo: "nota",
+        titulo: "Packs de edición",
+        texto: "Packs de edición — precios próximamente, pregunta por WhatsApp",
+      },
+    ],
+  },
+  {
+    slug: "grabacion-de-video",
+    nombre: "Grabación de video",
+    kicker: "Grabación en locación para marcas",
+    intro:
+      "Grabación en locación para marcas: producimos reels, contenido para marcas, entrevistas y eventos con calidad profesional. Cotizamos cada proyecto según locación, duración y formato, y entregamos en MP4 en la resolución y orientación que pidas.",
+    grupo: "Contenido audiovisual",
+    desde: "A cotizar",
+    resumen: "Grabación en locación: reels, contenido para marcas, entrevistas y eventos.",
+    bloques: [
+      {
+        tipo: "nota",
+        titulo: "Cotiza según tu proyecto",
+        texto: "Cuéntanos tu idea por WhatsApp y te cotizamos según locación, duración y formato.",
+      },
+    ],
+  },
   {
     slug: "animacion-de-logo",
-    img: "/img/services-animacion.jpg",
     nombre: "Animación de logo",
     kicker: "Animación de logo",
     intro:
@@ -547,15 +589,33 @@ export const servicios: Servicio[] = [
     ],
   },
 
-  // ═══════════════════════ PRESENCIA DIGITAL ═══════════════════════
+  // ═══════════════════════ TELEVISIÓN ═══════════════════════
+  {
+    slug: "pautas-en-television",
+    nombre: "Pautas en televisión",
+    kicker: "Publicidad en TV regional (Mi Canal)",
+    intro:
+      "Lleva tu marca a la pantalla y conecta con la audiencia de tu región a través de espacios publicitarios estratégicos en televisión local.",
+    grupo: "Televisión",
+    desde: "$300.000",
+    resumen: "Lleva tu marca a la pantalla: espacios publicitarios estratégicos en televisión local.",
+    bloques: [
+      {
+        tipo: "nota",
+        titulo: "Packs de televisión",
+        texto: "Pack Basic $300.000 · Pack Supreme $600.000 · Pack Premier $900.000. Ver detalle y contratar en Paquetes publicitarios.",
+      },
+    ],
+  },
+
+  // ═══════════════════════ GESTIÓN DE REDES Y ESTRATEGIA DIGITAL ═══════════════════════
   {
     slug: "administracion-digital",
-    img: "/img/services-redes.jpg",
     nombre: "Administración digital",
     kicker: "Administración digital",
     intro:
       "Administramos redes sociales con el objetivo de mantener una presencia más activa, organizada y profesional para tu marca, gestionando contenido y actividad de forma constante y coherente.",
-    grupo: "Presencia digital",
+    grupo: "Gestión de redes y estrategia digital",
     desde: "$30.000 / red / mes",
     resumen: "Gestión mensual por red social: publicación, monitoreo, control de comentarios y estadística mensual.",
     bloques: [
@@ -598,12 +658,11 @@ export const servicios: Servicio[] = [
   },
   {
     slug: "diapositivas",
-    img: "/img/services-slides.jpg",
     nombre: "Diapositivas",
     kicker: "Creación de diapositivas",
     intro:
       "Desarrollamos presentaciones visuales organizadas y profesionales, adaptadas según el contenido, objetivo y estilo de cada proyecto.",
-    grupo: "Presencia digital",
+    grupo: "Gestión de redes y estrategia digital",
     desde: "$40.000",
     resumen: "Presentaciones de hasta 10, 20 o 35 diapositivas con composición visual y animaciones.",
     bloques: [
@@ -648,71 +707,31 @@ export const servicios: Servicio[] = [
       },
     ],
   },
-  {
-    slug: "sitios-web",
-    img: "/img/services-web.jpg",
-    nombre: "Sitios web",
-    kicker: "Sitios web",
-    intro:
-      "Desarrollamos sitios web que combinan diseño, estructura y experiencia visual para representar tu marca de forma clara, profesional y atractiva en entornos digitales. Cada proyecto se construye según los objetivos, estilo y necesidades de la marca.",
-    grupo: "Presencia digital",
-    desde: "$200.000",
-    resumen: "Sitios de hasta 3, 10 o 20 páginas con secciones y elementos escalables, más extras por página.",
-    bloques: [
-      {
-        tipo: "planes",
-        titulo: "Planes de sitio web",
-        planes: [
-          {
-            nombre: "Sitio Sencillo",
-            precio: "$200.000",
-            tagline: "Ideal para marcas que buscan una presencia digital clara, funcional y bien estructurada.",
-            items: [
-              { t: "Hasta 3 páginas", d: "Estructura básica para presentar la información principal." },
-              { t: "Hasta 30 secciones", d: "Distribución organizada del contenido dentro de cada página." },
-              { t: "Hasta 100 elementos", d: "Integración de componentes visuales y funcionales necesarios para el sitio." },
-            ],
-          },
-          {
-            nombre: "Sitio Profesional",
-            precio: "$500.000",
-            tagline: "Para marcas que requieren un sitio más completo, organizado y con mayor desarrollo visual.",
-            items: [
-              { t: "Hasta 10 páginas", d: "Mayor espacio para desarrollar contenido y secciones específicas." },
-              { t: "Hasta 50 secciones", d: "Estructuración más amplia para organizar mejor la información." },
-              { t: "Hasta 500 elementos", d: "Mayor integración de recursos visuales y componentes funcionales." },
-            ],
-          },
-          {
-            nombre: "Sitio Avanzado",
-            precio: "$800.000",
-            tagline: "Para proyectos más completos que requieren un alto nivel de desarrollo, organización y detalle visual.",
-            items: [
-              { t: "Hasta 20 páginas", d: "Estructura amplia para proyectos de gran contenido." },
-              { t: "Hasta 75 secciones", d: "Organización detallada para manejar grandes volúmenes de información." },
-              { t: "Hasta 700 elementos", d: "Alto nivel de integración visual y funcional en todo el sitio." },
-            ],
-          },
-        ],
-      },
-      {
-        tipo: "elementos",
-        titulo: "Elementos extras",
-        elementos: [
-          { label: "Página adicional", precio: "$20.000" },
-          { label: "Sección adicional", precio: "$2.000" },
-          { label: "Elemento adicional", precio: "$10.000" },
-        ],
-      },
-    ],
-  },
 ];
 
 export const gruposOrden: GrupoServicio[] = [
   "Identidad visual",
   "Contenido audiovisual",
-  "Presencia digital",
+  "Televisión",
+  "Gestión de redes y estrategia digital",
 ];
+
+export const compromiso = {
+  titulo: "Tu idea, nuestro compromiso",
+  texto: "En Rohlfing Concept creemos que cada proyecto merece compromiso, dedicación y responsabilidad. Por eso, nos involucramos en cada proceso con la intención de entregar más que un servicio: una experiencia que represente lo que cada marca quiere transmitir. Cuidamos cada detalle, cumplimos con lo que prometemos y trabajamos para que cada resultado deje una verdadera huella.",
+  equipos: [
+    "Cámara profesional",
+    "Dron",
+    "Estabilizador",
+    "Micrófonos inalámbricos",
+    "Iluminación",
+    "Trípodes y accesorios",
+    "Equipos de apoyo audiovisual",
+  ],
+};
+
+export const COMPROMISO_INTRO =
+  "Contamos con equipos propios para desarrollar producciones audiovisuales de principio a fin, con calidad, versatilidad y respaldo en cada proyecto.";
 
 export function getServicio(slug: string): Servicio | undefined {
   return servicios.find((s) => s.slug === slug);
