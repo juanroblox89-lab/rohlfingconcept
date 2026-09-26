@@ -1,22 +1,35 @@
 import type { Metadata, Viewport } from "next";
-import { GeistSans } from "geist/font/sans";
+import { Archivo, Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import ScrollProgress from "@/components/ScrollProgress";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
+
+const archivo = Archivo({
+  subsets: ["latin"],
+  display: "swap",
+  style: ["normal", "italic"],
+  weight: ["500", "600", "700", "800", "900"],
+  variable: "--font-display",
+});
+
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["400", "500", "600"],
+  variable: "--font-ui",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://rohlfingconcept.com"),
   title: "Rohlfing Concept | Agencia Creativa en San Pedro de los Milagros",
   description:
-    "Branding, contenido audiovisual y presencia digital para negocios que quieren verse tan profesionales como son. Agencia creativa en San Pedro de los Milagros, Antioquia.",
+    "Transformamos ideas en soluciones visuales y digitales que hacen que las marcas destaquen. Creamos contenido, desarrollamos identidades y fortalecemos la presencia de cada empresa para conectar con su público y crecer con propósito.",
   keywords: [
     "agencia creativa",
     "diseño gráfico",
     "branding",
     "contenido audiovisual",
-    "desarrollo web",
     "San Pedro de los Milagros",
     "Antioquia",
     "Colombia",
@@ -27,20 +40,20 @@ export const metadata: Metadata = {
       "Branding, contenido audiovisual y presencia digital. Tu trabajo es bueno; tu marca debería notarse.",
     locale: "es_CO",
     type: "website",
-    images: [{ url: "/img/hero-bg.png", width: 1672, height: 941, alt: "Rohlfing Concept" }],
+    images: [{ url: "/img/logo.png", width: 512, height: 512, alt: "Rohlfing Concept" }],
   },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#fbfcfe",
+  themeColor: "#FFFFFF",
 };
 
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="es" className={GeistSans.variable}>
-      <body className={`antialiased bg-background text-foreground ${GeistSans.className}`}>
+    <html lang="es" className={`${archivo.variable} ${inter.variable}`}>
+      <body className="bg-background font-ui text-foreground antialiased">
         {/* Datos estructurados — LocalBusiness */}
         <script
           type="application/ld+json"
@@ -71,16 +84,12 @@ export default function RootLayout({
                 "Diseño gráfico",
                 "Contenido audiovisual",
                 "Edición de video",
-                "Sitios web",
-                "Registro de marca ante la SIC",
+                "Grabación de video",
+                "Administración digital",
               ],
             }),
           }}
         />
-        {/* Barra de progreso de scroll */}
-        <ScrollProgress />
-        {/* Grain overlay */}
-        <div className="grain" aria-hidden="true" />
         <Navbar />
         {children}
         <Footer />

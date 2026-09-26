@@ -1,31 +1,68 @@
 @import "tailwindcss";
 
+/* BreZ monocromo — Rohlfing Concept.
+   Paleta: blanco #FFFFFF, superficies #F4F4F4/#E9E9E9, líneas #D9D9D9,
+   texto #0A0A0A/#5C5C5C/#8A8A8A, invertido #0A0A0A/#FFFFFF.
+   Cero color, cero degradados, cero blur, cero glass, cero glows. */
+
 :root {
-  --background:     #fbfcfe;
-  --background-alt: #f1f4fa;
-  --surface:        #ffffff;
-  --surface-2:      #eef2f9;
-  --foreground:     #0c1322;
-  --muted:          #55617a;
-  --muted-2:        #8b96ad;
-  --accent:         #2563eb;
-  --accent-hi:      #1d4ed8;
-  --border:         #e7ebf4;
-  --border-2:       #d9e0ee;
-  --gradient-hero:  linear-gradient(160deg, #ffffff 0%, #f2f6ff 55%, #eef3ff 100%);
+  --background:  #FFFFFF;
+  --foreground:  #0A0A0A;
+  --muted:       #5C5C5C;
+  --muted-2:     #8A8A8A;
+  --surface:     #F4F4F4;
+  --surface-2:   #E9E9E9;
+  --border:      #D9D9D9;
+  --border-2:    #D9D9D9;
+  --inverse-bg:  #0A0A0A;
+  --inverse-fg:  #FFFFFF;
+
+  /* Movimiento — curva única */
+  --ease: cubic-bezier(0.2, 0, 0, 1);
+  --d-1: 120ms;
+  --d-2: 200ms;
+  --d-3: 320ms;
+
+  /* Tipo display / sección */
+  --t-hero: clamp(44px, 13vw, 184px);
+  --t-section: clamp(28px, 6vw, 64px);
+
+  /* Alturas y contenedor (mobile primero) */
+  --h-control: 40px;
+  --h-header: 52px;
+  --gutter: 16px;
+  --container: 1440px;
+
+  color-scheme: light;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --h-control: 36px;
+    --h-header: 48px;
+    --gutter: 24px;
+  }
+}
+
+@media (min-width: 1280px) {
+  :root {
+    --gutter: 32px;
+  }
 }
 
 @theme inline {
   --color-background:  var(--background);
   --color-foreground:  var(--foreground);
-  --color-accent:      var(--accent);
-  --color-accent-hi:   var(--accent-hi);
   --color-muted:       var(--muted);
   --color-muted-2:     var(--muted-2);
   --color-surface:     var(--surface);
   --color-surface-2:   var(--surface-2);
   --color-border:      var(--border);
   --color-border-2:    var(--border-2);
+  --color-inverse-bg:  var(--inverse-bg);
+  --color-inverse-fg:  var(--inverse-fg);
+  --font-display: var(--font-display);
+  --font-ui: var(--font-ui);
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -44,44 +81,31 @@ section[id], footer[id], div[id] {
 body {
   background-color: var(--background);
   color: var(--foreground);
+  font-family: var(--font-ui), system-ui, sans-serif;
+  font-size: 14px;
 }
 
-::selection { background: rgba(37,99,235,0.25); color: var(--foreground); }
+::selection { background: #0A0A0A; color: #FFFFFF; }
 
 /* Scrollbar */
 ::-webkit-scrollbar       { width: 4px; }
 ::-webkit-scrollbar-track  { background: var(--background); }
-::-webkit-scrollbar-thumb  { background: var(--border-2); border-radius: 2px; }
+::-webkit-scrollbar-thumb  { background: var(--border); border-radius: 2px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--muted-2); }
 
-/* ── Gradient text ── */
-.text-gradient {
-  background: linear-gradient(135deg, #0c1322 20%, #2563eb 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-.text-gradient-accent {
-  background: linear-gradient(120deg, #2563eb 0%, #6d28d9 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* ── Cards ── */
+/* ── Cards — mono, radius 4px, sin sombra de color ── */
 .card {
   background: var(--surface);
-  border: 1px solid var(--border-2);
-  border-radius: 16px;
-  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  transition: border-color var(--d-2) var(--ease), transform var(--d-2) var(--ease);
 }
 .card:hover {
-  border-color: rgba(79,141,255,0.3);
-  box-shadow: 0 12px 48px rgba(37,99,235,0.1);
-  transform: translateY(-3px);
+  border-color: var(--foreground);
+  transform: translateY(-2px);
 }
 
-/* ── Badge pill ── */
+/* ── Badge pill — mono ── */
 .pill {
   display: inline-flex;
   align-items: center;
@@ -90,11 +114,70 @@ body {
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--accent-hi);
-  background: rgba(37,99,235,0.08);
-  border: 1px solid rgba(37,99,235,0.18);
+  color: var(--foreground);
+  background: var(--surface);
+  border: 1px solid var(--border);
   padding: 4px 12px;
-  border-radius: 100px;
+  border-radius: 999px;
+}
+
+/* ── Botones — pills mono ── */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 40px;
+  padding: 0 20px;
+  border-radius: 999px;
+  background: #0A0A0A;
+  color: #FFFFFF;
+  font-size: 13px;
+  font-weight: 600;
+  border: 1px solid #0A0A0A;
+  transition: background var(--d-2) var(--ease), color var(--d-2) var(--ease);
+}
+@media (min-width: 768px) {
+  .btn-primary { height: 36px; }
+}
+.btn-primary:hover {
+  background: #FFFFFF;
+  color: #0A0A0A;
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 40px;
+  padding: 0 20px;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--foreground);
+  font-size: 13px;
+  font-weight: 600;
+  border: 1px solid var(--border);
+  transition: border-color var(--d-2) var(--ease), background var(--d-2) var(--ease);
+}
+@media (min-width: 768px) {
+  .btn-secondary { height: 36px; }
+}
+.btn-secondary:hover {
+  border-color: var(--foreground);
+  background: var(--surface);
+}
+
+/* ── Kicker — etiqueta de sección ── */
+.kicker {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+@media (min-width: 768px) {
+  .kicker { font-size: 12px; }
 }
 
 /* ── Marquee ── */
@@ -105,30 +188,18 @@ body {
 .marquee { animation: marquee 38s linear infinite; }
 .marquee:hover { animation-play-state: paused; }
 
-/* ── Noise grain (fixed, pointer-events none) ── */
-.grain {
-  position: fixed;
-  inset: 0;
-  z-index: 60;
-  pointer-events: none;
-  opacity: 0.022;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size: 200px 200px;
-}
-
-/* ── Divider line ── */
+/* ── Divider sólido ── */
 .line-fade {
   height: 1px;
-  background: linear-gradient(90deg, transparent, var(--border-2) 30%, var(--border-2) 70%, transparent);
+  background: var(--border);
 }
 
-/* ── Number watermark ── */
+/* ── Number watermark — sólido, sin stroke de color ── */
 .num-wm {
   position: absolute;
   font-size: clamp(6rem, 12vw, 10rem);
   font-weight: 800;
-  color: transparent;
-  -webkit-text-stroke: 1px rgba(37,99,235,0.06);
+  color: var(--surface-2);
   user-select: none;
   pointer-events: none;
   line-height: 1;
@@ -136,18 +207,11 @@ body {
   top: -1rem;
 }
 
-/* ── Glow dot ── */
-.dot-accent {
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: var(--accent-hi);
-  box-shadow: 0 0 8px var(--accent-hi);
-}
-
 @media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
   *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    transition-duration: 0.01ms !important;
+    animation: none !important;
+    transition: none !important;
   }
   .marquee { animation: none; }
 }
