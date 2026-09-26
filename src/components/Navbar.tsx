@@ -36,15 +36,8 @@ export default function Navbar() {
 
   return (
     <>
-      {/* Barra fina de anuncio — ejes oficiales del portafolio 2026 */}
-      <div className="flex h-8 items-center justify-center bg-[#0A0A0A] px-4">
-        <p className="truncate text-[11px] tracking-wide text-white md:text-xs">
-          Televisión · Redes sociales · Marketing · Estrategia
-        </p>
-      </div>
-
-      <header className="sticky top-0 z-50 border-b border-[#D9D9D9] bg-white">
-        <nav className="mx-auto flex h-[52px] max-w-[1440px] items-center justify-between px-4 md:h-12 md:px-6 xl:px-8">
+      <header className="sticky top-0 z-50 border-b-2 border-[#0A0A0A] bg-white">
+        <nav className="mx-auto flex h-12 max-w-[1440px] items-center justify-between px-4 md:px-6 xl:px-8">
           {/* Logo */}
           <Link href="/" className="flex shrink-0 items-center" aria-label="Rohlfing Concept — inicio">
             <Image
@@ -91,13 +84,13 @@ export default function Navbar() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 8 }}
                     transition={{ duration: 0.2, ease: EASE }}
-                    className="absolute left-1/2 top-full w-[760px] max-w-[calc(100vw-2rem)] -translate-x-1/2 border border-[#D9D9D9] bg-white p-6"
+                    className="absolute left-1/2 top-full w-[760px] max-w-[calc(100vw-2rem)] -translate-x-1/2 rounded-[14px] border-[2.5px] border-[#0A0A0A] bg-white p-4 shadow-[0_8px_18px_rgba(10,10,10,0.1)]"
                   >
-                    <div className="grid grid-cols-4 gap-6">
+                    <div className="grid grid-cols-4 gap-4">
                       {gruposOrden.map((grupo) => (
                         <div key={grupo}>
                           <p className="kicker">{grupo}</p>
-                          <ul className="mt-3 space-y-1">
+                          <ul className="mt-2 space-y-0.5">
                             {servicios
                               .filter((s) => s.grupo === grupo)
                               .map((s) => (
@@ -115,7 +108,7 @@ export default function Navbar() {
                         </div>
                       ))}
                     </div>
-                    <div className="mt-5 border-t border-[#D9D9D9] pt-4">
+                    <div className="mt-3 border-t border-[#D9D9D9] pt-3">
                       <Link
                         href="/servicios"
                         onClick={() => setServOpen(false)}
@@ -145,7 +138,7 @@ export default function Navbar() {
             href={WA_CTA}
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden h-10 items-center gap-2 rounded-full bg-[#0A0A0A] px-5 text-[13px] font-semibold text-white transition-colors duration-200 hover:bg-[#5C5C5C] md:flex md:h-9"
+            className="btn-primary hidden !py-2 md:inline-flex"
           >
             <WhatsappLogo size={15} weight="fill" />
             Cotiza tu proyecto
@@ -156,7 +149,7 @@ export default function Navbar() {
             type="button"
             aria-label={open ? "Cerrar menú" : "Abrir menú"}
             aria-expanded={open}
-            className="flex h-10 w-10 items-center justify-center rounded border border-[#D9D9D9] bg-white text-foreground md:h-9 md:w-9 lg:hidden"
+            className="flex h-10 w-10 items-center justify-center rounded-[14px] border-[2.5px] border-[#0A0A0A] bg-white text-foreground shadow-[0_4px_0_#0A0A0A] active:translate-y-[3px] active:shadow-[0_1px_0_#0A0A0A] md:h-9 md:w-9 lg:hidden"
             onClick={() => setOpen((v) => !v)}
           >
             {open ? <X size={18} /> : <List size={18} />}
@@ -174,18 +167,18 @@ export default function Navbar() {
               transition={{ duration: 0.2, ease: EASE }}
               className="border-t border-[#D9D9D9] bg-white lg:hidden"
             >
-              <div className="flex flex-col px-4 py-4 md:px-6">
+              <div className="flex flex-col px-4 py-3 md:px-6">
                 {/* Servicios — acordeón dinámico */}
                 <details className="border-b border-[#D9D9D9]">
-                  <summary className="flex cursor-pointer list-none items-center justify-between py-3 text-sm font-medium text-foreground [&::-webkit-details-marker]:hidden">
+                  <summary className="flex cursor-pointer list-none items-center justify-between py-2.5 text-[13px] font-medium text-foreground [&::-webkit-details-marker]:hidden">
                     Servicios
                     <CaretDown size={14} weight="bold" />
                   </summary>
-                  <div className="space-y-4 pb-4">
+                  <div className="space-y-3 pb-3">
                     {gruposOrden.map((grupo) => (
                       <div key={grupo}>
                         <p className="kicker">{grupo}</p>
-                        <ul className="mt-2 space-y-1">
+                        <ul className="mt-1.5 space-y-0.5">
                           {servicios
                             .filter((s) => s.grupo === grupo)
                             .map((s) => (
@@ -193,7 +186,7 @@ export default function Navbar() {
                                 <Link
                                   href={`/servicios/${s.slug}`}
                                   onClick={() => setOpen(false)}
-                                  className="block py-1.5 text-sm text-muted"
+                                  className="block py-1 text-[13px] text-muted"
                                 >
                                   {s.nombre}
                                 </Link>
@@ -217,7 +210,7 @@ export default function Navbar() {
                     href={l.href}
                     onClick={() => setOpen(false)}
                     aria-current={isActive(l.href) ? "page" : undefined}
-                    className={`border-b border-[#D9D9D9] py-3 text-sm ${
+                    className={`border-b border-[#D9D9D9] py-2.5 text-[13px] ${
                       isActive(l.href) ? "font-semibold text-foreground" : "text-muted"
                     }`}
                   >
@@ -228,7 +221,7 @@ export default function Navbar() {
                   href={WA_CTA}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-4 flex h-10 items-center justify-center gap-2 rounded-full bg-[#0A0A0A] text-sm font-semibold text-white"
+                  className="btn-primary mt-3 w-full"
                 >
                   <WhatsappLogo size={16} weight="fill" />
                   Cotiza tu proyecto

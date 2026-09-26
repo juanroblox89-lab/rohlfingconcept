@@ -1,22 +1,21 @@
 import type { Metadata, Viewport } from "next";
-import { Archivo, Inter } from "next/font/google";
+import { Fredoka, Nunito } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
 
-const archivo = Archivo({
+const fredoka = Fredoka({
   subsets: ["latin"],
   display: "swap",
-  style: ["normal", "italic"],
-  weight: ["500", "600", "700", "800", "900"],
+  weight: ["500", "600", "700"],
   variable: "--font-display",
 });
 
-const inter = Inter({
+const nunito = Nunito({
   subsets: ["latin"],
   display: "swap",
-  weight: ["400", "500", "600"],
+  weight: ["400", "500", "600", "700"],
   variable: "--font-ui",
 });
 
@@ -52,7 +51,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="es" className={`${archivo.variable} ${inter.variable}`}>
+    <html lang="es" className={`${fredoka.variable} ${nunito.variable}`}>
       <body className="bg-background font-ui text-foreground antialiased">
         {/* Datos estructurados — LocalBusiness */}
         <script
