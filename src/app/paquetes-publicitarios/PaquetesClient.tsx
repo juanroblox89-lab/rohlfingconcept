@@ -42,27 +42,25 @@ export default function PaquetesClient() {
 
   return (
     <main className="min-h-screen bg-white text-[#0A0A0A]">
-      {/* Header tipográfico */}
-      <section className="border-b border-[#D9D9D9]">
-        <div className="mx-auto max-w-[1440px] px-4 py-16 md:px-6 md:py-20 xl:px-8">
+      {/* Header compacto */}
+      <section className="border-b-2 border-[#0A0A0A]">
+        <div className="section-compact-sm mx-auto max-w-[1440px] px-4 md:px-6 xl:px-8">
           <div className="mx-auto max-w-3xl text-center">
-            <motion.p {...fadeUp()} className="kicker">
-              Paquetes publicitarios
-            </motion.p>
             <motion.h1
-              {...fadeUp(0.06)}
-              className="mt-4 font-display text-4xl font-bold tracking-tight sm:text-5xl"
+              {...fadeUp()}
+              className="sq-title flex flex-wrap items-center justify-center gap-2"
             >
-              Televisión, digital y mixtos para tu marca
+              <span className="dash-accent" aria-hidden="true"><span /><span /><span /></span>
+              Televisión, digital y mixtos
             </motion.h1>
-            <motion.div {...fadeUp(0.12)} className="mt-6 flex justify-center px-4">
-              <span className="inline-flex max-w-full items-center whitespace-nowrap rounded-full border border-[#D9D9D9] bg-[#F4F4F4] px-4 py-1.5 font-ui text-[11px] font-medium tracking-wide text-[#5C5C5C] md:text-xs">
+            <motion.div {...fadeUp(0.12)} className="mt-2.5 flex justify-center">
+              <span className="pill max-w-full !whitespace-normal text-center !leading-snug">
                 Precios de referencia · San Pedro de los Milagros
               </span>
             </motion.div>
             <motion.p
               {...fadeUp(0.18)}
-              className="mx-auto mt-6 max-w-[54ch] text-[13px] leading-relaxed text-[#5C5C5C] md:text-sm"
+              className="sq-sub mx-auto max-w-[54ch] text-[13px] leading-[1.5] text-[#5C5C5C]"
             >
               Tres grupos de packs con precios de referencia: pautas en televisión regional,
               publicidad digital en redes sociales y packs mixtos que combinan ambos.
@@ -70,13 +68,13 @@ export default function PaquetesClient() {
             <motion.nav
               {...fadeUp(0.24)}
               aria-label="Grupos de paquetes"
-              className="mt-8 flex flex-wrap items-center justify-center gap-2"
+              className="mt-3 flex flex-wrap items-center justify-center gap-1.5"
             >
               {paquetesGrupos.map((g) => (
                 <a
                   key={g.id}
                   href={`#${g.id}`}
-                  className="inline-flex h-10 items-center rounded-full border border-[#D9D9D9] bg-white px-5 text-[13px] font-semibold text-[#0A0A0A] transition-colors duration-200 hover:border-[#0A0A0A] hover:bg-[#F4F4F4] md:h-9 md:text-[12px]"
+                  className="btn-secondary !text-xs"
                 >
                   {g.titulo}
                 </a>
@@ -87,123 +85,127 @@ export default function PaquetesClient() {
       </section>
 
       {/* Grupos desde paquetesGrupos */}
-      <div className="mx-auto max-w-[1440px] px-4 py-14 md:px-6 md:py-20 xl:px-8">
+      <div className="section-compact mx-auto max-w-[1440px] px-4 md:px-6 xl:px-8">
         {paquetesGrupos.map((grupo, gi) => (
-          <section key={grupo.id} id={grupo.id} aria-label={grupo.titulo} className={gi > 0 ? "mt-14 md:mt-20" : ""}>
-            <motion.p {...fadeUp()} className="kicker">
-              {String(gi + 1).padStart(2, "0")} — {grupo.id === "television" ? "Televisión" : grupo.id === "digital" ? "Digital" : "Mixtos"}
-            </motion.p>
+          <section key={grupo.id} id={grupo.id} aria-label={grupo.titulo} className={gi > 0 ? "mt-6" : ""}>
             <motion.h2
-              {...fadeUp(0.06)}
-              className="mt-3 font-display text-2xl font-bold tracking-tight md:text-3xl"
+              {...fadeUp()}
+              className="sq-title flex flex-wrap items-center gap-2"
             >
+              <span className="dash-accent" aria-hidden="true"><span /><span /><span /></span>
               {grupo.titulo}
             </motion.h2>
             <motion.p
               {...fadeUp(0.12)}
-              className="mt-3 max-w-[62ch] text-[13px] leading-relaxed text-[#5C5C5C] md:text-sm"
+              className="sq-sub max-w-[62ch] text-[13px] leading-[1.5] text-[#5C5C5C]"
             >
               {grupo.intro}
             </motion.p>
-            <div className="mt-8 grid gap-5 md:grid-cols-3">
+            <div className="sq-grid eq eq-5 mt-3 grid-cols-2 md:grid-cols-3">
               {grupo.packs.map((p, i) => (
                 <motion.article
                   key={p.nombre}
                   {...fadeUp(i * 0.08)}
-                  className="flex flex-col rounded border border-[#D9D9D9] bg-white p-6 md:p-8"
+                  className="contents"
                 >
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8A8A8A]">
-                    {p.nombre}
-                  </p>
-                  <div className="mt-4 flex items-end gap-1">
-                    <span className="text-4xl font-bold tracking-tight text-[#0A0A0A]">{p.precio}</span>
-                    {grupo.id === "digital" && (
-                      <span className="mb-1 text-[13px] text-[#5C5C5C]">/mes</span>
+                  <div className="card eq-card min-w-0 p-3">
+                    <p className="min-w-0"><span className="pill !whitespace-normal !text-[10px] !leading-snug">{p.nombre}</span></p>
+                    <div className="mt-2 flex flex-wrap items-end gap-1">
+                      <span className="font-display text-xl font-bold tracking-tight text-[#0A0A0A] md:text-2xl">{p.precio}</span>
+                      {grupo.id === "digital" && (
+                        <span className="mb-0.5 text-xs text-[#5C5C5C]">/mes</span>
+                      )}
+                    </div>
+                    <div className="line-fade my-3" />
+                    <ul className="space-y-1.5">
+                      {p.incluye.map((item) => (
+                        <li key={item} className="flex min-w-0 items-start gap-1.5">
+                          <Check size={14} weight="bold" className="mt-0.5 shrink-0 text-[#0A0A0A]" />
+                          <span className="min-w-0 text-[13px] leading-[1.5] text-[#0A0A0A]">{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    {grupo.nota && (
+                      <p className="mt-2 text-xs leading-[1.55] text-[#8A8A8A]">{grupo.nota}</p>
                     )}
+                    <div className="card-cta w-full self-stretch pt-3">
+                      <button
+                        type="button"
+                        onClick={() => irACotizador(p.nombre)}
+                        className="btn-secondary w-full !whitespace-normal text-center !text-xs !leading-tight"
+                      >
+                        <MapPin size={15} weight="fill" className="shrink-0" />
+                        Cotizar en mi ciudad
+                      </button>
+                    </div>
                   </div>
-                  <div className="my-6 h-px bg-[#D9D9D9]" />
-                  <ul className="flex-1 space-y-3">
-                    {p.incluye.map((item) => (
-                      <li key={item} className="flex items-start gap-2.5">
-                        <Check size={15} weight="bold" className="mt-0.5 shrink-0 text-[#0A0A0A]" />
-                        <span className="text-[13px] leading-relaxed text-[#0A0A0A]">{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  {grupo.nota && (
-                    <p className="mt-5 text-[12px] leading-relaxed text-[#8A8A8A]">{grupo.nota}</p>
-                  )}
-                  <button
-                    type="button"
-                    onClick={() => irACotizador(p.nombre)}
-                    className="mt-8 inline-flex h-10 cursor-pointer items-center justify-center gap-2 rounded-full border border-[#D9D9D9] bg-white px-5 text-[13px] font-semibold text-[#0A0A0A] transition-colors duration-200 hover:border-[#0A0A0A] hover:bg-[#F4F4F4] md:h-9 md:text-[12px]"
-                  >
-                    <MapPin size={15} weight="fill" />
-                    Cotizar en mi ciudad
-                  </button>
                 </motion.article>
               ))}
             </div>
           </section>
         ))}
 
-        {/* B7: Cotizador por ubicación */}
+        {/* B7: Cotizador por ubicación — banda negra */}
         <motion.div
           {...fadeUp(0.1)}
           id="cotiza-ciudad"
-          className="mt-14 rounded bg-[#0A0A0A] p-6 text-white md:mt-20 md:p-10"
+          className="band-dark section-compact-sm mt-6 rounded-[14px]"
         >
-          <div className="mx-auto max-w-2xl text-center">
+          <div className="mx-auto max-w-2xl px-4 text-center">
             <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-white">
               Precio según tu ubicación
             </p>
-            <h2 className="mt-3 font-display text-2xl font-bold tracking-tight md:text-3xl">
+            <h2 className="sq-title mt-1.5">
               Cotiza tu precio según tu ubicación
             </h2>
-            <p className="mx-auto mt-3 max-w-[52ch] text-[13px] leading-relaxed text-white md:text-sm">
+            <p className="sq-sub mx-auto max-w-[52ch] text-[13px] leading-[1.5] text-white/85">
               Elige tu pack, dinos en qué ciudad o municipio está tu negocio y te abrimos
               el chat de WhatsApp con tu cotización lista para enviar.
             </p>
           </div>
-          <div className="mx-auto mt-8 grid max-w-2xl gap-3 md:grid-cols-[1fr_1fr_auto]">
-            <label htmlFor="pack-ciudad" className="sr-only">
-              Pack
-            </label>
-            <select
-              id="pack-ciudad"
-              value={pack}
-              onChange={(e) => setPack(e.target.value)}
-              className="h-10 w-full cursor-pointer appearance-none rounded-full border border-white bg-white px-4 text-[13px] font-medium text-[#0A0A0A] outline-none md:h-9 md:text-[12px]"
-            >
-              {todosLosPacks.map((nombre) => (
-                <option key={nombre} value={nombre}>
-                  {nombre}
-                </option>
-              ))}
-            </select>
-            <label htmlFor="ciudad" className="sr-only">
-              Ciudad o municipio
-            </label>
-            <input
-              id="ciudad"
-              type="text"
-              value={ciudad}
-              onChange={(e) => setCiudad(e.target.value)}
-              placeholder="Ciudad o municipio"
-              autoComplete="address-level2"
-              className="h-10 w-full rounded-full border border-white bg-white px-4 text-[13px] text-[#0A0A0A] outline-none placeholder:text-[#8A8A8A] md:h-9 md:text-[12px]"
-            />
+          <div className="mx-auto mt-3 grid max-w-2xl grid-cols-1 gap-2 px-4 md:grid-cols-[1fr_1fr_auto] md:items-end">
+            <div>
+              <label htmlFor="pack-ciudad" className="field-label !text-white">
+                Pack
+              </label>
+              <select
+                id="pack-ciudad"
+                value={pack}
+                onChange={(e) => setPack(e.target.value)}
+                className="field min-w-0 cursor-pointer appearance-none !rounded-full !border-white"
+              >
+                {todosLosPacks.map((nombre) => (
+                  <option key={nombre} value={nombre}>
+                    {nombre}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label htmlFor="ciudad" className="field-label !text-white">
+                Ciudad o municipio
+              </label>
+              <input
+                id="ciudad"
+                type="text"
+                value={ciudad}
+                onChange={(e) => setCiudad(e.target.value)}
+                placeholder="Ciudad o municipio"
+                autoComplete="address-level2"
+                className="field min-w-0 !rounded-full !border-white"
+              />
+            </div>
             <button
               type="button"
               onClick={cotizarPorCiudad}
               disabled={ciudadVacia}
-              className="inline-flex h-10 cursor-pointer items-center justify-center gap-2 rounded-full bg-white px-6 text-[13px] font-semibold whitespace-nowrap text-[#0A0A0A] transition-colors duration-200 hover:bg-[#E9E9E9] disabled:cursor-not-allowed disabled:opacity-50 md:h-9 md:text-[12px]"
+              className="btn-primary whitespace-nowrap disabled:cursor-not-allowed disabled:opacity-50"
             >
               <WhatsappLogo size={15} weight="fill" />
               Cotizar por WhatsApp
             </button>
           </div>
-          <p className="mx-auto mt-4 max-w-2xl text-center text-xs leading-relaxed text-white">
+          <p className="mx-auto mt-2.5 max-w-2xl px-4 text-center text-xs leading-[1.5] text-white/85">
             {ciudadVacia
               ? "Escribe tu ciudad o municipio para activar el botón."
               : `Cotizarás el ${pack} para tu negocio en ${ciudadTrim}.`}
@@ -211,18 +213,19 @@ export default function PaquetesClient() {
         </motion.div>
 
         {/* FAQs */}
-        <div className="mt-14 md:mt-20">
-          <motion.h2 {...fadeUp()} className="font-display text-2xl font-bold tracking-tight">
+        <div className="mt-6">
+          <motion.h2 {...fadeUp()} className="sq-title flex flex-wrap items-center gap-2">
+            <span className="dash-accent" aria-hidden="true"><span /><span /><span /></span>
             Preguntas frecuentes
           </motion.h2>
-          <div className="mt-8 grid gap-4 sm:grid-cols-2">
+          <div className="sq-grid mt-3 grid-cols-2 sm:grid-cols-2">
             {faqs.map((f, i) => (
-              <motion.div key={f.q} {...fadeUp(i * 0.06)} className="rounded border border-[#D9D9D9] bg-[#F4F4F4] p-6">
-                <div className="flex items-start gap-3">
-                  <Question size={17} weight="fill" className="mt-0.5 shrink-0 text-[#0A0A0A]" />
-                  <div>
-                    <h4 className="text-[13px] font-semibold text-[#0A0A0A] md:text-sm">{f.q}</h4>
-                    <p className="mt-2 text-[13px] leading-relaxed text-[#5C5C5C] md:text-sm">{f.a}</p>
+              <motion.div key={f.q} {...fadeUp(i * 0.06)} className="card !rounded-[12px] !shadow-[0_6px_16px_rgba(10,10,10,0.08)] min-w-0 p-3">
+                <div className="flex min-w-0 items-start gap-2">
+                  <Question size={16} weight="fill" className="mt-0.5 shrink-0 text-[#0A0A0A]" />
+                  <div className="min-w-0">
+                    <h4 className="text-[13px] font-semibold leading-[1.5] text-[#0A0A0A]">{f.q}</h4>
+                    <p className="mt-1 text-[13px] leading-[1.5] text-[#5C5C5C]">{f.a}</p>
                   </div>
                 </div>
               </motion.div>
@@ -233,19 +236,19 @@ export default function PaquetesClient() {
         {/* CTA final */}
         <motion.div
           {...fadeUp(0.1)}
-          className="mt-14 rounded border border-[#D9D9D9] bg-[#F4F4F4] p-8 text-center md:mt-16 md:p-10"
+          className="card section-compact-sm mt-6 text-center"
         >
-          <h3 className="font-display text-xl font-bold tracking-tight text-[#0A0A0A]">
+          <h3 className="font-display text-[15px] font-bold tracking-tight text-[#0A0A0A]">
             ¿No sabes cuál elegir?
           </h3>
-          <p className="mx-auto mt-3 max-w-sm text-[13px] leading-relaxed text-[#5C5C5C] md:text-sm">
+          <p className="sq-sub mx-auto max-w-sm text-[13px] leading-[1.5] text-[#5C5C5C]">
             Escríbenos y te ayudamos a encontrar el pack ideal.
           </p>
           <a
             href="https://wa.me/573242123300?text=Hola%2C%20no%20s%C3%A9%20qu%C3%A9%20paquete%20elegir%2C%20%C2%BFme%20ayudan%3F"
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-7 inline-flex h-10 items-center gap-2 rounded-full bg-[#0A0A0A] px-8 text-[13px] font-semibold text-white transition-colors duration-200 hover:bg-[#5C5C5C] md:h-9 md:text-[12px]"
+            className="btn-primary mt-3"
           >
             <WhatsappLogo size={16} weight="fill" />
             Hablar con un asesor

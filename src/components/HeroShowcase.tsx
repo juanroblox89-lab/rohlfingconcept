@@ -19,22 +19,33 @@ type Props = {
 };
 
 /**
- * Escenario de reels BreZ: videos reales de los clientes con rotación
- * automática, marco 9:16 monocromo, crossfade de 200ms y miniaturas.
- * Sin tilt 3D, sin glows, sin barras de progreso de color.
+ * Escenario de reels estilo Superqueso: videos reales de los clientes con
+ * rotación automática, marco 9:16 con borde de tinta y sombra suave,
+ * crossfade de 200ms y miniaturas con borde grueso.
  * Acepta tanto el array local como `clientes` de @/data/clientes.
  */
 export default function HeroShowcase({ clientes, compact = false }: Props) {
   const [idx, setIdx] = useState(0);
   const [paused, setPaused] = useState(false);
+  // useReducedMotion es null en el servidor: solo se aplica tras el montaje
+  // para no romper la hidratación (el HTML inicial debe coincidir).
   const reduce = useReducedMotion();
+  // Sin estado sincronizado: el HTML inicial (SSR) y el primer render del
+  // cliente coinciden (video si hay video). Solo tras el montaje aplicamos
+  // la preferencia de movimiento reducido, cambiando a poster.
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    const t = requestAnimationFrame(() => setMounted(true));
+    return () => cancelAnimationFrame(t);
+  }, []);
+  const reduceMotion = mounted && reduce;
 
   // Rotación automática — misma velocidad para todos
   useEffect(() => {
-    if (paused || reduce || clientes.length < 2) return;
+    if (paused || reduceMotion || clientes.length < 2) return;
     const t = setInterval(() => setIdx((i) => (i + 1) % clientes.length), 4300);
     return () => clearInterval(t);
-  }, [paused, reduce, clientes.length]);
+  }, [paused, reduceMotion, clientes.length]);
 
   const actual = clientes[idx];
 
@@ -43,9 +54,9 @@ export default function HeroShowcase({ clientes, compact = false }: Props) {
       {...fadeUp()}
       className={compact ? "mx-auto w-full max-w-[270px]" : "mx-auto w-full max-w-[330px]"}
     >
-      {/* Marco vertical tipo reel — 9:16, borde mono */}
+      {/* Marco vertical tipo reel — 9:16, borde de tinta estilo Superqueso */}
       <div
-        className="relative aspect-[9/16] w-full overflow-hidden rounded border border-[#D9D9D9] bg-[#F4F4F4]"
+        className="relative aspect-[9/16] w-full overflow-hidden rounded-[22px] border-[2.5px] border-[#0A0A0A] bg-[#F4F4F4] shadow-[0_10px_24px_rgba(10,10,10,0.12)]"
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
       >
@@ -59,7 +70,7 @@ export default function HeroShowcase({ clientes, compact = false }: Props) {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2, ease: EASE }}
           >
-            {actual.video && !reduce ? (
+            {actual.video && !reduceMotion ? (
               <video
                 key={actual.video}
                 src={actual.video}
@@ -121,14 +132,14 @@ export default function HeroShowcase({ clientes, compact = false }: Props) {
         )}
 
         {/* Nombre — franja inferior sólida */}
-        <div className="absolute inset-x-0 bottom-0 bg-[#0A0A0A] px-4 py-3">
-          <p className="text-sm font-semibold leading-tight text-white">{actual.name}</p>
+        <div className="absolute inset-x-0 bottom-0 bg-[#0A0A0A] px-3 py-2">
+          <p className="text-[13px] font-semibold leading-tight text-white">{actual.name}</p>
           {actual.desde && <p className="mt-0.5 text-xs text-white/70">{actual.desde}</p>}
         </div>
       </div>
 
       {/* Miniaturas para saltar de cliente */}
-      <div className="mt-3 grid grid-cols-7 gap-1.5">
+      <div className="mt-2 grid grid-cols-7 gap-1">
         {clientes.map((c, i) => (
           <button
             key={c.name}
@@ -136,8 +147,8 @@ export default function HeroShowcase({ clientes, compact = false }: Props) {
             aria-label={`Ver ${c.name}`}
             aria-current={i === idx}
             onClick={() => setIdx(i)}
-            className={`relative flex h-11 w-full items-center justify-center overflow-hidden rounded border bg-[#F4F4F4] transition-colors duration-200 ${
-              i === idx ? "border-[#0A0A0A]" : "border-[#D9D9D9]"
+            className={`relative flex h-11 w-full items-center justify-center overflow-hidden rounded-[12px] border-2 bg-[#F4F4F4] transition-transform duration-200 ${
+              i === idx ? "border-[#0A0A0A] shadow-[0_3px_0_#0A0A0A]" : "border-[#D9D9D9]"
             }`}
           >
             {c.poster ? (

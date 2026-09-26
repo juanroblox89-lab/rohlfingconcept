@@ -77,16 +77,14 @@ function iniciales(name: string): string {
 export default function EquipoClient() {
   return (
     <main className="min-h-screen bg-[#FFFFFF] text-[#0A0A0A]">
-      {/* ── Header tipográfico ── */}
-      <section className="border-b border-[#D9D9D9]">
-        <div className="mx-auto max-w-[1440px] px-4 py-16 md:px-6 md:py-24 xl:px-8">
-          <motion.p {...fadeUp()} className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#5C5C5C]">
-            Equipo — Rohlfing Concept
-          </motion.p>
-          <motion.h1 {...fadeUp(0.06)} className="mt-4 max-w-[16ch] font-display text-4xl font-bold tracking-tight sm:text-5xl">
-            El equipo detrás de Rohlfing Concept.
+      {/* ── Header compacto ── */}
+      <section className="border-b-2 border-[#0A0A0A]">
+        <div className="section-compact-sm mx-auto max-w-[1440px] px-4 md:px-6 xl:px-8">
+          <motion.h1 {...fadeUp()} className="sq-title flex max-w-[16ch] flex-wrap items-center gap-2">
+            <span className="dash-accent" aria-hidden="true"><span /><span /><span /></span>
+            El equipo detrás
           </motion.h1>
-          <motion.p {...fadeUp(0.12)} className="mt-5 max-w-[60ch] text-sm leading-relaxed text-[#5C5C5C]">
+          <motion.p {...fadeUp(0.12)} className="sq-sub mt-2 max-w-[60ch] text-[13px] leading-[1.5] text-[#5C5C5C]">
             Un equipo profesional de grabación, producción, diseño y estrategia
             trabajando juntos en cada proyecto.
           </motion.p>
@@ -94,23 +92,23 @@ export default function EquipoClient() {
       </section>
 
       {/* ── Miembros ── */}
-      <section className="mx-auto max-w-[1440px] px-4 py-14 md:px-6 md:py-20 xl:px-8">
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      <section className="section-compact mx-auto max-w-[1440px] px-4 md:px-6 xl:px-8">
+        <div className="sq-grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3">
           {team.map((m, i) => (
             <motion.article
               key={m.name}
               {...fadeUp(Math.min(i * 0.05, 0.3))}
-              className="overflow-hidden rounded border border-[#D9D9D9] bg-[#FFFFFF]"
+              className="card min-w-0 overflow-hidden !p-2 md:!p-2.5"
             >
               {/* Foto (o iniciales sobre superficie sólida cuando no hay foto) */}
-              <div className="relative aspect-[4/5] overflow-hidden bg-[#F4F4F4]">
+              <div className="relative aspect-[4/5] overflow-hidden rounded-[12px] bg-[#F4F4F4]">
                 {m.photo ? (
                   <Image
                     src={m.photo}
                     alt={m.name}
                     fill
                     className="object-cover object-top"
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 50vw, 33vw"
                   />
                 ) : (
                   <div className="flex h-full w-full items-center justify-center bg-[#F4F4F4]">
@@ -121,14 +119,15 @@ export default function EquipoClient() {
                 )}
               </div>
 
-              <div className="border-t border-[#D9D9D9] p-5">
-                <h2 className="text-[15px] font-bold leading-tight">{m.name}</h2>
-                <p className="mt-1 text-xs font-medium text-[#5C5C5C]">{m.role}</p>
-                <p className="mt-3 text-[13px] leading-relaxed text-[#5C5C5C]">{m.bio}</p>
-                <ul className="mt-4 space-y-2">
+              <div className="min-w-0 px-2 pb-2 pt-3 md:px-3 md:pb-3 md:pt-4">
+                <div className="flex items-center justify-center">
+                  <span className="pill max-w-full !whitespace-normal text-center !text-[10px] !leading-snug">{m.role}</span>
+                </div>
+                <h2 className="mt-2 text-center text-[13px] font-bold leading-tight md:text-[15px]">{m.name}</h2>
+                <p className="mt-1.5 text-center text-[13px] leading-[1.5] text-[#5C5C5C]">{m.bio}</p>
+                <ul className="mt-2.5 flex max-w-full flex-wrap justify-center gap-1 md:gap-1.5">
                   {m.skills.map((s) => (
-                    <li key={s} className="flex items-start gap-2 text-[13px] leading-snug text-[#5C5C5C]">
-                      <span className="mt-[7px] h-1 w-1 shrink-0 rounded-full bg-[#0A0A0A]" />
+                    <li key={s} className="min-w-0 break-words rounded-full border border-[#D9D9D9] bg-[#F4F4F4] px-2 py-0.5 text-[11px] font-medium leading-[1.5] text-[#5C5C5C] md:px-3 md:py-1">
                       {s}
                     </li>
                   ))}
@@ -139,17 +138,15 @@ export default function EquipoClient() {
         </div>
 
         {/* ── Filosofía — texto real del Portafolio Corporativo ── */}
-        <div className="mt-16 md:mt-24">
-          <motion.p {...fadeUp()} className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#5C5C5C]">
-            Filosofía
-          </motion.p>
-          <motion.h2 {...fadeUp(0.06)} className="mt-3 font-display text-3xl font-bold tracking-tight sm:text-4xl">
+        <div className="mt-6">
+          <motion.h2 {...fadeUp()} className="sq-title flex flex-wrap items-center gap-2">
+            <span className="dash-accent" aria-hidden="true"><span /><span /><span /></span>
             Nuestra filosofía
           </motion.h2>
-          <div className="mt-8 grid gap-5 lg:grid-cols-2">
-            <motion.div {...fadeUp(0.05)} className="rounded border border-[#D9D9D9] bg-[#F4F4F4] p-6 md:p-8">
-              <h3 className="text-xs font-semibold uppercase tracking-[0.16em] text-[#0A0A0A]">Misión</h3>
-              <p className="mt-4 text-[13px] leading-relaxed text-[#5C5C5C]">
+          <div className="sq-grid mt-3 lg:grid-cols-2">
+            <motion.div {...fadeUp(0.05)} className="card min-w-0 p-3 md:p-7">
+              <p><span className="pill !whitespace-normal !text-[10px] !leading-snug">Misión</span></p>
+              <p className="mt-2 text-[13px] leading-[1.5] text-[#5C5C5C] md:leading-relaxed">
                 En Rohlfing Concept trabajamos para transformar ideas en soluciones visuales y digitales
                 innovadoras, ofreciendo servicios profesionales de diseño, producción audiovisual y
                 administración digital. Nuestro compromiso es brindar una atención personalizada,
@@ -157,9 +154,9 @@ export default function EquipoClient() {
                 fortalezcan su identidad, impulsen su crecimiento y generen resultados reales.
               </p>
             </motion.div>
-            <motion.div {...fadeUp(0.1)} className="rounded border border-[#D9D9D9] bg-[#F4F4F4] p-6 md:p-8">
-              <h3 className="text-xs font-semibold uppercase tracking-[0.16em] text-[#0A0A0A]">Visión</h3>
-              <p className="mt-4 text-[13px] leading-relaxed text-[#5C5C5C]">
+            <motion.div {...fadeUp(0.1)} className="card min-w-0 p-3 md:p-7">
+              <p><span className="pill !whitespace-normal !text-[10px] !leading-snug">Visión</span></p>
+              <p className="mt-2 text-[13px] leading-[1.5] text-[#5C5C5C] md:leading-relaxed">
                 Ser una empresa reconocida a nivel regional y nacional por la calidad de nuestras soluciones
                 creativas y digitales, destacándonos por nuestra innovación, compromiso y capacidad de
                 adaptación. Buscamos consolidarnos como un aliado estratégico para empresas, emprendimientos
@@ -168,29 +165,29 @@ export default function EquipoClient() {
             </motion.div>
           </div>
 
-          <div className="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="sq-grid mt-3 grid-cols-2 sm:grid-cols-2 lg:grid-cols-3">
             {valores.map((v, i) => (
               <motion.div
                 key={v.t}
                 {...fadeUp(Math.min(i * 0.04, 0.3))}
-                className="rounded border border-[#D9D9D9] bg-[#FFFFFF] p-5 md:p-6"
+                className="card !rounded-[14px] !shadow-[0_6px_16px_rgba(10,10,10,0.08)] min-w-0 p-3 md:p-5"
               >
-                <h3 className="text-sm font-bold">{v.t}</h3>
-                <p className="mt-2.5 text-[13px] leading-relaxed text-[#5C5C5C]">{v.d}</p>
+                <p><span className="pill !whitespace-normal !text-[10px] !leading-snug">{v.t}</span></p>
+                <p className="mt-2 text-[13px] leading-[1.5] text-[#5C5C5C]">{v.d}</p>
               </motion.div>
             ))}
           </div>
         </div>
 
-        {/* ── CTA negro ── */}
-        <motion.div {...fadeUp(0.15)} className="mt-14 rounded bg-[#0A0A0A] p-10 text-center text-[#FFFFFF]">
-          <h2 className="font-display text-2xl font-bold tracking-tight">¿Quieres trabajar con nosotros?</h2>
-          <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-[#F4F4F4]">
+        {/* ── CTA banda negra ── */}
+        <motion.div {...fadeUp(0.15)} className="band-dark section-compact-sm mt-6 rounded-[14px] p-6 text-center md:mt-10 md:p-10">
+          <h2 className="sq-title">¿Quieres trabajar con nosotros?</h2>
+          <p className="sq-sub mx-auto max-w-md text-[13px] leading-[1.5] text-white/85">
             Cuéntanos tu proyecto y todo el equipo pondrá manos a la obra.
           </p>
           <a
             href="https://wa.me/573242123300?text=Hola%2C%20quiero%20trabajar%20con%20Rohlfing%20Concept%20en%20un%20proyecto."
-            className="mt-7 inline-flex items-center gap-2 rounded-full bg-[#FFFFFF] px-8 py-3.5 text-sm font-semibold text-[#0A0A0A]"
+            className="btn-primary mt-3"
           >
             <WhatsappLogo size={16} weight="fill" />
             Cotiza tu proyecto

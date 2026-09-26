@@ -31,16 +31,14 @@ export default function VideosClient({ files }: { files: string[] }) {
 
   return (
     <main className="min-h-screen bg-[#FFFFFF] text-[#0A0A0A]">
-      {/* ── Header tipográfico ── */}
-      <section className="border-b border-[#D9D9D9]">
-        <div className="mx-auto max-w-[1440px] px-4 py-16 md:px-6 md:py-24 xl:px-8">
-          <motion.p {...fadeUp()} className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#5C5C5C]">
-            Video — Rohlfing Concept
-          </motion.p>
-          <motion.h1 {...fadeUp(0.06)} className="mt-4 max-w-[16ch] font-display text-4xl font-bold tracking-tight sm:text-5xl">
-            Ediciones que se sienten, no solo se ven.
+      {/* ── Header compacto ── */}
+      <section className="border-b-2 border-[#0A0A0A]">
+        <div className="section-compact-sm mx-auto max-w-[1440px] px-4 md:px-6 xl:px-8">
+          <motion.h1 {...fadeUp()} className="sq-title flex max-w-[16ch] flex-wrap items-center gap-2">
+            <span className="dash-accent" aria-hidden="true"><span /><span /><span /></span>
+            Ediciones que se sienten
           </motion.h1>
-          <motion.p {...fadeUp(0.12)} className="mt-5 max-w-[60ch] text-sm leading-relaxed text-[#5C5C5C]">
+          <motion.p {...fadeUp(0.12)} className="sq-sub mt-2 max-w-[60ch] text-[13px] leading-[1.5] text-[#5C5C5C]">
             Reels, piezas para redes y ediciones creadas por nuestro equipo. Así se ve
             trabajar con Rohlfing Concept.
           </motion.p>
@@ -48,14 +46,14 @@ export default function VideosClient({ files }: { files: string[] }) {
       </section>
 
       {/* ── Grid de videos ── */}
-      <section className="mx-auto max-w-[1440px] px-4 py-14 md:px-6 md:py-20 xl:px-8">
+      <section className="section-compact mx-auto max-w-[1440px] px-4 md:px-6 xl:px-8">
         {hasVideos ? (
-          <div className="grid gap-5 md:grid-cols-2">
+          <div className="sq-grid md:grid-cols-2">
             {files.map((f, i) => (
               <motion.article
                 key={f}
                 {...fadeUp(Math.min(i * 0.05, 0.3))}
-                className="overflow-hidden rounded border border-[#D9D9D9] bg-[#FFFFFF]"
+                className="card overflow-hidden !p-2"
               >
                 <video
                   controls
@@ -69,14 +67,14 @@ export default function VideosClient({ files }: { files: string[] }) {
                   }}
                   className={
                     vertical[f]
-                      ? "mx-auto aspect-[9/16] w-full max-w-[320px] bg-[#0A0A0A] object-contain"
-                      : "aspect-video w-full bg-[#0A0A0A] object-contain"
+                      ? "mx-auto aspect-[9/16] w-full max-w-[320px] rounded-[14px] bg-[#0A0A0A] object-contain"
+                      : "aspect-video w-full rounded-[14px] bg-[#0A0A0A] object-contain"
                   }
                 />
-                <div className="flex items-center justify-between gap-3 border-t border-[#D9D9D9] p-4">
-                  <h2 className="min-w-0 truncate text-[13px] font-semibold">{prettyTitle(f)}</h2>
+                <div className="flex items-center justify-between gap-3 px-2 py-3">
+                  <h2 className="min-w-0 truncate text-[13px] font-bold">{prettyTitle(f)}</h2>
                   {vertical[f] && (
-                    <span className="shrink-0 rounded-full border border-[#D9D9D9] px-2.5 py-0.5 text-[11px] font-medium text-[#5C5C5C]">
+                    <span className="pill shrink-0 !text-[10px]">
                       Reel
                     </span>
                   )}
@@ -86,16 +84,16 @@ export default function VideosClient({ files }: { files: string[] }) {
           </div>
         ) : (
           /* Estado vacío — mientras suben los videos reales */
-          <motion.div {...fadeUp()} className="mx-auto max-w-xl rounded border border-[#D9D9D9] bg-[#F4F4F4] p-10 text-center">
+          <motion.div {...fadeUp()} className="card mx-auto max-w-xl p-8 text-center md:p-10">
             <FilmSlate size={36} weight="duotone" className="mx-auto text-[#5C5C5C]" />
-            <h2 className="mt-6 font-display text-xl font-bold">Estamos montando nuestras últimas ediciones</h2>
-            <p className="mx-auto mt-3 max-w-md text-[13px] leading-relaxed text-[#5C5C5C]">
+            <h2 className="mt-5 font-display text-xl font-bold">Estamos montando nuestras últimas ediciones</h2>
+            <p className="mx-auto mt-2 max-w-md text-[13px] leading-relaxed text-[#5C5C5C]">
               Mientras tanto, escríbenos y te mostramos el portafolio completo de video
               directamente por WhatsApp.
             </p>
             <a
               href="https://wa.me/573242123300?text=Hola%2C%20quiero%20ver%20los%20videos%20que%20han%20editado."
-              className="mt-7 inline-flex items-center gap-2 rounded-full bg-[#0A0A0A] px-7 py-3.5 text-sm font-semibold text-[#FFFFFF]"
+              className="btn-primary mt-6"
             >
               <WhatsappLogo size={16} weight="fill" />
               Ver portafolio de video
@@ -103,17 +101,15 @@ export default function VideosClient({ files }: { files: string[] }) {
           </motion.div>
         )}
 
-        {/* ── CTA final — bloque negro sólido ── */}
-        <motion.div {...fadeUp(0.1)} className="mt-14 rounded bg-[#0A0A0A] p-10 text-center text-[#FFFFFF]">
-          <h2 className="font-display text-2xl font-bold tracking-tight">
-            ¿Quieres una edición así para tu marca?
-          </h2>
-          <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-[#F4F4F4]">
+        {/* ── CTA final — banda negra ── */}
+        <motion.div {...fadeUp(0.1)} className="band-dark section-compact-sm mt-6 rounded-[14px] p-6 text-center md:p-10">
+          <h2 className="sq-title">¿Quieres una edición así para tu marca?</h2>
+          <p className="sq-sub mx-auto max-w-md text-[13px] leading-[1.5] text-white/85">
             Creamos contenido desde cero según la identidad de tu negocio.
           </p>
           <Link
             href="/servicios/edicion-de-video"
-            className="mt-7 inline-flex items-center gap-2 rounded-full bg-[#FFFFFF] px-7 py-3.5 text-sm font-semibold text-[#0A0A0A]"
+            className="btn-primary mt-6"
           >
             Ver precios de edición de video
           </Link>

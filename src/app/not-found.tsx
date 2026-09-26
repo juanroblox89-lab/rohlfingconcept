@@ -14,10 +14,7 @@ export default function NotFound() {
         El enlace que buscas no existe o fue movido. Vuelve al inicio y
         descubre todo lo que podemos crear para tu marca.
       </p>
-      <Link
-        href="/"
-        className="mt-10 inline-flex h-10 items-center gap-2 rounded-full bg-[#0A0A0A] px-7 text-sm font-semibold text-white transition-colors duration-200 hover:bg-[#5C5C5C]"
-      >
+      <Link href="/" className="btn-primary mt-10">
         <ArrowLeft size={15} weight="bold" />
         Volver al inicio
       </Link>

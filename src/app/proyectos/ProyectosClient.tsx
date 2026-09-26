@@ -84,28 +84,25 @@ export default function ProyectosClient() {
 
   return (
     <main className="min-h-screen bg-[#FFFFFF] text-[#0A0A0A]">
-      {/* ── Header tipográfico ── */}
-      <section className="border-b border-[#D9D9D9]">
-        <div className="mx-auto max-w-[1440px] px-4 py-16 md:px-6 md:py-24 xl:px-8">
-          <motion.p {...fadeUp()} className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#5C5C5C]">
-            Portafolio — Rohlfing Concept
-          </motion.p>
-          <motion.h1 {...fadeUp(0.06)} className="mt-4 max-w-[16ch] font-display text-4xl font-bold tracking-tight sm:text-5xl">
-            Trabajo real para marcas reales.
+      {/* ── Header compacto ── */}
+      <section className="border-b-2 border-[#0A0A0A]">
+        <div className="section-compact mx-auto max-w-[1440px] px-4 md:px-6 xl:px-8">
+          <motion.h1 {...fadeUp()} className="sq-title flex flex-wrap items-center gap-2">
+            <span className="dash-accent" aria-hidden="true"><span /><span /><span /></span>
+            Trabajo real, marcas reales
           </motion.h1>
-          <motion.p {...fadeUp(0.12)} className="mt-5 max-w-[60ch] text-sm leading-relaxed text-[#5C5C5C]">
+          <motion.p {...fadeUp(0.12)} className="mt-2 max-w-[60ch] text-[13px] leading-[1.5] text-[#5C5C5C]">
             Diseños, piezas para redes, branding y edición de video creados por
             nuestro equipo para negocios que confían en nosotros.
           </motion.p>
-          <motion.div {...fadeUp(0.18)} className="mt-10 grid max-w-xl grid-cols-3 gap-3">
+          <motion.div {...fadeUp(0.18)} className="mt-3 flex max-w-xl flex-wrap gap-2">
             {[
               { v: "+300", l: "Proyectos" },
               { v: "2.3M", l: "Visualizaciones" },
               { v: "7", l: "Marcas activas" },
             ].map((s) => (
-              <div key={s.l} className="rounded border border-[#0A0A0A] p-4">
-                <p className="font-display text-2xl font-bold">{s.v}</p>
-                <p className="mt-1 text-xs text-[#5C5C5C]">{s.l}</p>
+              <div key={s.l} className="pill !text-[11px]">
+                <strong className="font-display font-bold">{s.v}</strong> {s.l}
               </div>
             ))}
           </motion.div>
@@ -113,30 +110,32 @@ export default function ProyectosClient() {
       </section>
 
       {/* ── Galería de trabajos reales ── */}
-      <section id="trabajos" className="mx-auto max-w-[1440px] px-4 py-14 md:px-6 md:py-20 xl:px-8">
-        <motion.div {...fadeUp()} className="flex flex-wrap items-end justify-between gap-6">
+      <section id="trabajos" className="section-compact mx-auto max-w-[1440px] px-4 md:px-6 xl:px-8">
+        <motion.div {...fadeUp()} className="flex flex-wrap items-end justify-between gap-3">
           <div>
-            <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#5C5C5C]">
-              Galería
-            </p>
-            <h2 className="mt-3 font-display text-3xl font-bold tracking-tight sm:text-4xl">
+            <h2 className="sq-title flex flex-wrap items-center gap-2">
+              <span className="dash-accent" aria-hidden="true"><span /><span /><span /></span>
               Nuestros trabajos
             </h2>
-            <p className="mt-3 max-w-[52ch] text-[13px] leading-relaxed text-[#5C5C5C]">
+            <p className="mt-2 max-w-[52ch] text-[13px] leading-[1.5] text-[#5C5C5C]">
               Una selección de piezas reales: diseño, branding, edición y contenido para redes.
             </p>
           </div>
           <Link
             href="/videos"
-            className="inline-flex items-center gap-2 rounded-full border border-[#D9D9D9] px-5 py-2.5 text-[13px] font-medium text-[#5C5C5C]"
+            className="btn-secondary !py-2"
           >
             <PlayCircle size={16} weight="duotone" />
             Ediciones en video
           </Link>
         </motion.div>
 
-        {/* Filtros pills mono */}
-        <motion.div {...fadeUp(0.06)} className="mt-8 flex flex-wrap gap-2">
+        {/* Filtros pills con borde de tinta — scroll horizontal en móvil */}
+        <motion.div
+          {...fadeUp(0.06)}
+          data-carousel="filtros"
+          className="mt-3 flex max-w-full flex-nowrap gap-2 overflow-x-auto px-4 pb-1 [scrollbar-width:none] md:mx-0 md:flex-wrap md:overflow-visible md:px-0 md:pb-0 [&::-webkit-scrollbar]:hidden"
+        >
           {filtros.map((f) => {
             const activo = filtro === f.key;
             const n = f.key === "Todos" ? obras.length : obras.filter((o) => o.cat === f.key).length;
@@ -146,81 +145,82 @@ export default function ProyectosClient() {
                 onClick={() => setFiltro(f.key)}
                 whileTap={{ scale: 0.97 }}
                 transition={{ duration: 0.15, ease: EASE }}
-                className={`rounded-full border px-4 py-2 text-xs font-medium ${
+                className={`pill shrink-0 cursor-pointer !normal-case !tracking-normal ${
                   activo
-                    ? "border-[#0A0A0A] bg-[#0A0A0A] text-[#FFFFFF]"
-                    : "border-[#D9D9D9] bg-[#FFFFFF] text-[#5C5C5C]"
+                    ? "!bg-[#0A0A0A] !text-white"
+                    : ""
                 }`}
               >
                 {f.label}
-                <span className={`ml-1.5 ${activo ? "text-[#F4F4F4]" : "text-[#8A8A8A]"}`}>{n}</span>
+                <span className={activo ? "text-white/70" : "text-[#8A8A8A]"}>{n}</span>
               </motion.button>
             );
           })}
         </motion.div>
 
-        {/* Grid masonry con caption visible */}
-        <div className="mt-8 columns-1 gap-5 sm:columns-2 lg:columns-3">
+        {/* Grid parejo 2 col móvil / 3-4 desktop — tarjeta baja: imagen 4:3 + pill */}
+        <div className="sq-grid mt-3 grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {visibles.map((o, i) => (
             <motion.figure
               key={o.src}
               {...fadeUp(Math.min(i * 0.04, 0.3))}
-              className="mb-5 break-inside-avoid overflow-hidden rounded border border-[#D9D9D9] bg-[#FFFFFF]"
+              className="card overflow-hidden !p-1.5 md:!p-2"
             >
-              <Image
-                src={o.src}
-                alt={`${CAT_LABEL[o.cat]} — Rohlfing Concept`}
-                width={o.w}
-                height={o.h}
-                className="h-auto w-full object-cover"
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-              />
-              <figcaption className="border-t border-[#D9D9D9] p-4">
-                <div className="flex items-center justify-between gap-3">
-                  <p className="text-[13px] font-semibold">Rohlfing Concept</p>
-                  <span className="shrink-0 rounded-full border border-[#D9D9D9] px-2.5 py-0.5 text-[11px] font-medium text-[#5C5C5C]">
-                    {formatoPieza(o)}
-                  </span>
-                </div>
-                <p className="mt-1 text-xs text-[#5C5C5C]">{CAT_LABEL[o.cat]}</p>
+              <div className="relative aspect-[4/3] w-full overflow-hidden rounded-[12px] bg-[#F4F4F4]">
+                <Image
+                  src={o.src}
+                  alt={`${CAT_LABEL[o.cat]} — Rohlfing Concept`}
+                  fill
+                  sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                  className="object-cover"
+                />
+              </div>
+              <figcaption className="flex items-center justify-between gap-2 px-1.5 py-2 md:px-2">
+                <span className="pill min-w-0 max-w-full truncate !text-[10px]">
+                  {CAT_LABEL[o.cat]}
+                </span>
+                <span className="hidden shrink-0 text-[11px] text-[#8A8A8A] md:block">
+                  {formatoPieza(o)}
+                </span>
               </figcaption>
             </motion.figure>
           ))}
         </div>
       </section>
 
-      {/* ── Marcas que confiaron en nosotros ── */}
-      <section className="border-y border-[#D9D9D9] bg-[#F4F4F4]">
-        <div className="mx-auto max-w-[1440px] px-4 py-14 md:px-6 md:py-20 xl:px-8">
-          <motion.p {...fadeUp()} className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#5C5C5C]">
-            Clientes
-          </motion.p>
-          <motion.h2 {...fadeUp(0.06)} className="mt-3 font-display text-3xl font-bold tracking-tight sm:text-4xl">
+      {/* ── Marcas que confiaron en nosotros — banda negra ── */}
+      <section className="band-dark">
+        <div className="section-compact mx-auto max-w-[1440px] px-4 md:px-6 xl:px-8">
+          <motion.h2 {...fadeUp()} className="sq-title flex flex-wrap items-center gap-2">
+            <span className="dash-accent" aria-hidden="true"><span /><span /><span /></span>
             Marcas que confiaron en nosotros
           </motion.h2>
-          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="sq-grid mt-3 grid-cols-2 lg:grid-cols-3">
             {clientes.map((c, i) => (
               <motion.article
                 key={c.name}
                 {...fadeUp(Math.min(i * 0.05, 0.3))}
-                className="overflow-hidden rounded border border-[#D9D9D9] bg-[#FFFFFF]"
+                className="card overflow-hidden !p-2 md:!p-2.5"
               >
-                <div className="flex aspect-[16/9] flex-col items-center justify-center gap-3 bg-[#F4F4F4] p-6">
+                <div className="flex aspect-[16/9] flex-col items-center justify-center gap-2 rounded-[14px] bg-[#F4F4F4] p-3 md:p-5">
                   <Image
                     src={c.logo}
                     alt={`Logo de ${c.name}`}
                     width={160}
                     height={84}
-                    className="h-16 w-auto max-w-[70%] object-contain"
+                    className="h-10 w-auto max-w-[70%] object-contain md:h-16"
                   />
-                  <h3 className="text-center text-sm font-bold">{c.name}</h3>
                 </div>
-                <div className="p-5">
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-[#8A8A8A]">
+                <div className="flex items-center justify-center px-2 pb-1 pt-2 md:pt-3">
+                  <span className="pill max-w-full truncate !text-[10px]">{c.name}</span>
+                </div>
+                <div className="px-2 pb-2 md:px-3 md:pb-3">
+                  <p className="truncate text-center text-[10px] font-bold uppercase tracking-[0.12em] text-[#8A8A8A] md:text-[11px]">
                     {c.tag}
                   </p>
-                  <p className="mt-2 text-xs text-[#8A8A8A]">{c.desde ?? "Cliente activo"}</p>
-                  <p className="mt-3 text-[13px] leading-relaxed text-[#5C5C5C]">{c.desc}</p>
+                  <p className="mt-1 line-clamp-2 text-center text-[13px] leading-[1.5] text-[#5C5C5C] md:line-clamp-none md:text-left">
+                    {c.desc}
+                  </p>
                 </div>
               </motion.article>
             ))}
@@ -229,22 +229,20 @@ export default function ProyectosClient() {
       </section>
 
       {/* ── Videos de nuestras marcas ── */}
-      <section className="mx-auto max-w-[1440px] px-4 py-14 md:px-6 md:py-20 xl:px-8">
-        <motion.p {...fadeUp()} className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#5C5C5C]">
-          Video
-        </motion.p>
-        <motion.h2 {...fadeUp(0.06)} className="mt-3 font-display text-3xl font-bold tracking-tight sm:text-4xl">
-          Reels y videos para nuestras marcas
+      <section className="section-compact mx-auto max-w-[1440px] px-4 md:px-6 xl:px-8">
+        <motion.h2 {...fadeUp()} className="sq-title flex flex-wrap items-center gap-2">
+          <span className="dash-accent" aria-hidden="true"><span /><span /><span /></span>
+          Reels y videos
         </motion.h2>
-        <motion.p {...fadeUp(0.1)} className="mt-3 max-w-[52ch] text-[13px] leading-relaxed text-[#5C5C5C]">
+        <motion.p {...fadeUp(0.1)} className="mt-2 max-w-[52ch] text-[13px] leading-[1.5] text-[#5C5C5C]">
           Piezas audiovisuales reales, producidas y editadas por nuestro equipo.
         </motion.p>
-        <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="sq-grid mt-3 grid-cols-2 lg:grid-cols-3">
           {conVideo.map((c, i) => (
             <motion.article
               key={c.video}
               {...fadeUp(Math.min(i * 0.05, 0.3))}
-              className="overflow-hidden rounded border border-[#D9D9D9] bg-[#FFFFFF]"
+              className="card overflow-hidden !p-1.5 md:!p-2"
             >
               <video
                 controls
@@ -252,11 +250,11 @@ export default function ProyectosClient() {
                 playsInline
                 poster={c.poster}
                 src={c.video}
-                className="aspect-video w-full bg-[#0A0A0A] object-contain"
+                className="aspect-video w-full rounded-[14px] bg-[#0A0A0A] object-contain"
               />
-              <div className="flex items-center justify-between gap-3 border-t border-[#D9D9D9] p-4">
-                <p className="min-w-0 truncate text-[13px] font-semibold">{c.name}</p>
-                <span className="shrink-0 rounded-full border border-[#D9D9D9] px-2.5 py-0.5 text-[11px] font-medium text-[#5C5C5C]">
+              <div className="flex flex-col items-start gap-1 px-1.5 py-2 md:flex-row md:items-center md:justify-between md:gap-2 md:px-2 md:py-3">
+                <p className="min-w-0 w-full truncate text-[13px] font-bold leading-[1.5]">{c.name}</p>
+                <span className="pill shrink-0 !text-[10px]">
                   {formatoVideo(c.video)}
                 </span>
               </div>
@@ -265,23 +263,25 @@ export default function ProyectosClient() {
         </div>
       </section>
 
-      {/* ── CTA WhatsApp ── */}
-      <section className="mx-auto max-w-[1440px] px-4 pb-16 md:px-6 md:pb-24 xl:px-8">
-        <motion.div {...fadeUp(0.1)} className="rounded border border-[#0A0A0A] p-10 text-center">
-          <h2 className="font-display text-2xl font-bold tracking-tight">
-            ¿Quieres que trabajemos juntos?
-          </h2>
-          <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-[#5C5C5C]">
-            Cuéntanos sobre tu marca y te damos una propuesta personalizada sin costo.
-          </p>
-          <a
-            href={WHATSAPP}
-            className="mt-7 inline-flex items-center gap-2 rounded-full bg-[#0A0A0A] px-8 py-3.5 text-sm font-semibold text-[#FFFFFF]"
-          >
-            <WhatsappLogo size={16} weight="fill" />
-            Empezar proyecto
-          </a>
-        </motion.div>
+      {/* ── CTA WhatsApp — banda negra ── */}
+      <section className="band-dark">
+        <div className="section-compact-sm mx-auto max-w-[1440px] px-4 md:px-6 xl:px-8">
+          <motion.div {...fadeUp(0.1)} className="mx-auto max-w-xl text-center">
+            <h2 className="sq-title">
+              ¿Quieres que trabajemos juntos?
+            </h2>
+            <p className="mx-auto mt-2 max-w-md text-[13px] leading-[1.5] text-white/85">
+              Cuéntanos sobre tu marca y te damos una propuesta personalizada sin costo.
+            </p>
+            <a
+              href={WHATSAPP}
+              className="btn-primary mt-3"
+            >
+              <WhatsappLogo size={16} weight="fill" />
+              Empezar proyecto
+            </a>
+          </motion.div>
+        </div>
       </section>
     </main>
   );

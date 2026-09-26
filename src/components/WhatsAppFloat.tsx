@@ -9,7 +9,7 @@ export default function WhatsAppFloat() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Escríbenos por WhatsApp"
-      className="group fixed bottom-5 right-5 z-40 flex h-12 w-12 items-center justify-center rounded-full bg-[#0A0A0A] text-white transition-colors duration-200 hover:bg-[#5C5C5C]"
+      className="group fixed bottom-5 right-5 z-40 flex h-12 w-12 items-center justify-center rounded-full border-[2.5px] border-[#0A0A0A] bg-[#0A0A0A] text-white shadow-[0_5px_0_#5C5C5C] transition-transform duration-150 active:translate-y-[3px] active:shadow-[0_2px_0_#5C5C5C]"
     >
       <WhatsappLogo size={24} weight="fill" />
       {/* Tooltip */}

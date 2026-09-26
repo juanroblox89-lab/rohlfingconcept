@@ -152,25 +152,17 @@ export default function Home() {
     <main className="flex flex-col overflow-hidden">
 
       {/* ══════════════════════════════════════════
-          HERO — tipográfico estilo BreZ
+          HERO — bloque visual protagonista + CTA pastilla
       ══════════════════════════════════════════ */}
-      <section className="flex flex-col bg-white pt-28 md:pt-32">
-        <div className="mx-auto grid w-full max-w-[1440px] gap-10 px-4 pb-14 md:grid-cols-[1fr_1fr] md:items-center md:px-6 lg:grid-cols-[1fr_300px] xl:px-8">
+      <section className="flex flex-col bg-white pt-4 md:pt-5">
+        <div className="mx-auto grid w-full max-w-[1440px] gap-4 px-4 pb-6 md:grid-cols-[1fr_1fr] md:items-center md:px-6 lg:grid-cols-[1fr_300px] xl:px-8">
           {/* Columna Izquierda */}
           <div>
-            <motion.p
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.2, ease: EASE }}
-              className="kicker"
-            >
-              Agencia de edición · San Pedro de los Milagros, Antioquia
-            </motion.p>
             <motion.h1
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.32, delay: 0.06, ease: EASE }}
-              className="mt-4 font-display text-[clamp(30px,8.5vw,72px)] font-black italic leading-[0.95] tracking-tight text-balance text-[#0A0A0A] lg:text-[clamp(40px,4.3vw,68px)]"
+              className="sq-title sq-title--hero text-balance"
             >
               Tu trabajo es bueno.
               <br />
@@ -181,22 +173,22 @@ export default function Home() {
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.2, delay: 0.12, ease: EASE }}
-              className="mt-6 max-w-[46ch] text-sm leading-relaxed text-[#5C5C5C] md:text-base"
+              className="sq-sub max-w-[46ch] text-[13px] leading-[1.55] text-[#5C5C5C]"
             >
               Transformamos ideas en soluciones visuales y digitales que hacen que las marcas destaquen.
               Creamos contenido, desarrollamos identidades y fortalecemos la presencia de cada empresa
               para conectar con su público y crecer con propósito.
             </motion.p>
 
-            {/* Pruebas reales */}
+            {/* Pruebas reales — pills con borde de tinta */}
             <motion.ul
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.2, delay: 0.18, ease: EASE }}
-              className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2"
+              className="mt-3 flex flex-wrap items-center gap-1.5"
             >
               {["+300 proyectos", "2.3M visualizaciones", "7 marcas activas"].map((proof) => (
-                <li key={proof} className="flex items-center gap-1.5 border-l-2 border-[#0A0A0A] pl-3 text-[13px] font-medium text-[#5C5C5C]">
+                <li key={proof} className="pill">
                   <Checks size={14} weight="bold" className="shrink-0 text-[#0A0A0A]" />
                   {proof}
                 </li>
@@ -207,13 +199,13 @@ export default function Home() {
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.2, delay: 0.24, ease: EASE }}
-              className="mt-9 flex flex-wrap items-center gap-3"
+              className="mt-4 flex flex-wrap items-center gap-2"
             >
               <a
                 href="https://wa.me/573242123300?text=Hola%20Rohlfing%20Concept%2C%20quiero%20cotizar%20un%20proyecto%20para%20mi%20marca."
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex h-10 items-center gap-2 rounded-full bg-[#0A0A0A] px-7 text-[13px] font-semibold text-white transition-colors duration-200 hover:bg-[#5C5C5C] md:h-9"
+                className="btn-primary"
               >
                 <WhatsappLogo size={16} weight="fill" />
                 Cotiza tu proyecto
@@ -221,7 +213,7 @@ export default function Home() {
               </a>
               <Link
                 href="/proyectos"
-                className="inline-flex h-10 items-center gap-2 rounded-full border border-[#D9D9D9] px-7 text-[13px] font-medium text-[#5C5C5C] transition-colors duration-200 hover:border-[#0A0A0A] hover:text-[#0A0A0A] md:h-9"
+                className="btn-secondary"
               >
                 Ver proyectos
               </Link>
@@ -231,7 +223,7 @@ export default function Home() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.2, delay: 0.3 }}
-              className="mt-5 text-xs leading-relaxed text-[#8A8A8A]"
+              className="mt-3 text-xs leading-[1.55] text-[#8A8A8A]"
             >
               Atención directa por WhatsApp y soporte continuo después de la entrega
             </motion.p>
@@ -263,12 +255,12 @@ export default function Home() {
         </div>
 
         {/* Marquee Clientes */}
-        <div className="border-t border-[#D9D9D9] bg-white py-8">
-          <p className="mb-6 text-center text-[13px] text-[#8A8A8A]">
+        <div className="border-t border-[#D9D9D9] bg-white py-4">
+          <p className="mb-3 text-center text-xs text-[#8A8A8A]">
             Marcas que ya confían en nosotros
           </p>
           <div className="overflow-hidden">
-            <div className="marquee flex w-max items-center gap-20 px-10">
+            <div data-carousel="marquee" className="marquee flex w-max items-center gap-12 px-6">
               {[...marqueeClients, ...marqueeClients].map((c, i) => (
                 <Image
                   key={i}
@@ -276,7 +268,7 @@ export default function Home() {
                   alt={c.name}
                   width={220}
                   height={96}
-                  className="h-12 w-auto shrink-0 object-contain grayscale sm:h-14"
+                  className="h-10 w-auto shrink-0 object-contain grayscale"
                 />
               ))}
             </div>
@@ -285,34 +277,32 @@ export default function Home() {
       </section>
 
       {/* ══════════════════════════════════════════
-          SERVICIOS DESTACADOS
+          SERVICIOS DESTACADOS — grid parejo (subgrid)
       ══════════════════════════════════════════ */}
-      <section className="border-t border-[#D9D9D9] py-24">
+      <section className="section-compact border-t-2 border-[#0A0A0A]">
         <div className="mx-auto w-full max-w-[1440px] px-4 md:px-6 xl:px-8">
-          <motion.p {...fadeUpLocal()} className="kicker text-center">
-            Servicios destacados
-          </motion.p>
-          <motion.h2 {...fadeUpLocal(0.06)} className="mx-auto mt-3 max-w-[20ch] text-center font-display text-3xl font-black tracking-tight text-[#0A0A0A] sm:text-4xl">
+          <motion.h2 {...fadeUpLocal()} className="sq-title flex flex-wrap items-center gap-2">
+            <span className="dash-accent" aria-hidden="true"><span /><span /><span /></span>
             Lo que hacemos por tu marca
           </motion.h2>
-          <motion.p {...fadeIn(0.1)} className="mx-auto mt-4 max-w-[52ch] text-center text-sm leading-relaxed text-[#5C5C5C]">
+          <motion.p {...fadeIn(0.1)} className="sq-sub max-w-[52ch] text-[13px] leading-[1.55] text-[#5C5C5C]">
             Tres disciplinas, un mismo objetivo: que tu negocio se vea y se sienta profesional.
           </motion.p>
 
-          <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div data-carousel="destacados" className="eq eq-4 mt-4 flex snap-x snap-mandatory gap-3 overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] sm:grid sm:grid-cols-2 sm:overflow-visible sm:pb-0 lg:grid-cols-3 [&::-webkit-scrollbar]:hidden">
             {serviciosDestacados.map((s, i) => (
-              <motion.article key={s.title} {...fadeUpLocal(i * 0.07)}>
-                <Link href={s.href} className="card group flex h-full flex-col p-6 md:p-8">
-                  <span aria-hidden="true" className="flex h-12 w-12 items-center justify-center rounded border border-[#D9D9D9] bg-[#FFFFFF] font-display text-2xl font-black text-[#0A0A0A]">
+              <motion.article key={s.title} {...fadeUpLocal(i * 0.07)} className="contents">
+                <Link href={s.href} className="card eq-card group min-w-[78%] shrink-0 snap-start p-3 sm:min-w-0">
+                  <span aria-hidden="true" className="flex h-10 w-10 items-center justify-center rounded-[12px] border-2 border-[#0A0A0A] bg-[#F4F4F4] font-display text-xl font-bold text-[#0A0A0A]">
                     {s.title.charAt(0)}
                   </span>
-                  <h3 className="mt-5 font-display text-lg font-bold tracking-tight text-[#0A0A0A]">{s.title}</h3>
-                  <p className="mt-2 text-[13px] leading-relaxed text-[#5C5C5C]">{s.desc}</p>
-                  <div className="mt-auto flex items-center justify-between pt-6 text-[12px]">
-                    <span className="text-[#8A8A8A]">
-                      desde <strong className="font-semibold text-[#0A0A0A]">{s.desde}</strong>
+                  <h3 className="mt-2 font-display text-[15px] font-bold tracking-tight text-[#0A0A0A]">{s.title}</h3>
+                  <p className="mt-1 text-[13px] leading-[1.55] text-[#5C5C5C]">{s.desc}</p>
+                  <div className="card-cta flex w-full items-center justify-between pt-3 text-xs">
+                    <span className="pill !text-[10px]">
+                      desde <strong className="font-bold text-[#0A0A0A]">{s.desde}</strong>
                     </span>
-                    <span className="flex items-center gap-1 font-semibold text-[#0A0A0A]">
+                    <span className="flex items-center gap-1 font-bold text-[#0A0A0A]">
                       Ver planes
                       <ArrowRight size={13} className="transition-transform group-hover:translate-x-0.5" />
                     </span>
@@ -325,63 +315,59 @@ export default function Home() {
       </section>
 
       {/* ══════════════════════════════════════════
-          PILARES DE SERVICIO
+          PILARES DE SERVICIO — banda clara densa
       ══════════════════════════════════════════ */}
-      <section id="servicios" className="border-t border-[#D9D9D9] bg-[#F4F4F4] py-24">
+      <section id="servicios" className="section-compact border-t-2 border-[#0A0A0A] bg-[#F4F4F4]">
         <div className="mx-auto w-full max-w-[1440px] px-4 md:px-6 xl:px-8">
-          <div className="grid gap-10 md:grid-cols-2 md:items-end mb-16">
+          <div className="grid gap-3 md:grid-cols-2 md:items-end mb-4">
             <div>
-              <motion.p {...fadeUpLocal()} className="kicker">
-                Nuestros pilares
-              </motion.p>
-              <motion.h2 {...fadeUpLocal(0.06)} className="mt-3 font-display text-3xl font-black tracking-tight text-[#0A0A0A] sm:text-4xl">
-                Todo lo que tu marca
-                <br />
-                necesita, en un solo lugar
+              <motion.h2 {...fadeUpLocal()} className="sq-title flex flex-wrap items-center gap-2">
+                <span className="dash-accent" aria-hidden="true"><span /><span /><span /></span>
+                Todo lo que tu marca necesita
               </motion.h2>
             </div>
-            <motion.p {...fadeIn(0.1)} className="text-sm leading-relaxed text-[#5C5C5C] max-w-[48ch]">
+            <motion.p {...fadeIn(0.1)} className="text-[13px] leading-[1.55] text-[#5C5C5C] max-w-[48ch]">
               Soluciones creativas y digitales para potenciar tu marca. Desde la identidad visual
               hasta la gestión de contenido, trabajamos para que tu negocio destaque y crezca.
             </motion.p>
           </div>
 
           {/* Pilares con subservicios */}
-          <div className="space-y-4">
+          <div className="space-y-2">
             {pilares.map((p, i) => (
               <motion.article
                 key={p.id}
                 {...fadeUpLocal(i * 0.08)}
-                className="card p-6 md:p-10"
+                className="card min-w-0 overflow-hidden p-3 md:p-4"
               >
-                <div className="grid gap-10 lg:grid-cols-[0.9fr_1.4fr]">
+                <div className="grid min-w-0 gap-4 lg:grid-cols-[0.9fr_1.4fr]">
                   {/* Columna intro + beneficios */}
-                  <div>
-                    <h3 className="font-display text-2xl font-bold tracking-tight text-[#0A0A0A]">{p.title}</h3>
-                    <p className="mt-4 text-sm leading-relaxed text-[#5C5C5C]">{p.intro}</p>
-                    <ul className="mt-6 space-y-2">
+                  <div className="min-w-0">
+                    <h3 className="font-display text-lg font-bold tracking-tight text-[#0A0A0A]">{p.title}</h3>
+                    <p className="mt-1.5 text-[13px] leading-[1.55] text-[#5C5C5C]">{p.intro}</p>
+                    <ul data-carousel="pilar-pills" className="mt-2.5 flex w-full max-w-full snap-x gap-1.5 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] md:flex-wrap md:overflow-visible md:pb-0 [&::-webkit-scrollbar]:hidden">
                       {p.beneficios.map((b) => (
-                        <li key={b} className="flex items-center gap-2.5 text-[13px] leading-snug text-[#5C5C5C]">
-                          <Checks size={14} weight="bold" className="shrink-0 text-[#0A0A0A]" />
-                          Para que tu marca {b.charAt(0).toLowerCase() + b.slice(1)}
+                        <li key={b} className="pill shrink-0 snap-start !text-[10px] !normal-case !tracking-normal !font-semibold">
+                          <Checks size={13} weight="bold" className="shrink-0 text-[#0A0A0A]" />
+                          {b.charAt(0).toUpperCase() + b.slice(1)}
                         </li>
                       ))}
                     </ul>
-                    <p className="mt-7 border-l-2 border-[#0A0A0A] pl-4 text-[13px] italic leading-relaxed text-[#8A8A8A]">
+                    <p className="mt-3 hidden border-l-[3px] border-[#0A0A0A] pl-3 text-xs italic leading-[1.55] text-[#8A8A8A] md:block">
                       {p.cta}
                     </p>
                   </div>
 
                   {/* Subservicios */}
-                  <div className="grid gap-3 sm:grid-cols-2">
+                  <div className="sq-grid min-w-0 grid-cols-2">
                     {p.items.map((it) => {
                       const inner = (
                         <>
-                          <p className="text-[11px] font-semibold uppercase tracking-[0.13em] text-[#0A0A0A]">{it.n}</p>
-                          <p className="mt-2 text-[13px] leading-relaxed text-[#5C5C5C]">{it.d}</p>
+                          <p className="truncate text-[11px] font-bold uppercase tracking-[0.13em] text-[#0A0A0A] md:whitespace-normal">{it.n}</p>
+                          <p className="mt-1 line-clamp-1 text-[13px] leading-[1.55] text-[#5C5C5C] md:line-clamp-none">{it.d}</p>
                         </>
                       );
-                      const cls = `rounded border border-[#D9D9D9] bg-[#FFFFFF] px-5 py-4 transition-colors duration-200 hover:border-[#0A0A0A]`;
+                      const cls = `min-w-0 rounded-[14px] border-2 border-[#0A0A0A] bg-[#FFFFFF] p-3 shadow-[0_6px_16px_rgba(10,10,10,0.08)] transition-transform duration-200 hover:-translate-y-1`;
                       return it.href ? (
                         <Link key={it.n} href={it.href} className={cls}>
                           {inner}
@@ -401,55 +387,54 @@ export default function Home() {
       </section>
 
       {/* ══════════════════════════════════════════
-          PORTAFOLIO
+          PORTAFOLIO — grid apretado con pills
       ══════════════════════════════════════════ */}
-      <section id="proyectos" className="border-t border-[#D9D9D9] py-24">
+      <section id="proyectos" className="section-compact border-t-2 border-[#0A0A0A]">
         <div className="mx-auto w-full max-w-[1440px] px-4 md:px-6 xl:px-8">
-          <div className="mb-14 flex flex-wrap items-end justify-between gap-6">
+          <div className="mb-4 flex flex-wrap items-end justify-between gap-3">
             <div>
-              <motion.p {...fadeUpLocal()} className="kicker">
-                Portafolio
-              </motion.p>
-              <motion.h2 {...fadeUpLocal(0.06)} className="mt-3 max-w-[20ch] font-display text-3xl font-black tracking-tight text-[#0A0A0A] sm:text-4xl">
-                Marcas con las que hemos trabajado
+              <motion.h2 {...fadeUpLocal()} className="sq-title flex flex-wrap items-center gap-2">
+                <span className="dash-accent" aria-hidden="true"><span /><span /><span /></span>
+                Marcas con las que trabajamos
               </motion.h2>
             </div>
-            <motion.div {...fadeIn(0.1)} className="flex flex-col items-start gap-2">
+            <motion.div {...fadeIn(0.1)}>
               <Link
                 href="/proyectos"
-                className="group inline-flex items-center gap-2 text-[13px] font-semibold text-[#0A0A0A]"
+                className="btn-secondary"
               >
-                Explorar nuestros proyectos
-                <ArrowRight size={14} className="transition-transform group-hover:translate-x-0.5" />
+                Explorar proyectos
+                <ArrowRight size={14} />
               </Link>
-              <span className="text-xs text-[#8A8A8A]">Identidad visual, contenido audiovisual y gestión de redes</span>
             </motion.div>
           </div>
 
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="sq-grid grid-cols-2 eq eq-3 sm:grid-cols-3 lg:grid-cols-4">
             {clientes.map((c, i) => (
               <motion.div
                 key={c.name}
                 {...fadeUpLocal(i * 0.06)}
-                className="card group overflow-hidden"
+                className="contents"
               >
-                <div className="flex aspect-[16/9] flex-col items-center justify-center gap-3 bg-[#F4F4F4] p-6">
-                  <Image
-                    src={c.logo}
-                    alt={`Logo de ${c.name}`}
-                    width={200}
-                    height={100}
-                    className="h-16 w-auto max-w-[70%] object-contain transition-transform duration-200 group-hover:scale-[1.04] sm:h-20"
-                  />
-                  <p className="text-center text-[13px] font-semibold text-[#0A0A0A]">
-                    {c.name}
-                  </p>
-                </div>
-                <div className="flex items-center justify-between gap-3 border-t border-[#D9D9D9] bg-[#FFFFFF] p-5">
-                  <p className="min-w-0 truncate text-xs text-[#8A8A8A]">{c.tag}</p>
-                  {c.desde && (
-                    <p className="shrink-0 text-xs text-[#8A8A8A]">{c.desde}</p>
-                  )}
+                <div className="card compact-card eq-card group overflow-hidden">
+                  <div className="flex aspect-[16/9] flex-col items-center justify-center gap-1 rounded-[12px] bg-[#F4F4F4] p-2 md:p-3">
+                    <Image
+                      src={c.logo}
+                      alt={`Logo de ${c.name}`}
+                      width={200}
+                      height={100}
+                      className="h-16 w-auto max-w-[70%] object-contain transition-transform duration-200 group-hover:scale-[1.04]"
+                    />
+                  </div>
+                  <div className="flex items-center justify-center px-1 pb-0.5 pt-2">
+                    <span className="pill max-w-full !whitespace-normal text-center !leading-snug !text-[10px]">{c.name}</span>
+                  </div>
+                  <div className="card-cta hidden w-full items-center justify-between gap-2 px-1.5 pb-1 pt-1.5 md:flex">
+                    <p className="min-w-0 truncate text-xs text-[#8A8A8A]">{c.tag}</p>
+                    {c.desde && (
+                      <p className="shrink-0 text-xs font-semibold text-[#0A0A0A]">{c.desde}</p>
+                    )}
+                  </div>
                 </div>
               </motion.div>
             ))}
@@ -458,28 +443,29 @@ export default function Home() {
       </section>
 
       {/* ══════════════════════════════════════════
-          PROCESO (Con Banner Visual)
+          PROCESO — banda negra que corta la página
       ══════════════════════════════════════════ */}
-      <section className="border-t border-[#D9D9D9] bg-[#F4F4F4] py-24">
-        <div className="mx-auto w-full max-w-[1440px] px-4 md:px-6 xl:px-8">
-          <motion.p {...fadeUpLocal()} className="kicker">
-            Proceso
-          </motion.p>
-          <motion.h2 {...fadeUpLocal(0.06)} className="mt-3 max-w-[20ch] font-display text-3xl font-black tracking-tight text-[#0A0A0A] sm:text-4xl">
+      <section className="band-dark">
+        <div className="section-compact mx-auto w-full max-w-[1440px] px-4 md:px-6 xl:px-8">
+          <motion.h2 {...fadeUpLocal()} className="sq-title flex flex-wrap items-center gap-2">
+            <span className="dash-accent" aria-hidden="true"><span /><span /><span /></span>
             Cómo trabajamos
           </motion.h2>
 
-          <div className="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="sq-grid eq eq-3 mt-4 grid-cols-2 lg:grid-cols-4">
             {steps.map((s, i) => (
               <motion.div
                 key={s.n}
                 {...fadeUpLocal(i * 0.07)}
-                className={`relative pt-6 ${i > 0 ? "lg:border-l lg:border-[#D9D9D9] lg:pl-6" : ""}`}
+                className="contents"
               >
-                <span className="num-wm">{s.n}</span>
-                <p className="relative font-display text-3xl font-black text-[#0A0A0A]">{s.n}</p>
-                <h3 className="relative mt-4 text-[14px] font-semibold text-[#0A0A0A]">{s.title}</h3>
-                <p className="relative mt-2 text-[13px] leading-relaxed text-[#5C5C5C]">{s.desc}</p>
+                <div className="eq-card min-w-0 rounded-[14px] border-[2.5px] border-white bg-[#0A0A0A] p-3">
+                  <div className="flex min-w-0 items-center gap-2">
+                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border-2 border-white font-display text-base font-bold text-white">{i + 1}</span>
+                    <p className="min-w-0 hyphens-auto break-words font-display text-[14px] font-bold uppercase leading-tight tracking-wide text-white" lang="es">{s.title}</p>
+                  </div>
+                  <p className="mt-1.5 text-[13px] leading-[1.5] text-white/85">{s.desc}</p>
+                </div>
               </motion.div>
             ))}
           </div>
@@ -489,67 +475,71 @@ export default function Home() {
       {/* ══════════════════════════════════════════
           NOSOTROS (Con Foto Real del Equipo)
       ══════════════════════════════════════════ */}
-      <section id="nosotros" className="border-t border-[#D9D9D9] py-24">
-        <div className="mx-auto grid w-full max-w-[1440px] gap-10 px-4 md:grid-cols-2 md:items-center md:px-6 xl:px-8">
-          <motion.div {...fadeIn()} className="relative">
-            <div className="flex aspect-[4/5] flex-col justify-between rounded bg-[#0A0A0A] p-8 md:p-10">
-              <span aria-hidden="true" className="font-display text-6xl font-black tracking-tight text-[#FFFFFF]">
-                SR
-              </span>
-              <div>
-                <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#FFFFFF]">
+      <section id="nosotros" className="section-compact border-t-2 border-[#0A0A0A]">
+        <div className="mx-auto grid w-full max-w-[1440px] gap-5 px-4 md:grid-cols-2 md:items-center md:px-6 xl:px-8">
+          <motion.div {...fadeIn()}>
+            <div className="relative mx-auto aspect-[4/5] w-full max-w-[420px] overflow-hidden rounded-[14px] border-[2.5px] border-[#0A0A0A] shadow-[0_8px_18px_rgba(10,10,10,0.1)]">
+              <Image
+                src="/img/team/samuel.png"
+                alt="Samuel Rohlfing Barrientos — Fundador de Rohlfing Concept"
+                fill
+                className="object-cover object-top"
+                sizes="(max-width: 768px) 100vw, 50vw"
+              />
+              <div className="absolute inset-x-0 bottom-0 bg-[#0A0A0A] px-4 py-3">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-white">
                   Fundador
                 </p>
-                <p className="mt-2 font-display text-xl font-bold leading-tight text-[#FFFFFF]">
+                <p className="mt-0.5 font-display text-lg font-bold leading-tight text-white">
                   Samuel Rohlfing Barrientos
                 </p>
               </div>
             </div>
-            <Link
-              href="/equipo"
-              className="group absolute -bottom-4 right-4 inline-flex items-center gap-2 rounded-full border border-[#D9D9D9] bg-[#FFFFFF] px-5 py-3 text-xs font-semibold text-[#0A0A0A]"
-            >
-              Conoce al equipo
-              <ArrowRight size={13} className="transition-transform group-hover:translate-x-0.5" />
-            </Link>
+            <div className="mx-auto mt-3 flex w-full max-w-[420px] justify-end">
+              <Link
+                href="/equipo"
+                className="btn-secondary group !bg-white"
+              >
+                Conoce al equipo
+                <ArrowRight size={13} className="transition-transform group-hover:translate-x-0.5" />
+              </Link>
+            </div>
           </motion.div>
 
           {/* Texto */}
           <div>
-            <motion.p {...fadeUpLocal()} className="kicker">
-              Nosotros
-            </motion.p>
-            <motion.h2 {...fadeUpLocal(0.06)} className="mt-3 font-display text-3xl font-black tracking-tight text-[#0A0A0A] sm:text-4xl">
-              Más que diseño, construimos presencia
+            <motion.h2 {...fadeUpLocal()} className="sq-title flex flex-wrap items-center gap-2">
+              <span className="dash-accent" aria-hidden="true"><span /><span /><span /></span>
+              Más que diseño, presencia
             </motion.h2>
-            <motion.p {...fadeUpLocal(0.08)} className="mt-6 max-w-[52ch] text-sm leading-relaxed text-[#5C5C5C] md:text-base">
+            <motion.p {...fadeUpLocal(0.08)} className="sq-sub max-w-[52ch] text-[13px] leading-[1.55] text-[#5C5C5C]">
               En Rohlfing Concept desarrollamos proyectos enfocados en fortalecer la imagen,
               organización y presencia digital de cada marca. Cada proceso se trabaja con
               intención, buscando no solo un buen resultado visual, sino una identidad más
               sólida, profesional y coherente en diferentes entornos digitales.
             </motion.p>
 
-            <motion.ul {...fadeUpLocal(0.14)} className="mt-8 space-y-2.5">
+            <motion.ul {...fadeUpLocal(0.14)} className="mt-3 grid gap-1.5 sm:grid-cols-2">
               {[
-                { t: "Análisis del proyecto", d: "Cada marca tiene necesidades distintas: evaluamos el enfoque y objetivo antes de desarrollar cualquier proceso." },
-                { t: "Desarrollo visual", d: "Construimos propuestas visuales organizadas y coherentes con la identidad de cada marca." },
-                { t: "Adaptación digital", d: "Buscamos que cada proyecto funcione correctamente en entornos digitales y multiplataforma." },
-                { t: "Enfoque en presencia", d: "Trabajamos cada detalle buscando una imagen más sólida, profesional y atractiva." },
+                { t: "Análisis del proyecto", d: "Evaluamos el enfoque y objetivo antes de desarrollar cualquier proceso." },
+                { t: "Desarrollo visual", d: "Propuestas visuales organizadas y coherentes con cada marca." },
+                { t: "Adaptación digital", d: "Cada proyecto funciona en entornos digitales y multiplataforma." },
+                { t: "Enfoque en presencia", d: "Detalles que buscan una imagen sólida, profesional y atractiva." },
               ].map((item) => (
                 <li
                   key={item.t}
-                  className="rounded border border-[#D9D9D9] bg-[#F4F4F4] px-5 py-3.5"
+                  className="rounded-[12px] border-2 border-[#0A0A0A] bg-[#FFFFFF] px-3 py-2.5 shadow-[0_6px_16px_rgba(10,10,10,0.08)]"
                 >
-                  <p className="flex items-center gap-2.5 text-[13px] font-semibold text-[#0A0A0A]">
+                  <p className="flex items-center gap-2 text-[13px] font-semibold text-[#0A0A0A]">
                     <Checks size={15} weight="bold" className="shrink-0 text-[#0A0A0A]" />
                     {item.t}
                   </p>
-                  <p className="mt-1 pl-[25px] text-[13px] leading-relaxed text-[#5C5C5C]">{item.d}</p>
+                  <p className="mt-0.5 pl-[23px] text-xs leading-[1.55] text-[#5C5C5C]">{item.d}</p>
                 </li>
               ))}
             </motion.ul>
 
-            <motion.div {...fadeUpLocal(0.2)} className="mt-10 flex flex-wrap gap-3">
+            <motion.div {...fadeUpLocal(0.2)} className="mt-4 flex flex-wrap gap-2">
               <a
                 href="https://wa.me/573242123300?text=Hola%20Rohlfing%20Concept%2C%20quiero%20cotizar%20un%20proyecto%20para%20mi%20marca."
                 className="btn-primary"
@@ -567,31 +557,29 @@ export default function Home() {
       </section>
 
       {/* ══════════════════════════════════════════
-          COMPROMISO — Tu idea, nuestro compromiso + equipos propios
+          COMPROMISO — banda negra con tarjeta encima
       ══════════════════════════════════════════ */}
-      <section className="border-t border-[#D9D9D9] bg-[#F4F4F4] py-24">
-        <div className="mx-auto w-full max-w-[1440px] px-4 md:px-6 xl:px-8">
-          <motion.p {...fadeUpLocal()} className="kicker">
-            Compromiso
-          </motion.p>
-          <motion.h2 {...fadeUpLocal(0.06)} className="mt-3 max-w-[22ch] font-display text-3xl font-black tracking-tight text-[#0A0A0A] sm:text-4xl">
+      <section className="band-dark">
+        <div className="section-compact mx-auto w-full max-w-[1440px] px-4 md:px-6 xl:px-8">
+          <motion.h2 {...fadeUpLocal()} className="sq-title sq-title--section flex flex-wrap items-center gap-2">
+            <span className="dash-accent" aria-hidden="true"><span /><span /><span /></span>
             {compromiso.titulo}
           </motion.h2>
-          <motion.p {...fadeUpLocal(0.12)} className="mt-6 max-w-[68ch] text-sm leading-relaxed text-[#5C5C5C] md:text-base">
+          <motion.p {...fadeUpLocal(0.12)} className="sq-sub max-w-[68ch] text-[13px] leading-[1.5] text-white/85 md:text-sm">
             {compromiso.texto}
           </motion.p>
-          <motion.div {...fadeUpLocal(0.18)} className="card mt-10 p-6 md:p-10">
-            <h3 className="font-display text-xl font-bold tracking-tight text-[#0A0A0A]">
+          <motion.div {...fadeUpLocal(0.18)} className="card mt-3 !border-white p-3 md:mt-4">
+            <h3 className="font-display text-[15px] font-bold tracking-tight text-[#0A0A0A]">
               Equipos propios
             </h3>
-            <p className="mt-3 max-w-[64ch] text-[13px] leading-relaxed text-[#5C5C5C] md:text-sm">
+            <p className="mt-1.5 max-w-[64ch] text-[13px] leading-[1.5] text-[#5C5C5C] md:text-sm">
               {COMPROMISO_INTRO}
             </p>
-            <ul className="mt-6 flex flex-wrap gap-2">
+            <ul className="mt-2.5 flex flex-wrap gap-1.5">
               {compromiso.equipos.map((e) => (
                 <li
                   key={e}
-                  className="rounded-full border border-[#D9D9D9] bg-[#FFFFFF] px-4 py-1.5 text-xs font-medium text-[#0A0A0A]"
+                  className="pill !text-[10px]"
                 >
                   {e}
                 </li>
@@ -602,48 +590,45 @@ export default function Home() {
       </section>
 
       {/* ══════════════════════════════════════════
-          PREGUNTAS FRECUENTES (info real, acordeón nativo)
+          PREGUNTAS FRECUENTES (acordeón en tarjetas)
       ══════════════════════════════════════════ */}
-      <section id="faq" className="border-t border-[#D9D9D9] bg-[#F4F4F4] py-24">
+      <section id="faq" className="section-compact border-t-2 border-[#0A0A0A] bg-[#F4F4F4]">
         <div className="mx-auto w-full max-w-3xl px-4 md:px-6 xl:px-8">
-          <motion.p {...fadeUpLocal()} className="kicker text-center">
-            Preguntas frecuentes
-          </motion.p>
-          <motion.h2 {...fadeUpLocal(0.06)} className="mx-auto mt-3 max-w-[20ch] text-center font-display text-3xl font-black tracking-tight text-[#0A0A0A] sm:text-4xl">
-            Lo que nos preguntan antes de empezar
+          <motion.h2 {...fadeUpLocal()} className="sq-title sq-title--section flex flex-wrap items-center gap-2">
+            <span className="dash-accent" aria-hidden="true"><span /><span /><span /></span>
+            Lo que nos preguntan
           </motion.h2>
-          <motion.p {...fadeIn(0.08)} className="mx-auto mt-4 max-w-[52ch] text-center text-sm leading-relaxed text-[#5C5C5C]">
-            Lo que más nos preguntan antes de empezar un proyecto.
-          </motion.p>
 
-          <div className="mt-12 space-y-3">
+          <div className="mt-3 space-y-1.5 md:mt-4">
             {faqs.map((f, i) => (
-              <motion.details
+              <motion.div
                 key={f.q}
                 {...fadeUpLocal(i * 0.05)}
-                className="group rounded border border-[#D9D9D9] bg-[#FFFFFF]"
+                className="card group !rounded-[12px] !shadow-[0_6px_16px_rgba(10,10,10,0.08)]"
               >
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-6 py-5 text-[14px] font-semibold text-[#0A0A0A] [&::-webkit-details-marker]:hidden">
-                  {f.q}
-                  <Plus
-                    size={18}
-                    weight="bold"
-                    className="shrink-0 text-[#0A0A0A] transition-transform duration-200 group-open:rotate-45"
-                  />
-                </summary>
-                <div className="px-6 pb-6 pt-0">
-                  <p className="text-[13px] leading-relaxed text-[#5C5C5C]">{f.a}</p>
-                  {f.link && (
-                    <Link
-                      href={f.link.href}
-                      className="group/link mt-4 inline-flex items-center gap-1.5 text-[13px] font-semibold text-[#0A0A0A]"
-                    >
-                      {f.link.label}
-                      <ArrowRight size={13} className="transition-transform group-hover/link:translate-x-0.5" />
-                    </Link>
-                  )}
-                </div>
-              </motion.details>
+                <details className="group/details">
+                  <summary className="flex cursor-pointer list-none items-center justify-between gap-3 px-3 py-2.5 text-[13px] font-bold text-[#0A0A0A] md:px-4 md:py-3 [&::-webkit-details-marker]:hidden">
+                    {f.q}
+                    <Plus
+                      size={18}
+                      weight="bold"
+                      className="shrink-0 text-[#0A0A0A] transition-transform duration-200 group-open/details:rotate-45"
+                    />
+                  </summary>
+                  <div className="px-3 pb-3 pt-0 md:px-4 md:pb-4">
+                    <p className="text-[13px] leading-[1.5] text-[#5C5C5C] md:text-sm">{f.a}</p>
+                    {f.link && (
+                      <Link
+                        href={f.link.href}
+                        className="group/link mt-3 inline-flex items-center gap-1.5 text-[13px] font-semibold text-[#0A0A0A]"
+                      >
+                        {f.link.label}
+                        <ArrowRight size={13} className="transition-transform group-hover/link:translate-x-0.5" />
+                      </Link>
+                    )}
+                  </div>
+                </details>
+              </motion.div>
             ))}
           </div>
 
@@ -666,30 +651,30 @@ export default function Home() {
       </section>
 
       {/* ══════════════════════════════════════════
-          CTA FINAL — bloque negro sólido
+          CTA FINAL — banda WhatsApp negra
       ══════════════════════════════════════════ */}
-      <section className="border-t border-[#0A0A0A] bg-[#0A0A0A]">
-        <div className="mx-auto max-w-3xl px-4 py-24 text-center md:px-6 md:py-32 xl:px-8">
-          <motion.h2 {...fadeUpLocal()} className="font-display text-[clamp(28px,6vw,64px)] font-black tracking-tight text-white">
+      <section className="band-dark">
+        <div className="section-compact-sm mx-auto max-w-3xl px-4 text-center md:px-6 xl:px-8">
+          <motion.h2 {...fadeUpLocal()} className="sq-title sq-title--section">
             ¿Listo para transformar tu marca?
           </motion.h2>
-          <motion.p {...fadeUpLocal(0.08)} className="mx-auto mt-5 max-w-[52ch] text-sm leading-relaxed text-white md:text-base">
+          <motion.p {...fadeUpLocal(0.08)} className="sq-sub mx-auto max-w-[52ch] text-[13px] leading-[1.5] text-white/85 md:text-sm">
             Transformamos marcas en experiencias visuales que venden. Trabajemos
             juntos para construir una presencia que realmente destaque.
           </motion.p>
-          <motion.div {...fadeUpLocal(0.15)} className="mt-10 flex flex-wrap items-center justify-center gap-3">
+          <motion.div {...fadeUpLocal(0.15)} className="mt-3 flex flex-wrap items-center justify-center gap-2 md:mt-4">
             <a
               href="https://wa.me/573242123300?text=Hola%2C%20quiero%20empezar%20un%20proyecto%20con%20ustedes."
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex h-10 items-center gap-2 rounded-full bg-white px-8 text-sm font-semibold text-[#0A0A0A] transition-colors duration-200 hover:bg-[#E9E9E9] md:h-9"
+              className="btn-primary"
             >
               <WhatsappLogo size={16} weight="fill" />
               Empezar proyecto
             </a>
             <Link
               href="/paquetes-publicitarios"
-              className="inline-flex h-10 items-center gap-2 rounded-full border border-white px-8 text-sm font-medium text-white transition-colors duration-200 hover:bg-white hover:text-[#0A0A0A] md:h-9"
+              className="btn-secondary"
             >
               Ver paquetes <ArrowRight size={14} />
             </Link>
