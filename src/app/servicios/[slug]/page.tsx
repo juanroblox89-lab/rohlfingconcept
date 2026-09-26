@@ -21,9 +21,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function ServicioPage({ params }: Props) {
   const { slug } = await params;
+  if (slug === "sitios-web") notFound();
   const servicio = getServicio(slug);
   if (!servicio) notFound();
 
-  const otros = servicios.filter((s) => s.slug !== slug).slice(0, 6);
+  const otros = [
+    ...servicios.filter((s) => s.slug !== slug && s.grupo === servicio!.grupo),
+    ...servicios.filter((s) => s.slug !== slug && s.grupo !== servicio!.grupo),
+  ].slice(0, 6);
   return <ServicioDetalleClient servicio={servicio} otros={otros} />;
 }
