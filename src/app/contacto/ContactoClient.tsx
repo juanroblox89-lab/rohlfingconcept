@@ -9,7 +9,6 @@ import {
   MapPin,
   PaperPlaneTilt,
 } from "@phosphor-icons/react";
-import { fadeUp } from "@/lib/anim";
 
 const WA_BASE = "https://wa.me/573242123300";
 
@@ -27,6 +26,16 @@ const servicios = [
   "Otro",
 ];
 
+// Tupla tipada requerida por motion (evita error TS2322 en build de producción)
+const EASE_OUT_EXPO: [number, number, number, number] = [0.16, 1, 0.3, 1];
+
+const fadeUp = (delay = 0) => ({
+  initial:     { opacity: 0, y: 22 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport:    { once: true, amount: 0.15 },
+  transition:  { duration: 0.6, delay, ease: EASE_OUT_EXPO },
+});
+
 export default function ContactoClient() {
   const [nombre, setNombre] = useState("");
   const [servicio, setServicio] = useState(servicios[0]);
@@ -41,52 +50,48 @@ export default function ContactoClient() {
   };
 
   return (
-    <main className="min-h-screen bg-white text-[#0A0A0A]">
-      {/* Header compacto */}
-      <section className="border-b-2 border-[#0A0A0A]">
-        <div className="section-compact-sm mx-auto max-w-[1440px] px-4 md:px-6 xl:px-8">
-          <div className="mx-auto max-w-3xl text-center">
-            <motion.h1
-              {...fadeUp()}
-              className="sq-title flex flex-wrap items-center justify-center gap-2"
-            >
-              <span className="dash-accent" aria-hidden="true"><span /><span /><span /></span>
-              Hablemos de tu proyecto
-            </motion.h1>
-            <motion.p
-              {...fadeUp(0.12)}
-              className="sq-sub mx-auto max-w-[52ch] text-[13px] leading-[1.5] text-[#5C5C5C]"
-            >
-              Escríbenos por WhatsApp y te respondemos lo antes posible.
-              Estamos en San Pedro de los Milagros, Antioquia.
-            </motion.p>
-          </div>
+    <main className="min-h-screen">
+      {/* Header */}
+      <section className="relative overflow-hidden border-b border-border/40 py-28">
+        <div className="pointer-events-none absolute inset-0 -z-10">
+          <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/30 to-background" />
+          <div className="absolute left-1/2 top-0 h-[360px] w-[600px] -translate-x-1/2 opacity-[0.12] rounded-full"
+            style={{ background: "radial-gradient(ellipse, #2563eb 0%, transparent 70%)", filter: "blur(90px)" }} />
+        </div>
+        <div className="relative mx-auto max-w-3xl px-6 text-center">
+          <motion.h1 {...fadeUp()} className="text-4xl font-bold tracking-tight sm:text-5xl">
+            Hablemos de <span className="text-gradient-accent">tu proyecto</span>
+          </motion.h1>
+          <motion.p {...fadeUp(0.08)} className="mx-auto mt-6 max-w-[52ch] text-base leading-relaxed text-muted">
+            Escríbenos por WhatsApp y te respondemos lo antes posible.
+            Estamos en San Pedro de los Milagros, Antioquia.
+          </motion.p>
         </div>
       </section>
 
       {/* Contenido */}
-      <section className="section-compact mx-auto max-w-[1440px] px-4 md:px-6 xl:px-8">
-        <div className="grid min-w-0 gap-3 lg:grid-cols-2">
-          {/* (b) Mini formulario → WhatsApp — primero en móvil */}
+      <section className="mx-auto max-w-6xl px-6 py-20">
+        <div className="grid min-w-0 gap-5 lg:grid-cols-2">
+          {/* Formulario → WhatsApp — primero en móvil */}
           <motion.div
             {...fadeUp(0.08)}
-            className="card order-first flex min-w-0 flex-col p-4 md:p-6 lg:order-none"
+            className="card order-first flex min-w-0 flex-col p-8 lg:order-none"
           >
-            <h2 className="sq-title">Escríbenos</h2>
-            <p className="sq-sub text-[13px] leading-[1.5] text-[#5C5C5C]">
+            <h2 className="text-xl font-bold">Escríbenos</h2>
+            <p className="mt-2 text-sm leading-relaxed text-muted">
               Completa los datos y abrimos WhatsApp con tu mensaje listo para enviar. Sin backend,
               sin esperas.
             </p>
 
             <form
-              className="mt-4 flex flex-1 flex-col gap-3"
+              className="mt-6 flex flex-1 flex-col gap-4"
               onSubmit={(e) => {
                 e.preventDefault();
                 enviar();
               }}
             >
               <div>
-                <label htmlFor="nombre" className="mb-1.5 block text-[14px] font-semibold text-[#0A0A0A]">
+                <label htmlFor="nombre" className="mb-1.5 block text-sm font-semibold">
                   Nombre
                 </label>
                 <input
@@ -97,19 +102,19 @@ export default function ContactoClient() {
                   placeholder="Tu nombre"
                   required
                   autoComplete="name"
-                  className="h-12 w-full rounded-full border border-[#D9D9D9] bg-white px-4 text-base text-[#0A0A0A] outline-none placeholder:text-[#8A8A8A] focus:border-[#0A0A0A]"
+                  className="h-12 w-full rounded-full border border-border-2 bg-background px-4 text-sm outline-none transition-colors placeholder:text-muted-2 focus:border-accent"
                 />
               </div>
 
               <div>
-                <label htmlFor="servicio" className="mb-1.5 block text-[14px] font-semibold text-[#0A0A0A]">
+                <label htmlFor="servicio" className="mb-1.5 block text-sm font-semibold">
                   Servicio
                 </label>
                 <select
                   id="servicio"
                   value={servicio}
                   onChange={(e) => setServicio(e.target.value)}
-                  className="h-12 w-full cursor-pointer appearance-none rounded-full border border-[#D9D9D9] bg-white px-4 text-base text-[#0A0A0A] outline-none focus:border-[#0A0A0A]"
+                  className="h-12 w-full cursor-pointer appearance-none rounded-full border border-border-2 bg-background px-4 text-sm outline-none transition-colors focus:border-accent"
                 >
                   {servicios.map((s) => (
                     <option key={s} value={s}>
@@ -120,7 +125,7 @@ export default function ContactoClient() {
               </div>
 
               <div className="flex flex-1 flex-col">
-                <label htmlFor="mensaje" className="mb-1.5 block text-[14px] font-semibold text-[#0A0A0A]">
+                <label htmlFor="mensaje" className="mb-1.5 block text-sm font-semibold">
                   Mensaje
                 </label>
                 <textarea
@@ -130,56 +135,56 @@ export default function ContactoClient() {
                   placeholder="Cuéntanos qué necesitas…"
                   required
                   rows={5}
-                  className="min-h-[150px] w-full flex-1 resize-y rounded-[12px] border border-[#D9D9D9] bg-white px-4 py-3 text-base leading-[1.5] text-[#0A0A0A] outline-none placeholder:text-[#8A8A8A] focus:border-[#0A0A0A]"
+                  className="min-h-[150px] w-full flex-1 resize-y rounded-2xl border border-border-2 bg-background px-4 py-3 text-sm leading-relaxed outline-none transition-colors placeholder:text-muted-2 focus:border-accent"
                 />
               </div>
 
               <button
                 type="submit"
                 disabled={!valido}
-                className="btn-primary btn-submit w-full disabled:cursor-not-allowed disabled:opacity-50"
+                className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-accent text-sm font-semibold text-white transition-all hover:bg-accent-hi hover:shadow-[0_0_24px_rgba(37,99,235,0.4)] disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:shadow-none"
               >
                 <PaperPlaneTilt size={15} weight="fill" />
                 Enviar por WhatsApp
               </button>
               {!valido && (
-                <p className="text-center text-xs leading-[1.5] text-[#8A8A8A]">
+                <p className="text-center text-xs leading-relaxed text-muted-2">
                   Completa tu nombre y mensaje para activar el envío.
                 </p>
               )}
             </form>
           </motion.div>
 
-          {/* (a) Canales — banda negra */}
+          {/* Canales directos */}
           <motion.div
             {...fadeUp()}
-            className="band-dark flex min-w-0 flex-col rounded-[14px] p-4 md:p-6"
+            className="flex min-w-0 flex-col rounded-2xl border border-border-2 bg-surface p-8"
           >
-            <h2 className="sq-title">Canales directos</h2>
+            <h2 className="text-xl font-bold">Canales directos</h2>
 
             <a
               href={`${WA_BASE}?text=${encodeURIComponent("Hola Rohlfing Concept, escribo desde rohlfingconcept.com.")}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-primary mt-4 w-full"
+              className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-accent px-7 py-3.5 text-sm font-semibold text-white transition-all hover:bg-accent-hi hover:shadow-[0_0_24px_rgba(37,99,235,0.4)] hover:-translate-y-0.5"
             >
               <WhatsappLogo size={16} weight="fill" />
               WhatsApp · +57 324 212 3300
             </a>
-            <p className="mt-2.5 text-xs leading-[1.5] text-white/70">
+            <p className="mt-3 text-xs leading-relaxed text-muted-2">
               WhatsApp +57 324 212 3300 (único canal telefónico)
             </p>
 
-            <div className="mt-4 space-y-3 border-t-2 border-white/25 pt-4">
+            <div className="mt-6 space-y-4 border-t border-border/60 pt-6">
               <div className="flex items-start gap-3">
-                <EnvelopeSimple size={17} weight="fill" className="mt-0.5 shrink-0 text-white" />
+                <EnvelopeSimple size={17} weight="fill" className="mt-0.5 shrink-0 text-accent-hi" />
                 <div className="min-w-0">
-                  <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-white/70">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-2">
                     Correo
                   </p>
                   <a
                     href="mailto:rohlfingconcept@gmail.com"
-                    className="mt-1 block truncate text-[13px] leading-[1.5] text-white hover:underline underline-offset-4"
+                    className="mt-1 block truncate text-sm text-foreground hover:text-accent-hi"
                   >
                     rohlfingconcept@gmail.com
                   </a>
@@ -187,16 +192,16 @@ export default function ContactoClient() {
               </div>
 
               <div className="flex items-start gap-3">
-                <InstagramLogo size={17} weight="fill" className="mt-0.5 shrink-0 text-white" />
+                <InstagramLogo size={17} weight="fill" className="mt-0.5 shrink-0 text-accent-hi" />
                 <div className="min-w-0">
-                  <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-white/70">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-2">
                     Instagram
                   </p>
                   <a
                     href="https://instagram.com/rohlfingconcept"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="mt-1 block text-[13px] leading-[1.5] text-white hover:underline underline-offset-4"
+                    className="mt-1 block text-sm text-foreground hover:text-accent-hi"
                   >
                     @rohlfingconcept
                   </a>
@@ -204,16 +209,16 @@ export default function ContactoClient() {
               </div>
 
               <div className="flex items-start gap-3">
-                <MapPin size={17} weight="fill" className="mt-0.5 shrink-0 text-white" />
+                <MapPin size={17} weight="fill" className="mt-0.5 shrink-0 text-accent-hi" />
                 <div className="min-w-0">
-                  <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-white/70">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-2">
                     Dirección
                   </p>
                   <a
                     href="https://www.google.com/maps/place/Cra.+49+A+%2348-23,+San+Pedro,+San+Pedro+de+los+Milagros,+Antioquia,+Colombia/@6.4612415,-75.5586706,17z"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="mt-1 block text-[13px] leading-[1.5] text-white hover:underline underline-offset-4"
+                    className="mt-1 block text-sm leading-relaxed text-foreground hover:text-accent-hi"
                   >
                     Cra. 49 A #48-23
                     <br />
@@ -223,7 +228,7 @@ export default function ContactoClient() {
               </div>
             </div>
 
-            <div className="mt-4 overflow-hidden rounded-[14px] border-2 border-white/40">
+            <div className="mt-6 overflow-hidden rounded-2xl border border-border-2">
               <iframe
                 title="Rohlfing Concept — Ubicación San Pedro de los Milagros"
                 src="https://maps.google.com/maps?q=6.4612362,-75.5560957&output=embed&z=17"

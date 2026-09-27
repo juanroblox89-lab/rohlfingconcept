@@ -2,53 +2,49 @@
 
 import Link from "next/link";
 import { motion } from "motion/react";
-import { ArrowRight, ArrowLeft, Check, WhatsappLogo } from "@phosphor-icons/react";
-import { waLink, videoData, type Servicio, type Bloque, type Plan } from "@/data/services";
-import { compromiso, COMPROMISO_INTRO } from "@/data/services";
-import { paquetesTelevision } from "@/data/paquetes";
-import { fadeUp } from "@/lib/anim";
+import {
+  ArrowRight,
+  ArrowLeft,
+  Check,
+  WhatsappLogo,
+} from "@phosphor-icons/react";
+import {
+  waLink,
+  videoData,
+  type Servicio,
+  type Bloque,
+  type Plan,
+} from "@/data/services";
 
-const ALCANCES_GRABACION = [
-  "Grabación en locación",
-  "Reels",
-  "Contenido para marcas",
-  "Entrevistas",
-  "Eventos",
-];
+// Tupla tipada requerida por motion (evita error TS2322 en build de producción)
+const EASE_OUT_EXPO: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
-const GRABACION_WA =
-  "https://wa.me/573242123300?text=" +
-  encodeURIComponent("Hola Rohlfing Concept, quiero cotizar una grabación de video para mi marca.");
+const fadeUp = (delay = 0) => ({
+  initial:     { opacity: 0, y: 22 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport:    { once: true, amount: 0.15 },
+  transition:  { duration: 0.6, delay, ease: EASE_OUT_EXPO },
+});
 
 /* ───────────────────────── Tarjeta de plan ───────────────────────── */
 function PlanCard({ plan, i }: { plan: Plan; i: number }) {
   return (
     <motion.div
       {...fadeUp(i * 0.05)}
-      className="card flex flex-col p-3 md:p-4"
+      className="flex flex-col rounded-2xl border border-border-2 bg-surface p-7 transition-all duration-300 hover:-translate-y-1 hover:border-accent/40 hover:shadow-[0_12px_36px_rgba(37,99,235,0.14)]"
     >
-      <h3 className="font-display text-[13px] font-bold leading-[1.4] tracking-tight text-[#0A0A0A] md:text-base">
-        {plan.nombre}
-      </h3>
-      <p className="mt-1.5 font-display text-2xl font-black tracking-tight text-[#0A0A0A] md:text-3xl">
-        {plan.precio}
-      </p>
-      {plan.tagline && (
-        <p className="mt-1.5 text-[13px] leading-[1.5] text-[#5C5C5C]">{plan.tagline}</p>
-      )}
-      <div className="my-3 h-px bg-[#E9E9E9] md:my-4" />
-      <ul className="flex-1 space-y-1.5 md:space-y-2.5">
+      <h3 className="text-base font-bold tracking-tight">{plan.nombre}</h3>
+      <p className="mt-3 text-3xl font-bold text-gradient-accent">{plan.precio}</p>
+      {plan.tagline && <p className="mt-2 text-[13px] leading-relaxed text-muted">{plan.tagline}</p>}
+      <div className="my-5 h-px bg-border/60" />
+      <ul className="flex-1 space-y-2.5">
         {plan.items.map((it) => (
-          <li key={it.t} className="text-[13px] leading-[1.5] text-[#0A0A0A]">
+          <li key={it.t} className="text-sm leading-snug">
             <span className="flex items-start gap-2 font-medium">
-              <Check size={14} weight="bold" className="mt-0.5 shrink-0 text-[#0A0A0A]" />
+              <Check size={14} weight="bold" className="mt-0.5 flex-shrink-0 text-accent-hi" />
               {it.t}
             </span>
-            {it.d && (
-              <span className="mt-0.5 block pl-6 text-[13px] leading-[1.5] text-[#5C5C5C]">
-                {it.d}
-              </span>
-            )}
+            {it.d && <span className="mt-0.5 block pl-6 text-[12.5px] leading-relaxed text-muted-2">{it.d}</span>}
           </li>
         ))}
       </ul>
@@ -56,11 +52,9 @@ function PlanCard({ plan, i }: { plan: Plan; i: number }) {
         href={waLink(`Hola Rohlfing Concept, me interesa el ${plan.nombre} de ${plan.precio}.`)}
         target="_blank"
         rel="noopener noreferrer"
-        className="btn-secondary mt-3 w-full !whitespace-normal !px-2 text-center !leading-[1.3] md:mt-4"
+        className="mt-7 flex items-center justify-center gap-2 rounded-full border border-border-2 py-3 text-sm font-semibold transition-all hover:border-accent/50 hover:bg-accent/[0.08] hover:text-accent-hi"
       >
-        <span className="hidden sm:inline-flex" aria-hidden="true">
-          <WhatsappLogo size={15} weight="fill" />
-        </span>
+        <WhatsappLogo size={15} weight="fill" />
         Solicitar este plan
       </a>
     </motion.div>
@@ -71,13 +65,13 @@ function PlanCard({ plan, i }: { plan: Plan; i: number }) {
 function BloqueRenderer({ bloque }: { bloque: Bloque }) {
   /* --- Grid de planes --- */
   if (bloque.tipo === "planes") {
+    const cols =
+      bloque.planes.length >= 9 ? "sm:grid-cols-2 lg:grid-cols-3" :
+      bloque.planes.length === 1 ? "max-w-2xl" : "sm:grid-cols-2 lg:grid-cols-3";
     return (
       <div>
-        <h2 className="sq-title flex flex-wrap items-center gap-2">
-          <span className="dash-accent" aria-hidden="true"><span /><span /><span /></span>
-          {bloque.titulo}
-        </h2>
-        <div className="sq-grid mt-3 grid-cols-2 lg:grid-cols-3">
+        <h2 className="mb-8 text-xl font-bold tracking-tight sm:text-2xl">{bloque.titulo}</h2>
+        <div className={`grid gap-4 ${cols}`}>
           {bloque.planes.map((p, i) => (
             <PlanCard key={p.nombre} plan={p} i={i} />
           ))}
@@ -86,27 +80,21 @@ function BloqueRenderer({ bloque }: { bloque: Bloque }) {
     );
   }
 
-  /* --- Lista etiqueta → precio --- */
+  /* --- Lista etiqueta → precio (elementos individuales / tarifas / extras) --- */
   if (bloque.tipo === "elementos") {
     return (
       <div>
-        <h2 className="sq-title flex flex-wrap items-center gap-2">
-          <span className="dash-accent" aria-hidden="true"><span /><span /><span /></span>
-          {bloque.titulo}
-        </h2>
-        <motion.div
-          {...fadeUp()}
-          className="card mt-3 overflow-hidden !p-0"
-        >
+        <h2 className="mb-8 text-xl font-bold tracking-tight sm:text-2xl">{bloque.titulo}</h2>
+        <motion.div {...fadeUp()} className="overflow-hidden rounded-2xl border border-border-2 bg-surface">
           {bloque.elementos.map((el, i) => (
             <div
               key={el.label}
-              className={`flex items-center justify-between gap-3 px-3 py-2.5 md:gap-6 md:px-5 md:py-4 ${
-                i > 0 ? "border-t border-[#E9E9E9]" : ""
-              }`}
+              className={`flex items-center justify-between gap-6 px-6 py-4 ${
+                i > 0 ? "border-t border-border/40" : ""
+              } transition-colors hover:bg-accent/[0.04]`}
             >
-              <span className="text-[13px] font-medium leading-[1.5] text-[#0A0A0A]">{el.label}</span>
-              <span className="shrink-0 text-[13px] font-bold text-[#0A0A0A]">{el.precio}</span>
+              <span className="text-sm font-medium">{el.label}</span>
+              <span className="flex-shrink-0 text-sm font-bold text-gradient-accent">{el.precio}</span>
             </div>
           ))}
         </motion.div>
@@ -114,31 +102,22 @@ function BloqueRenderer({ bloque }: { bloque: Bloque }) {
     );
   }
 
-  /* --- Tabla de edición de video --- */
+  /* --- Tabla de edición de video (3 niveles × duración) --- */
   if (bloque.tipo === "video") {
     return (
       <div>
-        <h2 className="sq-title flex flex-wrap items-center gap-2">
-          <span className="dash-accent" aria-hidden="true"><span /><span /><span /></span>
-          {bloque.titulo}
-        </h2>
+        <h2 className="mb-8 text-xl font-bold tracking-tight sm:text-2xl">{bloque.titulo}</h2>
 
         {/* Matriz de precios — escritorio */}
-        <motion.div
-          {...fadeUp()}
-          className="card mt-3 hidden overflow-x-auto !p-0 md:block"
-        >
+        <motion.div {...fadeUp()} className="hidden overflow-x-auto rounded-2xl border border-border-2 bg-surface md:block">
           <table className="w-full min-w-[720px] border-collapse text-sm">
             <thead>
-              <tr className="border-b border-[#E9E9E9] bg-[#F4F4F4]">
-                <th className="px-5 py-4 text-left text-[11px] font-semibold uppercase tracking-[0.14em] text-[#5C5C5C]">
+              <tr className="border-b border-border/60 bg-background/60">
+                <th className="px-5 py-4 text-left text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-2">
                   Tiempo del video
                 </th>
                 {videoData.niveles.map((n) => (
-                  <th
-                    key={n.nombre}
-                    className="px-5 py-4 text-left text-[11px] font-semibold uppercase tracking-[0.14em] text-[#5C5C5C]"
-                  >
+                  <th key={n.nombre} className="px-5 py-4 text-left text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-2">
                     {n.nombre.replace("Edición ", "")}
                   </th>
                 ))}
@@ -146,10 +125,10 @@ function BloqueRenderer({ bloque }: { bloque: Bloque }) {
             </thead>
             <tbody>
               {videoData.duraciones.map((dur, ri) => (
-                <tr key={dur} className={ri > 0 ? "border-t border-[#E9E9E9]" : ""}>
-                  <td className="px-5 py-3.5 text-[13px] font-medium text-[#5C5C5C]">{dur}</td>
+                <tr key={dur} className={`transition-colors hover:bg-accent/[0.05] ${ri > 0 ? "border-t border-border/30" : ""}`}>
+                  <td className="px-5 py-3.5 font-medium text-muted">{dur}</td>
                   {videoData.niveles.map((n) => (
-                    <td key={n.nombre} className="px-5 py-3.5 text-[13px] font-bold text-[#0A0A0A]">
+                    <td key={n.nombre} className="px-5 py-3.5 font-bold text-gradient-accent">
                       {n.precios[ri]}
                     </td>
                   ))}
@@ -160,21 +139,19 @@ function BloqueRenderer({ bloque }: { bloque: Bloque }) {
         </motion.div>
 
         {/* Móvil: una tarjeta compacta por nivel */}
-        <motion.div {...fadeUp(0.05)} className="sq-grid mt-3 md:hidden">
+        <motion.div {...fadeUp(0.05)} className="md:hidden space-y-4">
           {videoData.niveles.map((n) => (
-            <div key={n.nombre} className="card !rounded-[14px] !shadow-[0_6px_16px_rgba(10,10,10,0.08)] p-3">
-              <h3 className="font-display text-[13px] font-bold uppercase tracking-wide text-[#0A0A0A]">
-                {n.nombre}
-              </h3>
-              <ul className="mt-2 space-y-1.5">
+            <div key={n.nombre} className="rounded-2xl border border-border-2 bg-surface p-5">
+              <h3 className="text-sm font-bold uppercase tracking-wide text-accent-hi">{n.nombre}</h3>
+              <ul className="mt-3 space-y-1.5">
                 {videoData.duraciones.map((dur, ri) => (
-                  <li key={dur} className="flex items-center justify-between gap-3 text-[13px] leading-[1.5]">
-                    <span className="text-[#5C5C5C]">{dur}</span>
-                    <span className="shrink-0 font-bold text-[#0A0A0A]">{n.precios[ri]}</span>
+                  <li key={dur} className="flex items-center justify-between text-[13px]">
+                    <span className="text-muted">{dur}</span>
+                    <span className="font-bold">{n.precios[ri]}</span>
                   </li>
                 ))}
               </ul>
-              <p className="mt-2 border-t border-[#E9E9E9] pt-2 text-[13px] leading-[1.5] text-[#5C5C5C]">
+              <p className="mt-3 border-t border-border/40 pt-3 text-xs text-accent-hi">
                 {n.extra.valor} — {n.extra.label}
               </p>
             </div>
@@ -182,47 +159,33 @@ function BloqueRenderer({ bloque }: { bloque: Bloque }) {
         </motion.div>
 
         {/* Detalle de cada nivel */}
-        <div className="sq-grid mt-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-14 grid gap-4 lg:grid-cols-3">
           {videoData.niveles.map((n, i) => (
-            <motion.div
-              key={n.nombre}
-              {...fadeUp(i * 0.05)}
-              className="card flex flex-col p-3 md:p-4"
-            >
-              <h3 className="font-display text-base font-bold tracking-tight text-[#0A0A0A] md:text-lg">
-                {n.nombre}
-              </h3>
-              <p className="mt-1.5 text-[13px] leading-[1.5] text-[#5C5C5C]">{n.desc}</p>
-              <ul className="mt-3 flex-1 space-y-2 md:mt-4 md:space-y-3">
+            <motion.div key={n.nombre} {...fadeUp(i * 0.07)} className="flex flex-col rounded-2xl border border-border-2 bg-surface p-7">
+              <h3 className="text-lg font-bold tracking-tight text-gradient-accent">{n.nombre}</h3>
+              <p className="mt-2 text-[13px] leading-relaxed text-muted">{n.desc}</p>
+              <ul className="mt-5 flex-1 space-y-3">
                 {n.incluye.map((it) => (
-                  <li key={it.t} className="text-[13px] leading-[1.5] text-[#0A0A0A]">
+                  <li key={it.t} className="text-sm leading-snug">
                     <span className="flex items-start gap-2 font-medium">
-                      <Check size={14} weight="bold" className="mt-0.5 shrink-0 text-[#0A0A0A]" />
+                      <Check size={14} weight="bold" className="mt-0.5 flex-shrink-0 text-accent-hi" />
                       {it.t}
                     </span>
-                    {it.d && (
-                      <span className="mt-0.5 block pl-6 text-[13px] leading-[1.5] text-[#5C5C5C]">
-                        {it.d}
-                      </span>
-                    )}
+                    {it.d && <span className="mt-0.5 block pl-6 text-[12.5px] leading-relaxed text-muted-2">{it.d}</span>}
                   </li>
                 ))}
-                <li className="text-[13px] leading-[1.5] text-[#0A0A0A]">
+                <li className="text-sm leading-snug">
                   <span className="flex items-start gap-2 font-medium">
-                    <Check size={14} weight="bold" className="mt-0.5 shrink-0 text-[#0A0A0A]" />
+                    <Check size={14} weight="bold" className="mt-0.5 flex-shrink-0 text-accent-hi" />
                     {n.extra.label}
-                    <span className="font-bold">({n.extra.valor})</span>
+                    <span className="font-bold text-accent-hi">({n.extra.valor})</span>
                   </span>
                   {"desc" in n.extra && n.extra.desc && (
-                    <span className="mt-0.5 block pl-6 text-[13px] leading-[1.5] text-[#5C5C5C]">
-                      {n.extra.desc}
-                    </span>
+                    <span className="mt-0.5 block pl-6 text-[12.5px] leading-relaxed text-muted-2">{n.extra.desc}</span>
                   )}
                 </li>
               </ul>
-              <p className="mt-3 border-l-2 border-[#0A0A0A] pl-3 text-[13px] italic leading-[1.5] text-[#5C5C5C] md:mt-4">
-                {n.nota}
-              </p>
+              <p className="mt-6 border-l-2 border-accent/40 pl-4 text-[12px] italic leading-relaxed text-muted-2">{n.nota}</p>
             </motion.div>
           ))}
         </div>
@@ -234,27 +197,18 @@ function BloqueRenderer({ bloque }: { bloque: Bloque }) {
   if (bloque.tipo === "itemsPrecio") {
     return (
       <div>
-        <h2 className="sq-title flex flex-wrap items-center gap-2">
-          <span className="dash-accent" aria-hidden="true"><span /><span /><span /></span>
-          {bloque.titulo}
-        </h2>
-        <div className="sq-grid mt-3 grid-cols-2 lg:grid-cols-3">
+        <h2 className="mb-8 text-xl font-bold tracking-tight sm:text-2xl">{bloque.titulo}</h2>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {bloque.items.map((it, i) => (
             <motion.div
               key={it.nombre}
-              {...fadeUp(i * 0.05)}
-              className="card flex flex-col p-3 md:p-4"
+              {...fadeUp(i * 0.06)}
+              className="flex flex-col rounded-2xl border border-border-2 bg-surface p-6 transition-all duration-300 hover:-translate-y-1 hover:border-accent/40"
             >
-              <h3 className="font-display text-[13px] font-bold leading-[1.4] tracking-tight text-[#0A0A0A] md:text-base">
-                {it.nombre}
-              </h3>
-              {it.desc && (
-                <p className="mt-1.5 flex-1 text-[13px] leading-[1.5] text-[#5C5C5C]">{it.desc}</p>
-              )}
+              <h3 className="text-base font-bold tracking-tight">{it.nombre}</h3>
+              {it.desc && <p className="mt-2.5 flex-1 text-[13px] leading-relaxed text-muted">{it.desc}</p>}
               {it.precio && (
-                <p className="mt-3 font-display text-xl font-black tracking-tight text-[#0A0A0A] md:mt-4 md:text-2xl">
-                  {it.precio}
-                </p>
+                <p className="mt-5 text-2xl font-bold text-gradient-accent">{it.precio}</p>
               )}
             </motion.div>
           ))}
@@ -263,32 +217,25 @@ function BloqueRenderer({ bloque }: { bloque: Bloque }) {
     );
   }
 
-  /* --- Packs --- */
+  /* --- Packs vectoriales --- */
   if (bloque.tipo === "packs") {
     return (
       <div>
-        <h2 className="sq-title flex flex-wrap items-center gap-2">
-          <span className="dash-accent" aria-hidden="true"><span /><span /><span /></span>
-          {bloque.titulo}
-        </h2>
-        <div className="sq-grid mt-3 grid-cols-2 lg:grid-cols-3">
+        <h2 className="mb-8 text-xl font-bold tracking-tight sm:text-2xl">{bloque.titulo}</h2>
+        <div className="grid gap-4 lg:grid-cols-3">
           {bloque.packs.map((pk, i) => (
             <motion.div
               key={pk.nombre}
-              {...fadeUp(i * 0.05)}
-              className="card flex flex-col p-3 md:p-4"
+              {...fadeUp(i * 0.07)}
+              className="flex flex-col rounded-2xl border border-border-2 bg-surface p-7 transition-all duration-300 hover:-translate-y-1 hover:border-accent/40"
             >
-              <h3 className="font-display text-[13px] font-bold leading-[1.4] tracking-tight text-[#0A0A0A] md:text-base">
-                {pk.nombre}
-              </h3>
-              <p className="mt-1.5 font-display text-2xl font-black tracking-tight text-[#0A0A0A] md:text-3xl">
-                {pk.precio}
-              </p>
-              <div className="my-3 h-px bg-[#E9E9E9] md:my-4" />
-              <ul className="flex-1 space-y-1.5 md:space-y-2.5">
+              <h3 className="text-base font-bold tracking-tight">{pk.nombre}</h3>
+              <p className="mt-3 text-3xl font-bold text-gradient-accent">{pk.precio}</p>
+              <div className="my-5 h-px bg-border/60" />
+              <ul className="flex-1 space-y-2.5">
                 {pk.incluye.map((x) => (
-                  <li key={x} className="flex items-start gap-2 text-[13px] leading-[1.5] text-[#0A0A0A]">
-                    <Check size={14} weight="bold" className="mt-0.5 shrink-0 text-[#0A0A0A]" />
+                  <li key={x} className="flex items-start gap-2 text-sm leading-snug">
+                    <Check size={14} weight="bold" className="mt-0.5 flex-shrink-0 text-accent-hi" />
                     {x}
                   </li>
                 ))}
@@ -297,11 +244,9 @@ function BloqueRenderer({ bloque }: { bloque: Bloque }) {
                 href={waLink(`Hola Rohlfing Concept, me interesa el ${pk.nombre} (${pk.precio}).`)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-secondary mt-3 w-full !whitespace-normal !px-2 text-center !leading-[1.3] md:mt-4"
+                className="mt-7 flex items-center justify-center gap-2 rounded-full border border-border-2 py-3 text-sm font-semibold transition-all hover:border-accent/50 hover:bg-accent/[0.08] hover:text-accent-hi"
               >
-                <span className="hidden sm:inline-flex" aria-hidden="true">
-                  <WhatsappLogo size={15} weight="fill" />
-                </span>
+                <WhatsappLogo size={15} weight="fill" />
                 Solicitar
               </a>
             </motion.div>
@@ -311,82 +256,46 @@ function BloqueRenderer({ bloque }: { bloque: Bloque }) {
     );
   }
 
-  /* --- Servicio único --- */
-  if (bloque.tipo === "unico") {
-    return (
-      <div>
-        <h2 className="sq-title flex flex-wrap items-center gap-2">
-          <span className="dash-accent" aria-hidden="true"><span /><span /><span /></span>
-          {bloque.titulo}
-        </h2>
-        <motion.div
-          {...fadeUp()}
-          className="card mx-auto mt-3 max-w-2xl p-4 text-center md:p-6"
-        >
-          <p className="font-display text-3xl font-bold tracking-tight text-[#0A0A0A] md:text-4xl">
-            {bloque.precio}
-          </p>
-          <p className="mt-1 text-[13px] text-[#8A8A8A]">por pieza</p>
-          <div className="line-fade my-4" />
-          <ul className="space-y-2 text-left">
-            {bloque.incluye.map((x: string) => (
-              <li key={x} className="flex items-start gap-2 text-[13px] leading-[1.5] text-[#0A0A0A]">
-                <Check size={15} weight="bold" className="mt-0.5 shrink-0 text-[#0A0A0A]" />
-                {x}
-              </li>
-            ))}
-          </ul>
-          <p className="mt-4">
-            <span className="pill !text-[10px]">Tipos de piezas</span>
-          </p>
-          <div className="mt-2 flex flex-wrap justify-center gap-2">
-            {bloque.tipos.map((t: string) => (
-              <span
-                key={t}
-                className="pill !text-[10px] !normal-case !tracking-normal"
-              >
-                {t}
-              </span>
-            ))}
-          </div>
-          <a
-            href={waLink(`Hola Rohlfing Concept, quiero solicitar un diseño (${bloque.precio}).`)}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-primary mt-4 w-full sm:w-auto"
-          >
-            <WhatsappLogo size={16} weight="fill" />
-            Solicitar ahora
-          </a>
-        </motion.div>
-      </div>
-    );
-  }
-
-  /* --- Nota informativa: banda negra --- */
-  if (bloque.tipo === "nota") {
-    return (
-      <motion.div {...fadeUp()} className="band-dark rounded-[14px] p-5 text-center md:p-6">
-        <h2 className="sq-title">
-          {bloque.titulo}
-        </h2>
-        <p className="mx-auto mt-2 max-w-[52ch] text-[13px] leading-[1.5] text-white/85">
-          {bloque.texto}
-        </p>
+  /* --- Servicio único (Diseños) --- */
+  if (bloque.tipo !== "unico") return null;
+  return (
+    <div>
+      <h2 className="mb-8 text-xl font-bold tracking-tight sm:text-2xl">{bloque.titulo}</h2>
+      <motion.div
+        {...fadeUp()}
+        className="mx-auto max-w-2xl rounded-2xl border border-accent/30 bg-gradient-to-b from-accent/[0.08] to-surface p-8 text-center sm:p-10"
+      >
+        <p className="text-5xl font-bold text-gradient-accent">{bloque.precio}</p>
+        <p className="mt-2 text-sm text-muted-2">por pieza</p>
+        <div className="my-7 h-px bg-border/60" />
+        <ul className="space-y-3 text-left">
+          {bloque.incluye.map((x: string) => (
+            <li key={x} className="flex items-start gap-2.5 text-sm leading-snug">
+              <Check size={15} weight="bold" className="mt-0.5 flex-shrink-0 text-accent-hi" />
+              {x}
+            </li>
+          ))}
+        </ul>
+        <p className="mt-7 text-[11px] font-semibold uppercase tracking-[0.16em] text-muted-2">Tipos de piezas</p>
+        <div className="mt-3 flex flex-wrap justify-center gap-2">
+          {bloque.tipos.map((t: string) => (
+            <span key={t} className="rounded-full border border-border-2 bg-background/70 px-4 py-1.5 text-xs font-medium text-muted">
+              {t}
+            </span>
+          ))}
+        </div>
         <a
-          href={waLink(`Hola Rohlfing Concept, ${bloque.titulo}.`)}
+          href={waLink(`Hola Rohlfing Concept, quiero solicitar un diseño (${bloque.precio}).`)}
           target="_blank"
           rel="noopener noreferrer"
-          className="btn-primary mt-3"
+          className="mt-8 inline-flex w-full items-center justify-center gap-2 rounded-full bg-accent px-8 py-3.5 text-sm font-semibold text-white transition-all hover:bg-accent-hi hover:shadow-[0_0_28px_rgba(37,99,235,0.4)] sm:w-auto"
         >
           <WhatsappLogo size={16} weight="fill" />
-          Preguntar por WhatsApp
+          Solicitar ahora
         </a>
       </motion.div>
-    );
-  }
-
-  return null;
+    </div>
+  );
 }
 
 /* ───────────────────────── Página completa ───────────────────────── */
@@ -398,208 +307,87 @@ export default function ServicioDetalleClient({
   otros: Servicio[];
 }) {
   return (
-    <main className="min-h-screen bg-white text-[#0A0A0A]">
+    <main className="min-h-screen">
       {/* Header del servicio */}
-      <section className="border-b-2 border-[#0A0A0A]">
-        <div className="section-compact mx-auto max-w-[1440px] px-4 md:px-6 xl:px-8">
+      <section className="relative overflow-hidden border-b border-border/40 py-20">
+        <div className="pointer-events-none absolute inset-0 -z-10">
+          <div
+            className="absolute left-1/2 top-0 h-[340px] w-[600px] -translate-x-1/2 rounded-full opacity-[0.08]"
+            style={{ background: "radial-gradient(ellipse, #2563eb 0%, transparent 70%)", filter: "blur(90px)" }}
+          />
+        </div>
+        <div className="relative mx-auto max-w-5xl px-6">
           <motion.div {...fadeUp()}>
             <Link
               href="/servicios"
-              className="inline-flex items-center gap-1.5 text-[13px] font-medium text-[#5C5C5C] transition-colors duration-200 hover:text-[#0A0A0A]"
+              className="inline-flex items-center gap-1.5 text-sm text-muted transition-colors hover:text-accent-hi"
             >
               <ArrowLeft size={14} />
               Todos los servicios
             </Link>
           </motion.div>
-          <motion.p {...fadeUp(0.05)} className="mt-3">
-            <span className="pill !text-[10px]">{servicio.kicker}</span>
+          <motion.p {...fadeUp(0.03)} className="mt-7 text-xs font-semibold uppercase tracking-[0.18em] text-accent-hi">
+            {servicio.kicker}
           </motion.p>
-          <motion.h1
-            {...fadeUp(0.08)}
-            className="sq-title mt-2"
-          >
+          <motion.h1 {...fadeUp(0.06)} className="mt-3 text-4xl font-bold tracking-tight sm:text-5xl">
             {servicio.nombre}
           </motion.h1>
-          <motion.p
-            {...fadeUp(0.12)}
-            className="mt-2 max-w-[62ch] text-[13px] leading-[1.5] text-[#5C5C5C]"
-          >
+          <motion.p {...fadeUp(0.1)} className="mt-5 max-w-[62ch] text-base leading-relaxed text-muted">
             {servicio.intro}
           </motion.p>
-          <motion.div {...fadeUp(0.16)} className="mt-3">
-            <a
-              href={waLink(`Hola Rohlfing Concept, quiero cotizar: ${servicio.nombre}.`)}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-primary"
-            >
-              <WhatsappLogo size={16} weight="fill" />
-              Cotizar {servicio.nombre.toLowerCase()} — desde {servicio.desde}
-            </a>
-          </motion.div>
+          <motion.a
+            {...fadeUp(0.14)}
+            href={waLink(`Hola Rohlfing Concept, quiero cotizar: ${servicio.nombre}.`)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-8 inline-flex items-center gap-2 rounded-full bg-accent px-7 py-3.5 text-sm font-semibold text-white transition-all hover:bg-accent-hi hover:shadow-[0_0_28px_rgba(37,99,235,0.4)] hover:-translate-y-0.5"
+          >
+            <WhatsappLogo size={16} weight="fill" />
+            Cotizar {servicio.nombre.toLowerCase()} — desde {servicio.desde}
+          </motion.a>
         </div>
       </section>
 
       {/* Bloques de contenido */}
-      <div className="section-compact mx-auto max-w-[1440px] px-4 md:px-6 xl:px-8">
-        <div className="space-y-6 md:space-y-8">
-          {servicio.bloques.map((b, i) => (
-            <BloqueRenderer key={i} bloque={b} />
-          ))}
-        </div>
-
-        {/* Sección especial: pautas en televisión (packs desde paquetes.ts) */}
-        {servicio.slug === "pautas-en-television" && (
-          <div className="mt-6 md:mt-8">
-            <h2 className="sq-title flex flex-wrap items-center gap-2">
-              <span className="dash-accent" aria-hidden="true"><span /><span /><span /></span>
-              Packs de televisión
-            </h2>
-            <p className="mt-2 max-w-[62ch] text-[13px] leading-[1.5] text-[#5C5C5C]">
-              Transmisión en Mi Canal, televisión regional.
-            </p>
-            <div className="sq-grid mt-3 grid-cols-2 lg:grid-cols-3">
-              {paquetesTelevision.map((pk, i) => (
-                <motion.div
-                  key={pk.nombre}
-                  {...fadeUp(i * 0.05)}
-                  className="card flex flex-col p-3 md:p-4"
-                >
-                  <p><span className="pill !text-[10px]">{pk.nombre}</span></p>
-                  <p className="mt-1.5 font-display text-2xl font-bold tracking-tight text-[#0A0A0A] md:text-3xl">
-                    {pk.precio}
-                  </p>
-                  <div className="line-fade my-3" />
-                  <ul className="flex-1 space-y-1.5 md:space-y-2.5">
-                    {pk.incluye.map((x) => (
-                      <li key={x} className="flex items-start gap-2 text-[13px] leading-[1.5] text-[#0A0A0A]">
-                        <Check size={14} weight="bold" className="mt-0.5 shrink-0 text-[#0A0A0A]" />
-                        {x}
-                      </li>
-                    ))}
-                  </ul>
-                  <a
-                    href={waLink(`Hola Rohlfing Concept, me interesa el ${pk.nombre} (${pk.precio}) de televisión.`)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn-primary mt-3 w-full !whitespace-normal !px-2 text-center !leading-[1.3] md:mt-4"
-                  >
-                    <span className="hidden sm:inline-flex" aria-hidden="true">
-                      <WhatsappLogo size={15} weight="fill" />
-                    </span>
-                    Solicitar
-                  </a>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* Sección especial: grabación de video */}
-        {servicio.slug === "grabacion-de-video" && (
-          <div className="mt-6 md:mt-8">
-            <h2 className="sq-title flex flex-wrap items-center gap-2">
-              <span className="dash-accent" aria-hidden="true"><span /><span /><span /></span>
-              Alcances
-            </h2>
-            <motion.div {...fadeUp()} className="card mt-3 overflow-hidden !p-0">
-              {ALCANCES_GRABACION.map((a, i) => (
-                <div
-                  key={a}
-                  className={`flex items-center gap-3 px-3 py-2.5 md:px-5 md:py-4 ${
-                    i > 0 ? "border-t border-[#E9E9E9]" : ""
-                  }`}
-                >
-                  <span className="h-2 w-2 shrink-0 rounded-full bg-[#0A0A0A]" aria-hidden="true" />
-                  <span className="text-[13px] font-medium leading-[1.5] text-[#0A0A0A]">{a}</span>
-                </div>
-              ))}
-            </motion.div>
-            <motion.div
-              {...fadeUp(0.05)}
-              className="band-dark mt-3 rounded-[14px] p-5 text-center md:p-6"
-            >
-              <h3 className="sq-title">
-                Cotiza según tu proyecto
-              </h3>
-              <p className="mx-auto mt-2 max-w-[52ch] text-[13px] leading-[1.5] text-white/85">
-                Cuéntanos tu idea por WhatsApp y te cotizamos según locación, duración y formato.
-              </p>
-              <a
-                href={GRABACION_WA}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-primary mt-3"
-              >
-                <WhatsappLogo size={16} weight="fill" />
-                Cotizar grabación
-              </a>
-            </motion.div>
-            <motion.div {...fadeUp(0.08)} className="card mt-3 p-3 md:p-4">
-              <h3 className="font-display text-base font-bold tracking-tight text-[#0A0A0A] md:text-lg">
-                Equipos propios
-              </h3>
-              <p className="mt-1.5 max-w-[64ch] text-[13px] leading-[1.5] text-[#5C5C5C]">
-                {COMPROMISO_INTRO}
-              </p>
-              <ul className="mt-3 flex flex-wrap gap-2">
-                {compromiso.equipos.map((e) => (
-                  <li
-                    key={e}
-                    className="pill !text-[10px] !normal-case !tracking-normal"
-                  >
-                    {e}
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
-          </div>
-        )}
+      <section className="mx-auto max-w-6xl space-y-20 px-6 py-20">
+        {servicio.bloques.map((b, i) => (
+          <BloqueRenderer key={i} bloque={b} />
+        ))}
 
         {/* CTA final */}
-        <motion.div {...fadeUp(0.1)} className="card mt-6 p-5 text-center md:mt-8 md:p-6">
-          <h2 className="sq-title">
-            ¿Listo para empezar?
-          </h2>
-          <p className="mx-auto mt-2 max-w-[52ch] text-[13px] leading-[1.5] text-[#5C5C5C]">
+        <motion.div {...fadeUp(0.1)} className="rounded-2xl border border-border-2 bg-surface p-10 text-center">
+          <h3 className="text-xl font-bold">¿Listo para empezar?</h3>
+          <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-muted">
             Escríbenos por WhatsApp y transformemos tu material o tu idea en algo más profesional.
           </p>
           <a
             href={waLink(`Hola Rohlfing Concept, quiero iniciar un proyecto de ${servicio.nombre}.`)}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-primary mt-3"
+            className="mt-7 inline-flex items-center gap-2 rounded-full bg-accent px-8 py-3.5 text-sm font-semibold text-white transition-all hover:bg-accent-hi hover:shadow-[0_0_28px_rgba(37,99,235,0.4)] hover:-translate-y-0.5"
           >
             <WhatsappLogo size={16} weight="fill" />
             Escribir por WhatsApp
           </a>
         </motion.div>
-      </div>
+      </section>
 
       {/* Otros servicios */}
-      <section className="border-t-2 border-[#0A0A0A] bg-[#F4F4F4]">
-        <div className="section-compact mx-auto max-w-[1440px] px-4 md:px-6 xl:px-8">
-          <h2 className="sq-title flex flex-wrap items-center gap-2">
-            <span className="dash-accent" aria-hidden="true"><span /><span /><span /></span>
-            Otros servicios
-          </h2>
-          <div className="sq-grid mt-3 grid-cols-2 lg:grid-cols-3">
+      <section className="border-t border-border/40 py-16" style={{ background: "var(--background-alt)" }}>
+        <div className="mx-auto max-w-6xl px-6">
+          <h2 className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-2">Otros servicios</h2>
+          <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {otros.map((s, i) => (
               <motion.div key={s.slug} {...fadeUp(i * 0.04)}>
                 <Link
                   href={`/servicios/${s.slug}`}
-                  className="card group flex items-center justify-between gap-2 !rounded-[14px] !shadow-[0_6px_16px_rgba(10,10,10,0.08)] px-3 py-2.5 md:gap-4 md:px-5 md:py-4"
+                  className="group flex items-center justify-between rounded-xl border border-border-2 bg-surface px-5 py-4 transition-all hover:-translate-y-0.5 hover:border-accent/40"
                 >
-                  <span className="min-w-0">
-                    <span className="block truncate text-[13px] font-semibold text-[#0A0A0A]">
-                      {s.nombre}
-                    </span>
-                    <span className="mt-0.5 block text-[13px] text-[#8A8A8A]">desde {s.desde}</span>
-                  </span>
-                  <ArrowRight
-                    size={15}
-                    className="shrink-0 text-[#0A0A0A] transition-transform duration-200 group-hover:translate-x-1"
-                  />
+                  <div>
+                    <p className="text-sm font-semibold">{s.nombre}</p>
+                    <p className="mt-0.5 text-xs text-muted-2">desde {s.desde}</p>
+                  </div>
+                  <ArrowRight size={15} className="flex-shrink-0 text-accent-hi transition-transform group-hover:translate-x-1" />
                 </Link>
               </motion.div>
             ))}

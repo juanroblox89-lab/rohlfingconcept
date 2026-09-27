@@ -1,8 +1,8 @@
 // ─────────────────────────────────────────────────────────────────────────────
 // Datos de servicios y precios — 100% reales, extraídos del sitio original
 // (rohlfingconcept.com, páginas blank-3…blank-13) y verificados contra el HTML.
-// NOTA FOTOS: los servicios ya no traen `img` (las imágenes IA se retiran);
-// los slots de foto real están listados en public/img/FOTOS-PENDIENTES.md.
+// Fotos de fondo del diseño original e07aaa7 (difuminadas/fondo, no IA de
+// clientes); `services-web.jpg` no vuelve (sitios web eliminado).
 // ─────────────────────────────────────────────────────────────────────────────
 
 export type ItemDetalle = { t: string; d?: string };
@@ -49,7 +49,7 @@ export type Servicio = {
   grupo: GrupoServicio;
   desde: string;
   resumen: string;
-  img?: string;
+  img: string;
   bloques: Bloque[];
 };
 
@@ -110,6 +110,7 @@ export const servicios: Servicio[] = [
   // ═══════════════════════ IDENTIDAD VISUAL ═══════════════════════
   {
     slug: "logos",
+    img: "/img/services-branding.jpg",
     nombre: "Logos",
     kicker: "Construcción de identidad desde el logo",
     intro:
@@ -270,6 +271,7 @@ export const servicios: Servicio[] = [
   },
   {
     slug: "branding",
+    img: "/img/services-identidad.jpg",
     nombre: "Branding",
     kicker: "Branding de marca",
     intro:
@@ -342,6 +344,7 @@ export const servicios: Servicio[] = [
   },
   {
     slug: "vectorial",
+    img: "/img/services-vectorial.jpg",
     nombre: "Vectorial",
     kicker: "Diseño vectorial profesional",
     intro:
@@ -409,6 +412,7 @@ export const servicios: Servicio[] = [
   },
   {
     slug: "disenos",
+    img: "/img/services-disenos.jpg",
     nombre: "Diseños",
     kicker: "Diseño gráfico publicitario",
     intro:
@@ -433,6 +437,7 @@ export const servicios: Servicio[] = [
   },
   {
     slug: "edicion-de-imagenes",
+    img: "/img/services-retoque.jpg",
     nombre: "Edición de imágenes",
     kicker: "Edición profesional de imágenes",
     intro:
@@ -482,6 +487,7 @@ export const servicios: Servicio[] = [
 
   {
     slug: "impresos-publicitarios",
+    img: "/img/services-disenos.jpg",
     nombre: "Impresos publicitarios",
     kicker: "Impresión publicitaria",
     intro:
@@ -501,6 +507,7 @@ export const servicios: Servicio[] = [
   // ═══════════════════════ CONTENIDO AUDIOVISUAL ═══════════════════════
   {
     slug: "edicion-de-video",
+    img: "/img/services-audiovisual.jpg",
     nombre: "Edición de video",
     kicker: "Edición de video profesional",
     intro:
@@ -519,6 +526,7 @@ export const servicios: Servicio[] = [
   },
   {
     slug: "grabacion-de-video",
+    img: "/img/services-audiovisual.jpg",
     nombre: "Grabación de video",
     kicker: "Grabación en locación para marcas",
     intro:
@@ -536,6 +544,7 @@ export const servicios: Servicio[] = [
   },
   {
     slug: "animacion-de-logo",
+    img: "/img/services-animacion.jpg",
     nombre: "Animación de logo",
     kicker: "Animación de logo",
     intro:
@@ -592,6 +601,7 @@ export const servicios: Servicio[] = [
   // ═══════════════════════ TELEVISIÓN ═══════════════════════
   {
     slug: "pautas-en-television",
+    img: "/img/services-bg.png",
     nombre: "Pautas en televisión",
     kicker: "Publicidad en TV regional (Mi Canal)",
     intro:
@@ -611,6 +621,7 @@ export const servicios: Servicio[] = [
   // ═══════════════════════ GESTIÓN DE REDES Y ESTRATEGIA DIGITAL ═══════════════════════
   {
     slug: "administracion-digital",
+    img: "/img/services-redes.jpg",
     nombre: "Administración digital",
     kicker: "Administración digital",
     intro:
@@ -658,6 +669,7 @@ export const servicios: Servicio[] = [
   },
   {
     slug: "diapositivas",
+    img: "/img/services-slides.jpg",
     nombre: "Diapositivas",
     kicker: "Creación de diapositivas",
     intro:

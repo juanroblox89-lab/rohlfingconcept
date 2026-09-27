@@ -1,84 +1,31 @@
 @import "tailwindcss";
 
-/* Rohlfing Concept × Superqueso compacto — paleta propia + skill compact-ui de Juan.
-   Paleta: blanco #FFF, superficies #F4F4F4 / #E9E9E9, líneas #D9D9D9,
-   tinta #0A0A0A, grises #5C5C5C / #8A8A8A, bandas negras #0A0A0A + texto blanco.
-   Cero rojo/amarillo/crema, cero degradados decorativos, cero blur, cero glass.
-   Compacto: secciones 1.5rem móvil / 2rem desktop, cuerpo 13-14px lh 1.45-1.65,
-   títulos sección ~1.6-1.7rem, gaps chicos, botones 9px 18px, tarjetas parejas. */
-
 :root {
-  --background:  #FFF;
-  --foreground:  #0A0A0A;
-  --muted:       #5C5C5C;
-  --muted-2:     #8A8A8A;
-  --surface:     #F4F4F4;
-  --surface-2:   #E9E9E9;
-  --border:      #D9D9D9;
-  --border-2:    #D9D9D9;
-  --inverse-bg:  #0A0A0A;
-  --inverse-fg:  #FFF;
-
-  /* Espacio compacto — escala única (--s-1..--s-7) */
-  --s-1: 4px;
-  --s-2: 6px;
-  --s-3: 8px;
-  --s-4: 12px;
-  --s-5: 16px;
-  --s-6: 24px;
-  --s-7: 32px;
-
-  /* Texto compacto: 3-4 tamaños */
-  --t-body: 13px;
-  --t-body-lg: 14px;
-
-  /* Movimiento — curva única */
-  --ease: cubic-bezier(0.2, 0, 0, 1);
-  --d-1: 120ms;
-  --d-2: 200ms;
-  --d-3: 320ms;
-
-  /* Tipo: hero clamp(2.2rem,5vw,3.25rem), sección ~1.6-1.7rem */
-  --t-hero: clamp(35px, 5vw, 52px);
-  --t-section: clamp(24px, 3.5vw, 27px);
-
-  /* Alturas y contenedor (mobile primero) */
-  --h-control: 40px;
-  --h-header: 52px;
-  --gutter: 16px;
-  --container: 1440px;
-
-  color-scheme: light;
-}
-
-@media (min-width: 768px) {
-  :root {
-    --t-body: 14px;
-    --h-control: 40px;
-    --h-header: 48px;
-    --gutter: 24px;
-  }
-}
-
-@media (min-width: 1280px) {
-  :root {
-    --gutter: 32px;
-  }
+  --background:     #fbfcfe;
+  --background-alt: #f1f4fa;
+  --surface:        #ffffff;
+  --surface-2:      #eef2f9;
+  --foreground:     #0c1322;
+  --muted:          #55617a;
+  --muted-2:        #8b96ad;
+  --accent:         #2563eb;
+  --accent-hi:      #1d4ed8;
+  --border:         #e7ebf4;
+  --border-2:       #d9e0ee;
+  --gradient-hero:  linear-gradient(160deg, #ffffff 0%, #f2f6ff 55%, #eef3ff 100%);
 }
 
 @theme inline {
   --color-background:  var(--background);
   --color-foreground:  var(--foreground);
+  --color-accent:      var(--accent);
+  --color-accent-hi:   var(--accent-hi);
   --color-muted:       var(--muted);
   --color-muted-2:     var(--muted-2);
   --color-surface:     var(--surface);
   --color-surface-2:   var(--surface-2);
   --color-border:      var(--border);
   --color-border-2:    var(--border-2);
-  --color-inverse-bg:  var(--inverse-bg);
-  --color-inverse-fg:  var(--inverse-fg);
-  --font-display: var(--font-display);
-  --font-ui: var(--font-ui);
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -94,353 +41,60 @@ section[id], footer[id], div[id] {
   scroll-margin-top: 5rem;
 }
 
-/* Nada puede desbordar la ventana: el marquee vive dentro de overflow-hidden */
-main, section, footer, header {
-  max-width: 100%;
-}
-html, body {
-  overflow-x: clip;
-}
-
 body {
   background-color: var(--background);
   color: var(--foreground);
-  font-family: var(--font-ui), system-ui, sans-serif;
-  font-size: var(--t-body);
-  line-height: 1.55;
 }
 
-::selection { background: var(--foreground); color: var(--background); }
+::selection { background: rgba(37,99,235,0.25); color: var(--foreground); }
 
 /* Scrollbar */
 ::-webkit-scrollbar       { width: 4px; }
 ::-webkit-scrollbar-track  { background: var(--background); }
-::-webkit-scrollbar-thumb  { background: var(--border); border-radius: 2px; }
+::-webkit-scrollbar-thumb  { background: var(--border-2); border-radius: 2px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--muted-2); }
 
-/* ── Card Superqueso compacta — fondo blanco, borde tinta 2.5px, radio 14px, sombra leve ── */
-.card {
-  background: var(--background);
-  border: 2.5px solid var(--foreground);
-  border-radius: 14px;
-  box-shadow: 0 8px 18px rgba(10, 10, 10, 0.1);
-  transition: transform var(--d-2) var(--ease), box-shadow var(--d-2) var(--ease);
+/* ── Gradient text ── */
+.text-gradient {
+  background: linear-gradient(135deg, #0c1322 20%, #2563eb 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
-.card:hover {
-  transform: translateY(-4px);
+.text-gradient-accent {
+  background: linear-gradient(120deg, #2563eb 0%, #6d28d9 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-/* ── Badge pill — borde tinta 2px, compacta ── */
+/* ── Cards ── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border-2);
+  border-radius: 16px;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
+.card:hover {
+  border-color: rgba(79,141,255,0.3);
+  box-shadow: 0 12px 48px rgba(37,99,235,0.1);
+  transform: translateY(-3px);
+}
+
+/* ── Badge pill ── */
 .pill {
   display: inline-flex;
   align-items: center;
   gap: 6px;
   font-size: 11px;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--foreground);
-  background: var(--background);
-  border: 2px solid var(--foreground);
-  padding: 3px 10px;
-  border-radius: 999px;
-  white-space: nowrap;
-  line-height: 1.45;
-}
-
-/* ── Botones 3D compactos — pastilla 999px, padding 9px 18px, sombra sólida ── */
-.btn-primary,
-.btn-secondary {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  min-height: 40px;
-  padding: 9px 18px;
-  border-radius: 999px;
-  font-size: 13px;
-  font-weight: 700;
-  line-height: 1.2;
-  white-space: nowrap;
-  text-decoration: none;
-  cursor: pointer;
-  border: 2.5px solid var(--foreground);
-  transition:
-    transform var(--d-1) var(--ease),
-    box-shadow var(--d-1) var(--ease),
-    background-color var(--d-2) var(--ease),
-    color var(--d-2) var(--ease);
-}
-.btn-primary {
-  background: var(--foreground);
-  color: var(--background);
-  box-shadow: 0 5px 0 var(--muted);
-}
-.btn-secondary {
-  background: var(--background);
-  color: var(--foreground);
-  box-shadow: 0 5px 0 var(--muted);
-}
-.btn-primary:hover,
-.btn-secondary:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 6px 0 var(--muted);
-}
-.btn-primary:active,
-.btn-secondary:active {
-  transform: translateY(3px);
-  box-shadow: 0 2px 0 var(--muted);
-}
-.btn-primary:focus-visible,
-.btn-secondary:focus-visible {
-  outline: 2px solid currentColor;
-  outline-offset: 2px;
-}
-
-/* En banda negra el primario es pastilla blanca 3D */
-.band-dark .btn-primary {
-  background: var(--background);
-  color: var(--foreground);
-  border-color: var(--background);
-  box-shadow: 0 5px 0 rgba(255, 255, 255, 0.35);
-}
-.band-dark .btn-primary:hover {
-  box-shadow: 0 6px 0 rgba(255, 255, 255, 0.35);
-}
-.band-dark .btn-primary:active {
-  box-shadow: 0 2px 0 rgba(255, 255, 255, 0.35);
-}
-/* En banda negra el secundario sigue siendo pastilla blanca 3D */
-.band-dark .btn-secondary {
-  background: var(--background);
-  color: var(--foreground);
-  border-color: var(--background);
-}
-
-/* ── Kicker — etiqueta de sección ── */
-.kicker {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-@media (min-width: 768px) {
-  .kicker { font-size: 12px; }
-}
-
-/* ── Título de sección compacto ~1.6-1.7rem — font-display (Fredoka) + trazo ──
-   API: <h2 class="sq-title"><span class="dash-accent" …>…</span> Texto</h2>
-   Hero: <h1 class="sq-title sq-title--hero">…</h1> (clamp 2.2rem,5vw,3.25rem) */
-.sq-title {
-  font-family: var(--font-display), system-ui, sans-serif;
-  font-weight: 700;
-  font-size: var(--t-section);
-  line-height: 1.15;
-  letter-spacing: -0.01em;
-  color: var(--foreground);
-  text-wrap: balance;
-  margin: 0;
-}
-.sq-title--hero {
-  font-size: var(--t-hero);
-  line-height: 1.02;
-}
-.sq-title__bar {
-  display: block;
-  width: 56px;
-  height: 5px;
-  margin-top: 8px;
-  border-radius: 999px;
-  background: currentColor;
-}
-.band-dark .sq-title {
-  color: var(--inverse-fg);
-}
-/* Subtítulo pegado al título: separación .3-.6rem */
-.sq-sub {
-  margin-top: 8px;
-}
-
-/* ── Título de secciones finales (FAQ, compromiso, CTA) — 1.6rem móvil / 3xl desktop ──
-    Equivale a text-[1.6rem] md:text-3xl. API: <h2 class="sq-title sq-title--section">…</h2> */
-.sq-title--section {
-  font-size: 1.6rem;
-  line-height: 1.2;
-}
-@media (min-width: 768px) {
-  .sq-title--section { font-size: 1.875rem; }
-}
-
-/* ── Tarjeta baja compacta — padding .5rem móvil / .75rem desktop ──
-    API: <article class="card compact-card">…</article>. No toca .card Superqueso. */
-.compact-card {
-  padding: 8px;
-}
-@media (min-width: 768px) {
-  .compact-card { padding: 12px; }
-}
-
-/* ── Fila con scroll horizontal + snap + scrollbar oculta ──
-    API: <div class="scroll-row">…items flex-shrink-0…</div> */
-.scroll-row {
-  display: flex;
-  gap: 12px;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-.scroll-row::-webkit-scrollbar { display: none; }
-.scroll-row > * {
-  scroll-snap-align: start;
-  flex-shrink: 0;
-}
-
-/* ── Tracitos Superqueso — 3 barras inclinadas, sin emojis ──
-   API: <span class="dash-accent" aria-hidden="true"><span></span><span></span><span></span></span>
-   Hereda currentColor: tinta sobre claro, blanco dentro de .band-dark. */
-.dash-accent {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  flex-shrink: 0;
-  vertical-align: middle;
-  color: var(--foreground);
-}
-.dash-accent > span {
-  display: block;
-  width: 4px;
-  height: 12px;
-  border-radius: 2px;
-  background: currentColor;
-  transform: skewX(-20deg);
-}
-.band-dark .dash-accent {
-  color: var(--inverse-fg);
-}
-
-/* ── Banda negra a todo ancho — "Los más pedidos" / CTA / WhatsApp ──
-   API: <section class="band-dark"><div class="section-compact …">…</div></section> */
-.band-dark {
-  width: 100%;
-  background: var(--inverse-bg);
-  color: var(--inverse-fg);
-}
-.band-dark .kicker {
-  color: var(--inverse-fg);
-}
-.band-dark .line-fade {
-  background: var(--muted);
-}
-
-/* ── Grid apretado de tarjetas Superqueso — columnas vía Tailwind ──
-   API: <div class="sq-grid grid-cols-2 md:grid-cols-4 xl:grid-cols-5">…</div> */
-.sq-grid {
-  display: grid;
-  gap: 12px;
-}
-/* Los hijos directos del grid deben poder encogerse (el contenido de la
-   columna —párrafos, pills con nowrap, sub-grids— no puede forzar el ancho). */
-.sq-grid > * {
-  min-width: 0;
-}
-@media (min-width: 768px) {
-  .sq-grid { gap: 12px; }
-}
-
-/* ── Tarjetas parejas con subgrid — columnas con el mismo contenido comparten filas ──
-   API: <div class="sq-grid eq eq-4 sm:grid-cols-2 lg:grid-cols-3">
-          <article class="card eq-card">…bloques…<div class="card-cta">…</div></article>
-        </div>
-   Móvil (1 col): vuelve a flex-column y el CTA alinea a la izquierda. */
-.eq {
-  grid-template-rows: none;
-}
-.eq-card {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-.card-cta {
-  margin-top: auto;
-  align-self: flex-start;
-}
-@media (min-width: 640px) {
-  .eq-3 { grid-template-rows: repeat(3, auto); }
-  .eq-4 { grid-template-rows: repeat(4, auto); }
-  .eq-5 { grid-template-rows: repeat(5, auto); }
-  /* Descendiente (no hijo directo): las cards viven dentro de wrappers
-     motion con display:contents, que desaparecen del layout y dejan a la
-     card como item efectivo del grid. Sin el span, la subgrid colapsa a
-     1 fila y los bloques se solapan. */
-  .eq-3 .eq-card { grid-row: span 3; }
-  .eq-4 .eq-card { grid-row: span 4; }
-  .eq-5 .eq-card { grid-row: span 5; }
-  .eq-card {
-    display: grid;
-    grid-template-rows: subgrid;
-    row-gap: 0;
-    align-content: start;
-  }
-}
-
-/* ── Densidad compacta skill Juan — secciones 1.5rem móvil / 2rem desktop ── */
-.section-compact {
-  padding-top: 24px;
-  padding-bottom: 24px;
-}
-.section-compact-sm {
-  padding-top: 20px;
-  padding-bottom: 20px;
-}
-@media (min-width: 768px) {
-  .section-compact {
-    padding-top: 32px;
-    padding-bottom: 32px;
-  }
-  .section-compact-sm {
-    padding-top: 24px;
-    padding-bottom: 24px;
-  }
-}
-
-/* ── Formularios compact-ui: campos 16px/48px, etiquetas 14px, envío 52px ── */
-.field-label {
-  display: block;
-  margin-bottom: 6px;
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--foreground);
-}
-.field {
-  width: 100%;
-  min-height: 48px;
-  font-size: 16px;
-  line-height: 1.45;
-  color: var(--foreground);
-  background: var(--background);
-  border: 1.5px solid var(--foreground);
-  border-radius: 12px;
-  padding: 10px 14px;
-  outline: none;
-}
-.field::placeholder {
-  color: var(--muted-2);
-}
-.field:focus {
-  border-color: var(--foreground);
-  box-shadow: 0 0 0 3px rgba(10, 10, 10, 0.15);
-}
-textarea.field {
-  min-height: 150px;
-  resize: vertical;
-}
-.btn-submit {
-  min-height: 52px;
-  font-size: 16px;
-  width: 100%;
+  color: var(--accent-hi);
+  background: rgba(37,99,235,0.08);
+  border: 1px solid rgba(37,99,235,0.18);
+  padding: 4px 12px;
+  border-radius: 100px;
 }
 
 /* ── Marquee ── */
@@ -451,18 +105,30 @@ textarea.field {
 .marquee { animation: marquee 38s linear infinite; }
 .marquee:hover { animation-play-state: paused; }
 
-/* ── Divider sólido ── */
-.line-fade {
-  height: 1px;
-  background: var(--border);
+/* ── Noise grain (fixed, pointer-events none) ── */
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.022;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
 }
 
-/* ── Number watermark — sólido ── */
+/* ── Divider line ── */
+.line-fade {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border-2) 30%, var(--border-2) 70%, transparent);
+}
+
+/* ── Number watermark ── */
 .num-wm {
   position: absolute;
   font-size: clamp(6rem, 12vw, 10rem);
   font-weight: 800;
-  color: var(--surface-2);
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(37,99,235,0.06);
   user-select: none;
   pointer-events: none;
   line-height: 1;
@@ -470,7 +136,18 @@ textarea.field {
   top: -1rem;
 }
 
+/* ── Glow dot ── */
+.dot-accent {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--accent-hi);
+  box-shadow: 0 0 8px var(--accent-hi);
+}
+
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
   .marquee { animation: none; }
 }

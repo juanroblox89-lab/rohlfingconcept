@@ -10,27 +10,49 @@ import {
   Plus,
 } from "@phosphor-icons/react";
 import HeroShowcase from "@/components/HeroShowcase";
-import { clientes, marqueeClients } from "@/data/clientes";
+import VerticalBarsNoise from "@/components/ui/vertical-bars";
+import { clientes as clientesReales, marqueeClients } from "@/data/clientes";
 import { compromiso, COMPROMISO_INTRO } from "@/data/services";
-import { EASE, fadeUp } from "@/lib/anim";
 
-// Servicios destacados (sin imágenes: bloques tipográficos; datos reales)
+// Clientes reales (única fuente: @/data/clientes) adaptados al showcase original:
+// `poster` = poster real (public/img/posters/); `cover` vacío para que el
+// portafolio use tarjetas con el logo real (las covers IA ya no existen).
+const clients = clientesReales.map((c) => ({
+  name: c.name,
+  logo: c.logo,
+  cover: "",
+  poster: c.poster ?? "",
+  desde: c.desde,
+  video: c.video,
+}));
+
+// Servicios destacados con imagen (contenido vigente: sin sitios web + TV)
 const serviciosDestacados = [
   {
     title: "Diseño e Identidad Visual",
     desc: "Logotipos, branding y manuales de marca que comunican exactamente quién eres.",
+    img: "/img/services-branding.jpg",
     href: "/servicios/logos",
     desde: "$50.000",
   },
   {
     title: "Producción Audiovisual",
     desc: "Grabación en locación, reels y edición profesional que conecta con tu audiencia.",
+    img: "/img/services-audiovisual.jpg",
     href: "/servicios/edicion-de-video",
     desde: "$20.000",
   },
   {
+    title: "Pautas en Televisión",
+    desc: "Lleva tu marca a la pantalla con espacios publicitarios en televisión local.",
+    img: "/img/services-bg.png",
+    href: "/servicios/pautas-en-television",
+    desde: "$300.000",
+  },
+  {
     title: "Gestión de Redes y Estrategia Digital",
     desc: "Planificación, crecimiento y posicionamiento para que tu marca lidere su nicho.",
+    img: "/img/services-redes.jpg",
     href: "/servicios/administracion-digital",
     desde: "$30.000/mes",
   },
@@ -41,6 +63,7 @@ const pilares = [
     id: "identidad",
     title: "Identidad Visual",
     intro: "Construimos marcas sólidas, memorables y con una presencia profesional que genera confianza desde el primer vistazo.",
+    image: "/img/services-branding.jpg",
     items: [
       { n: "Logos", d: "Logos únicos y profesionales que representan la esencia de tu marca.", href: "/servicios/logos" },
       { n: "Diseños", d: "Piezas visuales modernas y profesionales que impulsan tu marca.", href: "/servicios/disenos" },
@@ -56,6 +79,7 @@ const pilares = [
     id: "audiovisual",
     title: "Contenido Audiovisual",
     intro: "Grabación + edición + animación: creamos contenido para reels verticales 9:16 (TikTok, Instagram, YouTube) y video horizontal, entregado en MP4 en la resolución y orientación que pidas.",
+    image: "/img/services-audiovisual.jpg",
     items: [
       { n: "Grabación de video", d: "Grabación en locación: reels, contenido para marcas, entrevistas y eventos.", href: "/servicios/grabacion-de-video" },
       { n: "Edición de video", d: "Transformamos tu material en piezas dinámicas, limpias y profesionales.", href: "/servicios/edicion-de-video" },
@@ -69,6 +93,7 @@ const pilares = [
     id: "television",
     title: "Televisión",
     intro: "Lleva tu marca a la pantalla y conecta con la audiencia de tu región a través de espacios publicitarios estratégicos en televisión local.",
+    image: "/img/services-bg.png",
     items: [
       { n: "Pautas en televisión", d: "Transmisión en Mi Canal: packs Basic, Supreme y Premier con comerciales incluidos.", href: "/servicios/pautas-en-television" },
     ],
@@ -79,6 +104,7 @@ const pilares = [
     id: "digital",
     title: "Gestión de Redes y Estrategia Digital",
     intro: "Gestión constante para una presencia organizada y profesional: contenido, administración y presentaciones que comunican mejor.",
+    image: "/img/services-redes.jpg",
     items: [
       { n: "Administración digital", d: "Gestión constante para una presencia digital más organizada y profesional.", href: "/servicios/administracion-digital" },
       { n: "Diapositivas", d: "Presentaciones visuales diseñadas para comunicar ideas de forma profesional.", href: "/servicios/diapositivas" },
@@ -137,14 +163,21 @@ const faqs = [
   },
 ];
 
-// Reveals sutiles BreZ (fade + 8px) — ver @/lib/anim
-const fadeUpLocal = fadeUp;
+// Tupla tipada requerida por motion (evita error TS2322 en build de producción)
+const EASE_OUT_EXPO: [number, number, number, number] = [0.16, 1, 0.3, 1];
+
+const fadeUp = (delay = 0) => ({
+  initial:     { opacity: 0, y: 26 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport:    { once: true, amount: 0.15 },
+  transition:  { duration: 0.65, delay, ease: EASE_OUT_EXPO },
+});
 
 const fadeIn = (delay = 0) => ({
   initial:     { opacity: 0 },
   whileInView: { opacity: 1 },
   viewport:    { once: true, amount: 0.15 },
-  transition:  { duration: 0.2, delay, ease: EASE },
+  transition:  { duration: 0.55, delay },
 });
 
 export default function Home() {
@@ -152,68 +185,82 @@ export default function Home() {
     <main className="flex flex-col overflow-hidden">
 
       {/* ══════════════════════════════════════════
-          HERO — bloque visual protagonista + CTA pastilla
+          HERO
       ══════════════════════════════════════════ */}
-      <section className="flex flex-col bg-white pt-4 md:pt-5">
-        <div className="mx-auto grid w-full max-w-[1440px] gap-4 px-4 pb-6 md:grid-cols-[1fr_1fr] md:items-center md:px-6 lg:grid-cols-[1fr_300px] xl:px-8">
-          {/* Columna Izquierda */}
+      <section className="relative flex flex-col overflow-hidden py-14 md:min-h-[100dvh] md:justify-center md:py-0">
+        {/* Fondo claro premium */}
+        <div className="absolute inset-0 -z-10">
+          <div className="absolute inset-0" style={{ background: "var(--gradient-hero)" }} />
+          <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-background to-transparent" />
+        </div>
+
+        {/* Glow sutil */}
+        <div className="pointer-events-none absolute inset-0 overflow-hidden">
+          <div
+            className="absolute left-[10%] top-[10%] h-[500px] w-[500px] rounded-full opacity-[0.12]"
+            style={{ background: "radial-gradient(circle, #2563eb 0%, transparent 70%)", filter: "blur(90px)" }}
+          />
+        </div>
+
+        <div className="relative mx-auto grid max-w-7xl gap-10 px-6 pb-16 pt-28 md:grid-cols-[1fr_1.05fr] md:items-center md:py-0 lg:gap-6">
+          {/* Columna Izquierda — pitch directo al cliente */}
           <div>
             <motion.h1
-              initial={{ opacity: 0, y: 8 }}
+              initial={{ opacity: 0, y: 32 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.32, delay: 0.06, ease: EASE }}
-              className="sq-title sq-title--hero text-balance"
+              transition={{ duration: 0.75, ease: EASE_OUT_EXPO }}
+              className="text-4xl font-bold leading-[1.05] tracking-tight sm:text-6xl lg:text-[3.9rem] xl:text-[4.3rem]"
             >
               Tu trabajo es bueno.
               <br />
-              Tu marca debería notarse.
+              Tu marca debería{" "}
+              <span className="text-gradient-accent">notarse.</span>
             </motion.h1>
 
             <motion.p
-              initial={{ opacity: 0, y: 8 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.2, delay: 0.12, ease: EASE }}
-              className="sq-sub max-w-[46ch] text-[13px] leading-[1.55] text-[#5C5C5C]"
+              transition={{ duration: 0.65, delay: 0.12, ease: EASE_OUT_EXPO }}
+              className="mt-6 max-w-[46ch] text-base leading-relaxed text-muted sm:text-lg"
             >
-              Transformamos ideas en soluciones visuales y digitales que hacen que las marcas destaquen.
-              Creamos contenido, desarrollamos identidades y fortalecemos la presencia de cada empresa
-              para conectar con su público y crecer con propósito.
+              Branding, contenido audiovisual y presencia digital para negocios
+              que quieren verse tan profesionales como son.
+              Diseño con identidad propia, hecho en Antioquia.
             </motion.p>
 
-            {/* Pruebas reales — pills con borde de tinta */}
+            {/* Pruebas reales — cifras publicadas por la agencia */}
             <motion.ul
-              initial={{ opacity: 0, y: 8 }}
+              initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.2, delay: 0.18, ease: EASE }}
-              className="mt-3 flex flex-wrap items-center gap-1.5"
+              transition={{ duration: 0.6, delay: 0.18, ease: EASE_OUT_EXPO }}
+              className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2"
             >
-              {["+300 proyectos", "2.3M visualizaciones", "7 marcas activas"].map((proof) => (
-                <li key={proof} className="pill">
-                  <Checks size={14} weight="bold" className="shrink-0 text-[#0A0A0A]" />
+              {["Más de 300 proyectos", "Más de 2.3 millones de visualizaciones", "7 marcas activas"].map((proof) => (
+                <li key={proof} className="flex items-center gap-1.5 text-[13px] font-medium text-muted">
+                  <Checks size={14} weight="bold" className="flex-shrink-0 text-accent-hi" />
                   {proof}
                 </li>
               ))}
             </motion.ul>
 
             <motion.div
-              initial={{ opacity: 0, y: 8 }}
+              initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.2, delay: 0.24, ease: EASE }}
-              className="mt-4 flex flex-wrap items-center gap-2"
+              transition={{ duration: 0.6, delay: 0.26, ease: EASE_OUT_EXPO }}
+              className="mt-9 flex flex-wrap items-center gap-4"
             >
+              {/* CTA primario — canal real de conversión */}
               <a
                 href="https://wa.me/573242123300?text=Hola%20Rohlfing%20Concept%2C%20quiero%20cotizar%20un%20proyecto%20para%20mi%20marca."
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-primary"
+                className="group inline-flex items-center gap-2.5 rounded-full bg-accent px-8 py-4 text-sm font-semibold text-white transition-all hover:bg-accent-hi hover:shadow-[0_0_36px_rgba(37,99,235,0.5)] hover:-translate-y-0.5"
               >
-                <WhatsappLogo size={16} weight="fill" />
+                <WhatsappLogo size={17} weight="fill" />
                 Cotiza tu proyecto
-                <ArrowRight size={14} />
+                <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
               </a>
               <Link
                 href="/proyectos"
-                className="btn-secondary"
+                className="group inline-flex items-center gap-2 rounded-full border border-border-2 px-8 py-4 text-sm font-medium text-muted transition-all hover:border-accent/40 hover:text-foreground hover:-translate-y-0.5"
               >
                 Ver proyectos
               </Link>
@@ -222,45 +269,71 @@ export default function Home() {
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 0.2, delay: 0.3 }}
-              className="mt-3 text-xs leading-[1.55] text-[#8A8A8A]"
+              transition={{ duration: 0.6, delay: 0.38 }}
+              className="mt-5 text-xs leading-relaxed text-muted-2"
             >
               Atención directa por WhatsApp y soporte continuo después de la entrega
             </motion.p>
           </div>
 
-          {/* Columna Derecha — reels reales de clientes */}
+          {/* Columna Derecha — escenario interactivo de proyectos reales */}
           <motion.div
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.32, delay: 0.12, ease: EASE }}
+            initial={{ opacity: 0, scale: 0.96 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.85, delay: 0.15, ease: EASE_OUT_EXPO }}
             className="relative hidden md:block"
           >
-            <div className="mx-auto w-full max-w-[330px]">
-              <HeroShowcase clientes={clientes} />
+            {/* Resplandor ambiental detrás del panel oscuro */}
+            <div className="absolute inset-0 -z-20 flex items-center justify-center">
+              <div
+                className="h-[70%] w-[70%] rounded-full opacity-20 blur-[90px]"
+                style={{ background: "radial-gradient(circle, #2563eb 0%, transparent 70%)" }}
+              />
+            </div>
+
+            {/* Panel claro — marco suave alrededor del escenario */}
+            <div className="relative mx-auto w-full max-w-[330px]">
+              <div className="pointer-events-none absolute -inset-5 sm:-inset-7 -z-10 rounded-[40px] border border-border-2 bg-white shadow-[0_36px_90px_rgba(12,19,34,0.14)]" />
+              <div
+                className="pointer-events-none absolute -inset-5 sm:-inset-7 -z-10 rounded-[40px]"
+                style={{ background: "radial-gradient(ellipse 70% 45% at 50% 0%, rgba(37,99,235,0.08) 0%, transparent 75%)" }}
+              />
+
+              <HeroShowcase clientes={clients} />
+
+              {/* Stat Floating Cards — cifras reales publicadas por la agencia */}
+              <div className="absolute -right-12 top-10 z-20 rounded-2xl border border-border-2 bg-white px-5 py-4 shadow-[0_16px_44px_rgba(12,19,34,0.16)] transition-transform duration-300 hover:-translate-y-1">
+                <p className="text-[10px] text-muted-2 uppercase tracking-wider">Proyectos</p>
+                <p className="mt-0.5 text-2xl font-bold text-gradient-accent">+300</p>
+              </div>
+              <div className="absolute -left-12 bottom-20 z-20 rounded-2xl border border-border-2 bg-white px-5 py-4 shadow-[0_16px_44px_rgba(12,19,34,0.16)] transition-transform duration-300 hover:translate-y-1">
+                <p className="text-[10px] text-muted-2 uppercase tracking-wider">Visualizaciones</p>
+                <p className="mt-0.5 text-2xl font-bold text-gradient-accent">2.3M</p>
+              </div>
             </div>
           </motion.div>
 
-          {/* Versión móvil */}
+          {/* Versión móvil — mismo escenario con marco claro */}
           <motion.div
-            initial={{ opacity: 0, y: 8 }}
+            initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.32, delay: 0.15, ease: EASE }}
+            transition={{ duration: 0.8, delay: 0.2, ease: EASE_OUT_EXPO }}
             className="mx-auto w-full max-w-sm md:hidden"
           >
-            <div className="mx-auto w-full max-w-[270px]">
-              <HeroShowcase clientes={clientes} compact />
+            <div className="relative mx-auto w-full max-w-[270px]">
+              <div className="pointer-events-none absolute -inset-4 -z-10 rounded-[32px] border border-border-2 bg-white shadow-[0_24px_60px_rgba(12,19,34,0.14)]" />
+              <HeroShowcase clientes={clients} compact />
             </div>
           </motion.div>
         </div>
 
         {/* Marquee Clientes */}
-        <div className="border-t border-[#D9D9D9] bg-white py-4">
-          <p className="mb-3 text-center text-xs text-[#8A8A8A]">
+        <div className="relative border-t border-border/40 bg-background/50 backdrop-blur-md py-8">
+          <p className="mb-6 text-center text-sm text-muted-2">
             Marcas que ya confían en nosotros
           </p>
           <div className="overflow-hidden">
-            <div data-carousel="marquee" className="marquee flex w-max items-center gap-12 px-6">
+            <div className="marquee flex w-max items-center gap-20 px-10">
               {[...marqueeClients, ...marqueeClients].map((c, i) => (
                 <Image
                   key={i}
@@ -268,7 +341,7 @@ export default function Home() {
                   alt={c.name}
                   width={220}
                   height={96}
-                  className="h-10 w-auto shrink-0 object-contain grayscale"
+                  className="h-14 w-auto flex-shrink-0 object-contain opacity-90 transition-all hover:opacity-100 sm:h-16 lg:h-20"
                 />
               ))}
             </div>
@@ -277,35 +350,47 @@ export default function Home() {
       </section>
 
       {/* ══════════════════════════════════════════
-          SERVICIOS DESTACADOS — grid parejo (subgrid)
+          SERVICIOS DESTACADOS (grilla con imagen)
       ══════════════════════════════════════════ */}
-      <section className="section-compact border-t-2 border-[#0A0A0A]">
-        <div className="mx-auto w-full max-w-[1440px] px-4 md:px-6 xl:px-8">
-          <motion.h2 {...fadeUpLocal()} className="sq-title flex flex-wrap items-center gap-2">
-            <span className="dash-accent" aria-hidden="true"><span /><span /><span /></span>
-            Lo que hacemos por tu marca
+      <section className="border-t border-border/40 py-24">
+        <div className="mx-auto max-w-7xl px-6">
+          <motion.h2 {...fadeUp()} className="text-center text-3xl font-bold tracking-tight sm:text-4xl">
+            Lo que hacemos por <span className="text-gradient-accent">tu marca</span>
           </motion.h2>
-          <motion.p {...fadeIn(0.1)} className="sq-sub max-w-[52ch] text-[13px] leading-[1.55] text-[#5C5C5C]">
-            Tres disciplinas, un mismo objetivo: que tu negocio se vea y se sienta profesional.
+          <motion.p {...fadeIn(0.08)} className="mx-auto mt-4 max-w-[52ch] text-center text-base text-muted">
+            Cuatro disciplinas, un mismo objetivo: que tu negocio se vea y se sienta profesional.
           </motion.p>
 
-          <div data-carousel="destacados" className="eq eq-4 mt-4 flex snap-x snap-mandatory gap-3 overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] sm:grid sm:grid-cols-2 sm:overflow-visible sm:pb-0 lg:grid-cols-3 [&::-webkit-scrollbar]:hidden">
+          <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {serviciosDestacados.map((s, i) => (
-              <motion.article key={s.title} {...fadeUpLocal(i * 0.07)} className="contents">
-                <Link href={s.href} className="card eq-card group min-w-[78%] shrink-0 snap-start p-3 sm:min-w-0">
-                  <span aria-hidden="true" className="flex h-10 w-10 items-center justify-center rounded-[12px] border-2 border-[#0A0A0A] bg-[#F4F4F4] font-display text-xl font-bold text-[#0A0A0A]">
-                    {s.title.charAt(0)}
-                  </span>
-                  <h3 className="mt-2 font-display text-[15px] font-bold tracking-tight text-[#0A0A0A]">{s.title}</h3>
-                  <p className="mt-1 text-[13px] leading-[1.55] text-[#5C5C5C]">{s.desc}</p>
-                  <div className="card-cta flex w-full items-center justify-between pt-3 text-xs">
-                    <span className="pill !text-[10px]">
-                      desde <strong className="font-bold text-[#0A0A0A]">{s.desde}</strong>
-                    </span>
-                    <span className="flex items-center gap-1 font-bold text-[#0A0A0A]">
-                      Ver planes
-                      <ArrowRight size={13} className="transition-transform group-hover:translate-x-0.5" />
-                    </span>
+              <motion.article
+                key={s.title}
+                {...fadeUp(i * 0.07)}
+                className="group overflow-hidden rounded-2xl border border-border-2 bg-surface shadow-xl transition-all duration-500 hover:-translate-y-1 hover:border-accent/40"
+              >
+                <Link href={s.href} className="flex h-full flex-col">
+                  <div className="relative aspect-[16/10] overflow-hidden">
+                    <Image
+                      src={s.img}
+                      alt={s.title}
+                      fill
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 300px"
+                      className="object-cover saturate-[1.3] transition-transform duration-700 group-hover:scale-[1.06]"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent" />
+                  </div>
+                  <div className="flex flex-1 flex-col p-6">
+                    <h3 className="text-[15px] font-semibold leading-snug">{s.title}</h3>
+                    <p className="mt-2.5 text-[13px] leading-relaxed text-muted">{s.desc}</p>
+                    <div className="mt-auto flex items-center justify-between pt-5 text-[12px]">
+                      <span className="text-muted-2">
+                        desde <strong className="font-semibold text-foreground">{s.desde}</strong>
+                      </span>
+                      <span className="flex items-center gap-1 font-medium text-accent-hi">
+                        Ver planes
+                        <ArrowRight size={13} className="transition-transform group-hover:translate-x-0.5" />
+                      </span>
+                    </div>
                   </div>
                 </Link>
               </motion.article>
@@ -315,127 +400,190 @@ export default function Home() {
       </section>
 
       {/* ══════════════════════════════════════════
-          PILARES DE SERVICIO — banda clara densa
+          SERVICIOS (Tarjetas con Imágenes Reales)
       ══════════════════════════════════════════ */}
-      <section id="servicios" className="section-compact border-t-2 border-[#0A0A0A] bg-[#F4F4F4]">
-        <div className="mx-auto w-full max-w-[1440px] px-4 md:px-6 xl:px-8">
-          <div className="grid gap-3 md:grid-cols-2 md:items-end mb-4">
-            <div>
-              <motion.h2 {...fadeUpLocal()} className="sq-title flex flex-wrap items-center gap-2">
-                <span className="dash-accent" aria-hidden="true"><span /><span /><span /></span>
-                Todo lo que tu marca necesita
-              </motion.h2>
-            </div>
-            <motion.p {...fadeIn(0.1)} className="text-[13px] leading-[1.55] text-[#5C5C5C] max-w-[48ch]">
+      <section id="servicios" className="border-t border-border/40 py-28" style={{ background: "var(--background-alt)" }}>
+        <div className="mx-auto max-w-7xl px-6">
+          <div className="grid gap-10 md:grid-cols-2 md:items-end mb-16">
+            <motion.h2 {...fadeUp()} className="text-3xl font-bold tracking-tight sm:text-4xl">
+              Todo lo que tu marca
+              <br />
+              <span className="text-gradient-accent">necesita, en un solo lugar</span>
+            </motion.h2>
+            <motion.p {...fadeIn(0.1)} className="text-base text-muted leading-relaxed max-w-[48ch]">
               Soluciones creativas y digitales para potenciar tu marca. Desde la identidad visual
               hasta la gestión de contenido, trabajamos para que tu negocio destaque y crezca.
             </motion.p>
           </div>
 
-          {/* Pilares con subservicios */}
-          <div className="space-y-2">
+          {/* Pilares con subservicios (copy de la web original) */}
+          <div className="space-y-6">
             {pilares.map((p, i) => (
               <motion.article
                 key={p.id}
-                {...fadeUpLocal(i * 0.08)}
-                className="card min-w-0 overflow-hidden p-3 md:p-4"
+                {...fadeUp(i * 0.08)}
+                className="group relative overflow-hidden rounded-2xl border border-border-2 bg-surface transition-all hover:border-accent/40 hover:shadow-[0_12px_40px_rgba(37,99,235,0.15)]"
               >
-                <div className="grid min-w-0 gap-4 lg:grid-cols-[0.9fr_1.4fr]">
-                  {/* Columna intro + beneficios */}
-                  <div className="min-w-0">
-                    <h3 className="font-display text-lg font-bold tracking-tight text-[#0A0A0A]">{p.title}</h3>
-                    <p className="mt-1.5 text-[13px] leading-[1.55] text-[#5C5C5C]">{p.intro}</p>
-                    <ul data-carousel="pilar-pills" className="mt-2.5 flex w-full max-w-full snap-x gap-1.5 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] md:flex-wrap md:overflow-visible md:pb-0 [&::-webkit-scrollbar]:hidden">
-                      {p.beneficios.map((b) => (
-                        <li key={b} className="pill shrink-0 snap-start !text-[10px] !normal-case !tracking-normal !font-semibold">
-                          <Checks size={13} weight="bold" className="shrink-0 text-[#0A0A0A]" />
-                          {b.charAt(0).toUpperCase() + b.slice(1)}
-                        </li>
-                      ))}
-                    </ul>
-                    <p className="mt-3 hidden border-l-[3px] border-[#0A0A0A] pl-3 text-xs italic leading-[1.55] text-[#8A8A8A] md:block">
-                      {p.cta}
-                    </p>
-                  </div>
+                <Image
+                  src={p.image}
+                  alt=""
+                  fill
+                  className="object-cover opacity-54 transition-opacity duration-700 group-hover:opacity-72"
+                  sizes="(max-width: 1280px) 100vw, 1216px"
+                />
+                <div className="absolute inset-0 bg-gradient-to-r from-surface via-surface/80 to-surface/45" />
 
-                  {/* Subservicios */}
-                  <div className="sq-grid min-w-0 grid-cols-2">
-                    {p.items.map((it) => {
-                      const inner = (
-                        <>
-                          <p className="truncate text-[11px] font-bold uppercase tracking-[0.13em] text-[#0A0A0A] md:whitespace-normal">{it.n}</p>
-                          <p className="mt-1 line-clamp-1 text-[13px] leading-[1.55] text-[#5C5C5C] md:line-clamp-none">{it.d}</p>
-                        </>
-                      );
-                      const cls = `min-w-0 rounded-[14px] border-2 border-[#0A0A0A] bg-[#FFFFFF] p-3 shadow-[0_6px_16px_rgba(10,10,10,0.08)] transition-transform duration-200 hover:-translate-y-1`;
-                      return it.href ? (
-                        <Link key={it.n} href={it.href} className={cls}>
-                          {inner}
-                        </Link>
-                      ) : (
-                        <div key={it.n} className={cls}>
-                          {inner}
-                        </div>
-                      );
-                    })}
+                <div className="relative z-10 p-8 md:p-12">
+                  <div className="grid gap-10 lg:grid-cols-[0.9fr_1.4fr]">
+                    {/* Columna intro + beneficios */}
+                    <div>
+                      <h3 className="text-2xl font-bold tracking-tight">{p.title}</h3>
+                      <p className="mt-4 text-sm leading-relaxed text-muted">{p.intro}</p>
+                      <ul className="mt-6 space-y-2">
+                        {p.beneficios.map((b) => (
+                          <li key={b} className="flex items-center gap-2.5 text-[13px] leading-snug text-muted">
+                            <Checks size={14} weight="bold" className="flex-shrink-0 text-accent-hi" />
+                            Para que tu marca {b.charAt(0).toLowerCase() + b.slice(1)}
+                          </li>
+                        ))}
+                      </ul>
+                      <p className="mt-7 border-l-2 border-accent/40 pl-4 text-[13px] italic leading-relaxed text-muted-2">
+                        {p.cta}
+                      </p>
+                    </div>
+
+                    {/* Subservicios */}
+                    <div className="grid gap-3 sm:grid-cols-2">
+                      {p.items.map((it) => {
+                        const inner = (
+                          <>
+                            <p className="text-[11px] font-semibold uppercase tracking-[0.13em] text-accent-hi">{it.n}</p>
+                            <p className="mt-2 text-[13px] leading-relaxed text-muted">{it.d}</p>
+                          </>
+                        );
+                        const cls = `rounded-xl border border-border-2 px-5 py-4 transition-colors bg-background/85 backdrop-blur-md hover:border-accent/40`;
+                        return it.href ? (
+                          <Link key={it.n} href={it.href} className={cls}>
+                            {inner}
+                          </Link>
+                        ) : (
+                          <div key={it.n} className={cls}>
+                            {inner}
+                          </div>
+                        );
+                      })}
+                    </div>
                   </div>
                 </div>
               </motion.article>
             ))}
           </div>
+
+          {/* Banner — Tu idea, nuestro compromiso (equipos propios) */}
+          <motion.div
+            {...fadeUp(0.1)}
+            className="relative mt-6 overflow-hidden rounded-2xl border border-accent/30 bg-gradient-to-r from-accent/15 via-surface to-surface p-8 md:p-10"
+          >
+            <div className="flex flex-col items-start gap-7 md:flex-row md:items-center md:justify-between">
+              <div className="flex items-start gap-5">
+                <div className="hidden h-14 w-14 flex-shrink-0 items-center justify-center rounded-2xl border border-accent/40 bg-background/70 sm:flex">
+                  <Checks size={28} weight="duotone" className="text-accent-hi" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold tracking-tight md:text-2xl">
+                    {compromiso.titulo}
+                  </h3>
+                  <p className="mt-2 max-w-xl text-sm leading-relaxed text-muted">
+                    {compromiso.texto}
+                  </p>
+                  <p className="mt-3 max-w-xl text-sm leading-relaxed text-muted">
+                    {COMPROMISO_INTRO}
+                  </p>
+                  <ul className="mt-4 flex flex-wrap gap-2">
+                    {compromiso.equipos.map((e) => (
+                      <li
+                        key={e}
+                        className="rounded-full border border-accent/30 bg-background/70 px-3 py-1 text-xs font-medium text-muted"
+                      >
+                        {e}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+              <a
+                href="https://wa.me/573242123300?text=Hola%20Rohlfing%20Concept%2C%20quiero%20cotizar%20un%20proyecto%20para%20mi%20marca."
+                className="group inline-flex flex-shrink-0 items-center gap-2 rounded-full bg-accent px-7 py-3.5 text-sm font-semibold text-white transition-all hover:bg-accent-hi hover:shadow-[0_0_28px_rgba(37,99,235,0.45)] hover:-translate-y-0.5"
+              >
+                Cotizar proyecto
+                <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
+              </a>
+            </div>
+          </motion.div>
         </div>
       </section>
 
       {/* ══════════════════════════════════════════
-          PORTAFOLIO — grid apretado con pills
+          PORTAFOLIO
       ══════════════════════════════════════════ */}
-      <section id="proyectos" className="section-compact border-t-2 border-[#0A0A0A]">
-        <div className="mx-auto w-full max-w-[1440px] px-4 md:px-6 xl:px-8">
-          <div className="mb-4 flex flex-wrap items-end justify-between gap-3">
-            <div>
-              <motion.h2 {...fadeUpLocal()} className="sq-title flex flex-wrap items-center gap-2">
-                <span className="dash-accent" aria-hidden="true"><span /><span /><span /></span>
-                Marcas con las que trabajamos
-              </motion.h2>
-            </div>
-            <motion.div {...fadeIn(0.1)}>
+      <section id="proyectos" className="border-t border-border/40 py-28">
+        <div className="mx-auto max-w-7xl px-6">
+          <div className="flex flex-wrap items-end justify-between gap-6 mb-14">
+            <motion.h2 {...fadeUp()} className="max-w-lg text-3xl font-bold tracking-tight sm:text-4xl">
+              Marcas con las que
+              <br />
+              <span className="text-gradient-accent">hemos trabajado</span>
+            </motion.h2>
+            <motion.div {...fadeIn(0.1)} className="flex flex-col items-start gap-2">
               <Link
                 href="/proyectos"
-                className="btn-secondary"
+                className="group inline-flex items-center gap-2 text-sm font-medium text-accent-hi transition-colors hover:text-foreground"
               >
-                Explorar proyectos
-                <ArrowRight size={14} />
+                Explorar los +17 proyectos
+                <ArrowRight size={14} className="transition-transform group-hover:translate-x-0.5" />
               </Link>
+              <span className="text-xs text-muted-2">Branding, audiovisual, vectorial y más</span>
             </motion.div>
           </div>
 
-          <div className="sq-grid grid-cols-2 eq eq-3 sm:grid-cols-3 lg:grid-cols-4">
-            {clientes.map((c, i) => (
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {clients.map((c, i) => (
               <motion.div
                 key={c.name}
-                {...fadeUpLocal(i * 0.06)}
-                className="contents"
+                {...fadeUp(i * 0.06)}
+                className={`group relative aspect-[4/3] overflow-hidden rounded-2xl border transition-all duration-500 hover:-translate-y-0.5 ${
+                  c.cover
+                    ? "border-border-2 hover:border-accent/40 hover:shadow-[0_12px_36px_rgba(37,99,235,0.18)]"
+                    : "card flex flex-col items-center justify-center gap-5 p-8 text-center"
+                }`}
               >
-                <div className="card compact-card eq-card group overflow-hidden">
-                  <div className="flex aspect-[16/9] flex-col items-center justify-center gap-1 rounded-[12px] bg-[#F4F4F4] p-2 md:p-3">
+                {c.cover ? (
+                  <>
                     <Image
-                      src={c.logo}
-                      alt={`Logo de ${c.name}`}
-                      width={200}
-                      height={100}
-                      className="h-16 w-auto max-w-[70%] object-contain transition-transform duration-200 group-hover:scale-[1.04]"
+                      src={c.cover}
+                      alt=""
+                      fill
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      className="object-cover saturate-[1.3] transition-all duration-700 group-hover:scale-[1.06]"
                     />
-                  </div>
-                  <div className="flex items-center justify-center px-1 pb-0.5 pt-2">
-                    <span className="pill max-w-full !whitespace-normal text-center !leading-snug !text-[10px]">{c.name}</span>
-                  </div>
-                  <div className="card-cta hidden w-full items-center justify-between gap-2 px-1.5 pb-1 pt-1.5 md:flex">
-                    <p className="min-w-0 truncate text-xs text-[#8A8A8A]">{c.tag}</p>
-                    {c.desde && (
-                      <p className="shrink-0 text-xs font-semibold text-[#0A0A0A]">{c.desde}</p>
-                    )}
-                  </div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-transparent" />
+                  </>
+                ) : (
+                  <div className="absolute right-4 top-4 h-1.5 w-1.5 rounded-full bg-accent/30 transition-colors group-hover:bg-accent-hi" />
+                )}
+                <div className={`relative z-10 flex flex-col items-center gap-3 ${c.cover ? "mt-auto p-6" : ""}`}>
+                  <Image
+                    src={c.logo}
+                    alt={c.name}
+                    width={220}
+                    height={110}
+                    className={`${c.cover ? "h-14 drop-shadow-[0_2px_14px_rgba(0,0,0,0.9)] sm:h-16" : "h-24"} w-auto object-contain transition-transform duration-500 group-hover:scale-[1.06]`}
+                  />
+                  <span className={`text-sm font-medium ${c.cover ? "text-white" : "text-muted"} transition-colors group-hover:text-foreground`}>
+                    {c.name}
+                  </span>
                 </div>
+                <div className="absolute bottom-0 left-0 z-10 h-[2px] w-0 rounded-full bg-accent transition-all duration-500 group-hover:w-full" />
               </motion.div>
             ))}
           </div>
@@ -443,29 +591,42 @@ export default function Home() {
       </section>
 
       {/* ══════════════════════════════════════════
-          PROCESO — banda negra que corta la página
+          PROCESO (Con Banner Visual)
       ══════════════════════════════════════════ */}
-      <section className="band-dark">
-        <div className="section-compact mx-auto w-full max-w-[1440px] px-4 md:px-6 xl:px-8">
-          <motion.h2 {...fadeUpLocal()} className="sq-title flex flex-wrap items-center gap-2">
-            <span className="dash-accent" aria-hidden="true"><span /><span /><span /></span>
-            Cómo trabajamos
-          </motion.h2>
+      <section className="border-t border-border/40 py-28" style={{ background: "var(--background-alt)" }}>
+        <div className="mx-auto max-w-7xl px-6">
+          {/* Banner con imagen real del proceso */}
+          <motion.div
+            {...fadeUp()}
+            className="relative overflow-hidden rounded-2xl border border-border-2 mb-16 h-52 md:h-72 shadow-xl"
+          >
+            <Image
+              src="/img/process-bg.jpg"
+              alt="Proceso creativo Rohlfing Concept"
+              fill
+              className="object-cover saturate-[1.25]"
+              sizes="100vw"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/55 to-black/10" />
+            <div className="absolute inset-0 flex items-center px-8 md:px-12">
+              <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl max-w-sm">
+                Cómo{" "}
+                <span className="text-[#60a5fa]">trabajamos</span>
+              </h2>
+            </div>
+          </motion.div>
 
-          <div className="sq-grid eq eq-3 mt-4 grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-5">
             {steps.map((s, i) => (
               <motion.div
                 key={s.n}
-                {...fadeUpLocal(i * 0.07)}
-                className="contents"
+                {...fadeUp(i * 0.07)}
+                className={`relative pt-6 ${i > 0 ? "lg:border-l lg:border-border/40 lg:pl-6" : ""}`}
               >
-                <div className="eq-card min-w-0 rounded-[14px] border-[2.5px] border-white bg-[#0A0A0A] p-3">
-                  <div className="flex min-w-0 items-center gap-2">
-                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border-2 border-white font-display text-base font-bold text-white">{i + 1}</span>
-                    <p className="min-w-0 hyphens-auto break-words font-display text-[14px] font-bold uppercase leading-tight tracking-wide text-white" lang="es">{s.title}</p>
-                  </div>
-                  <p className="mt-1.5 text-[13px] leading-[1.5] text-white/85">{s.desc}</p>
-                </div>
+                <span className="num-wm">{s.n}</span>
+                <p className="relative text-3xl font-bold text-gradient-accent">{s.n}</p>
+                <h3 className="relative mt-4 text-base font-semibold">{s.title}</h3>
+                <p className="relative mt-2 text-sm leading-relaxed text-muted">{s.desc}</p>
               </motion.div>
             ))}
           </div>
@@ -475,10 +636,11 @@ export default function Home() {
       {/* ══════════════════════════════════════════
           NOSOTROS (Con Foto Real del Equipo)
       ══════════════════════════════════════════ */}
-      <section id="nosotros" className="section-compact border-t-2 border-[#0A0A0A]">
-        <div className="mx-auto grid w-full max-w-[1440px] gap-5 px-4 md:grid-cols-2 md:items-center md:px-6 xl:px-8">
-          <motion.div {...fadeIn()}>
-            <div className="relative mx-auto aspect-[4/5] w-full max-w-[420px] overflow-hidden rounded-[14px] border-[2.5px] border-[#0A0A0A] shadow-[0_8px_18px_rgba(10,10,10,0.1)]">
+      <section id="nosotros" className="border-t border-border/40 py-28">
+        <div className="mx-auto grid max-w-7xl gap-16 px-6 md:grid-cols-2 md:items-center">
+          {/* Foto real del fundador */}
+          <motion.div {...fadeIn()} className="relative">
+            <div className="relative overflow-hidden rounded-2xl border border-border-2 aspect-[4/5] shadow-2xl">
               <Image
                 src="/img/team/samuel.png"
                 alt="Samuel Rohlfing Barrientos — Fundador de Rohlfing Concept"
@@ -486,149 +648,108 @@ export default function Home() {
                 className="object-cover object-top"
                 sizes="(max-width: 768px) 100vw, 50vw"
               />
-              <div className="absolute inset-x-0 bottom-0 bg-[#0A0A0A] px-4 py-3">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-white">
-                  Fundador
-                </p>
-                <p className="mt-0.5 font-display text-lg font-bold leading-tight text-white">
-                  Samuel Rohlfing Barrientos
-                </p>
+              <div className="absolute inset-0 bg-gradient-to-t from-background via-background/10 to-transparent" />
+              <div className="absolute bottom-8 left-8 right-8">
+                <p className="text-[10px] uppercase tracking-widest text-muted-2">Fundador</p>
+                <p className="mt-1 text-xl font-bold leading-tight">Samuel Rohlfing Barrientos</p>
               </div>
             </div>
-            <div className="mx-auto mt-3 flex w-full max-w-[420px] justify-end">
-              <Link
-                href="/equipo"
-                className="btn-secondary group !bg-white"
-              >
-                Conoce al equipo
-                <ArrowRight size={13} className="transition-transform group-hover:translate-x-0.5" />
-              </Link>
-            </div>
+            <Link
+              href="/equipo"
+              className="group absolute -bottom-4 right-4 inline-flex items-center gap-2 rounded-full border border-border-2 bg-background/95 px-5 py-3 text-xs font-semibold backdrop-blur-md shadow-xl transition-all hover:border-accent/40 hover:text-accent-hi"
+            >
+              Conoce al equipo
+              <ArrowRight size={13} className="transition-transform group-hover:translate-x-0.5" />
+            </Link>
           </motion.div>
 
           {/* Texto */}
           <div>
-            <motion.h2 {...fadeUpLocal()} className="sq-title flex flex-wrap items-center gap-2">
-              <span className="dash-accent" aria-hidden="true"><span /><span /><span /></span>
-              Más que diseño, presencia
+            <motion.h2 {...fadeUp()} className="text-3xl font-bold tracking-tight sm:text-4xl">
+              Más que diseño,
+              <br />
+              <span className="text-gradient-accent">construimos presencia</span>
             </motion.h2>
-            <motion.p {...fadeUpLocal(0.08)} className="sq-sub max-w-[52ch] text-[13px] leading-[1.55] text-[#5C5C5C]">
+            <motion.p {...fadeUp(0.08)} className="mt-6 text-base leading-relaxed text-muted">
               En Rohlfing Concept desarrollamos proyectos enfocados en fortalecer la imagen,
               organización y presencia digital de cada marca. Cada proceso se trabaja con
               intención, buscando no solo un buen resultado visual, sino una identidad más
               sólida, profesional y coherente en diferentes entornos digitales.
             </motion.p>
 
-            <motion.ul {...fadeUpLocal(0.14)} className="mt-3 grid gap-1.5 sm:grid-cols-2">
+            <motion.ul {...fadeUp(0.14)} className="mt-8 space-y-2.5">
               {[
-                { t: "Análisis del proyecto", d: "Evaluamos el enfoque y objetivo antes de desarrollar cualquier proceso." },
-                { t: "Desarrollo visual", d: "Propuestas visuales organizadas y coherentes con cada marca." },
-                { t: "Adaptación digital", d: "Cada proyecto funciona en entornos digitales y multiplataforma." },
-                { t: "Enfoque en presencia", d: "Detalles que buscan una imagen sólida, profesional y atractiva." },
+                { t: "Análisis del proyecto", d: "Cada marca tiene necesidades distintas: evaluamos el enfoque y objetivo antes de desarrollar cualquier proceso." },
+                { t: "Desarrollo visual", d: "Construimos propuestas visuales organizadas y coherentes con la identidad de cada marca." },
+                { t: "Adaptación digital", d: "Buscamos que cada proyecto funcione correctamente en entornos digitales y multiplataforma." },
+                { t: "Enfoque en presencia", d: "Trabajamos cada detalle buscando una imagen más sólida, profesional y atractiva." },
               ].map((item) => (
                 <li
                   key={item.t}
-                  className="rounded-[12px] border-2 border-[#0A0A0A] bg-[#FFFFFF] px-3 py-2.5 shadow-[0_6px_16px_rgba(10,10,10,0.08)]"
+                  className="rounded-xl border border-border-2 bg-surface px-5 py-3.5 transition-colors hover:border-accent/30"
                 >
-                  <p className="flex items-center gap-2 text-[13px] font-semibold text-[#0A0A0A]">
-                    <Checks size={15} weight="bold" className="shrink-0 text-[#0A0A0A]" />
+                  <p className="flex items-center gap-2.5 text-sm font-semibold">
+                    <Checks size={15} weight="bold" className="flex-shrink-0 text-accent-hi" />
                     {item.t}
                   </p>
-                  <p className="mt-0.5 pl-[23px] text-xs leading-[1.55] text-[#5C5C5C]">{item.d}</p>
+                  <p className="mt-1 pl-[25px] text-[13px] leading-relaxed text-muted">{item.d}</p>
                 </li>
               ))}
             </motion.ul>
 
-            <motion.div {...fadeUpLocal(0.2)} className="mt-4 flex flex-wrap gap-2">
+            <motion.div {...fadeUp(0.2)} className="mt-10">
               <a
                 href="https://wa.me/573242123300?text=Hola%20Rohlfing%20Concept%2C%20quiero%20cotizar%20un%20proyecto%20para%20mi%20marca."
-                className="btn-primary"
+                className="inline-flex items-center gap-2 rounded-full bg-accent px-8 py-4 text-sm font-semibold text-white transition-all hover:bg-accent-hi hover:shadow-[0_0_28px_rgba(37,99,235,0.35)] hover:-translate-y-0.5"
               >
                 <WhatsappLogo size={16} weight="fill" />
                 Trabajemos juntos
               </a>
-              <Link href="/equipo" className="btn-secondary">
-                Conoce al equipo
-                <ArrowRight size={14} />
-              </Link>
             </motion.div>
           </div>
         </div>
       </section>
 
       {/* ══════════════════════════════════════════
-          COMPROMISO — banda negra con tarjeta encima
+          PREGUNTAS FRECUENTES (info real, acordeón nativo)
       ══════════════════════════════════════════ */}
-      <section className="band-dark">
-        <div className="section-compact mx-auto w-full max-w-[1440px] px-4 md:px-6 xl:px-8">
-          <motion.h2 {...fadeUpLocal()} className="sq-title sq-title--section flex flex-wrap items-center gap-2">
-            <span className="dash-accent" aria-hidden="true"><span /><span /><span /></span>
-            {compromiso.titulo}
+      <section id="faq" className="border-t border-border/40 py-28" style={{ background: "var(--background-alt)" }}>
+        <div className="mx-auto max-w-3xl px-6">
+          <motion.h2 {...fadeUp()} className="text-center text-3xl font-bold tracking-tight sm:text-4xl">
+            Preguntas <span className="text-gradient-accent">frecuentes</span>
           </motion.h2>
-          <motion.p {...fadeUpLocal(0.12)} className="sq-sub max-w-[68ch] text-[13px] leading-[1.5] text-white/85 md:text-sm">
-            {compromiso.texto}
+          <motion.p {...fadeIn(0.08)} className="mt-4 text-center text-base text-muted">
+            Lo que más nos preguntan antes de empezar un proyecto.
           </motion.p>
-          <motion.div {...fadeUpLocal(0.18)} className="card mt-3 !border-white p-3 md:mt-4">
-            <h3 className="font-display text-[15px] font-bold tracking-tight text-[#0A0A0A]">
-              Equipos propios
-            </h3>
-            <p className="mt-1.5 max-w-[64ch] text-[13px] leading-[1.5] text-[#5C5C5C] md:text-sm">
-              {COMPROMISO_INTRO}
-            </p>
-            <ul className="mt-2.5 flex flex-wrap gap-1.5">
-              {compromiso.equipos.map((e) => (
-                <li
-                  key={e}
-                  className="pill !text-[10px]"
-                >
-                  {e}
-                </li>
-              ))}
-            </ul>
-          </motion.div>
-        </div>
-      </section>
 
-      {/* ══════════════════════════════════════════
-          PREGUNTAS FRECUENTES (acordeón en tarjetas)
-      ══════════════════════════════════════════ */}
-      <section id="faq" className="section-compact border-t-2 border-[#0A0A0A] bg-[#F4F4F4]">
-        <div className="mx-auto w-full max-w-3xl px-4 md:px-6 xl:px-8">
-          <motion.h2 {...fadeUpLocal()} className="sq-title sq-title--section flex flex-wrap items-center gap-2">
-            <span className="dash-accent" aria-hidden="true"><span /><span /><span /></span>
-            Lo que nos preguntan
-          </motion.h2>
-
-          <div className="mt-3 space-y-1.5 md:mt-4">
+          <div className="mt-12 space-y-3">
             {faqs.map((f, i) => (
-              <motion.div
+              <motion.details
                 key={f.q}
-                {...fadeUpLocal(i * 0.05)}
-                className="card group !rounded-[12px] !shadow-[0_6px_16px_rgba(10,10,10,0.08)]"
+                {...fadeUp(i * 0.05)}
+                className="group rounded-2xl border border-border-2 bg-surface transition-colors open:border-accent/40"
               >
-                <details className="group/details">
-                  <summary className="flex cursor-pointer list-none items-center justify-between gap-3 px-3 py-2.5 text-[13px] font-bold text-[#0A0A0A] md:px-4 md:py-3 [&::-webkit-details-marker]:hidden">
-                    {f.q}
-                    <Plus
-                      size={18}
-                      weight="bold"
-                      className="shrink-0 text-[#0A0A0A] transition-transform duration-200 group-open/details:rotate-45"
-                    />
-                  </summary>
-                  <div className="px-3 pb-3 pt-0 md:px-4 md:pb-4">
-                    <p className="text-[13px] leading-[1.5] text-[#5C5C5C] md:text-sm">{f.a}</p>
-                    {f.link && (
-                      <Link
-                        href={f.link.href}
-                        className="group/link mt-3 inline-flex items-center gap-1.5 text-[13px] font-semibold text-[#0A0A0A]"
-                      >
-                        {f.link.label}
-                        <ArrowRight size={13} className="transition-transform group-hover/link:translate-x-0.5" />
-                      </Link>
-                    )}
-                  </div>
-                </details>
-              </motion.div>
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-6 py-5 text-[15px] font-semibold [&::-webkit-details-marker]:hidden">
+                  {f.q}
+                  <Plus
+                    size={18}
+                    weight="bold"
+                    className="flex-shrink-0 text-accent-hi transition-transform duration-300 group-open:rotate-45"
+                  />
+                </summary>
+                <div className="px-6 pb-6 pt-0">
+                  <p className="text-sm leading-relaxed text-muted">{f.a}</p>
+                  {f.link && (
+                    <Link
+                      href={f.link.href}
+                      className="group/link mt-4 inline-flex items-center gap-1.5 text-[13px] font-semibold text-accent-hi hover:text-foreground"
+                    >
+                      {f.link.label}
+                      <ArrowRight size={13} className="transition-transform group-hover/link:translate-x-0.5" />
+                    </Link>
+                  )}
+                </div>
+              </motion.details>
             ))}
           </div>
 
@@ -651,30 +772,41 @@ export default function Home() {
       </section>
 
       {/* ══════════════════════════════════════════
-          CTA FINAL — banda WhatsApp negra
+          CTA FINAL (Con Fondo de Fluido Oscuro)
       ══════════════════════════════════════════ */}
-      <section className="band-dark">
-        <div className="section-compact-sm mx-auto max-w-3xl px-4 text-center md:px-6 xl:px-8">
-          <motion.h2 {...fadeUpLocal()} className="sq-title sq-title--section">
-            ¿Listo para transformar tu marca?
+      <section className="relative overflow-hidden border-t border-border/40 bg-[#07090f]">
+        {/* Fondo de barras animadas — reacciona al mouse */}
+        <div className="absolute inset-0 -z-10">
+          <VerticalBarsNoise
+            backgroundColor="#07090f"
+            lineColor="#1e2a45"
+            barColor="#2563eb"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/45 to-black/85" />
+        </div>
+
+        <div className="relative mx-auto max-w-3xl px-6 py-32 text-center">
+          <motion.h2 {...fadeUp()} className="text-3xl font-bold tracking-tight text-white sm:text-5xl">
+            ¿Listo para{" "}
+            <span className="text-[#7ea8ff]">transformar</span>
+            <br />
+            tu marca?
           </motion.h2>
-          <motion.p {...fadeUpLocal(0.08)} className="sq-sub mx-auto max-w-[52ch] text-[13px] leading-[1.5] text-white/85 md:text-sm">
+          <motion.p {...fadeUp(0.08)} className="mt-5 text-base text-white/70">
             Transformamos marcas en experiencias visuales que venden. Trabajemos
-            juntos para construir una presencia que realmente destaque.
+            juntos para construir una presencia digital que realmente destaque.
           </motion.p>
-          <motion.div {...fadeUpLocal(0.15)} className="mt-3 flex flex-wrap items-center justify-center gap-2 md:mt-4">
+          <motion.div {...fadeUp(0.15)} className="mt-10 flex flex-wrap items-center justify-center gap-4">
             <a
               href="https://wa.me/573242123300?text=Hola%2C%20quiero%20empezar%20un%20proyecto%20con%20ustedes."
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-primary"
+              className="inline-flex items-center gap-2 rounded-full bg-accent px-8 py-4 text-sm font-semibold text-white transition-all hover:bg-accent-hi hover:shadow-[0_0_40px_rgba(37,99,235,0.45)] hover:-translate-y-0.5"
             >
               <WhatsappLogo size={16} weight="fill" />
               Empezar proyecto
             </a>
             <Link
               href="/paquetes-publicitarios"
-              className="btn-secondary"
+              className="inline-flex items-center gap-2 rounded-full border border-white/25 px-8 py-4 text-sm font-medium text-white/85 transition-all hover:border-white/60 hover:text-white hover:-translate-y-0.5"
             >
               Ver paquetes <ArrowRight size={14} />
             </Link>

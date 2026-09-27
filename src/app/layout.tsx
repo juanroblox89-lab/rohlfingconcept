@@ -1,23 +1,10 @@
 import type { Metadata, Viewport } from "next";
-import { Fredoka, Nunito } from "next/font/google";
+import { GeistSans } from "geist/font/sans";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import ScrollProgress from "@/components/ScrollProgress";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
-
-const fredoka = Fredoka({
-  subsets: ["latin"],
-  display: "swap",
-  weight: ["500", "600", "700"],
-  variable: "--font-display",
-});
-
-const nunito = Nunito({
-  subsets: ["latin"],
-  display: "swap",
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-ui",
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://rohlfingconcept.com"),
@@ -44,15 +31,15 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#FFFFFF",
+  themeColor: "#fbfcfe",
 };
 
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="es" className={`${fredoka.variable} ${nunito.variable}`}>
-      <body className="bg-background font-ui text-foreground antialiased">
+    <html lang="es" className={GeistSans.variable}>
+      <body className={`antialiased bg-background text-foreground ${GeistSans.className}`}>
         {/* Datos estructurados — LocalBusiness */}
         <script
           type="application/ld+json"
@@ -89,6 +76,10 @@ export default function RootLayout({
             }),
           }}
         />
+        {/* Barra de progreso de scroll */}
+        <ScrollProgress />
+        {/* Grain overlay */}
+        <div className="grain" aria-hidden="true" />
         <Navbar />
         {children}
         <Footer />

@@ -2,171 +2,199 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { EASE, fadeUp } from "@/lib/anim";
+import {
+  AnimatePresence,
+  motion,
+  useMotionValue,
+  useReducedMotion,
+  useSpring,
+} from "motion/react";
+
+// Tupla tipada requerida por motion (evita error TS2322 en build de producción)
+const EASE_OUT_EXPO: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 export type ClienteShowcase = {
   name: string;
+  cover?: string;
   poster?: string;
   desde?: string;
   logo?: string;
   video?: string;
 };
 
-type Props = {
+/**
+ * Escenario de reels: los videos reales de los clientes se pasan solos
+ * (misma velocidad), con el logo arriba a la derecha y el nombre en blanco.
+ * Acepta `cover` (original e07aaa7) o `poster` (public/img/posters/ reales).
+ */
+export default function HeroShowcase({
+  clientes,
+  compact = false,
+}: {
   clientes: ClienteShowcase[];
   compact?: boolean;
-};
-
-/**
- * Escenario de reels estilo Superqueso: videos reales de los clientes con
- * rotación automática, marco 9:16 con borde de tinta y sombra suave,
- * crossfade de 200ms y miniaturas con borde grueso.
- * Acepta tanto el array local como `clientes` de @/data/clientes.
- */
-export default function HeroShowcase({ clientes, compact = false }: Props) {
+}) {
   const [idx, setIdx] = useState(0);
   const [paused, setPaused] = useState(false);
-  // useReducedMotion es null en el servidor: solo se aplica tras el montaje
-  // para no romper la hidratación (el HTML inicial debe coincidir).
   const reduce = useReducedMotion();
-  // Sin estado sincronizado: el HTML inicial (SSR) y el primer render del
-  // cliente coinciden (video si hay video). Solo tras el montaje aplicamos
-  // la preferencia de movimiento reducido, cambiando a poster.
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => {
-    const t = requestAnimationFrame(() => setMounted(true));
-    return () => cancelAnimationFrame(t);
-  }, []);
-  const reduceMotion = mounted && reduce;
+
+  // Inclinación 3D con inercia (solo escritorio, sin reduced-motion)
+  const rawX = useMotionValue(0);
+  const rawY = useMotionValue(0);
+  const rotateX = useSpring(rawX, { stiffness: 130, damping: 18 });
+  const rotateY = useSpring(rawY, { stiffness: 130, damping: 18 });
 
   // Rotación automática — misma velocidad para todos
   useEffect(() => {
-    if (paused || reduceMotion || clientes.length < 2) return;
+    if (paused || reduce || clientes.length < 2) return;
     const t = setInterval(() => setIdx((i) => (i + 1) % clientes.length), 4300);
     return () => clearInterval(t);
-  }, [paused, reduceMotion, clientes.length]);
+  }, [paused, reduce, clientes.length]);
+
+  const onMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (reduce || compact) return;
+    const r = e.currentTarget.getBoundingClientRect();
+    const px = (e.clientX - r.left) / r.width - 0.5;
+    const py = (e.clientY - r.top) / r.height - 0.5;
+    rawY.set(px * 8);
+    rawX.set(-py * 6);
+  };
+  const onLeave = () => {
+    rawX.set(0);
+    rawY.set(0);
+    setPaused(false);
+  };
 
   const actual = clientes[idx];
+  const tiltable = !compact && !reduce;
+  // Portada real: poster nuevo (posters/) o cover original.
+  const actualCover = actual.poster ?? actual.cover ?? "";
 
   return (
-    <motion.div
-      {...fadeUp()}
-      className={compact ? "mx-auto w-full max-w-[270px]" : "mx-auto w-full max-w-[330px]"}
-    >
-      {/* Marco vertical tipo reel — 9:16, borde de tinta estilo Superqueso */}
+    <div className={compact ? "mx-auto w-full max-w-[270px]" : "mx-auto w-full max-w-[330px]"}>
+      {/* Escenario principal — marco vertical tipo reel */}
       <div
-        className="relative aspect-[9/16] w-full overflow-hidden rounded-[22px] border-[2.5px] border-[#0A0A0A] bg-[#F4F4F4] shadow-[0_10px_24px_rgba(10,10,10,0.12)]"
+        className="relative"
+        style={{ perspective: 1100 }}
+        onMouseMove={onMove}
         onMouseEnter={() => setPaused(true)}
-        onMouseLeave={() => setPaused(false)}
+        onMouseLeave={onLeave}
       >
-        {/* Reel activo (crossfade 200ms) */}
-        <AnimatePresence initial={false}>
-          <motion.div
-            key={idx}
-            className="absolute inset-0"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2, ease: EASE }}
-          >
-            {actual.video && !reduceMotion ? (
-              <video
-                key={actual.video}
-                src={actual.video}
-                poster={actual.poster}
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="auto"
-                className="h-full w-full object-cover"
-              />
-            ) : actual.poster ? (
-              <Image
-                src={actual.poster}
-                alt={`Proyecto ${actual.name}`}
-                fill
-                priority={idx === 0}
-                sizes="(max-width: 768px) 90vw, 330px"
-                className="object-cover"
-              />
-            ) : (
-              <div className="flex h-full w-full flex-col items-center justify-center gap-3 bg-[#F4F4F4] p-6">
-                {actual.logo ? (
-                  <Image
-                    src={actual.logo}
-                    alt={`Logo de ${actual.name}`}
-                    width={200}
-                    height={100}
-                    className="h-16 w-auto max-w-[80%] object-contain"
-                  />
-                ) : (
-                  <span aria-hidden="true" className="font-display text-6xl font-black tracking-tight text-[#0A0A0A]">
-                    {actual.name.charAt(0)}
-                  </span>
-                )}
-                <p className="text-center text-sm font-semibold text-[#0A0A0A]">{actual.name}</p>
-              </div>
-            )}
-          </motion.div>
-        </AnimatePresence>
+        <motion.div
+          className={`relative w-full overflow-hidden rounded-[26px] border border-border-2 bg-black shadow-[0_30px_70px_rgba(12,19,34,0.3)] aspect-[9/16]`}
+          style={{
+            rotateX: tiltable ? rotateX : 0,
+            rotateY: tiltable ? rotateY : 0,
+            transformStyle: "preserve-3d",
+          }}
+        >
+          {/* Reel activo (crossfade) */}
+          <AnimatePresence initial={false}>
+            <motion.div
+              key={idx}
+              className="absolute inset-0"
+              initial={{ opacity: 0, scale: 1.04 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.65, ease: EASE_OUT_EXPO }}
+            >
+              {actual.video ? (
+                <video
+                  key={actual.video}
+                  src={actual.video}
+                  poster={actualCover || undefined}
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="metadata"
+                  className="h-full w-full object-cover"
+                />
+              ) : actualCover ? (
+                <Image
+                  src={actualCover}
+                  alt={`Proyecto ${actual.name}`}
+                  fill
+                  priority={idx === 0}
+                  sizes="(max-width: 768px) 90vw, 330px"
+                  className="object-cover"
+                />
+              ) : null}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-black/30" />
 
-        {/* Contador — pill sólida */}
-        <span className="absolute left-3 top-3 rounded-full bg-[#0A0A0A] px-3 py-1 text-[11px] font-semibold tabular-nums text-white">
-          {String(idx + 1).padStart(2, "0")} / {String(clientes.length).padStart(2, "0")}
-        </span>
+              {/* Logo del cliente — arriba a la derecha */}
+              {actual.logo && (
+                <Image
+                  src={actual.logo}
+                  alt=""
+                  width={140}
+                  height={56}
+                  sizes="110px"
+                  className="absolute right-3 top-3 h-9 w-auto max-w-[110px] object-contain drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]"
+                />
+              )}
 
-        {/* Logo del cliente — arriba a la derecha, pastilla sólida */}
-        {actual.logo && (
-          <span className="absolute right-3 top-3 rounded border border-[#D9D9D9] bg-[#FFFFFF] px-2 py-1">
-            <Image
-              src={actual.logo}
-              alt=""
-              width={140}
-              height={56}
-              sizes="110px"
-              className="h-9 w-auto max-w-[110px] object-contain"
-            />
-          </span>
-        )}
+              {/* Nombre en blanco simple */}
+              <p className="absolute bottom-4 left-4 text-base font-semibold leading-tight text-white drop-shadow-md">
+                {actual.name}
+              </p>
 
-        {/* Nombre — franja inferior sólida */}
-        <div className="absolute inset-x-0 bottom-0 bg-[#0A0A0A] px-3 py-2">
-          <p className="text-[13px] font-semibold leading-tight text-white">{actual.name}</p>
-          {actual.desde && <p className="mt-0.5 text-xs text-white/70">{actual.desde}</p>}
-        </div>
-      </div>
-
-      {/* Miniaturas para saltar de cliente */}
-      <div className="mt-2 grid grid-cols-7 gap-1">
-        {clientes.map((c, i) => (
-          <button
-            key={c.name}
-            type="button"
-            aria-label={`Ver ${c.name}`}
-            aria-current={i === idx}
-            onClick={() => setIdx(i)}
-            className={`relative flex h-11 w-full items-center justify-center overflow-hidden rounded-[12px] border-2 bg-[#F4F4F4] transition-transform duration-200 ${
-              i === idx ? "border-[#0A0A0A] shadow-[0_3px_0_#0A0A0A]" : "border-[#D9D9D9]"
-            }`}
-          >
-            {c.poster ? (
-              <Image
-                src={c.poster}
-                alt=""
-                fill
-                sizes="60px"
-                className="object-cover"
-              />
-            ) : (
-              <span aria-hidden="true" className="font-display text-lg font-black text-[#0A0A0A]">
-                {c.name.charAt(0)}
+              {/* Contador 01 / 07 */}
+              <span className="absolute bottom-4 right-3 rounded-full border border-white/20 bg-black/45 px-3 py-1 text-[11px] font-semibold tabular-nums text-white backdrop-blur-md">
+                {String(idx + 1).padStart(2, "0")} / {String(clientes.length).padStart(2, "0")}
               </span>
-            )}
-          </button>
-        ))}
+            </motion.div>
+          </AnimatePresence>
+
+          {/* Barra de progreso de la diapositiva */}
+          {!reduce && (
+            <motion.div
+              key={`bar-${idx}-${String(paused)}`}
+              className="absolute left-0 top-0 z-10 h-[3px] bg-accent"
+              initial={{ width: "0%" }}
+              animate={{ width: paused ? "0%" : "100%" }}
+              transition={{ duration: 4.3, ease: "linear" }}
+            />
+          )}
+        </motion.div>
+
+        {/* Resplandor bajo el escenario */}
+        <div
+          className="pointer-events-none absolute -bottom-8 left-1/2 -z-10 h-14 w-[80%] -translate-x-1/2 rounded-full opacity-15 blur-2xl"
+          style={{ background: "radial-gradient(ellipse, #2563eb 0%, transparent 70%)" }}
+        />
       </div>
-    </motion.div>
+
+      {/* Miniaturas para saltar de cliente — ancho exacto del escenario */}
+      <div className="mt-4 grid grid-cols-7 gap-1.5">
+        {clientes.map((c, i) => {
+          const thumb = c.poster ?? c.cover ?? "";
+          return (
+            <button
+              key={c.name}
+              type="button"
+              aria-label={`Ver ${c.name}`}
+              aria-current={i === idx}
+              onClick={() => setIdx(i)}
+              className={`group relative h-11 w-full flex-shrink-0 overflow-hidden rounded-lg border transition-all duration-300 ${
+                i === idx
+                  ? "border-accent shadow-[0_0_18px_rgba(37,99,235,0.45)]"
+                  : "border-border-2 opacity-70 hover:opacity-100"
+              }`}
+            >
+              {thumb ? (
+                <Image
+                  src={thumb}
+                  alt=""
+                  fill
+                  sizes="60px"
+                  className="object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+              ) : null}
+            </button>
+          );
+        })}
+      </div>
+    </div>
   );
 }
