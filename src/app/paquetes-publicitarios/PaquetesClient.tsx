@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { motion } from "motion/react";
 import { Check, MapPin, Question, WhatsappLogo } from "@phosphor-icons/react";
 import { paquetesGrupos } from "@/data/paquetes";
@@ -34,12 +34,17 @@ export default function PaquetesClient() {
 
   const [pack, setPack] = useState("Pack I Publicitario");
   const [ciudad, setCiudad] = useState("");
+  const ultimoEnvio = useRef(0);
 
   const ciudadTrim = ciudad.trim();
   const ciudadVacia = ciudadTrim === "";
 
   const cotizarPorCiudad = () => {
     if (ciudadVacia) return;
+    // Anti-doble-clic: un solo envío por ventana de 1 s (mismo mensaje, sin cambiar UI)
+    const ahora = Date.now();
+    if (ahora - ultimoEnvio.current < 1000) return;
+    ultimoEnvio.current = ahora;
     const url = `${WA_BASE}?text=${encodeURIComponent(`Hola Rohlfing Concept, quiero cotizar el ${pack} para mi negocio en ${ciudadTrim}.`)}`;
     window.open(url, "_blank", "noopener,noreferrer");
   };

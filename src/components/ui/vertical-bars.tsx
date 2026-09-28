@@ -282,6 +282,7 @@ const VerticalBarsNoise = ({
     <div
       className='absolute inset-0 w-full h-full overflow-hidden'
       style={{ backgroundColor }}
+      aria-hidden='true'
     >
       <canvas ref={canvasRef} className='block w-full h-full' />
     </div>

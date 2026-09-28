@@ -79,12 +79,17 @@ export default function Navbar() {
             className="relative"
             onMouseEnter={() => setServOpen(true)}
             onMouseLeave={() => setServOpen(false)}
+            onFocus={() => setServOpen(true)}
+            onKeyDown={(e) => {
+              if (e.key === "Escape") setServOpen(false);
+            }}
           >
             <button
               type="button"
               onClick={() => setServOpen((v) => !v)}
               aria-expanded={servOpen}
               aria-haspopup="true"
+              aria-controls="servicios-panel"
               className={`flex items-center gap-1 rounded-lg px-3 py-2 text-sm transition-colors ${
                 servActive
                   ? "bg-surface font-medium text-accent-hi"
@@ -102,6 +107,7 @@ export default function Navbar() {
               {servOpen && (
                 <motion.div
                   key="serv-panel"
+                  id="servicios-panel"
                   initial={{ opacity: 0, y: -8 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -8 }}
@@ -188,6 +194,8 @@ export default function Navbar() {
         {/* Mobile toggle */}
         <button
           aria-label={open ? "Cerrar menú" : "Abrir menú"}
+          aria-expanded={open}
+          aria-controls="menu-movil"
           className="flex h-9 w-9 items-center justify-center rounded-lg border border-border-2 bg-surface text-muted transition-colors hover:text-foreground md:hidden"
           onClick={() => setOpen((v) => !v)}
         >
@@ -200,6 +208,7 @@ export default function Navbar() {
         {open && (
           <motion.div
             key="mobile-menu"
+            id="menu-movil"
             initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}

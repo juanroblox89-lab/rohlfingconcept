@@ -12,10 +12,15 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const s = getServicio(slug);
-  if (!s) return {};
+  if (!s)
+    return {
+      title: "No encontrado | Rohlfing Concept",
+      description: "El servicio que buscas no existe. Explora todos los servicios de Rohlfing Concept.",
+    };
   return {
     title: `${s.nombre} — precios | Rohlfing Concept`,
     description: `${s.intro} Precios desde ${s.desde}.`,
+    alternates: { canonical: `https://rohlfingconcept.com/servicios/${s.slug}` },
   };
 }
 

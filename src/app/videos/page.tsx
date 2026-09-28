@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   title: "Ediciones en video | Rohlfing Concept",
   description:
     "Portafolio audiovisual de Rohlfing Concept: reels, ediciones y piezas de video creadas para marcas reales.",
+  alternates: { canonical: "https://rohlfingconcept.com/videos" },
 };
 
 /**

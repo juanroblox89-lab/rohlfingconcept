@@ -5,6 +5,7 @@ export const metadata: Metadata = {
   title: "Contacto | Rohlfing Concept",
   description:
     "Escríbenos por WhatsApp, correo o Instagram. Estamos en San Pedro de los Milagros, Antioquia.",
+  alternates: { canonical: "https://rohlfingconcept.com/contacto" },
 };
 
 export default function Contacto() {

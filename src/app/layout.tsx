@@ -24,10 +24,20 @@ export const metadata: Metadata = {
     title: "Rohlfing Concept | Agencia Creativa",
     description:
       "Branding, contenido audiovisual y presencia digital. Tu trabajo es bueno; tu marca debería notarse.",
+    url: "https://rohlfingconcept.com",
+    siteName: "Rohlfing Concept",
     locale: "es_CO",
     type: "website",
     images: [{ url: "/img/logo.png", width: 512, height: 512, alt: "Rohlfing Concept" }],
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Rohlfing Concept | Agencia Creativa",
+    description:
+      "Branding, contenido audiovisual y presencia digital. Tu trabajo es bueno; tu marca debería notarse.",
+    images: ["https://rohlfingconcept.com/img/logo.png"],
+  },
+  alternates: { canonical: "https://rohlfingconcept.com" },
 };
 
 export const viewport: Viewport = {

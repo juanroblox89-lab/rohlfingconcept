@@ -4,6 +4,7 @@ import PaquetesClient from "./PaquetesClient";
 export const metadata: Metadata = {
   title: "Paquetes publicitarios | Rohlfing Concept",
   description: "Pautas en televisión, publicidad digital y packs mixtos. Precios de referencia · San Pedro de los Milagros.",
+  alternates: { canonical: "https://rohlfingconcept.com/paquetes-publicitarios" },
 };
 
 export default function PaquetesPublicitarios() {

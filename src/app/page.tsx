@@ -338,7 +338,7 @@ export default function Home() {
                 <Image
                   key={i}
                   src={c.logo}
-                  alt={c.name}
+                  alt={i < marqueeClients.length ? c.name : ""}
                   width={220}
                   height={96}
                   className="h-14 w-auto flex-shrink-0 object-contain opacity-90 transition-all hover:opacity-100 sm:h-16 lg:h-20"

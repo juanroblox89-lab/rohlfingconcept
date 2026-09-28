@@ -89,7 +89,7 @@ function BloqueRenderer({ bloque }: { bloque: Bloque }) {
           {bloque.elementos.map((el, i) => (
             <div
               key={el.label}
-              className={`flex items-center justify-between gap-6 px-6 py-4 ${
+              className={`flex min-w-0 items-center justify-between gap-6 px-6 py-4 ${
                 i > 0 ? "border-t border-border/40" : ""
               } transition-colors hover:bg-accent/[0.04]`}
             >

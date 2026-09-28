@@ -101,6 +101,7 @@ export default function ContactoClient() {
                   onChange={(e) => setNombre(e.target.value)}
                   placeholder="Tu nombre"
                   required
+                  maxLength={80}
                   autoComplete="name"
                   className="h-12 w-full rounded-full border border-border-2 bg-background px-4 text-sm outline-none transition-colors placeholder:text-muted-2 focus:border-accent"
                 />
@@ -134,6 +135,7 @@ export default function ContactoClient() {
                   onChange={(e) => setMensaje(e.target.value)}
                   placeholder="Cuéntanos qué necesitas…"
                   required
+                  maxLength={500}
                   rows={5}
                   className="min-h-[150px] w-full flex-1 resize-y rounded-2xl border border-border-2 bg-background px-4 py-3 text-sm leading-relaxed outline-none transition-colors placeholder:text-muted-2 focus:border-accent"
                 />

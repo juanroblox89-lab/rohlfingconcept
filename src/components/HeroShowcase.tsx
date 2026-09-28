@@ -174,7 +174,7 @@ export default function HeroShowcase({
               key={c.name}
               type="button"
               aria-label={`Ver ${c.name}`}
-              aria-current={i === idx}
+              aria-current={i === idx ? true : undefined}
               onClick={() => setIdx(i)}
               className={`group relative h-11 w-full flex-shrink-0 overflow-hidden rounded-lg border transition-all duration-300 ${
                 i === idx
