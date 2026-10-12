@@ -20,6 +20,19 @@ const team = [
     ],
   },
   {
+    name: "Mateo Rohlfing Barrientos",
+    role: "Productor y asistente de Rohlfing Concept",
+    photo: "/img/team/mateo.png",
+    bio: "Director creativo del desarrollo audiovisual.",
+    skills: [
+      "Productor audiovisual principal",
+      "Asistente de grabación",
+      "Camarógrafo",
+      "Director creativo del desarrollo audiovisual",
+      "Administrador digital",
+    ],
+  },
+  {
     name: "Juan Esteban Álvarez Giraldo",
     role: "Desarrollador y editor de Rohlfing Concept",
     photo: "/img/team/juan.png",
