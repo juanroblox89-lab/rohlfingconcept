@@ -4,7 +4,6 @@ import {
   WhatsappLogo,
   InstagramLogo,
   EnvelopeSimple,
-  MapPin,
 } from "@phosphor-icons/react/dist/ssr";
 import { servicios } from "@/data/services";
 
@@ -102,7 +101,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Contacto + Ubicación */}
+          {/* Contacto */}
           <div>
             <h4 className="text-[11px] font-semibold uppercase tracking-[0.14em] text-foreground mb-5">Contacto</h4>
             <ul className="space-y-4 text-sm">
@@ -119,36 +118,12 @@ export default function Footer() {
                 </a>
               </li>
               <li>
-                <p className="text-[10px] uppercase tracking-wider text-muted-2 mb-1">Oficina</p>
-                <a
-                  href="https://www.google.com/maps/place/Cra.+49+A+%2348-23,+San+Pedro,+San+Pedro+de+los+Milagros,+Antioquia,+Colombia/@6.4612415,-75.5586706,17z/data=!3m1!4b1!4m6!3m5!1s0x8e443736b9e2dd3d:0x331d21d2cdf63ef8!8m2!3d6.4612362!4d-75.5560957!16s%2Fg%2F11shx5476z?hl=es-419&entry=ttu"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group inline-flex items-start gap-2 text-muted transition-colors hover:text-accent-hi"
-                >
-                  <MapPin size={15} weight="fill" className="mt-0.5 flex-shrink-0 text-accent-hi" />
-                  <span>Cra. 49 A #48-23<br />San Pedro de los Milagros, Antioquia</span>
+                <p className="text-[10px] uppercase tracking-wider text-muted-2 mb-1">Instagram</p>
+                <a href="https://instagram.com/rohlfingconcept" target="_blank" rel="noopener noreferrer" className="text-muted transition-colors hover:text-accent-hi">
+                  @rohlfingconcept
                 </a>
               </li>
             </ul>
-
-            {/* Mini mapa interactivo */}
-            <a
-              href="https://www.google.com/maps/place/Cra.+49+A+%2348-23,+San+Pedro,+San+Pedro+de+los+Milagros,+Antioquia,+Colombia/@6.4612415,-75.5586706,17z/data=!3m1!4b1!4m6!3m5!1s0x8e443736b9e2dd3d:0x331d21d2cdf63ef8!8m2!3d6.4612362!4d-75.5560957!16s%2Fg%2F11shx5476z?hl=es-419&entry=ttu"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-6 block overflow-hidden rounded-xl border border-border-2 transition-all hover:border-accent/40 shadow-md"
-            >
-              <iframe
-                title="Rohlfing Concept — Ubicación San Pedro de los Milagros"
-                src="https://maps.google.com/maps?q=6.4612362,-75.5560957&output=embed&z=17"
-                width="100%"
-                height="130"
-                style={{ border: 0, display: "block" }}
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-              />
-            </a>
           </div>
         </div>
 
@@ -157,7 +132,6 @@ export default function Footer() {
           <p className="text-xs text-muted-2">
             © {new Date().getFullYear()} Rohlfing Concept. Todos los derechos reservados.
           </p>
-          <p className="text-xs text-muted-2">San Pedro de los Milagros, Antioquia</p>
         </div>
       </div>
     </footer>

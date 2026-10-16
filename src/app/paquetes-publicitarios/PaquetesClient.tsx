@@ -107,7 +107,7 @@ export default function PaquetesClient() {
                 const destacado = i === 1;
                 return (
                   <motion.div key={p.nombre} {...fadeUp(i * 0.08)}
-                    className={`relative flex flex-col rounded-2xl p-8 transition-all ${
+                    className={`relative flex flex-col rounded-2xl p-6 sm:p-7 md:p-6 lg:p-8 transition-all ${
                       destacado
                         ? "border-2 border-accent bg-surface shadow-[0_0_60px_rgba(37,99,235,0.1)]"
                         : "card"

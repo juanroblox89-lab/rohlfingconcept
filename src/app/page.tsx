@@ -141,8 +141,8 @@ const steps = [
 // Preguntas frecuentes — respuestas basadas en la info real del sitio
 const faqs = [
   {
-    q: "¿Dónde están ubicados y a quién atienden?",
-    a: "Estamos en San Pedro de los Milagros, Antioquia. Trabajamos con negocios de la zona —restaurantes, droguerías, emprendimientos— y también con clientes de cualquier parte del país gracias al trabajo digital.",
+    q: "¿A qué zonas atienden y cómo trabajan?",
+    a: "Trabajamos con negocios de distintos municipios y también de forma remota. Escríbenos por WhatsApp y te cotizamos en tu ciudad.",
   },
   {
     q: "¿Cómo cotizo un proyecto?",
@@ -209,7 +209,7 @@ export default function Home() {
               initial={{ opacity: 0, y: 32 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.75, ease: EASE_OUT_EXPO }}
-              className="text-4xl font-bold leading-[1.05] tracking-tight sm:text-6xl lg:text-[3.9rem] xl:text-[4.3rem]"
+              className="text-4xl font-bold leading-[1.05] tracking-tight sm:text-5xl md:text-5xl lg:text-[3.9rem] xl:text-[4.3rem]"
             >
               Tu trabajo es bueno.
               <br />
@@ -235,7 +235,7 @@ export default function Home() {
               transition={{ duration: 0.6, delay: 0.18, ease: EASE_OUT_EXPO }}
               className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2"
             >
-              {["Más de 300 proyectos", "Más de 2.3 millones de visualizaciones", "7 marcas activas"].map((proof) => (
+              {["Más de 400 proyectos", "Más de 2.3 millones de visualizaciones", "10 marcas activas"].map((proof) => (
                 <li key={proof} className="flex items-center gap-1.5 text-[13px] font-medium text-muted">
                   <Checks size={14} weight="bold" className="flex-shrink-0 text-accent-hi" />
                   {proof}
@@ -252,7 +252,7 @@ export default function Home() {
               {/* CTA primario — canal real de conversión */}
               <a
                 href="https://wa.me/573242123300?text=Hola%20Rohlfing%20Concept%2C%20quiero%20cotizar%20un%20proyecto%20para%20mi%20marca."
-                className="group inline-flex items-center gap-2.5 rounded-full bg-accent px-8 py-4 text-sm font-semibold text-white transition-all hover:bg-accent-hi hover:shadow-[0_0_36px_rgba(37,99,235,0.5)] hover:-translate-y-0.5"
+                className="group inline-flex min-h-[44px] items-center gap-2.5 rounded-full bg-accent px-8 py-3.5 text-sm font-semibold text-white transition-all hover:bg-accent-hi hover:shadow-[0_0_36px_rgba(37,99,235,0.5)] hover:-translate-y-0.5"
               >
                 <WhatsappLogo size={17} weight="fill" />
                 Cotiza tu proyecto
@@ -260,7 +260,7 @@ export default function Home() {
               </a>
               <Link
                 href="/proyectos"
-                className="group inline-flex items-center gap-2 rounded-full border border-border-2 px-8 py-4 text-sm font-medium text-muted transition-all hover:border-accent/40 hover:text-foreground hover:-translate-y-0.5"
+                className="group inline-flex min-h-[44px] items-center gap-2 rounded-full border border-border-2 px-8 py-3.5 text-sm font-medium text-muted transition-all hover:border-accent/40 hover:text-foreground hover:-translate-y-0.5"
               >
                 Ver proyectos
               </Link>
@@ -302,11 +302,11 @@ export default function Home() {
               <HeroShowcase clientes={clients} />
 
               {/* Stat Floating Cards — cifras reales publicadas por la agencia */}
-              <div className="absolute -right-12 top-10 z-20 rounded-2xl border border-border-2 bg-white px-5 py-4 shadow-[0_16px_44px_rgba(12,19,34,0.16)] transition-transform duration-300 hover:-translate-y-1">
+              <div className="absolute -right-2 sm:-right-4 md:-right-2 lg:-right-12 top-10 z-20 rounded-2xl border border-border-2 bg-white px-4 py-3 sm:px-5 sm:py-4 shadow-[0_16px_44px_rgba(12,19,34,0.16)] transition-transform duration-300 hover:-translate-y-1">
                 <p className="text-[10px] text-muted-2 uppercase tracking-wider">Proyectos</p>
-                <p className="mt-0.5 text-2xl font-bold text-gradient-accent">+300</p>
+                <p className="mt-0.5 text-2xl font-bold text-gradient-accent">+400</p>
               </div>
-              <div className="absolute -left-12 bottom-20 z-20 rounded-2xl border border-border-2 bg-white px-5 py-4 shadow-[0_16px_44px_rgba(12,19,34,0.16)] transition-transform duration-300 hover:translate-y-1">
+              <div className="absolute -left-2 sm:-left-4 md:-left-2 lg:-left-12 bottom-20 z-20 rounded-2xl border border-border-2 bg-white px-4 py-3 sm:px-5 sm:py-4 shadow-[0_16px_44px_rgba(12,19,34,0.16)] transition-transform duration-300 hover:translate-y-1">
                 <p className="text-[10px] text-muted-2 uppercase tracking-wider">Visualizaciones</p>
                 <p className="mt-0.5 text-2xl font-bold text-gradient-accent">2.3M</p>
               </div>

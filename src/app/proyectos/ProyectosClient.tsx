@@ -89,9 +89,9 @@ export default function ProyectosClient() {
           </motion.p>
           <motion.div {...fadeUp(0.14)} className="mt-10 flex flex-wrap gap-8">
             {[
-              { v: "+300", l: "Proyectos" },
+              { v: "+400", l: "Proyectos" },
               { v: "2.3M", l: "Visualizaciones" },
-              { v: "7", l: "Marcas activas" },
+              { v: "10", l: "Marcas activas" },
             ].map((s) => (
               <div key={s.l} className="border-l-2 border-accent/30 pl-5">
                 <p className="text-2xl font-bold text-gradient-accent">{s.v}</p>
@@ -132,7 +132,7 @@ export default function ProyectosClient() {
                 key={f.key}
                 onClick={() => setFiltro(f.key)}
                 aria-pressed={activo}
-                className={`rounded-full px-4 py-2 text-xs font-medium transition-all ${
+                className={`inline-flex min-h-[40px] items-center rounded-full px-4 py-2.5 text-xs font-medium transition-all ${
                   activo
                     ? "bg-accent text-white shadow-[0_0_16px_rgba(37,99,235,0.35)]"
                     : "border border-border-2 bg-surface text-muted hover:border-accent/40 hover:text-foreground"
@@ -161,7 +161,7 @@ export default function ProyectosClient() {
                 className="h-auto w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
               />
-              <figcaption className="pointer-events-none absolute inset-x-0 bottom-0 flex items-center justify-between bg-gradient-to-t from-background/90 via-background/30 to-transparent px-5 pb-4 pt-12 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
+              <figcaption className="pointer-events-none absolute inset-x-0 bottom-0 flex items-center justify-between bg-gradient-to-t from-background/90 via-background/30 to-transparent px-5 pb-4 pt-12 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-500">
                 <span className="text-xs font-semibold uppercase tracking-[0.13em] text-accent-hi">
                   {CAT_LABEL[o.cat]}
                 </span>

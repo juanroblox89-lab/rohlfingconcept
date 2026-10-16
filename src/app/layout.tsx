@@ -8,16 +8,17 @@ import WhatsAppFloat from "@/components/WhatsAppFloat";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://rohlfingconcept.com"),
-  title: "Rohlfing Concept | Agencia Creativa en San Pedro de los Milagros",
+  title: "Rohlfing Concept | Agencia Creativa",
   description:
-    "Transformamos ideas en soluciones visuales y digitales que hacen que las marcas destaquen. Creamos contenido, desarrollamos identidades y fortalecemos la presencia de cada empresa para conectar con su público y crecer con propósito.",
+    "Agencia creativa: diseño, producción audiovisual, pautas en televisión y gestión de redes. Creamos contenido, desarrollamos identidades y fortalecemos la presencia de cada marca.",
   keywords: [
     "agencia creativa",
     "diseño gráfico",
     "branding",
     "contenido audiovisual",
-    "San Pedro de los Milagros",
-    "Antioquia",
+    "producción audiovisual",
+    "pautas en televisión",
+    "gestión de redes",
     "Colombia",
   ],
   openGraph: {
@@ -66,7 +67,6 @@ export default function RootLayout({
               image: "https://rohlfingconcept.com/img/logo.png",
               address: {
                 "@type": "PostalAddress",
-                addressLocality: "San Pedro de los Milagros",
                 addressRegion: "Antioquia",
                 addressCountry: "CO",
               },

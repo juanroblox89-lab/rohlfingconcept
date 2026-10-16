@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "motion/react";
 import { CaretDown, List, X, WhatsappLogo } from "@phosphor-icons/react";
@@ -23,12 +23,13 @@ export default function Navbar() {
   const [servOpen, setServOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
+  const servRef = useRef<HTMLDivElement>(null);
 
   // Activo en rutas reales; /servicios cubre también /servicios/[slug]
   const isActive = (href: string) =>
     href === "/servicios" ? pathname.startsWith("/servicios") : pathname === href;
   const linkCls = (href: string) =>
-    `rounded-lg px-3 py-2 text-sm transition-colors ${
+    `min-h-[40px] inline-flex items-center rounded-lg px-3 py-2 text-sm transition-colors ${
       isActive(href)
         ? "bg-surface font-medium text-accent-hi"
         : "text-muted hover:bg-surface hover:text-accent-hi"
@@ -39,6 +40,36 @@ export default function Navbar() {
     window.addEventListener("scroll", fn, { passive: true });
     return () => window.removeEventListener("scroll", fn);
   }, []);
+
+  // Cerrar al hacer clic afuera (para tablet táctil en 1024px)
+  useEffect(() => {
+    if (!servOpen) return;
+    const handleClickOutside = (e: MouseEvent | TouchEvent) => {
+      if (servRef.current && !servRef.current.contains(e.target as Node)) {
+        setServOpen(false);
+      }
+    };
+    document.addEventListener("pointerdown", handleClickOutside);
+    return () => document.removeEventListener("pointerdown", handleClickOutside);
+  }, [servOpen]);
+
+  // Cerrar menús al cambiar de ruta
+  useEffect(() => {
+    setOpen(false);
+    setServOpen(false);
+  }, [pathname]);
+
+  const handleMouseEnter = () => {
+    if (typeof window !== "undefined" && window.matchMedia("(hover: hover)").matches) {
+      setServOpen(true);
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (typeof window !== "undefined" && window.matchMedia("(hover: hover)").matches) {
+      setServOpen(false);
+    }
+  };
 
   const servActive = pathname.startsWith("/servicios");
 
@@ -76,9 +107,10 @@ export default function Navbar() {
         {/* Desktop links — Servicios con submenú + resto */}
         <div className="hidden items-center gap-0.5 lg:flex">
           <div
+            ref={servRef}
             className="relative"
-            onMouseEnter={() => setServOpen(true)}
-            onMouseLeave={() => setServOpen(false)}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
             onFocus={() => setServOpen(true)}
             onKeyDown={(e) => {
               if (e.key === "Escape") setServOpen(false);
@@ -90,7 +122,7 @@ export default function Navbar() {
               aria-expanded={servOpen}
               aria-haspopup="true"
               aria-controls="servicios-panel"
-              className={`flex items-center gap-1 rounded-lg px-3 py-2 text-sm transition-colors ${
+              className={`min-h-[40px] flex items-center gap-1 rounded-lg px-3 py-2 text-sm transition-colors ${
                 servActive
                   ? "bg-surface font-medium text-accent-hi"
                   : "text-muted hover:bg-surface hover:text-accent-hi"
@@ -163,47 +195,32 @@ export default function Navbar() {
           ))}
         </div>
 
-        {/* Tablet links (solo 4 principales) */}
-        <div className="hidden items-center gap-0.5 md:flex lg:hidden">
-          <Link href="/servicios" aria-current={servActive ? "page" : undefined} className={linkCls("/servicios")}>
-            Servicios
-          </Link>
-          {topLinks.slice(0, 3).map((l) => (
-            <Link
-              key={l.href}
-              href={l.href}
-              aria-current={isActive(l.href) ? "page" : undefined}
-              className={linkCls(l.href)}
-            >
-              {l.label}
-            </Link>
-          ))}
+        {/* CTA + Mobile/Tablet Toggle */}
+        <div className="flex items-center gap-2.5">
+          <a
+            href={WA_CTA}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden min-h-[40px] items-center gap-2 rounded-full bg-accent px-5 py-2 text-sm font-medium text-white transition-all hover:bg-accent-hi hover:shadow-[0_0_24px_rgba(37,99,235,0.35)] sm:flex"
+          >
+            <WhatsappLogo size={15} weight="fill" />
+            Cotiza tu proyecto
+          </a>
+
+          {/* Toggle móvil/tablet (< 1024px) */}
+          <button
+            aria-label={open ? "Cerrar menú" : "Abrir menú"}
+            aria-expanded={open}
+            aria-controls="menu-movil"
+            className="flex h-10 w-10 min-h-[40px] min-w-[40px] items-center justify-center rounded-xl border border-border-2 bg-surface text-muted transition-colors hover:text-foreground lg:hidden"
+            onClick={() => setOpen((v) => !v)}
+          >
+            {open ? <X size={20} /> : <List size={20} />}
+          </button>
         </div>
-
-        {/* CTA */}
-        <a
-          href={WA_CTA}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="hidden items-center gap-2 rounded-full bg-accent px-5 py-2 text-sm font-medium text-white transition-all hover:bg-accent-hi hover:shadow-[0_0_24px_rgba(37,99,235,0.35)] md:flex"
-        >
-          <WhatsappLogo size={15} weight="fill" />
-          Cotiza tu proyecto
-        </a>
-
-        {/* Mobile toggle */}
-        <button
-          aria-label={open ? "Cerrar menú" : "Abrir menú"}
-          aria-expanded={open}
-          aria-controls="menu-movil"
-          className="flex h-9 w-9 items-center justify-center rounded-lg border border-border-2 bg-surface text-muted transition-colors hover:text-foreground md:hidden"
-          onClick={() => setOpen((v) => !v)}
-        >
-          {open ? <X size={18} /> : <List size={18} />}
-        </button>
       </nav>
 
-      {/* Mobile menu */}
+      {/* Mobile/Tablet menu */}
       <AnimatePresence>
         {open && (
           <motion.div
@@ -213,12 +230,12 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.18 }}
-            className="border-t border-border/60 bg-background/95 backdrop-blur-xl md:hidden"
+            className="border-t border-border/60 bg-background/95 backdrop-blur-xl lg:hidden"
           >
             <div className="flex max-h-[70vh] flex-col gap-1 overflow-y-auto px-4 py-4">
               <details className="rounded-xl">
                 <summary
-                  className={`flex cursor-pointer list-none items-center justify-between rounded-xl px-4 py-3 text-sm transition-colors ${
+                  className={`flex min-h-[44px] cursor-pointer list-none items-center justify-between rounded-xl px-4 py-3 text-sm transition-colors ${
                     servActive ? "bg-surface font-medium text-accent-hi" : "text-muted"
                   } [&::-webkit-details-marker]:hidden`}
                 >
@@ -231,7 +248,7 @@ export default function Navbar() {
                       <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-foreground">
                         {grupo}
                       </p>
-                      <ul className="mt-2 space-y-2">
+                      <ul className="mt-2 space-y-1">
                         {servicios
                           .filter((s) => s.grupo === grupo)
                           .map((s) => (
@@ -239,7 +256,7 @@ export default function Navbar() {
                               <Link
                                 href={`/servicios/${s.slug}`}
                                 onClick={() => setOpen(false)}
-                                className="block text-sm text-muted"
+                                className="flex min-h-[40px] items-center text-sm text-muted hover:text-accent-hi"
                               >
                                 {s.nombre}
                               </Link>
@@ -251,7 +268,7 @@ export default function Navbar() {
                   <Link
                     href="/servicios"
                     onClick={() => setOpen(false)}
-                    className="block text-sm font-medium text-accent-hi"
+                    className="flex min-h-[40px] items-center text-sm font-medium text-accent-hi"
                   >
                     Ver todos los servicios →
                   </Link>
@@ -263,7 +280,7 @@ export default function Navbar() {
                   href={l.href}
                   onClick={() => setOpen(false)}
                   aria-current={isActive(l.href) ? "page" : undefined}
-                  className={`rounded-xl px-4 py-3 text-sm transition-colors ${
+                  className={`flex min-h-[44px] items-center rounded-xl px-4 py-3 text-sm transition-colors ${
                     isActive(l.href)
                       ? "bg-surface font-medium text-accent-hi"
                       : "text-muted hover:bg-surface hover:text-foreground"
@@ -274,7 +291,7 @@ export default function Navbar() {
               ))}
               <a
                 href={WA_CTA}
-                className="mt-3 flex items-center justify-center gap-2 rounded-full bg-accent py-3 text-sm font-medium text-white"
+                className="mt-3 flex min-h-[44px] items-center justify-center gap-2 rounded-full bg-accent py-3 text-sm font-medium text-white"
               >
                 <WhatsappLogo size={16} weight="fill" />
                 Cotiza tu proyecto

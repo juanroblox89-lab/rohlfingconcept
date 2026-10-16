@@ -52,7 +52,7 @@ function PlanCard({ plan, i }: { plan: Plan; i: number }) {
         href={waLink(`Hola Rohlfing Concept, me interesa el ${plan.nombre} de ${plan.precio}.`)}
         target="_blank"
         rel="noopener noreferrer"
-        className="mt-7 flex items-center justify-center gap-2 rounded-full border border-border-2 py-3 text-sm font-semibold transition-all hover:border-accent/50 hover:bg-accent/[0.08] hover:text-accent-hi"
+        className="mt-7 flex min-h-[44px] items-center justify-center gap-2 rounded-full border border-border-2 py-3 text-sm font-semibold transition-all hover:border-accent/50 hover:bg-accent/[0.08] hover:text-accent-hi"
       >
         <WhatsappLogo size={15} weight="fill" />
         Solicitar este plan
@@ -159,7 +159,7 @@ function BloqueRenderer({ bloque }: { bloque: Bloque }) {
         </motion.div>
 
         {/* Detalle de cada nivel */}
-        <div className="mt-14 grid gap-4 lg:grid-cols-3">
+        <div className="mt-14 grid gap-4 md:grid-cols-3">
           {videoData.niveles.map((n, i) => (
             <motion.div key={n.nombre} {...fadeUp(i * 0.07)} className="flex flex-col rounded-2xl border border-border-2 bg-surface p-7">
               <h3 className="text-lg font-bold tracking-tight text-gradient-accent">{n.nombre}</h3>
@@ -222,7 +222,7 @@ function BloqueRenderer({ bloque }: { bloque: Bloque }) {
     return (
       <div>
         <h2 className="mb-8 text-xl font-bold tracking-tight sm:text-2xl">{bloque.titulo}</h2>
-        <div className="grid gap-4 lg:grid-cols-3">
+        <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
           {bloque.packs.map((pk, i) => (
             <motion.div
               key={pk.nombre}

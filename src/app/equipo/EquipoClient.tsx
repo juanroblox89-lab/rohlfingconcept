@@ -46,17 +46,6 @@ const team = [
     ],
   },
   {
-    name: "Breiner Jesús Márquez",
-    role: "Productor creativo de Rohlfing Concept",
-    photo: "/img/team/breiner.png",
-    bio: "Desarrollo de proyectos audiovisuales de principio a fin.",
-    skills: [
-      "Editor de videos",
-      "Gestor de publicidad y marketing interno",
-      "Desarrollador de proyectos audiovisuales",
-    ],
-  },
-  {
     name: "Alejandro Piedrahíta",
     role: "Camarógrafo principal de Rohlfing Concept",
     photo: "/img/team/alejandro.png",
@@ -104,7 +93,7 @@ export default function EquipoClient() {
 
       {/* Miembros principales */}
       <section className="mx-auto max-w-7xl px-6 py-20">
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {team.map((m, i) => (
             <motion.article
               key={m.name}

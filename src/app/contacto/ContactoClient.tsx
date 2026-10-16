@@ -6,7 +6,6 @@ import {
   WhatsappLogo,
   InstagramLogo,
   EnvelopeSimple,
-  MapPin,
   PaperPlaneTilt,
 } from "@phosphor-icons/react";
 
@@ -64,7 +63,6 @@ export default function ContactoClient() {
           </motion.h1>
           <motion.p {...fadeUp(0.08)} className="mx-auto mt-6 max-w-[52ch] text-base leading-relaxed text-muted">
             Escríbenos por WhatsApp y te respondemos lo antes posible.
-            Estamos en San Pedro de los Milagros, Antioquia.
           </motion.p>
         </div>
       </section>
@@ -209,38 +207,6 @@ export default function ContactoClient() {
                   </a>
                 </div>
               </div>
-
-              <div className="flex items-start gap-3">
-                <MapPin size={17} weight="fill" className="mt-0.5 shrink-0 text-accent-hi" />
-                <div className="min-w-0">
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-2">
-                    Dirección
-                  </p>
-                  <a
-                    href="https://www.google.com/maps/place/Cra.+49+A+%2348-23,+San+Pedro,+San+Pedro+de+los+Milagros,+Antioquia,+Colombia/@6.4612415,-75.5586706,17z"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-1 block text-sm leading-relaxed text-foreground hover:text-accent-hi"
-                  >
-                    Cra. 49 A #48-23
-                    <br />
-                    San Pedro de los Milagros, Antioquia
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-6 overflow-hidden rounded-2xl border border-border-2">
-              <iframe
-                title="Rohlfing Concept — Ubicación San Pedro de los Milagros"
-                src="https://maps.google.com/maps?q=6.4612362,-75.5560957&output=embed&z=17"
-                width="100%"
-                height="180"
-                className="block grayscale"
-                style={{ border: 0 }}
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-              />
             </div>
           </motion.div>
         </div>
