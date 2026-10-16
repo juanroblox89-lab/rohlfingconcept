@@ -15,6 +15,7 @@ import {
   type Bloque,
   type Plan,
 } from "@/data/services";
+import { getSavenLink } from "@/data/enlaces";
 
 // Tupla tipada requerida por motion (evita error TS2322 en build de producción)
 const EASE_OUT_EXPO: [number, number, number, number] = [0.16, 1, 0.3, 1];
@@ -27,7 +28,14 @@ const fadeUp = (delay = 0) => ({
 });
 
 /* ───────────────────────── Tarjeta de plan ───────────────────────── */
-function PlanCard({ plan, i }: { plan: Plan; i: number }) {
+function PlanCard({ plan, i, isSitiosWeb }: { plan: Plan; i: number; isSitiosWeb?: boolean }) {
+  const ctaHref = isSitiosWeb
+    ? getSavenLink()
+    : waLink(`Hola Rohlfing Concept, me interesa el ${plan.nombre} de ${plan.precio}.`);
+  const ctaLabel = isSitiosWeb
+    ? "Desarrollado por SAVEN · Beyond Possible"
+    : "Solicitar este plan";
+
   return (
     <motion.div
       {...fadeUp(i * 0.05)}
@@ -49,20 +57,20 @@ function PlanCard({ plan, i }: { plan: Plan; i: number }) {
         ))}
       </ul>
       <a
-        href={waLink(`Hola Rohlfing Concept, me interesa el ${plan.nombre} de ${plan.precio}.`)}
+        href={ctaHref}
         target="_blank"
         rel="noopener noreferrer"
-        className="mt-7 flex min-h-[44px] items-center justify-center gap-2 rounded-full border border-border-2 py-3 text-sm font-semibold transition-all hover:border-accent/50 hover:bg-accent/[0.08] hover:text-accent-hi"
+        className="mt-7 flex min-h-[44px] items-center justify-center gap-2 rounded-full border border-border-2 py-3 px-4 text-center text-xs font-semibold transition-all hover:border-accent/50 hover:bg-accent/[0.08] hover:text-accent-hi"
       >
         <WhatsappLogo size={15} weight="fill" />
-        Solicitar este plan
+        {ctaLabel}
       </a>
     </motion.div>
   );
 }
 
 /* ───────────────────── Bloques por tipo ───────────────────── */
-function BloqueRenderer({ bloque }: { bloque: Bloque }) {
+function BloqueRenderer({ bloque, isSitiosWeb }: { bloque: Bloque; isSitiosWeb?: boolean }) {
   /* --- Grid de planes --- */
   if (bloque.tipo === "planes") {
     const cols =
@@ -73,7 +81,7 @@ function BloqueRenderer({ bloque }: { bloque: Bloque }) {
         <h2 className="mb-8 text-xl font-bold tracking-tight sm:text-2xl">{bloque.titulo}</h2>
         <div className={`grid gap-4 ${cols}`}>
           {bloque.planes.map((p, i) => (
-            <PlanCard key={p.nombre} plan={p} i={i} />
+            <PlanCard key={p.nombre} plan={p} i={i} isSitiosWeb={isSitiosWeb} />
           ))}
         </div>
       </div>
@@ -306,6 +314,17 @@ export default function ServicioDetalleClient({
   servicio: Servicio;
   otros: Servicio[];
 }) {
+  const isSitiosWeb = servicio.slug === "sitios-web";
+  const mainCtaHref = isSitiosWeb
+    ? getSavenLink()
+    : waLink(`Hola Rohlfing Concept, quiero cotizar: ${servicio.nombre}.`);
+  const mainCtaLabel = isSitiosWeb
+    ? "Desarrollado por SAVEN · Beyond Possible"
+    : `Cotizar ${servicio.nombre.toLowerCase()} — desde ${servicio.desde}`;
+  const finalCtaLabel = isSitiosWeb
+    ? "Cotizar con SAVEN · Beyond Possible"
+    : "Escribir por WhatsApp";
+
   return (
     <main className="min-h-screen">
       {/* Header del servicio */}
@@ -337,13 +356,13 @@ export default function ServicioDetalleClient({
           </motion.p>
           <motion.a
             {...fadeUp(0.14)}
-            href={waLink(`Hola Rohlfing Concept, quiero cotizar: ${servicio.nombre}.`)}
+            href={mainCtaHref}
             target="_blank"
             rel="noopener noreferrer"
             className="mt-8 inline-flex items-center gap-2 rounded-full bg-accent px-7 py-3.5 text-sm font-semibold text-white transition-all hover:bg-accent-hi hover:shadow-[0_0_28px_rgba(37,99,235,0.4)] hover:-translate-y-0.5"
           >
             <WhatsappLogo size={16} weight="fill" />
-            Cotizar {servicio.nombre.toLowerCase()} — desde {servicio.desde}
+            {mainCtaLabel}
           </motion.a>
         </div>
       </section>
@@ -351,23 +370,25 @@ export default function ServicioDetalleClient({
       {/* Bloques de contenido */}
       <section className="mx-auto max-w-6xl space-y-20 px-6 py-20">
         {servicio.bloques.map((b, i) => (
-          <BloqueRenderer key={i} bloque={b} />
+          <BloqueRenderer key={i} bloque={b} isSitiosWeb={isSitiosWeb} />
         ))}
 
         {/* CTA final */}
         <motion.div {...fadeUp(0.1)} className="rounded-2xl border border-border-2 bg-surface p-10 text-center">
           <h3 className="text-xl font-bold">¿Listo para empezar?</h3>
           <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-muted">
-            Escríbenos por WhatsApp y transformemos tu material o tu idea en algo más profesional.
+            {isSitiosWeb
+              ? "Desarrollamos sitios web modernos, optimizados y a tu medida de la mano de SAVEN · Beyond Possible."
+              : "Escríbenos por WhatsApp y transformemos tu material o tu idea en algo más profesional."}
           </p>
           <a
-            href={waLink(`Hola Rohlfing Concept, quiero iniciar un proyecto de ${servicio.nombre}.`)}
+            href={mainCtaHref}
             target="_blank"
             rel="noopener noreferrer"
             className="mt-7 inline-flex items-center gap-2 rounded-full bg-accent px-8 py-3.5 text-sm font-semibold text-white transition-all hover:bg-accent-hi hover:shadow-[0_0_28px_rgba(37,99,235,0.4)] hover:-translate-y-0.5"
           >
             <WhatsappLogo size={16} weight="fill" />
-            Escribir por WhatsApp
+            {finalCtaLabel}
           </a>
         </motion.div>
       </section>

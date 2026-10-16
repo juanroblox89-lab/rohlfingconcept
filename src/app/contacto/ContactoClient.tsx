@@ -13,15 +13,19 @@ const WA_BASE = "https://wa.me/573242123300";
 
 const servicios = [
   "Logos",
-  "Branding",
-  "Vectorización",
   "Diseños",
+  "Vectorial",
+  "Branding",
   "Edición de imágenes",
-  "Grabación de video",
+  "Impresos publicitarios",
   "Edición de video",
+  "Contenido digital",
+  "Creación audiovisual",
   "Animación de logo",
+  "Pautas en televisión",
   "Administración digital",
   "Diapositivas",
+  "Sitios web",
   "Otro",
 ];
 

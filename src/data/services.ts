@@ -36,10 +36,10 @@ export type Bloque =
   | { tipo: "nota"; titulo: string; texto: string };
 
 export type GrupoServicio =
-  | "Identidad visual"
-  | "Contenido audiovisual"
-  | "Televisión"
-  | "Gestión de redes y estrategia digital";
+  | "Diseño e Identidad Visual"
+  | "Producción Audiovisual"
+  | "Pautas en Televisión"
+  | "Gestión de Redes y Estrategia Digital";
 
 export type Servicio = {
   slug: string;
@@ -115,7 +115,7 @@ export const servicios: Servicio[] = [
     kicker: "Construcción de identidad desde el logo",
     intro:
       "Ofrecemos soluciones de diseño estructuradas en paquetes, pensadas para crear logos que destaquen y generen reconocimiento.",
-    grupo: "Identidad visual",
+    grupo: "Diseño e Identidad Visual",
     desde: "$50.000",
     resumen: "9 planes de logo, desde la primera propuesta hasta la identidad completa con manual y animaciones.",
     bloques: [
@@ -276,7 +276,7 @@ export const servicios: Servicio[] = [
     kicker: "Branding de marca",
     intro:
       "Creamos marcas con identidad, propósito y dirección clara, integrando estrategia y diseño para construir una presencia sólida y profesional. Cada proyecto se desarrolla desde su esencia, definiendo su estilo, comunicación y personalidad.",
-    grupo: "Identidad visual",
+    grupo: "Diseño e Identidad Visual",
     desde: "$350.000",
     resumen: "Identidad completa: concepto, personalidad, sistema visual, aplicaciones y manual de marca.",
     bloques: [
@@ -349,7 +349,7 @@ export const servicios: Servicio[] = [
     kicker: "Diseño vectorial profesional",
     intro:
       "Desarrollamos diseños vectoriales que mantienen su nitidez y profesionalismo en cualquier formato digital e impreso.",
-    grupo: "Identidad visual",
+    grupo: "Diseño e Identidad Visual",
     desde: "$60.000",
     resumen: "Vectorización de logos e imágenes y packs completos con ilustración y mockups de impresión.",
     bloques: [
@@ -417,7 +417,7 @@ export const servicios: Servicio[] = [
     kicker: "Diseño gráfico publicitario",
     intro:
       "Creamos piezas gráficas únicas y profesionales para redes sociales o impresión, diseñadas para comunicar, captar atención y transmitir valor de marca.",
-    grupo: "Identidad visual",
+    grupo: "Diseño e Identidad Visual",
     desde: "$50.000",
     resumen: "Posts, flyers, banners y piezas para impresión, con diseño personalizado y 2 modificaciones.",
     bloques: [
@@ -442,7 +442,7 @@ export const servicios: Servicio[] = [
     kicker: "Edición profesional de imágenes",
     intro:
       "Transformamos y mejoramos tus imágenes a través de una edición detallada y cuidada, optimizando cada elemento para alcanzar un resultado visual más impactante, equilibrado y profesional.",
-    grupo: "Identidad visual",
+    grupo: "Diseño e Identidad Visual",
     desde: "$25.000",
     resumen: "Tres niveles de retoque: desde corrección de luz y color hasta integración de elementos complejos.",
     bloques: [
@@ -492,7 +492,7 @@ export const servicios: Servicio[] = [
     kicker: "Impresión publicitaria",
     intro:
       "Impresos publicitarios con acabado profesional para promocionar tu marca fuera de la pantalla: cuéntanos formato y cantidad y te cotizamos.",
-    grupo: "Identidad visual",
+    grupo: "Diseño e Identidad Visual",
     desde: "A cotizar",
     resumen: "Impresos publicitarios para tu marca: cotiza según formato y cantidad.",
     bloques: [
@@ -512,7 +512,7 @@ export const servicios: Servicio[] = [
     kicker: "Edición de video profesional",
     intro:
       "Servicio integral de video: abarcamos grabación, edición y animación para crear piezas que potencian tu marca. Producimos reels verticales 9:16 para TikTok, Instagram y YouTube Shorts, además de video horizontal para YouTube y presentaciones. Cada entrega es en MP4, en la resolución y orientación que pidas.",
-    grupo: "Contenido audiovisual",
+    grupo: "Producción Audiovisual",
     desde: "$20.000",
     resumen: "Tres niveles de edición — Básica, Dinámica y Avanzada — con precios según la duración del video.",
     bloques: [
@@ -525,20 +525,112 @@ export const servicios: Servicio[] = [
     ],
   },
   {
+    slug: "contenido-digital",
+    img: "/img/services-audiovisual.jpg",
+    nombre: "Contenido digital",
+    kicker: "Edición de contenido para redes",
+    intro:
+      "Creamos contenido optimizado para redes sociales, enfocado en captar atención, comunicar de forma clara y mantener una presencia constante y profesional.",
+    grupo: "Producción Audiovisual",
+    desde: "$100.000",
+    resumen: "Edición de contenido para redes: 4, 8 o 12 videos al mes en formato corto y vertical.",
+    bloques: [
+      {
+        tipo: "planes",
+        titulo: "Planes de contenido digital",
+        planes: [
+          {
+            nombre: "Plan Inicial",
+            precio: "$100.000",
+            tagline: "Ideal para marcas que ya cuentan con su material y buscan convertirlo en contenido listo para redes sociales.",
+            items: [
+              { t: "4 videos mensuales", d: "Videos en formato corto (15 a 60 segundos)." },
+              { t: "Formato vertical optimizado", d: "Adaptado a Reels, TikTok o Shorts." },
+              { t: "Edición dinámica", d: "Cortes, ritmo y mejora visual." },
+              { t: "Optimización para redes", d: "Video estratégico para enganche digital." },
+            ],
+          },
+          {
+            nombre: "Plan Crecimiento",
+            precio: "$215.000",
+            tagline: "Pensado para marcas que generan contenido y necesitan una edición más dinámica y atractiva.",
+            items: [
+              { t: "8 videos mensuales", d: "Videos en formato corto (15 a 60 segundos)." },
+              { t: "Formato vertical optimizado", d: "Adaptado a Reels, TikTok o Shorts." },
+              { t: "Edición dinámica", d: "Cortes, ritmo y mejora visual." },
+              { t: "Textos en pantalla", d: "Refuerzo del mensaje dentro del contenido." },
+              { t: "Ajuste visual mejorado", d: "Mayor coherencia estética." },
+              { t: "Optimización para redes", d: "Video estratégico para enganche digital." },
+            ],
+          },
+          {
+            nombre: "Plan Presencia",
+            precio: "$300.000",
+            tagline: "Diseñado para marcas que buscan destacar con contenido constante, dinámico y visualmente más trabajado.",
+            items: [
+              { t: "12 videos mensuales", d: "Videos en formato corto (15 a 60 segundos)." },
+              { t: "Formato vertical optimizado", d: "Adaptado a Reels, TikTok o Shorts." },
+              { t: "Edición dinámica", d: "Cortes, ritmo y mejora visual." },
+              { t: "Textos en pantalla", d: "Refuerzo del mensaje dentro del contenido." },
+              { t: "Ajuste visual mejorado", d: "Mayor coherencia estética." },
+              { t: "Elementos gráficos", d: "Contenido más completo y llamativo." },
+              { t: "Mejora de ritmo y narrativa", d: "Enfoque en retención de audiencia." },
+              { t: "Optimización para redes", d: "Video estratégico para enganche digital." },
+            ],
+          },
+        ],
+      },
+      {
+        tipo: "nota",
+        titulo: "Enfoque del servicio",
+        texto: "Este servicio está enfocado únicamente en la edición de contenido para redes sociales. La grabación, diseño y administración se manejan en planes independientes.",
+      },
+    ],
+  },
+  {
+    slug: "creacion-audiovisual",
+    img: "/img/services-audiovisual.jpg",
+    nombre: "Creación audiovisual",
+    kicker: "Producción y grabación desde cero",
+    intro:
+      "Desarrollamos contenido audiovisual desde cero, combinando idea, grabación y edición para crear piezas coherentes, atractivas y alineadas a tu marca.",
+    grupo: "Producción Audiovisual",
+    desde: "$39.900 / hora",
+    resumen: "Desarrollo desde cero: grabación en HD, audio semiprofesional, guion y estrategia de contenido por horas de producción.",
+    bloques: [
+      {
+        tipo: "elementos",
+        titulo: "Tarifas de producción",
+        elementos: [
+          { label: "Hora de grabación", precio: "$39.900" },
+          { label: "Minuto de grabación", precio: "$665" },
+        ],
+      },
+      {
+        tipo: "nota",
+        titulo: "Cobertura y viáticos",
+        texto: "Realizamos grabaciones en el Norte de Antioquia, Medellín y municipios aledaños. Algunos proyectos pueden requerir costos adicionales de desplazamiento o viáticos según la ubicación.",
+      },
+    ],
+  },
+  {
     slug: "grabacion-de-video",
     img: "/img/services-audiovisual.jpg",
     nombre: "Grabación de video",
-    kicker: "Grabación en locación para marcas",
+    kicker: "Producción y grabación en locación",
     intro:
-      "Grabación en locación para marcas: producimos reels, contenido para marcas, entrevistas y eventos con calidad profesional. Cotizamos cada proyecto según locación, duración y formato, y entregamos en MP4 en la resolución y orientación que pidas.",
-    grupo: "Contenido audiovisual",
-    desde: "A cotizar",
-    resumen: "Grabación en locación: reels, contenido para marcas, entrevistas y eventos.",
+      "Desarrollamos contenido audiovisual desde cero, combinando idea, grabación y edición para crear piezas coherentes, atractivas y alineadas a tu marca.",
+    grupo: "Producción Audiovisual",
+    desde: "$39.900 / hora",
+    resumen: "Desarrollo desde cero: grabación en HD, audio semiprofesional, guion y estrategia de contenido.",
     bloques: [
       {
-        tipo: "nota",
-        titulo: "Cotiza según tu proyecto",
-        texto: "Cuéntanos tu idea por WhatsApp y te cotizamos según locación, duración y formato.",
+        tipo: "elementos",
+        titulo: "Tarifas de producción",
+        elementos: [
+          { label: "Hora de grabación", precio: "$39.900" },
+          { label: "Minuto de grabación", precio: "$665" },
+        ],
       },
     ],
   },
@@ -549,7 +641,7 @@ export const servicios: Servicio[] = [
     kicker: "Animación de logo",
     intro:
       "Damos vida a tu logo mediante animaciones diseñadas para aportar mayor impacto, presencia y dinamismo a tu marca, logrando una presentación más profesional y atractiva.",
-    grupo: "Contenido audiovisual",
+    grupo: "Producción Audiovisual",
     desde: "$60.000",
     resumen: "Animaciones de 5 a 10 segundos con sonido: simple y elegante, dinámica o cinematográfica.",
     bloques: [
@@ -606,7 +698,7 @@ export const servicios: Servicio[] = [
     kicker: "Publicidad en TV regional (Mi Canal)",
     intro:
       "Lleva tu marca a la pantalla y conecta con la audiencia de tu región a través de espacios publicitarios estratégicos en televisión local.",
-    grupo: "Televisión",
+    grupo: "Pautas en Televisión",
     desde: "$300.000",
     resumen: "Lleva tu marca a la pantalla: espacios publicitarios estratégicos en televisión local.",
     bloques: [
@@ -626,7 +718,7 @@ export const servicios: Servicio[] = [
     kicker: "Administración digital",
     intro:
       "Administramos redes sociales con el objetivo de mantener una presencia más activa, organizada y profesional para tu marca, gestionando contenido y actividad de forma constante y coherente.",
-    grupo: "Gestión de redes y estrategia digital",
+    grupo: "Gestión de Redes y Estrategia Digital",
     desde: "$30.000 / red / mes",
     resumen: "Gestión mensual por red social: publicación, monitoreo, control de comentarios y estadística mensual.",
     bloques: [
@@ -674,7 +766,7 @@ export const servicios: Servicio[] = [
     kicker: "Creación de diapositivas",
     intro:
       "Desarrollamos presentaciones visuales organizadas y profesionales, adaptadas según el contenido, objetivo y estilo de cada proyecto.",
-    grupo: "Gestión de redes y estrategia digital",
+    grupo: "Gestión de Redes y Estrategia Digital",
     desde: "$40.000",
     resumen: "Presentaciones de hasta 10, 20 o 35 diapositivas con composición visual y animaciones.",
     bloques: [
@@ -719,14 +811,111 @@ export const servicios: Servicio[] = [
       },
     ],
   },
+  {
+    slug: "sitios-web",
+    img: "/img/services-redes.jpg",
+    nombre: "Sitios web",
+    kicker: "Desarrollo web a tu medida",
+    intro:
+      "Desarrollamos sitios web que combinan diseño, estructura y experiencia visual para representar tu marca de forma clara, profesional y atractiva en entornos digitales. Desarrollado de la mano de SAVEN · Beyond Possible.",
+    grupo: "Gestión de Redes y Estrategia Digital",
+    desde: "$200.000",
+    resumen: "Desarrollo web a tu medida, de la mano de SAVEN · Beyond Possible. Sitios sencillos, profesionales y avanzados.",
+    bloques: [
+      {
+        tipo: "planes",
+        titulo: "Planes de sitios web",
+        planes: [
+          {
+            nombre: "Sitio Sencillo",
+            precio: "$200.000",
+            tagline: "Ideal para marcas que buscan una presencia digital clara, funcional y bien estructurada.",
+            items: [
+              { t: "Hasta 3 páginas", d: "Estructura básica para presentar la información principal." },
+              { t: "Hasta 30 secciones", d: "Distribución organizada del contenido dentro de cada página." },
+              { t: "Hasta 100 elementos", d: "Integración de componentes visuales y funcionales necesarios." },
+            ],
+          },
+          {
+            nombre: "Sitio Profesional",
+            precio: "$500.000",
+            tagline: "Pensado para marcas que requieren un sitio más completo, organizado y con mayor desarrollo visual.",
+            items: [
+              { t: "Hasta 10 páginas", d: "Mayor espacio para desarrollar contenido y secciones específicas." },
+              { t: "Hasta 50 secciones", d: "Estructuración más amplia para organizar mejor la información." },
+              { t: "Hasta 500 elementos", d: "Mayor integración de recursos visuales y funcionales." },
+            ],
+          },
+          {
+            nombre: "Sitio Avanzado",
+            precio: "$800.000",
+            tagline: "Diseñado para proyectos completos que requieren un alto nivel de desarrollo, organización y detalle visual.",
+            items: [
+              { t: "Hasta 20 páginas", d: "Estructura amplia para proyectos de gran contenido." },
+              { t: "Hasta 75 secciones", d: "Organización detallada para grandes volúmenes de información." },
+              { t: "Hasta 700 elementos", d: "Alto nivel de integración visual y funcional en todo el sitio." },
+            ],
+          },
+        ],
+      },
+      {
+        tipo: "elementos",
+        titulo: "Elementos extras",
+        elementos: [
+          { label: "Página adicional", precio: "$20.000" },
+          { label: "Sección adicional", precio: "$2.000" },
+          { label: "Elemento adicional", precio: "$10.000" },
+        ],
+      },
+      {
+        tipo: "nota",
+        titulo: "Desarrollado por SAVEN · Beyond Possible",
+        texto: "Nuestros proyectos de desarrollo web son desarrollados de la mano de SAVEN · Beyond Possible, empresa aliada y especializada en software.",
+      },
+    ],
+  },
 ];
 
 export const gruposOrden: GrupoServicio[] = [
-  "Identidad visual",
-  "Contenido audiovisual",
-  "Televisión",
-  "Gestión de redes y estrategia digital",
+  "Diseño e Identidad Visual",
+  "Producción Audiovisual",
+  "Pautas en Televisión",
+  "Gestión de Redes y Estrategia Digital",
 ];
+
+export type CategoriaInfo = {
+  id: string;
+  nombre: GrupoServicio;
+  resumen: string;
+  slugs: string[];
+};
+
+export const categoriasData: Record<string, CategoriaInfo> = {
+  "identidad-visual": {
+    id: "identidad-visual",
+    nombre: "Diseño e Identidad Visual",
+    resumen: "Logos, diseños, vectorial, branding y edición de imágenes para que tu marca se vea profesional.",
+    slugs: ["logos", "disenos", "vectorial", "branding", "edicion-de-imagenes"],
+  },
+  "audiovisual": {
+    id: "audiovisual",
+    nombre: "Producción Audiovisual",
+    resumen: "Edición de video, contenido digital, creación audiovisual y animación de logo.",
+    slugs: ["edicion-de-video", "contenido-digital", "creacion-audiovisual", "animacion-de-logo"],
+  },
+  "television": {
+    id: "television",
+    nombre: "Pautas en Televisión",
+    resumen: "Espacios publicitarios en televisión regional con creación de comerciales incluida.",
+    slugs: ["pautas-en-television"],
+  },
+  "redes": {
+    id: "redes",
+    nombre: "Gestión de Redes y Estrategia Digital",
+    resumen: "Administración digital, diapositivas y sitios web para tu presencia en línea.",
+    slugs: ["administracion-digital", "diapositivas", "sitios-web"],
+  },
+};
 
 export const compromiso = {
   titulo: "Tu idea, nuestro compromiso",

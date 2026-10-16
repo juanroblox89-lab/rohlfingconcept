@@ -16,8 +16,10 @@ const navLinks = [
   { label: "Contacto",               href: "/contacto" },
 ];
 
-// Lista dinámica desde @/data/services (sin sitios web ni registro de marca).
-const servicioLinks = servicios.map((s) => ({ label: s.nombre, href: `/servicios/${s.slug}` }));
+// Lista dinámica desde @/data/services (excluyendo alias)
+const servicioLinks = servicios
+  .filter((s) => s.slug !== "grabacion-de-video")
+  .map((s) => ({ label: s.nombre, href: `/servicios/${s.slug}` }));
 
 const socials = [
   { label: "WhatsApp",  href: "https://wa.me/573242123300?text=Hola%2C%20escribo%20desde%20rohlfingconcept.com.",             Icon: WhatsappLogo },

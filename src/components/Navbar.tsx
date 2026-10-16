@@ -11,6 +11,13 @@ import { servicios, gruposOrden } from "@/data/services";
 const WA_CTA =
   "https://wa.me/573242123300?text=Hola%20Rohlfing%20Concept%2C%20quiero%20cotizar%20un%20proyecto%20para%20mi%20marca.";
 
+const grupoCatSlug: Record<string, string> = {
+  "Diseño e Identidad Visual": "identidad-visual",
+  "Producción Audiovisual": "audiovisual",
+  "Pautas en Televisión": "television",
+  "Gestión de Redes y Estrategia Digital": "redes",
+};
+
 const topLinks = [
   { href: "/proyectos", label: "Proyectos" },
   { href: "/equipo", label: "Equipo" },
@@ -149,12 +156,16 @@ export default function Navbar() {
                   <div className="grid grid-cols-4 gap-5">
                     {gruposOrden.map((grupo) => (
                       <div key={grupo}>
-                        <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-foreground">
+                        <Link
+                          href={`/servicios?cat=${grupoCatSlug[grupo] || ""}`}
+                          onClick={() => setServOpen(false)}
+                          className="text-[11px] font-semibold uppercase tracking-[0.14em] text-foreground hover:text-accent-hi transition-colors block"
+                        >
                           {grupo}
-                        </p>
+                        </Link>
                         <ul className="mt-3 space-y-2">
                           {servicios
-                            .filter((s) => s.grupo === grupo)
+                            .filter((s) => s.grupo === grupo && s.slug !== "grabacion-de-video")
                             .map((s) => (
                               <li key={s.slug}>
                                 <Link
@@ -245,18 +256,22 @@ export default function Navbar() {
                 <div className="space-y-4 px-4 py-3">
                   {gruposOrden.map((grupo) => (
                     <div key={grupo}>
-                      <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-foreground">
+                      <Link
+                        href={`/servicios?cat=${grupoCatSlug[grupo] || ""}`}
+                        onClick={() => setOpen(false)}
+                        className="flex min-h-[36px] items-center text-[11px] font-semibold uppercase tracking-[0.14em] text-foreground hover:text-accent-hi"
+                      >
                         {grupo}
-                      </p>
-                      <ul className="mt-2 space-y-1">
+                      </Link>
+                      <ul className="mt-1 space-y-1">
                         {servicios
-                          .filter((s) => s.grupo === grupo)
+                          .filter((s) => s.grupo === grupo && s.slug !== "grabacion-de-video")
                           .map((s) => (
                             <li key={s.slug}>
                               <Link
                                 href={`/servicios/${s.slug}`}
                                 onClick={() => setOpen(false)}
-                                className="flex min-h-[40px] items-center text-sm text-muted hover:text-accent-hi"
+                                className="flex min-h-[40px] items-center text-sm text-muted hover:text-accent-hi pl-2"
                               >
                                 {s.nombre}
                               </Link>

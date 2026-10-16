@@ -26,7 +26,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function ServicioPage({ params }: Props) {
   const { slug } = await params;
-  if (slug === "sitios-web") notFound();
   const servicio = getServicio(slug);
   if (!servicio) notFound();
 

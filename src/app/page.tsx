@@ -26,44 +26,41 @@ const clients = clientesReales.map((c) => ({
   video: c.video,
 }));
 
-// Servicios destacados con imagen (contenido vigente: sin sitios web + TV)
+// Servicios destacados con imagen (4 categorías principales)
 const serviciosDestacados = [
   {
     title: "Diseño e Identidad Visual",
-    desc: "Logotipos, branding y manuales de marca que comunican exactamente quién eres.",
+    desc: "Logos, diseños, vectorial, branding y edición de imágenes para que tu marca se vea profesional.",
     img: "/img/services-branding.jpg",
-    href: "/servicios/logos",
-    desde: "$50.000",
+    href: "/servicios?cat=identidad-visual",
   },
   {
     title: "Producción Audiovisual",
-    desc: "Grabación en locación, reels y edición profesional que conecta con tu audiencia.",
+    desc: "Edición de video, contenido digital, creación audiovisual y animación de logo.",
     img: "/img/services-audiovisual.jpg",
-    href: "/servicios/edicion-de-video",
-    desde: "$20.000",
+    href: "/servicios?cat=audiovisual",
   },
   {
     title: "Pautas en Televisión",
-    desc: "Lleva tu marca a la pantalla con espacios publicitarios en televisión local.",
+    desc: "Espacios publicitarios en televisión regional con creación de comerciales incluida.",
     img: "/img/services-bg.png",
-    href: "/servicios/pautas-en-television",
-    desde: "$300.000",
+    href: "/servicios?cat=television",
   },
   {
     title: "Gestión de Redes y Estrategia Digital",
-    desc: "Planificación, crecimiento y posicionamiento para que tu marca lidere su nicho.",
+    desc: "Administración digital, diapositivas y sitios web para tu presencia en línea.",
     img: "/img/services-redes.jpg",
-    href: "/servicios/administracion-digital",
-    desde: "$30.000/mes",
+    href: "/servicios?cat=redes",
   },
 ];
 
 const pilares = [
   {
     id: "identidad",
-    title: "Identidad Visual",
+    title: "Diseño e Identidad Visual",
     intro: "Construimos marcas sólidas, memorables y con una presencia profesional que genera confianza desde el primer vistazo.",
     image: "/img/services-branding.jpg",
+    gridCols: "sm:grid-cols-2",
     items: [
       { n: "Logos", d: "Logos únicos y profesionales que representan la esencia de tu marca.", href: "/servicios/logos" },
       { n: "Diseños", d: "Piezas visuales modernas y profesionales que impulsan tu marca.", href: "/servicios/disenos" },
@@ -77,14 +74,15 @@ const pilares = [
   },
   {
     id: "audiovisual",
-    title: "Contenido Audiovisual",
+    title: "Producción Audiovisual",
     intro: "Grabación + edición + animación: creamos contenido para reels verticales 9:16 (TikTok, Instagram, YouTube) y video horizontal, entregado en MP4 en la resolución y orientación que pidas.",
     image: "/img/services-audiovisual.jpg",
+    gridCols: "sm:grid-cols-2",
     items: [
-      { n: "Grabación de video", d: "Grabación en locación: reels, contenido para marcas, entrevistas y eventos.", href: "/servicios/grabacion-de-video" },
       { n: "Edición de video", d: "Transformamos tu material en piezas dinámicas, limpias y profesionales.", href: "/servicios/edicion-de-video" },
+      { n: "Creación digital", d: "Edición de contenido para redes: 4, 8 o 12 videos al mes en formato corto y vertical.", href: "/servicios/contenido-digital" },
+      { n: "Creación audiovisual", d: "Desarrollamos contenido desde cero, combinando idea, grabación y edición profesional.", href: "/servicios/creacion-audiovisual" },
       { n: "Animación de logo", d: "Damos movimiento a tu logo para un resultado más dinámico y profesional.", href: "/servicios/animacion-de-logo" },
-      { n: "Creación audiovisual", d: "Desarrollamos contenido desde cero, grabando según la identidad de tu marca.", href: "/videos" },
     ],
     beneficios: ["Genere mayor impacto visual", "Mantenga una presencia más profesional", "Conecte mejor con su audiencia", "Transmita mayor calidad y dinamismo"],
     cta: "Creamos contenido con enfoque, estrategia y una visión clara de resultado",
@@ -92,10 +90,13 @@ const pilares = [
   {
     id: "television",
     title: "Televisión",
-    intro: "Lleva tu marca a la pantalla y conecta con la audiencia de tu región a través de espacios publicitarios estratégicos en televisión local.",
+    intro: "Cobertura desde Robledo en Medellín hasta San José de la Montaña, llegando a todo el norte de Antioquia con noticias y programas de la región. La oportunidad perfecta para publicitar tu marca. Nos encargamos de la creación completa de los comerciales y organizamos la programación según los objetivos de tu marca.",
     image: "/img/services-bg.png",
+    gridCols: "sm:grid-cols-3",
     items: [
-      { n: "Pautas en televisión", d: "Transmisión en Mi Canal: packs Basic, Supreme y Premier con comerciales incluidos.", href: "/servicios/pautas-en-television" },
+      { n: "Pack Basic · $300.000", d: "Transmisión durante 7 días, 9 emisiones diarias y creación de 2 comerciales.", href: "/paquetes-publicitarios#television" },
+      { n: "Pack Supreme · $600.000", d: "Transmisión durante 14 días, 10 emisiones diarias y creación de 3 comerciales.", href: "/paquetes-publicitarios#television" },
+      { n: "Pack Premier · $900.000", d: "Transmisión durante 30 días, 12 emisiones diarias y creación de 5 comerciales.", href: "/paquetes-publicitarios#television" },
     ],
     beneficios: ["Llegue a la audiencia regional", "Combine TV y redes", "Transmita confianza", "Crezca con propósito"],
     cta: "La pantalla local también es tu vitrina",
@@ -103,11 +104,13 @@ const pilares = [
   {
     id: "digital",
     title: "Gestión de Redes y Estrategia Digital",
-    intro: "Gestión constante para una presencia organizada y profesional: contenido, administración y presentaciones que comunican mejor.",
+    intro: "Gestión constante para una presencia organizada y profesional: contenido, administración, presentaciones y desarrollo web que comunican mejor.",
     image: "/img/services-redes.jpg",
+    gridCols: "sm:grid-cols-3",
     items: [
       { n: "Administración digital", d: "Gestión constante para una presencia digital más organizada y profesional.", href: "/servicios/administracion-digital" },
       { n: "Diapositivas", d: "Presentaciones visuales diseñadas para comunicar ideas de forma profesional.", href: "/servicios/diapositivas" },
+      { n: "Sitios web", d: "Desarrollo web a tu medida, de la mano de SAVEN · Beyond Possible.", href: "/servicios/sitios-web" },
     ],
     beneficios: ["Mantenga una presencia activa", "Comunique mejor su información", "Genere mayor confianza y organización", "Crezca con estrategia"],
     cta: "La presencia digital también define cómo se percibe tu marca",
@@ -382,10 +385,7 @@ export default function Home() {
                   <div className="flex flex-1 flex-col p-6">
                     <h3 className="text-[15px] font-semibold leading-snug">{s.title}</h3>
                     <p className="mt-2.5 text-[13px] leading-relaxed text-muted">{s.desc}</p>
-                    <div className="mt-auto flex items-center justify-between pt-5 text-[12px]">
-                      <span className="text-muted-2">
-                        desde <strong className="font-semibold text-foreground">{s.desde}</strong>
-                      </span>
+                    <div className="mt-auto flex items-center justify-end pt-5 text-[13px]">
                       <span className="flex items-center gap-1 font-medium text-accent-hi">
                         Ver planes
                         <ArrowRight size={13} className="transition-transform group-hover:translate-x-0.5" />
@@ -453,7 +453,7 @@ export default function Home() {
                     </div>
 
                     {/* Subservicios */}
-                    <div className="grid gap-3 sm:grid-cols-2">
+                    <div className={`grid gap-3 ${p.gridCols || "sm:grid-cols-2"} items-start content-start`}>
                       {p.items.map((it) => {
                         const inner = (
                           <>
