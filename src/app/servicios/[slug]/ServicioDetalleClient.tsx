@@ -7,6 +7,7 @@ import {
   ArrowLeft,
   Check,
   WhatsappLogo,
+  Info,
 } from "@phosphor-icons/react";
 import {
   waLink,
@@ -84,6 +85,15 @@ function BloqueRenderer({ bloque, isSitiosWeb }: { bloque: Bloque; isSitiosWeb?:
             <PlanCard key={p.nombre} plan={p} i={i} isSitiosWeb={isSitiosWeb} />
           ))}
         </div>
+        {bloque.notaPie && (
+          <motion.div
+            {...fadeUp(0.08)}
+            className="mt-6 flex items-start gap-2.5 rounded-xl border border-border-2 bg-surface/70 px-4 py-3 text-xs leading-relaxed text-muted"
+          >
+            <Info size={16} weight="bold" className="mt-0.5 flex-shrink-0 text-accent-hi" />
+            <span>{bloque.notaPie}</span>
+          </motion.div>
+        )}
       </div>
     );
   }
@@ -106,6 +116,22 @@ function BloqueRenderer({ bloque, isSitiosWeb }: { bloque: Bloque; isSitiosWeb?:
             </div>
           ))}
         </motion.div>
+        {bloque.cta && (
+          <div className="mt-6 flex justify-start">
+            <a
+              href={
+                bloque.cta.href ||
+                waLink(`Hola Rohlfing Concept, me interesan las tarifas de ${bloque.titulo.toLowerCase()}.`)
+              }
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-full bg-accent px-7 py-3 text-sm font-semibold text-white transition-all hover:bg-accent-hi hover:shadow-[0_0_24px_rgba(37,99,235,0.4)] hover:-translate-y-0.5"
+            >
+              <WhatsappLogo size={16} weight="fill" />
+              {bloque.cta.label}
+            </a>
+          </div>
+        )}
       </div>
     );
   }
@@ -166,7 +192,7 @@ function BloqueRenderer({ bloque, isSitiosWeb }: { bloque: Bloque; isSitiosWeb?:
           ))}
         </motion.div>
 
-        {/* Detalle de cada nivel */}
+        {/* Detalle completo de cada nivel */}
         <div className="mt-14 grid gap-4 md:grid-cols-3">
           {videoData.niveles.map((n, i) => (
             <motion.div key={n.nombre} {...fadeUp(i * 0.07)} className="flex flex-col rounded-2xl border border-border-2 bg-surface p-7">
@@ -177,23 +203,37 @@ function BloqueRenderer({ bloque, isSitiosWeb }: { bloque: Bloque; isSitiosWeb?:
                   <li key={it.t} className="text-sm leading-snug">
                     <span className="flex items-start gap-2 font-medium">
                       <Check size={14} weight="bold" className="mt-0.5 flex-shrink-0 text-accent-hi" />
-                      {it.t}
+                      <span>{it.t}</span>
                     </span>
                     {it.d && <span className="mt-0.5 block pl-6 text-[12.5px] leading-relaxed text-muted-2">{it.d}</span>}
                   </li>
                 ))}
-                <li className="text-sm leading-snug">
-                  <span className="flex items-start gap-2 font-medium">
-                    <Check size={14} weight="bold" className="mt-0.5 flex-shrink-0 text-accent-hi" />
-                    {n.extra.label}
-                    <span className="font-bold text-accent-hi">({n.extra.valor})</span>
-                  </span>
-                  {"desc" in n.extra && n.extra.desc && (
-                    <span className="mt-0.5 block pl-6 text-[12.5px] leading-relaxed text-muted-2">{n.extra.desc}</span>
-                  )}
-                </li>
+                {n.extra && (
+                  <li className="text-sm leading-snug">
+                    <span className="flex items-start gap-2 font-medium">
+                      <Check size={14} weight="bold" className="mt-0.5 flex-shrink-0 text-accent-hi" />
+                      <span>
+                        {n.extra.label} <span className="font-bold text-accent-hi">({n.extra.valor})</span>
+                      </span>
+                    </span>
+                    {"desc" in n.extra && (n.extra as { desc?: string }).desc && (
+                      <span className="mt-0.5 block pl-6 text-[12.5px] leading-relaxed text-muted-2">
+                        {(n.extra as { desc?: string }).desc}
+                      </span>
+                    )}
+                  </li>
+                )}
               </ul>
-              <p className="mt-6 border-l-2 border-accent/40 pl-4 text-[12px] italic leading-relaxed text-muted-2">{n.nota}</p>
+              <a
+                href={waLink(`Hola Rohlfing Concept, me interesa el servicio de ${n.nombre}.`)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-7 flex items-center justify-center gap-2 rounded-full border border-border-2 py-3 px-4 text-xs font-semibold transition-all hover:border-accent/50 hover:bg-accent/[0.08] hover:text-accent-hi"
+              >
+                <WhatsappLogo size={15} weight="fill" />
+                Solicitar {n.nombre.replace("Edición ", "")}
+              </a>
+              <p className="mt-5 border-l-2 border-accent/40 pl-4 text-[12px] italic leading-relaxed text-muted-2">{n.nota}</p>
             </motion.div>
           ))}
         </div>
@@ -201,16 +241,20 @@ function BloqueRenderer({ bloque, isSitiosWeb }: { bloque: Bloque; isSitiosWeb?:
     );
   }
 
-  /* --- Servicios con precio individual --- */
+  /* --- Servicios con precio individual o bloques de ítems descriptivos --- */
   if (bloque.tipo === "itemsPrecio") {
+    const cols =
+      bloque.items.length <= 3
+        ? "sm:grid-cols-2 lg:grid-cols-3"
+        : "sm:grid-cols-2 lg:grid-cols-4";
     return (
       <div>
         <h2 className="mb-8 text-xl font-bold tracking-tight sm:text-2xl">{bloque.titulo}</h2>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className={`grid gap-4 ${cols}`}>
           {bloque.items.map((it, i) => (
             <motion.div
               key={it.nombre}
-              {...fadeUp(i * 0.06)}
+              {...fadeUp(i * 0.05)}
               className="flex flex-col rounded-2xl border border-border-2 bg-surface p-6 transition-all duration-300 hover:-translate-y-1 hover:border-accent/40"
             >
               <h3 className="text-base font-bold tracking-tight">{it.nombre}</h3>
@@ -225,7 +269,7 @@ function BloqueRenderer({ bloque, isSitiosWeb }: { bloque: Bloque; isSitiosWeb?:
     );
   }
 
-  /* --- Packs vectoriales --- */
+  /* --- Packs --- */
   if (bloque.tipo === "packs") {
     return (
       <div>
@@ -255,7 +299,7 @@ function BloqueRenderer({ bloque, isSitiosWeb }: { bloque: Bloque; isSitiosWeb?:
                 className="mt-7 flex items-center justify-center gap-2 rounded-full border border-border-2 py-3 text-sm font-semibold transition-all hover:border-accent/50 hover:bg-accent/[0.08] hover:text-accent-hi"
               >
                 <WhatsappLogo size={15} weight="fill" />
-                Solicitar
+                Cotizar este pack
               </a>
             </motion.div>
           ))}
@@ -265,45 +309,145 @@ function BloqueRenderer({ bloque, isSitiosWeb }: { bloque: Bloque; isSitiosWeb?:
   }
 
   /* --- Servicio único (Diseños) --- */
-  if (bloque.tipo !== "unico") return null;
-  return (
-    <div>
-      <h2 className="mb-8 text-xl font-bold tracking-tight sm:text-2xl">{bloque.titulo}</h2>
-      <motion.div
-        {...fadeUp()}
-        className="mx-auto max-w-2xl rounded-2xl border border-accent/30 bg-gradient-to-b from-accent/[0.08] to-surface p-8 text-center sm:p-10"
-      >
-        <p className="text-5xl font-bold text-gradient-accent">{bloque.precio}</p>
-        <p className="mt-2 text-sm text-muted-2">por pieza</p>
-        <div className="my-7 h-px bg-border/60" />
-        <ul className="space-y-3 text-left">
-          {bloque.incluye.map((x: string) => (
-            <li key={x} className="flex items-start gap-2.5 text-sm leading-snug">
-              <Check size={15} weight="bold" className="mt-0.5 flex-shrink-0 text-accent-hi" />
-              {x}
-            </li>
-          ))}
-        </ul>
-        <p className="mt-7 text-[11px] font-semibold uppercase tracking-[0.16em] text-muted-2">Tipos de piezas</p>
-        <div className="mt-3 flex flex-wrap justify-center gap-2">
-          {bloque.tipos.map((t: string) => (
-            <span key={t} className="rounded-full border border-border-2 bg-background/70 px-4 py-1.5 text-xs font-medium text-muted">
-              {t}
-            </span>
+  if (bloque.tipo === "unico") {
+    return (
+      <div>
+        <h2 className="mb-8 text-xl font-bold tracking-tight sm:text-2xl">{bloque.titulo}</h2>
+        <motion.div
+          {...fadeUp()}
+          className="mx-auto max-w-2xl rounded-2xl border border-accent/30 bg-gradient-to-b from-accent/[0.08] to-surface p-8 text-center sm:p-10"
+        >
+          <p className="text-5xl font-bold text-gradient-accent">{bloque.precio}</p>
+          <p className="mt-2 text-sm text-muted-2">por pieza</p>
+          <div className="my-7 h-px bg-border/60" />
+          <ul className="space-y-3 text-left">
+            {bloque.incluye.map((x: string) => (
+              <li key={x} className="flex items-start gap-2.5 text-sm leading-snug">
+                <Check size={15} weight="bold" className="mt-0.5 flex-shrink-0 text-accent-hi" />
+                {x}
+              </li>
+            ))}
+          </ul>
+          <p className="mt-7 text-[11px] font-semibold uppercase tracking-[0.16em] text-muted-2">Tipos de piezas</p>
+          <div className="mt-3 flex flex-wrap justify-center gap-2">
+            {bloque.tipos.map((t: string) => (
+              <span key={t} className="rounded-full border border-border-2 bg-background/70 px-4 py-1.5 text-xs font-medium text-muted">
+                {t}
+              </span>
+            ))}
+          </div>
+          <a
+            href={waLink(`Hola Rohlfing Concept, quiero solicitar un diseño (${bloque.precio}).`)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-8 inline-flex w-full items-center justify-center gap-2 rounded-full bg-accent px-8 py-3.5 text-sm font-semibold text-white transition-all hover:bg-accent-hi hover:shadow-[0_0_28px_rgba(37,99,235,0.4)] sm:w-auto"
+          >
+            <WhatsappLogo size={16} weight="fill" />
+            Solicitar ahora
+          </a>
+        </motion.div>
+
+        {bloque.carrusel && (
+          <motion.div
+            {...fadeUp(0.08)}
+            className="mx-auto mt-6 max-w-2xl rounded-2xl border border-border-2 bg-surface p-6 sm:p-8"
+          >
+            <div className="flex flex-col items-start justify-between gap-5 sm:flex-row sm:items-center">
+              <div>
+                <h3 className="text-base font-bold tracking-tight">{bloque.carrusel.titulo}</h3>
+                <p className="mt-1.5 text-xs leading-relaxed text-muted">{bloque.carrusel.desc}</p>
+              </div>
+              <a
+                href={waLink("Hola Rohlfing Concept, quiero cotizar un carrusel de posts gráficos para redes sociales.")}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex flex-shrink-0 items-center gap-2 rounded-full border border-border-2 px-6 py-2.5 text-xs font-semibold transition-all hover:border-accent/50 hover:bg-accent/[0.08] hover:text-accent-hi"
+              >
+                <WhatsappLogo size={15} weight="fill" />
+                {bloque.carrusel.boton}
+              </a>
+            </div>
+          </motion.div>
+        )}
+      </div>
+    );
+  }
+
+  /* --- Bloque Cotizar (Impresos publicitarios) --- */
+  if (bloque.tipo === "cotizar") {
+    return (
+      <div>
+        <h2 className="text-xl font-bold tracking-tight sm:text-2xl">{bloque.titulo}</h2>
+        {bloque.subtitulo && (
+          <p className="mt-2 text-sm text-muted">{bloque.subtitulo}</p>
+        )}
+        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {bloque.items.map((it, i) => (
+            <motion.div
+              key={it.nombre}
+              {...fadeUp(i * 0.05)}
+              className="flex flex-col justify-between rounded-2xl border border-border-2 bg-surface p-6 transition-all duration-300 hover:-translate-y-1 hover:border-accent/40"
+            >
+              <div>
+                <h3 className="text-base font-bold tracking-tight">{it.nombre}</h3>
+                <p className="mt-2 text-[13px] leading-relaxed text-muted">{it.desc}</p>
+              </div>
+              <a
+                href={`https://wa.me/573242123300?text=Hola%20Rohlfing%20Concept%2C%20quiero%20cotizar%20${encodeURIComponent(
+                  it.nombre
+                )}.`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full border border-border-2 py-3 px-4 text-xs font-semibold transition-all hover:border-accent/50 hover:bg-accent/[0.08] hover:text-accent-hi"
+              >
+                <WhatsappLogo size={15} weight="fill" />
+                Cotizar ahora
+              </a>
+            </motion.div>
           ))}
         </div>
-        <a
-          href={waLink(`Hola Rohlfing Concept, quiero solicitar un diseño (${bloque.precio}).`)}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-8 inline-flex w-full items-center justify-center gap-2 rounded-full bg-accent px-8 py-3.5 text-sm font-semibold text-white transition-all hover:bg-accent-hi hover:shadow-[0_0_28px_rgba(37,99,235,0.4)] sm:w-auto"
-        >
-          <WhatsappLogo size={16} weight="fill" />
-          Solicitar ahora
-        </a>
+      </div>
+    );
+  }
+
+  /* --- Banner CTA (Contenido digital → Paquetes) --- */
+  if (bloque.tipo === "bannerCta") {
+    return (
+      <motion.div
+        {...fadeUp()}
+        className="rounded-2xl border border-accent/30 bg-gradient-to-r from-accent/15 via-surface to-surface p-8 sm:p-10"
+      >
+        <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
+          <div>
+            <h3 className="text-lg font-bold tracking-tight sm:text-xl">{bloque.titulo}</h3>
+            <p className="mt-2 max-w-xl text-sm leading-relaxed text-muted">{bloque.desc}</p>
+          </div>
+          <Link
+            href={bloque.href}
+            className="inline-flex flex-shrink-0 items-center gap-2 rounded-full bg-accent px-6 py-3.5 text-sm font-semibold text-white transition-all hover:bg-accent-hi hover:shadow-[0_0_24px_rgba(37,99,235,0.4)] hover:-translate-y-0.5"
+          >
+            {bloque.boton}
+            <ArrowRight size={15} />
+          </Link>
+        </div>
       </motion.div>
-    </div>
-  );
+    );
+  }
+
+  /* --- Nota informativa --- */
+  if (bloque.tipo === "nota") {
+    return (
+      <motion.div
+        {...fadeUp()}
+        className="rounded-2xl border border-border-2 bg-surface/70 p-6 sm:p-8"
+      >
+        <h3 className="text-base font-bold tracking-tight text-accent-hi">{bloque.titulo}</h3>
+        <p className="mt-2 text-sm leading-relaxed text-muted">{bloque.texto}</p>
+      </motion.div>
+    );
+  }
+
+  return null;
 }
 
 /* ───────────────────────── Página completa ───────────────────────── */

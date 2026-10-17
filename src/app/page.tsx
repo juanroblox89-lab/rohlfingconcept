@@ -7,6 +7,7 @@ import {
   ArrowRight,
   WhatsappLogo,
   Checks,
+  Check,
   Plus,
 } from "@phosphor-icons/react";
 import HeroShowcase from "@/components/HeroShowcase";
@@ -94,9 +95,30 @@ const pilares = [
     image: "/img/services-bg.png",
     gridCols: "sm:grid-cols-3",
     items: [
-      { n: "Pack Basic · $300.000", d: "Transmisión durante 7 días, 9 emisiones diarias y creación de 2 comerciales.", href: "/paquetes-publicitarios#television" },
-      { n: "Pack Supreme · $600.000", d: "Transmisión durante 14 días, 10 emisiones diarias y creación de 3 comerciales.", href: "/paquetes-publicitarios#television" },
-      { n: "Pack Premier · $900.000", d: "Transmisión durante 30 días, 12 emisiones diarias y creación de 5 comerciales.", href: "/paquetes-publicitarios#television" },
+      {
+        n: "Pack Basic",
+        precio: "$300.000",
+        d: "Presencia regional ágil.",
+        features: ["7 días de emisión", "9 emisiones diarias", "2 comerciales", "Logística profesional"],
+        btnLabel: "Cotizar pack",
+        href: "https://wa.me/573242123300?text=Hola%20Rohlfing%20Concept%2C%20quiero%20cotizar%20el%20Pack%20Basic%20de%20televisi%C3%B3n.",
+      },
+      {
+        n: "Pack Supreme",
+        precio: "$600.000",
+        d: "Mayor alcance y frecuencia.",
+        features: ["14 días de emisión", "10 emisiones diarias", "3 comerciales", "Logística profesional"],
+        btnLabel: "Cotizar pack",
+        href: "https://wa.me/573242123300?text=Hola%20Rohlfing%20Concept%2C%20quiero%20cotizar%20el%20Pack%20Supreme%20de%20televisi%C3%B3n.",
+      },
+      {
+        n: "Pack Premier",
+        precio: "$900.000",
+        d: "Presencia continua mensual.",
+        features: ["30 días de emisión", "12 emisiones diarias", "5 comerciales", "Logística profesional"],
+        btnLabel: "Cotizar pack",
+        href: "https://wa.me/573242123300?text=Hola%20Rohlfing%20Concept%2C%20quiero%20cotizar%20el%20Pack%20Premier%20de%20televisi%C3%B3n.",
+      },
     ],
     beneficios: ["Llegue a la audiencia regional", "Combine TV y redes", "Transmita confianza", "Crezca con propósito"],
     cta: "La pantalla local también es tu vitrina",
@@ -453,15 +475,55 @@ export default function Home() {
                     </div>
 
                     {/* Subservicios */}
-                    <div className={`grid gap-3 ${p.gridCols || "sm:grid-cols-2"} items-start content-start`}>
-                      {p.items.map((it) => {
+                    <div className={`grid gap-3 ${p.gridCols || "sm:grid-cols-2"} items-stretch`}>
+                      {p.items.map((it: { n: string; d: string; href?: string; precio?: string; features?: string[]; btnLabel?: string }) => {
+                        const hasFeatures = Boolean(it.features && it.features.length > 0);
+                        const isExternal = it.href?.startsWith("http");
+
                         const inner = (
-                          <>
-                            <p className="text-[11px] font-semibold uppercase tracking-[0.13em] text-accent-hi">{it.n}</p>
-                            <p className="mt-2 text-[13px] leading-relaxed text-muted">{it.d}</p>
-                          </>
+                          <div className="flex h-full flex-col justify-between">
+                            <div>
+                              <div className="flex items-baseline justify-between gap-2">
+                                <p className="text-[11px] font-semibold uppercase tracking-[0.13em] text-accent-hi">{it.n}</p>
+                                {it.precio && <span className="text-xs font-bold text-gradient-accent">{it.precio}</span>}
+                              </div>
+                              <p className="mt-1.5 text-[12.5px] leading-relaxed text-muted">{it.d}</p>
+                              {hasFeatures && (
+                                <ul className="mt-2.5 space-y-1 border-t border-border/40 pt-2 text-[11.5px]">
+                                  {it.features!.map((feat) => (
+                                    <li key={feat} className="flex items-center gap-1.5 text-muted">
+                                      <Check size={12} weight="bold" className="flex-shrink-0 text-accent-hi" />
+                                      <span>{feat}</span>
+                                    </li>
+                                  ))}
+                                </ul>
+                              )}
+                            </div>
+                            {it.btnLabel && isExternal && (
+                              <span className="mt-3 inline-flex items-center justify-center gap-1.5 rounded-full border border-border-2 bg-accent/[0.04] py-1.5 px-3 text-[11px] font-semibold text-accent-hi transition-colors group-hover/card:bg-accent group-hover/card:text-white">
+                                <WhatsappLogo size={12} weight="fill" />
+                                {it.btnLabel}
+                              </span>
+                            )}
+                          </div>
                         );
-                        const cls = `rounded-xl border border-border-2 px-5 py-4 transition-colors bg-background/85 backdrop-blur-md hover:border-accent/40`;
+
+                        const cls = `group/card flex flex-col justify-between rounded-xl border border-border-2 px-5 py-4 transition-all duration-300 bg-background/85 backdrop-blur-md hover:border-accent/40 hover:-translate-y-0.5`;
+
+                        if (isExternal && it.href) {
+                          return (
+                            <a
+                              key={it.n}
+                              href={it.href}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className={cls}
+                            >
+                              {inner}
+                            </a>
+                          );
+                        }
+
                         return it.href ? (
                           <Link key={it.n} href={it.href} className={cls}>
                             {inner}

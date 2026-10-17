@@ -15,24 +15,45 @@ export type Plan = {
 };
 
 export type Bloque =
-  | { tipo: "planes"; titulo: string; planes: Plan[] }
+  | { tipo: "planes"; titulo: string; planes: Plan[]; notaPie?: string }
   | {
       tipo: "elementos";
       titulo: string;
       elementos: { label: string; precio: string }[];
+      cta?: { label: string; href?: string };
     }
   | { tipo: "video"; titulo: string }
   | {
       tipo: "itemsPrecio";
       titulo: string;
-      items: { nombre: string; desc: string; precio: string }[];
+      items: { nombre: string; desc: string; precio?: string }[];
     }
   | {
       tipo: "packs";
       titulo: string;
       packs: { nombre: string; precio: string; incluye: string[] }[];
     }
-  | { tipo: "unico"; titulo: string; precio: string; incluye: string[]; tipos: string[] }
+  | {
+      tipo: "unico";
+      titulo: string;
+      precio: string;
+      incluye: string[];
+      tipos: string[];
+      carrusel?: { titulo: string; desc: string; boton: string };
+    }
+  | {
+      tipo: "cotizar";
+      titulo: string;
+      subtitulo?: string;
+      items: { nombre: string; desc: string }[];
+    }
+  | {
+      tipo: "bannerCta";
+      titulo: string;
+      desc: string;
+      boton: string;
+      href: string;
+    }
   | { tipo: "nota"; titulo: string; texto: string };
 
 export type GrupoServicio =
@@ -72,7 +93,7 @@ export const videoData = {
         { t: "Corte y organización de material", d: "Selección de los mejores fragmentos y eliminación de errores." },
         { t: "Ajuste básico de color y luz", d: "Corrección general para una imagen más clara y equilibrada." },
         { t: "Optimización de audio", d: "Mejora básica del sonido para mayor claridad." },
-        { t: "Exportación final", d: "Entrega en el formato solicitado, listo para redes o reproducción." },
+        { t: "Exportación final", d: "Entrega en formato solicitado listo para uso en redes o reproducción." },
       ],
       extra: { valor: "+$25.000", label: "Exportación en 4K" },
       nota: "El proyecto se desarrolla según la duración, formato y nivel de complejidad, adaptándose a la resolución y orientación requerida (horizontal o vertical), de acuerdo a las necesidades del cliente.",
@@ -86,9 +107,11 @@ export const videoData = {
         { t: "Transiciones dinámicas", d: "Cambios de escena más fluidos y atractivos." },
         { t: "Texto en pantalla", d: "Integración de títulos, frases o refuerzos visuales." },
         { t: "Música y ritmo", d: "Sincronización del contenido con audio para mayor impacto." },
+        { t: "Ajuste de color y audio mejorado", d: "Mayor uniformidad audiovisual en todo el video." },
+        { t: "Exportación final", d: "Entrega en formato solicitado listo para uso en redes o reproducción." },
       ],
-      extra: { valor: "+$40.000", label: "Ajuste de color y audio mejorado", desc: "Mayor uniformidad audiovisual en todo el video." },
-      nota: "La entrega será según las solicitudes del cliente, tales como la resolución, la orientación y el tipo de contenido, garantizando calidad y resultados en cada proyecto.",
+      extra: { valor: "+$40.000", label: "Exportación en 4K", desc: "Entrega en alta resolución 4K para máxima fidelidad visual." },
+      nota: "La entrega será según las solicitudes del cliente, tales como: la resolución de pixeles, la orientación y el tipo de contenido, garantizando calidad y resultados en cada proyecto.",
     },
     {
       nombre: "Edición Avanzada",
@@ -99,9 +122,12 @@ export const videoData = {
         { t: "Corrección de color y audio más precisa", d: "Mejora audiovisual más detallada y estética." },
         { t: "Efectos visuales", d: "Integración de elementos que enriquecen el contenido." },
         { t: "Diseño visual en pantalla", d: "Textos, stickers y recursos gráficos más elaborados." },
+        { t: "Ajuste de ritmo avanzado", d: "Edición más dinámica y envolvente." },
+        { t: "Optimización general del video", d: "Resultado más profesional y pulido." },
+        { t: "Exportación final", d: "Entrega en formato solicitado listo para uso en redes o reproducción." },
       ],
-      extra: { valor: "+$50.000", label: "Ajuste de ritmo avanzado", desc: "Edición más dinámica, envolvente y con un resultado más profesional y pulido." },
-      nota: "El archivo posee especificaciones avanzadas profesionales: resolución, orientación y desarrollo de guion pensados para conectar con un público objetivo.",
+      extra: { valor: "+$50.000", label: "Exportación en 4K", desc: "Entrega en alta resolución 4K con máxima definición y detalle profesional." },
+      nota: "El archivo poseerá ciertas especificaciones avanzadas profesionales, como la resolución, orientación y desarrollo del guion listo para envolver a un público objetivo y tener resultados.",
     },
   ],
 };
@@ -302,40 +328,41 @@ export const servicios: Servicio[] = [
           {
             nombre: "Branding Profesional",
             precio: "$675.000",
-            tagline: "Para marcas que buscan una identidad completa, coherente y lista para aplicarse en diferentes contextos.",
+            tagline: "Pensado para marcas que buscan una identidad completa, coherente y lista para aplicarse en diferentes contextos.",
             items: [
-              { t: "Definición de objetivos y enfoque del proyecto", d: "Estudio más profundo de la identidad y dirección del negocio." },
-              { t: "Concepto de marca", d: "Idea central que define la esencia y el mensaje." },
+              { t: "Reunión inicial", d: "Definición de objetivos y enfoque del proyecto." },
+              { t: "Análisis básico de marca", d: "Estudio más profundo de la identidad y dirección del negocio." },
+              { t: "Concepto de marca", d: "Idea central que define la esencia y mensaje." },
               { t: "Personalidad de marca", d: "Definición del carácter y estilo de comunicación." },
               { t: "Tono de comunicación", d: "Forma en que la marca se expresa ante su audiencia." },
-              { t: "Guía visual", d: "Mantiene la coherencia en todo el sistema." },
+              { t: "Dirección creativa", d: "Guía visual que mantiene coherencia en todo el sistema." },
               { t: "Diseño de logo y variaciones", d: "Creación del logo principal y sus versiones aceptables." },
-              { t: "Sistema de colores", d: "Alineado con la identidad de la marca." },
+              { t: "Paleta de colores", d: "Sistema de colores alineado con la identidad." },
               { t: "Sistema tipográfico", d: "Conjunto de tipografías para uso consistente." },
               { t: "Aplicaciones visuales", d: "Ejemplos reales en redes o piezas gráficas." },
               { t: "Lineamientos de uso de marca", d: "Indicaciones básicas para su correcta aplicación." },
-              { t: "Entrega en PNG, PDF e Illustrator", d: "Archivos listos para cualquier uso profesional." },
+              { t: "Entrega en PNG, PDF e illustrator", d: "Archivos listos para cualquier uso profesional." },
             ],
           },
           {
             nombre: "Branding Avanzado",
             precio: "$1'000.000",
+            tagline: "Pensado para marcas que buscan una identidad completa, coherente y lista para aplicarse en diferentes contextos.", // TODO(cliente): confirmar texto si difiere de Profesional (en Wix repite esta frase)
             items: [
-              { t: "Análisis completo de objetivos y proyección de la marca" },
+              { t: "Reunión inicial", d: "Análisis completo de objetivos y proyección de la marca." },
               { t: "Análisis de marca y entorno", d: "Estudio del negocio y su contexto competitivo." },
               { t: "Definición de público objetivo", d: "Identificación del cliente ideal." },
-              { t: "Estrategia de posicionamiento", d: "Definición de cómo la marca se diferenciará." },
-              { t: "Base creativa", d: "Guía que orienta toda la identidad." },
+              { t: "Estrategia de posicionamiento", d: "Definición de como la marca se diferenciará." },
+              { t: "Concepto de marca", d: "Base creativa que guía toda la identidad." },
               { t: "Personalidad y tono de comunicación", d: "Definición completa del estilo comunicativo." },
               { t: "Dirección creativa completa", d: "Sistema visual coherente aplicado a toda la marca." },
               { t: "Sistema de identidad visual", d: "Construcción integral de todos los elementos gráficos." },
-              { t: "Desarrollo completo del logo y sus versiones" },
-              { t: "Paleta de colores y sistema tipográfico" },
-              { t: "Estructura visual sólida y consistente" },
+              { t: "Diseño de logo y variaciones", d: "Desarrollo completo del logo y sus versiones." },
+              { t: "Paleta de colores y sistema tipográfico", d: "Estructura visual sólida y consistente." },
               { t: "Aplicaciones visuales avanzadas", d: "Uso de la marca en múltiples contextos reales." },
               { t: "Adaptación multiplataforma", d: "Optimización para redes, impresión y otros medios." },
               { t: "Manual de marca completo", d: "Documento con normas claras de uso." },
-              { t: "Archivos listos para cualquier uso profesional, digital o impreso" },
+              { t: "Entrega en PNG, PDF e illustrator", d: "Archivos listos para cualquier uso profesional digital o impreso." },
             ],
           },
         ],
@@ -419,7 +446,7 @@ export const servicios: Servicio[] = [
       "Creamos piezas gráficas únicas y profesionales para redes sociales o impresión, diseñadas para comunicar, captar atención y transmitir valor de marca.",
     grupo: "Diseño e Identidad Visual",
     desde: "$50.000",
-    resumen: "Posts, flyers, banners y piezas para impresión, con diseño personalizado y 2 modificaciones.",
+    resumen: "Posts, flyers, banners, piezas para impresión y carruseles gráficos para redes sociales.",
     bloques: [
       {
         tipo: "unico",
@@ -431,7 +458,18 @@ export const servicios: Servicio[] = [
           "2 modificaciones",
           "Entrega en formato PNG, JPG y PDF",
         ],
-        tipos: ["Post para redes sociales", "Flyers publicitarios", "Banners promocionales", "Piezas para impresión"],
+        tipos: [
+          "Post para redes sociales",
+          "Flyers publicitarios",
+          "Banners promocionales",
+          "Piezas para impresión",
+          "Carruseles de posts gráficos",
+        ],
+        carrusel: {
+          titulo: "Carrusel de posts gráficos",
+          desc: "Carrusel de posts gráficos para redes sociales: varias piezas conectadas en una sola publicación.",
+          boton: "Cotizar carrusel", // TODO(cliente): precio del carrusel
+        },
       },
     ],
   },
@@ -449,6 +487,7 @@ export const servicios: Servicio[] = [
       {
         tipo: "planes",
         titulo: "Niveles de edición",
+        notaPie: "Los precios salen desde el valor marcado, pueden aumentar según grado de dificultad",
         planes: [
           {
             nombre: "Edición Básica",
@@ -465,6 +504,9 @@ export const servicios: Servicio[] = [
             precio: "desde $50.000",
             tagline: "Optimización más detallada con intervención visual y mejora gráfica.",
             items: [
+              { t: "Corrección de luz y color" },
+              { t: "Ajuste de contraste" },
+              { t: "Mejora general" },
               { t: "Retoques específicos" },
               { t: "Eliminación de elementos simples" },
               { t: "Ajuste de composición" },
@@ -475,9 +517,16 @@ export const servicios: Servicio[] = [
             precio: "desde $90.000",
             tagline: "Edición completa con intervención profesional.",
             items: [
+              { t: "Corrección de luz y color" },
+              { t: "Ajuste de contraste" },
+              { t: "Mejora general" },
               { t: "Retoque detallado" },
               { t: "Mejora estética avanzada" },
+              { t: "Retoques específicos" },
+              { t: "Eliminación de elementos simples" },
+              { t: "Ajuste de composición" },
               { t: "Eliminación o integración de elementos complejos" },
+              { t: "Edición completa con intervención profesional" },
             ],
           },
         ],
@@ -494,12 +543,21 @@ export const servicios: Servicio[] = [
       "Impresos publicitarios con acabado profesional para promocionar tu marca fuera de la pantalla: cuéntanos formato y cantidad y te cotizamos.",
     grupo: "Diseño e Identidad Visual",
     desde: "A cotizar",
-    resumen: "Impresos publicitarios para tu marca: cotiza según formato y cantidad.",
+    resumen: "Impresos publicitarios para tu marca: volantes, tarjetas, adhesivos, pasacalles, letreros e impresos personalizados.",
     bloques: [
       {
-        tipo: "nota",
-        titulo: "Cotiza según tu proyecto",
-        texto: "Cuéntanos formato y cantidad por WhatsApp y te cotizamos tu impreso.",
+        tipo: "cotizar",
+        titulo: "¿Qué podemos imprimir para tu marca?",
+        subtitulo:
+          "Material publicitario impreso con acabado profesional. Cuéntanos tu idea, formato y cantidad y te cotizamos de inmediato.",
+        items: [
+          { nombre: "Volantes", desc: "Para promocionar tu negocio o una oferta." },
+          { nombre: "Tarjetas de presentación", desc: "Tu marca en la mano de cada cliente." },
+          { nombre: "Adhesivos", desc: "Para marcar productos, empaques y más." },
+          { nombre: "Pasacalles", desc: "Visibilidad en la calle para tu campaña." },
+          { nombre: "Letreros", desc: "Identifica tu local con tu marca." },
+          { nombre: "Impresos personalizados", desc: "Cuéntanos tu idea y la hacemos." },
+        ],
       },
     ],
   },
@@ -536,13 +594,20 @@ export const servicios: Servicio[] = [
     resumen: "Edición de contenido para redes: 4, 8 o 12 videos al mes en formato corto y vertical.",
     bloques: [
       {
+        tipo: "nota",
+        titulo: "Enfoque del servicio",
+        texto:
+          "Este servicio está enfocado únicamente en la edición de contenido para redes sociales; la grabación, diseño y administración se manejan en planes independientes.",
+      },
+      {
         tipo: "planes",
         titulo: "Planes de contenido digital",
         planes: [
           {
             nombre: "Plan Inicial",
             precio: "$100.000",
-            tagline: "Ideal para marcas que ya cuentan con su material y buscan convertirlo en contenido listo para redes sociales.",
+            tagline:
+              "Ideal para marcas que ya cuentan con su material y buscan convertirlo en contenido listo para redes sociales de forma rápida y profesional.",
             items: [
               { t: "4 videos mensuales", d: "Videos en formato corto (15 a 60 segundos)." },
               { t: "Formato vertical optimizado", d: "Adaptado a Reels, TikTok o Shorts." },
@@ -581,9 +646,11 @@ export const servicios: Servicio[] = [
         ],
       },
       {
-        tipo: "nota",
-        titulo: "Enfoque del servicio",
-        texto: "Este servicio está enfocado únicamente en la edición de contenido para redes sociales. La grabación, diseño y administración se manejan en planes independientes.",
+        tipo: "bannerCta",
+        titulo: "¿Necesitas algo más completo?",
+        desc: "Contamos con planes que incluyen grabación, diseño y administración de redes sociales.",
+        boton: "Conocer paquetes publicitarios",
+        href: "/paquetes-publicitarios",
       },
     ],
   },
@@ -591,13 +658,36 @@ export const servicios: Servicio[] = [
     slug: "creacion-audiovisual",
     img: "/img/services-audiovisual.jpg",
     nombre: "Creación audiovisual",
-    kicker: "Producción y grabación desde cero",
+    kicker: "Producción audiovisual desde cero",
     intro:
-      "Desarrollamos contenido audiovisual desde cero, combinando idea, grabación y edición para crear piezas coherentes, atractivas y alineadas a tu marca.",
+      "Desarrollamos contenido audiovisual desde cero, combinando idea, grabación y edición para crear piezas coherentes, atractivas y alineadas a tu marca. Cada proyecto se construye con un enfoque claro, buscando no solo un buen resultado visual, sino una comunicación efectiva que conecte con tu público.",
     grupo: "Producción Audiovisual",
     desde: "$39.900 / hora",
-    resumen: "Desarrollo desde cero: grabación en HD, audio semiprofesional, guion y estrategia de contenido por horas de producción.",
+    resumen:
+      "Producción integral desde cero: grabación en HD, audio semiprofesional, guion y estrategia de contenido por horas o minutos de grabación.",
     bloques: [
+      {
+        tipo: "itemsPrecio",
+        titulo: "Proceso de producción",
+        items: [
+          {
+            nombre: "Grabación en HD",
+            desc: "Captura de video en alta definición, cuidando encuadre, iluminación y calidad visual para un resultado limpio y profesional.",
+          },
+          {
+            nombre: "Audio semiprofesional",
+            desc: "Uso de micrófono para obtener un sonido claro, reduciendo ruido y mejorando la calidad general de contenido.",
+          },
+          {
+            nombre: "Guion del video",
+            desc: "Estructura del contenido antes de grabar, definiendo ideas, orden y mensaje para una comunicación más efectiva.",
+          },
+          {
+            nombre: "Estrategia de contenido",
+            desc: "Enfoque del video según su objetivo, buscando que sea atractivo, claro y funcione correctamente en redes o plataformas.",
+          },
+        ],
+      },
       {
         tipo: "elementos",
         titulo: "Tarifas de producción",
@@ -605,11 +695,42 @@ export const servicios: Servicio[] = [
           { label: "Hora de grabación", precio: "$39.900" },
           { label: "Minuto de grabación", precio: "$665" },
         ],
+        cta: {
+          label: "Empieza a producir ahora",
+          href: "https://wa.me/573242123300?text=Hola%20Rohlfing%20Concept%2C%20quiero%20empezar%20a%20producir%20contenido%20audiovisual.",
+        },
+      },
+      {
+        tipo: "itemsPrecio",
+        titulo: "Equipo de producción",
+        items: [
+          {
+            nombre: "Cámaras para video en alta definición",
+            desc: "Captura de imagen en alta resolución con encuadres y balance visual profesional.",
+          },
+          {
+            nombre: "Micrófonos para audio claro",
+            desc: "Captura de sonido claro con reducción de ruido ambiental para mayor inteligibilidad.",
+          },
+          {
+            nombre: "Dron para tomas aéreas",
+            desc: "Perspectivas elevadas y tomas de contexto para mayor dinamismo e impacto visual.",
+          },
+          {
+            nombre: "Estabilizadores para tomas fluidas",
+            desc: "Movimientos de cámara suaves y estables en cualquier escenario de rodaje.",
+          },
+          {
+            nombre: "Iluminación y accesorios de producción",
+            desc: "Equipos de apoyo lumínico y técnico en locación para un acabado consistente y profesional.",
+          },
+        ],
       },
       {
         tipo: "nota",
-        titulo: "Cobertura y viáticos",
-        texto: "Realizamos grabaciones en el Norte de Antioquia, Medellín y municipios aledaños. Algunos proyectos pueden requerir costos adicionales de desplazamiento o viáticos según la ubicación.",
+        titulo: "Cobertura y condiciones adicionales",
+        texto:
+          "Realizamos grabaciones en el Norte de Antioquia, Medellín y municipios aledaños. Algunos proyectos pueden requerir costos adicionales de desplazamiento, viáticos y auxilios de rodamiento, según la ubicación y la logística de la grabación. Cada proyecto se evalúa de forma personalizada para garantizar un resultado profesional y acorde a los objetivos del cliente y la identidad de la marca.",
       },
     ],
   },
@@ -617,13 +738,36 @@ export const servicios: Servicio[] = [
     slug: "grabacion-de-video",
     img: "/img/services-audiovisual.jpg",
     nombre: "Grabación de video",
-    kicker: "Producción y grabación en locación",
+    kicker: "Producción audiovisual desde cero",
     intro:
-      "Desarrollamos contenido audiovisual desde cero, combinando idea, grabación y edición para crear piezas coherentes, atractivas y alineadas a tu marca.",
+      "Desarrollamos contenido audiovisual desde cero, combinando idea, grabación y edición para crear piezas coherentes, atractivas y alineadas a tu marca. Cada proyecto se construye con un enfoque claro, buscando no solo un buen resultado visual, sino una comunicación efectiva que conecte con tu público.",
     grupo: "Producción Audiovisual",
     desde: "$39.900 / hora",
-    resumen: "Desarrollo desde cero: grabación en HD, audio semiprofesional, guion y estrategia de contenido.",
+    resumen:
+      "Producción integral desde cero: grabación en HD, audio semiprofesional, guion y estrategia de contenido por horas o minutos de grabación.",
     bloques: [
+      {
+        tipo: "itemsPrecio",
+        titulo: "Proceso de producción",
+        items: [
+          {
+            nombre: "Grabación en HD",
+            desc: "Captura de video en alta definición, cuidando encuadre, iluminación y calidad visual para un resultado limpio y profesional.",
+          },
+          {
+            nombre: "Audio semiprofesional",
+            desc: "Uso de micrófono para obtener un sonido claro, reduciendo ruido y mejorando la calidad general de contenido.",
+          },
+          {
+            nombre: "Guion del video",
+            desc: "Estructura del contenido antes de grabar, definiendo ideas, orden y mensaje para una comunicación más efectiva.",
+          },
+          {
+            nombre: "Estrategia de contenido",
+            desc: "Enfoque del video según su objetivo, buscando que sea atractivo, claro y funcione correctamente en redes o plataformas.",
+          },
+        ],
+      },
       {
         tipo: "elementos",
         titulo: "Tarifas de producción",
@@ -631,6 +775,42 @@ export const servicios: Servicio[] = [
           { label: "Hora de grabación", precio: "$39.900" },
           { label: "Minuto de grabación", precio: "$665" },
         ],
+        cta: {
+          label: "Empieza a producir ahora",
+          href: "https://wa.me/573242123300?text=Hola%20Rohlfing%20Concept%2C%20quiero%20empezar%20a%20producir%20contenido%20audiovisual.",
+        },
+      },
+      {
+        tipo: "itemsPrecio",
+        titulo: "Equipo de producción",
+        items: [
+          {
+            nombre: "Cámaras para video en alta definición",
+            desc: "Captura de imagen en alta resolución con encuadres y balance visual profesional.",
+          },
+          {
+            nombre: "Micrófonos para audio claro",
+            desc: "Captura de sonido claro con reducción de ruido ambiental para mayor inteligibilidad.",
+          },
+          {
+            nombre: "Dron para tomas aéreas",
+            desc: "Perspectivas elevadas y tomas de contexto para mayor dinamismo e impacto visual.",
+          },
+          {
+            nombre: "Estabilizadores para tomas fluidas",
+            desc: "Movimientos de cámara suaves y estables en cualquier escenario de rodaje.",
+          },
+          {
+            nombre: "Iluminación y accesorios de producción",
+            desc: "Equipos de apoyo lumínico y técnico en locación para un acabado consistente y profesional.",
+          },
+        ],
+      },
+      {
+        tipo: "nota",
+        titulo: "Cobertura y condiciones adicionales",
+        texto:
+          "Realizamos grabaciones en el Norte de Antioquia, Medellín y municipios aledaños. Algunos proyectos pueden requerir costos adicionales de desplazamiento, viáticos y auxilios de rodamiento, según la ubicación y la logística de la grabación. Cada proyecto se evalúa de forma personalizada para garantizar un resultado profesional y acorde a los objetivos del cliente y la identidad de la marca.",
       },
     ],
   },
@@ -652,9 +832,10 @@ export const servicios: Servicio[] = [
           {
             nombre: "Plan Esencial",
             precio: "$60.000",
-            tagline: "Ideal para marcas que buscan una animación limpia, elegante y funcional para presentar su logo.",
+            tagline:
+              "Ideal para marcas que buscan una animación limpia, elegante y funcional para presentar su logo de forma profesional.",
             items: [
-              { t: "Animación simple de logo", d: "Movimiento limpio y sutil para presentar el logo de forma más profesional." },
+              { t: "Animación simple de logo", d: "Movimiento limpio y sutil para presentar el logo más profesional." },
               { t: "Movimiento básico y fluido", d: "Transiciones suaves enfocadas en mantener una animación clara y elegante." },
               { t: "Duración de 5 a 10 segundos", d: "Tiempo ideal para intros cortas y presentaciones rápidas." },
               { t: "Música o sonido básico", d: "Integración de efectos o sonidos simples." },
@@ -664,25 +845,28 @@ export const servicios: Servicio[] = [
           {
             nombre: "Plan Dinámico",
             precio: "$110.000",
-            tagline: "Para marcas que desean una animación con mayor presencia visual y mejor impacto en contenido digital.",
+            tagline:
+              "Pensado para marcas que desean una animación con mayor presencia visual y mejor impacto en contenido digital.",
             items: [
               { t: "Animación más elaborada", d: "Mayor desarrollo visual y movimiento para un resultado más atractivo." },
-              { t: "Transiciones y efectos dinámicos", d: "Movimientos y efectos que aportan más energía y presencia." },
-              { t: "Integración de sonido", d: "Audio sincronizado con la animación para mejorar la experiencia visual." },
+              { t: "Transiciones y efectos dinámicos", d: "Integración de movimientos y efectos que aportan más energía y presencia." },
+              { t: "Integración de sonido", d: "Uso de audio sincronizado con la animación para mejorar la experiencia visual." },
               { t: "Duración de 5 a 10 segundos", d: "Tiempo ideal para el desarrollo de una animación completa." },
-              { t: "Entrega en MP4" },
+              { t: "Entrega en MP4", d: "Archivo listo para su uso en formato de video." },
             ],
           },
           {
             nombre: "Plan Cinemático",
             precio: "$170.000",
-            tagline: "Para marcas que buscan una presentación visual más impactante, moderna y profesional.",
+            tagline:
+              "Diseñado para marcas que buscan una presentación visual más impactante, moderna y profesional.",
             items: [
               { t: "Animación avanzada de logo", d: "Desarrollo visual más detallado y profesional para una presentación de alto impacto." },
-              { t: "Efectos visuales más trabajados", d: "Recursos visuales que enriquecen la animación." },
-              { t: "Integración completa de sonido", d: "Sincronización de efectos y audio para una experiencia más inmersiva." },
-              { t: "Mayor detalle visual", d: "Trabajo preciso en movimientos, composición y presentación general." },
-              { t: "Entrega en MP4" },
+              { t: "Efectos visuales más trabajados", d: "Integración de recursos visuales que enriquecen la animación." },
+              { t: "Integración completa de sonido", d: "Sincronización de efectos y audio para lograr una experiencia más inmersiva." },
+              { t: "Mayor detalle visual", d: "Trabajo más preciso en movimientos, composición y presentación general." },
+              { t: "Duración de 5 a 10 segundos", d: "Espacio suficiente para construir una animación más cinematográfica." },
+              { t: "Entrega en MP4", d: "Archivo listo para su uso en formato de video." },
             ],
           },
         ],
@@ -697,15 +881,70 @@ export const servicios: Servicio[] = [
     nombre: "Pautas en televisión",
     kicker: "Publicidad en TV regional (Mi Canal)",
     intro:
-      "Lleva tu marca a la pantalla y conecta con la audiencia de tu región a través de espacios publicitarios estratégicos en televisión local.",
+      "Lleva tu marca a la pantalla y conecta con la audiencia de tu región a través de espacios publicitarios estratégicos en televisión local y regional. Nos encargamos de la producción y emisión de comerciales para que tu negocio tenga la visibilidad que merece.",
     grupo: "Pautas en Televisión",
     desde: "$300.000",
-    resumen: "Lleva tu marca a la pantalla: espacios publicitarios estratégicos en televisión local.",
+    resumen:
+      "Lleva tu marca a la pantalla: cobertura en el Norte de Antioquia y Medellín, creación completa de comerciales y programación según tus objetivos.",
     bloques: [
       {
+        tipo: "itemsPrecio",
+        titulo: "Cobertura y producción",
+        items: [
+          {
+            nombre: "Cobertura regional amplia",
+            desc: "Llegamos desde Robledo, en Medellín, hasta San José de la Montaña, cubriendo todo el norte de Antioquia con noticias y programas de la región. La oportunidad perfecta para publicitar tu marca ahí.",
+          },
+          {
+            nombre: "Creación completa de comerciales",
+            desc: "Contamos con las herramientas de producción y nos encargamos de la creación completa del comercial publicitario.",
+          },
+          {
+            nombre: "Programación según tus objetivos",
+            desc: "Organizamos la programación de emisión según las necesidades y objetivos de la marca.",
+          },
+        ],
+      },
+      {
+        tipo: "packs",
+        titulo: "Packs de pauta en televisión",
+        packs: [
+          {
+            nombre: "Pack Basic",
+            precio: "$300.000",
+            incluye: [
+              "Transmisión durante 7 días",
+              "9 emisiones diarias",
+              "Creación de 2 comerciales",
+              "Logística audiovisual profesional",
+            ],
+          },
+          {
+            nombre: "Pack Supreme",
+            precio: "$600.000",
+            incluye: [
+              "Transmisión durante 14 días",
+              "10 emisiones diarias",
+              "Creación de 3 comerciales",
+              "Logística audiovisual profesional",
+            ],
+          },
+          {
+            nombre: "Pack Premier",
+            precio: "$900.000",
+            incluye: [
+              "Transmisión durante 30 días",
+              "12 emisiones diarias",
+              "Creación de 5 comerciales",
+              "Logística audiovisual profesional",
+            ],
+          },
+        ],
+      },
+      {
         tipo: "nota",
-        titulo: "Packs de televisión",
-        texto: "Pack Basic $300.000 · Pack Supreme $600.000 · Pack Premier $900.000. Ver detalle y contratar en Paquetes publicitarios.",
+        titulo: "Canal de transmisión",
+        texto: "Emisión de pauta publicitaria a través de Mi Canal televisión regional.",
       },
     ],
   },
