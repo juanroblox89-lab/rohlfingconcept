@@ -17,7 +17,7 @@ export const paquetesGrupos: GrupoPacks[] = [
     id: "television",
     titulo: "Pautas en televisión",
     intro:
-      "Lleva tu marca a la pantalla y conecta con la audiencia de tu región a través de espacios publicitarios estratégicos en televisión local.",
+      "Cobertura desde Robledo en Medellín hasta San José de la Montaña, llegando a todo el norte de Antioquia con noticias y programas de la región. Creación completa de comerciales y programación organizada según los objetivos de tu marca.",
     packs: [
       {
         nombre: "Pack Basic",
@@ -55,7 +55,7 @@ export const paquetesGrupos: GrupoPacks[] = [
     id: "digital",
     titulo: "Publicidad digital",
     intro:
-      "Creamos y gestionamos contenido para redes sociales que mantiene activa tu marca, conecta con tu audiencia y convierte cada publicación en una oportunidad para crecer.",
+      "Creamos y gestionamos contenido para redes sociales que mantiene activa tu marca, conecta con tu audiencia y convierte cada publicación en una oportunidad para crecer.", // TODO(cliente): confirmar contenido de paquetes fuera de San Pedro
     nota: "Red social adicional +$30.000",
     packs: [
       {
@@ -96,7 +96,7 @@ export const paquetesGrupos: GrupoPacks[] = [
     id: "mixtos",
     titulo: "Packs mixtos (TV + redes)",
     intro:
-      "Llevamos tu marca a la televisión y las redes sociales con campañas integrales que combinan alcance, contenido y presencia para conectar con más personas.",
+      "Llevamos tu marca a la televisión y las redes sociales con campañas integrales que combinan alcance, contenido y presencia para conectar con más personas.", // TODO(cliente): confirmar contenido de paquetes fuera de San Pedro
     nota: "Red social adicional +$30.000",
     packs: [
       {

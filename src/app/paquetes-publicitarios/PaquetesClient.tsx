@@ -65,19 +65,27 @@ export default function PaquetesClient() {
         </div>
         <div className="relative mx-auto max-w-4xl px-6 text-center">
           <motion.h1 {...fadeUp()} className="text-4xl font-bold tracking-tight sm:text-5xl">
-            Televisión, digital
-            <br />
-            <span className="text-gradient-accent">y mixtos</span>
+            Paquetes publicitarios
           </motion.h1>
           <motion.div {...fadeUp(0.06)} className="mt-5 flex justify-center">
             <span className="rounded-full border border-accent/30 bg-accent/[0.08] px-4 py-1.5 text-xs font-semibold text-accent-hi">
-              Precios de referencia · San Pedro de los Milagros
+              Los valores pueden cambiar según tu ubicación: cotiza el tuyo
             </span>
           </motion.div>
-          <motion.p {...fadeUp(0.08)} className="mt-6 max-w-[54ch] mx-auto text-base leading-relaxed text-muted">
-            Tres grupos de packs con precios de referencia: pautas en televisión regional,
-            publicidad digital en redes sociales y packs mixtos que combinan ambos.
+          <motion.p {...fadeUp(0.08)} className="mt-6 max-w-[56ch] mx-auto text-base leading-relaxed text-muted">
+            Elige el paquete que se ajusta a tu marca. Los precios son de referencia y varían según tu ciudad.
           </motion.p>
+          <motion.div {...fadeUp(0.1)} className="mt-7 flex justify-center">
+            <a
+              href="https://wa.me/573242123300?text=Hola%20Rohlfing%20Concept%2C%20quiero%20cotizar%20un%20paquete%20en%20mi%20ciudad."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-full bg-accent px-8 py-3.5 text-sm font-semibold text-white transition-all hover:bg-accent-hi hover:shadow-[0_0_28px_rgba(37,99,235,0.4)] hover:-translate-y-0.5"
+            >
+              <WhatsappLogo size={16} weight="fill" />
+              Cotiza en tu ciudad
+            </a>
+          </motion.div>
           <motion.nav {...fadeUp(0.12)} aria-label="Grupos de paquetes" className="mt-8 flex flex-wrap items-center justify-center gap-3">
             {paquetesGrupos.map((g) => (
               <a
@@ -147,12 +155,27 @@ export default function PaquetesClient() {
                           : "border border-border-2 text-foreground hover:border-accent/40 hover:bg-accent/[0.08] hover:text-accent-hi"
                       }`}>
                       <MapPin size={15} weight="fill" />
-                      Cotizar en mi ciudad
+                      Cotiza en tu ciudad
                     </button>
                   </motion.div>
                 );
               })}
             </div>
+
+            {/* Botón Cotiza en tu ciudad al final de cada grupo */}
+            <motion.div {...fadeUp(0.1)} className="mt-8 flex justify-center">
+              <a
+                href={`https://wa.me/573242123300?text=${encodeURIComponent(
+                  `Hola Rohlfing Concept, quiero cotizar un paquete de ${grupo.titulo.toLowerCase()} en mi ciudad.`
+                )}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full border border-border-2 bg-surface px-6 py-3 text-sm font-semibold text-foreground transition-all hover:border-accent/40 hover:bg-accent/[0.06] hover:text-accent-hi hover:-translate-y-0.5"
+              >
+                <WhatsappLogo size={15} weight="fill" />
+                Cotiza en tu ciudad · {grupo.titulo}
+              </a>
+            </motion.div>
           </section>
         ))}
 
