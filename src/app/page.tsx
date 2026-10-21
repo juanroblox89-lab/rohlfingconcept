@@ -212,7 +212,7 @@ export default function Home() {
       {/* ══════════════════════════════════════════
           HERO
       ══════════════════════════════════════════ */}
-      <section className="relative flex flex-col overflow-hidden py-14 md:min-h-[100dvh] md:justify-center md:py-0">
+      <section className="relative flex flex-col overflow-hidden py-0 md:min-h-[100dvh] md:justify-center">
         {/* Fondo claro premium */}
         <div className="absolute inset-0 -z-10">
           <div className="absolute inset-0" style={{ background: "var(--gradient-hero)" }} />
@@ -227,7 +227,7 @@ export default function Home() {
           />
         </div>
 
-        <div className="relative mx-auto grid max-w-7xl gap-10 px-6 pb-16 pt-28 md:grid-cols-[1fr_1.05fr] md:items-center md:py-0 lg:gap-6">
+        <div className="relative mx-auto grid max-w-7xl gap-8 px-6 pb-12 pt-8 md:grid-cols-[1fr_1.05fr] md:items-center md:gap-10 md:py-0 lg:gap-6">
           {/* Columna Izquierda — pitch directo al cliente */}
           <div>
             <motion.h1
